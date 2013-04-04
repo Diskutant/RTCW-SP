@@ -43,8 +43,8 @@ If you have questions concerning this license or the applicable additional terms
 
 
 #include <float.h>
-#include "../renderer/tr_local.h"
-#include "unix_glw.h"
+#include "renderer/tr_local.h"
+#include "unix/unix_glw.h"
 
 // bk001129 - from cvs1.17 (mkv)
 //#if defined(__FX__)

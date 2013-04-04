@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // ui_players.c
 
-#include "ui_local.h"
+#include "ui/ui_local.h"
 
 
 #define UI_TIMER_GESTURE        2300

@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "math_quaternion.h"
-#include "math_matrix.h"
+#include "splines/math_quaternion.h"
+#include "splines/math_matrix.h"
 
 void toQuat( idVec3 &src, quat_t &dst ) {
 	dst.x = src.x;

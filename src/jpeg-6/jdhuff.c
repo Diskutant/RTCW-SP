@@ -15,9 +15,9 @@
  */
 
 #define JPEG_INTERNALS
-#include "jinclude.h"
-#include "jpeglib.h"
-#include "jdhuff.h"      /* Declarations shared with jdphuff.c */
+#include "jpeg-6/jinclude.h"
+#include "jpeg-6/jpeglib.h"
+#include "jpeg-6/jdhuff.h"      /* Declarations shared with jdphuff.c */
 
 
 /*

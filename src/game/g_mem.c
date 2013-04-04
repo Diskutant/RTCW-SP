@@ -31,7 +31,7 @@ If you have questions concerning this license or the applicable additional terms
 //
 
 
-#include "g_local.h"
+#include "game/g_local.h"
 
 // Ridah, increased this (fixes Dan's crash)
 //#define POOLSIZE	(256 * 1024)

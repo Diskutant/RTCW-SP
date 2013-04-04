@@ -35,8 +35,8 @@ If you have questions concerning this license or the applicable additional terms
  */
 
 
-#include "idAudio.h"
-#include "idAudioHardware.h"
+#include "idLib/idAudio.h"
+#include "idLib/idAudioHardware.h"
 
 static int numLoopSounds;
 static int oldNumLoopSounds;

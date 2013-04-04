@@ -25,13 +25,13 @@
 /*************************************************************************/
 
 
-#include "ftstream.h"
-#include "tterrors.h"
-#include "tttags.h"
+#include "ft2/ftstream.h"
+#include "ft2/tterrors.h"
+#include "ft2/tttags.h"
 
 
-#include "ttpost.h"
-#include "ttload.h"
+#include "ft2/ttpost.h"
+#include "ft2/ttload.h"
 
 
 /*************************************************************************/
@@ -50,7 +50,7 @@
 #ifdef FT_CONFIG_OPTION_POSTSCRIPT_NAMES
 
 
-#include "psnames.h"
+#include "ft2/psnames.h"
 
 #define MAC_NAME( x )  ( (FT_String*)psnames->macintosh_name( x ) )
 

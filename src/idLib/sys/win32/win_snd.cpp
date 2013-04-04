@@ -27,9 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "../../idLib.h"
-#include "../../idAudio.h"
+#include "idLib/idLib.h"
+#include "idLib/idAudio.h"
 
+// idk?
 #include "../../../mssdk/include/dxerr8.h"
 #include "../../../mssdk/include/dsound.h"
 

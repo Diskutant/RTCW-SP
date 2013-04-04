@@ -38,7 +38,7 @@ C(unmaskexceptions):
 ceil_cw:	.long	0
 single_cw:	.long	0
 full_cw:	.long	0
-cw:			.long	0
+cw:		.long	0
 pushed_cw:	.long	0
 
 	.text

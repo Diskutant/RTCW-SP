@@ -31,9 +31,9 @@
 /*************************************************************************/
 
 
-#include "ftcalc.h"
-#include "ftdebug.h"
-#include "ftobjs.h"
+#include "ft2/ftcalc.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftobjs.h"
 
 
 /*************************************************************************/

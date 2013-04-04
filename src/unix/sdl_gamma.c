@@ -37,8 +37,8 @@
 #    include <SDL/SDL.h>
 #endif
 
-#include "../renderer/tr_local.h"
-#include "../qcommon/qcommon.h"
+#include "renderer/tr_local.h"
+#include "qcommon/qcommon.h"
 
 /*
 =================

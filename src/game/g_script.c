@@ -34,8 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		4 (real tabs)
 //===========================================================================
 
-#include "../game/g_local.h"
-#include "../game/q_shared.h"
+#include "game/g_local.h"
+#include "game/q_shared.h"
 
 /*
 Scripting that allows the designers to control the behaviour of entities

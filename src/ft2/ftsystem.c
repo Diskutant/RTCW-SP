@@ -25,11 +25,11 @@
 /*************************************************************************/
 
 
-#include "ftconfig.h"
-#include "ftdebug.h"
-#include "ftsystem.h"
-#include "fterrors.h"
-#include "fttypes.h"
+#include "ft2/ftconfig.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftsystem.h"
+#include "ft2/fterrors.h"
+#include "ft2/fttypes.h"
 
 #include <stdio.h>
 #include <stdlib.h>

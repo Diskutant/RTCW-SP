@@ -16,15 +16,15 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "ftcalc.h"
-#include "ftstream.h"
-#include "sfnt.h"
-#include "tttags.h"
-#include "ftoutln.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftcalc.h"
+#include "ft2/ftstream.h"
+#include "ft2/sfnt.h"
+#include "ft2/tttags.h"
+#include "ft2/ftoutln.h"
 
 
-#include "ttgload.h"
+#include "ft2/ttgload.h"
 
 
 /*************************************************************************/

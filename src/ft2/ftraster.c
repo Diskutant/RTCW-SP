@@ -22,8 +22,8 @@
 /*************************************************************************/
 
 
-#include "ftraster.h"
-#include "ftcalc.h"      /* for FT_MulDiv() only */
+#include "ft2/ftraster.h"
+#include "ft2/ftcalc.h"      /* for FT_MulDiv() only */
 
 
 /*************************************************************************/

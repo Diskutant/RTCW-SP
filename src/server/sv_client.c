@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // sv_client.c -- server code for dealing with clients
 
-#include "server.h"
+#include "server/server.h"
 
 static void SV_CloseDownload( client_t *cl );
 

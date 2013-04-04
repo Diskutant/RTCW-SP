@@ -37,9 +37,9 @@
  */
 
 #define JPEG_INTERNALS
-#include "jinclude.h"
-#include "jpeglib.h"
-#include "jdct.h"        /* Private declarations for DCT subsystem */
+#include "jpeg-6/jinclude.h"
+#include "jpeg-6/jpeglib.h"
+#include "jpeg-6/jdct.h"        /* Private declarations for DCT subsystem */
 
 #ifdef DCT_FLOAT_SUPPORTED
 
@@ -49,7 +49,7 @@
  */
 
 #if DCTSIZE != 8
-Sorry, this code only copes with 8 x8 DCTs.  /* deliberate syntax err */
+#error Sorry, this code only copes with 8 x8 DCTs.  /* deliberate syntax err */
 #endif
 
 

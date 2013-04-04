@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // vm_x86.c -- load time compiler and execution environment for x86
 
-#include "vm_local.h"
+#include "qcommon/vm_local.h"
 
 #ifndef _WIN32
 #include <sys/mman.h> // for PROT_ stuff

@@ -15,8 +15,8 @@
  */
 
 #define JPEG_INTERNALS
-#include "jinclude.h"
-#include "jpeglib.h"
+#include "jpeg-6/jinclude.h"
+#include "jpeg-6/jpeglib.h"
 
 
 /* Forward declarations */

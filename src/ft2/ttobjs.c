@@ -16,24 +16,24 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "ftcalc.h"
-#include "ftstream.h"
-#include "ttnameid.h"
-#include "tttags.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftcalc.h"
+#include "ft2/ftstream.h"
+#include "ft2/ttnameid.h"
+#include "ft2/tttags.h"
 
-#include "sfnt.h"
-#include "psnames.h"
+#include "ft2/sfnt.h"
+#include "ft2/psnames.h"
 
 
-#include "ttgload.h"
-#include "ttpload.h"
+#include "ft2/ttgload.h"
+#include "ft2/ttpload.h"
 
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER
-#include "ttinterp.h"
+#include "ft2/ttinterp.h"
 #endif
 
-#include "tterrors.h"
+#include "ft2/tterrors.h"
 
 
 

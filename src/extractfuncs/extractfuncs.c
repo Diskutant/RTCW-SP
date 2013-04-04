@@ -36,10 +36,10 @@ If you have questions concerning this license or the applicable additional terms
 #include <windows.h>
 #include <io.h>
 #endif
-#include "l_memory.h"
-#include "l_script.h"
-#include "l_precomp.h"
-#include "l_log.h"
+#include "extractfuncs/l_memory.h"
+#include "extractfuncs/l_script.h"
+#include "extractfuncs/l_precomp.h"
+#include "extractfuncs/l_log.h"
 
 typedef enum {false, true}  qboolean;
 

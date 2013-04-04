@@ -14,12 +14,12 @@
  */
 
 /* this is not a core library module, so it doesn't define JPEG_INTERNALS */
-#include "jinclude.h"
-#include "jpeglib.h"
-#include "jversion.h"
-#include "jerror.h"
+#include "jpeg-6/jinclude.h"
+#include "jpeg-6/jpeglib.h"
+#include "jpeg-6/jversion.h"
+#include "jpeg-6/jerror.h"
 
-#include "../renderer/tr_local.h"
+#include "renderer/tr_local.h"
 
 #ifndef EXIT_FAILURE        /* define exit() codes if not provided */
 #define EXIT_FAILURE  1
@@ -41,7 +41,7 @@
 #define JMESSAGE( code,string )   string,
 
 const char * const jpeg_std_message_table[] = {
-#include "jerror.h"
+	#include "jpeg-6/jerror.h"
 	NULL
 };
 

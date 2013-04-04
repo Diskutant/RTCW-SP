@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 // gameinfo.c
 //
 
-#include "ui_local.h"
+#include "ui/ui_local.h"
 
 
 //

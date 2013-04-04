@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "ui_local.h"
+#include "ui/ui_local.h"
 
 // this file is only included when building a dll
 // syscalls.asm is included instead when building a qvm

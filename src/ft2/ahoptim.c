@@ -31,10 +31,10 @@
 /*************************************************************************/
 
 
-#include "ftobjs.h"  /* for ALLOC_ARRAY() and FREE() */
+#include "ft2/ftobjs.h"  /* for ALLOC_ARRAY() and FREE() */
 
 
-#include "ahoptim.h"
+#include "ft2/ahoptim.h"
 
 
 /* define this macro to use brute force optimisation -- this is slow,  */

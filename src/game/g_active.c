@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "g_local.h"
+#include "game/g_local.h"
 
-#include "ai_cast_fight.h"   // need these for avoidance
+#include "game/ai_cast_fight.h"   // need these for avoidance
 
 
 extern void G_CheckForCursorHints( gentity_t *ent );

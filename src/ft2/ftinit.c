@@ -37,15 +37,15 @@
 /*************************************************************************/
 
 
-#include "ftconfig.h"
-#include "ftobjs.h"
-#include "ftdebug.h"
-#include "ftmodule.h"
-#include "ttdriver.h"
-#include "ahmodule.h"
-#include "sfdriver.h"
-#include "ftsmooth.h"
-#include "ftrend1.h"
+#include "ft2/ftconfig.h"
+#include "ft2/ftobjs.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftmodule.h"
+#include "ft2/ttdriver.h"
+#include "ft2/ahmodule.h"
+#include "ft2/sfdriver.h"
+#include "ft2/ftsmooth.h"
+#include "ft2/ftrend1.h"
 
 /*************************************************************************/
 /*                                                                       */
@@ -76,7 +76,7 @@ const FT_Module_Class*  ft_default_modules[] =
 	FT_USE_MODULE( ft_smooth_renderer_class )
 	FT_USE_MODULE( tt_driver_class )
 
-#include "ftmodule.h"
+	#include "ft2/ftmodule.h"
 	0
 };
 

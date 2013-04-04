@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
  *
 */
 
-#include "g_local.h"
+#include "game/g_local.h"
 
 qboolean    G_SpawnString( const char *key, const char *defaultString, char **out ) {
 	int i;

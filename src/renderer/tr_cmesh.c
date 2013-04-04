@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 //
 // This is ripped from tr_mesh.c, and converted to use the compressed mesh format
 
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 
 static float ProjectRadius( float r, vec3_t location ) {
 	float pr;

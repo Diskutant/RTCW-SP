@@ -20,9 +20,9 @@
 /***************************************************************************/
 
 
-#include "ahglyph.h"
-#include "ahangles.h"
-#include "ahglobal.h"
+#include "ft2/ahglyph.h"
+#include "ft2/ahangles.h"
+#include "ft2/ahglobal.h"
 
 #include <stdio.h>
 

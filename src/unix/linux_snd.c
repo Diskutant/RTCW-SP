@@ -42,8 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #endif
 #include <stdio.h>
 
-#include "../game/q_shared.h"
-#include "../client/snd_local.h"
+#include "game/q_shared.h"
+#include "client/snd_local.h"
 
 int audio_fd;
 int snd_inited = 0;

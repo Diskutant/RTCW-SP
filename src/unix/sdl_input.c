@@ -41,8 +41,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../client/client.h"
-#include "./linux_local.h"
+#include "client/client.h"
+#include "unix/linux_local.h"
 
 static cvar_t *in_nograb;
 static cvar_t *in_keyboardDebug = NULL;

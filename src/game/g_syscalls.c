@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // Copyright (C) 1999-2000 Id Software, Inc.
 //
-#include "g_local.h"
+#include "game/g_local.h"
 
 // this file is only included when building a dll
 // g_syscalls.asm is included instead when building a qvm

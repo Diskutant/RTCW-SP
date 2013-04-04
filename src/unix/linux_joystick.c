@@ -42,8 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/ioctl.h>
 #include <unistd.h>  // bk001204
 
-#include "../client/client.h"
-#include "linux_local.h"
+#include "client/client.h"
+#include "unix/linux_local.h"
 
 // TTimo moved joystick.h include here, conflicts in client.h with wkey_t
 #include <linux/joystick.h>

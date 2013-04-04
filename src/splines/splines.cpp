@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "q_splineshared.h"
-#include "splines.h"
+#include "splines/q_splineshared.h"
+#include "splines/splines.h"
 
 extern "C" {
 int FS_Write( const void *buffer, int len, fileHandle_t h );

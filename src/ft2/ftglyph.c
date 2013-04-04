@@ -28,9 +28,9 @@
 /*************************************************************************/
 
 
-#include "ftglyph.h"
-#include "ftoutln.h"
-#include "ftobjs.h"
+#include "ft2/ftglyph.h"
+#include "ft2/ftoutln.h"
+#include "ft2/ftobjs.h"
 
 
 /*************************************************************************/

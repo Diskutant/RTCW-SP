@@ -16,19 +16,19 @@
 /***************************************************************************/
 
 
-#include "ftobjs.h"
-#include "ftoutln.h"
+#include "ft2/ftobjs.h"
+#include "ft2/ftoutln.h"
 
 
 #ifdef FT_FLAT_COMPILE
 
-#include "ftsmooth.h"
-#include "ftgrays.h"
+#include "ft2/ftsmooth.h"
+#include "ft2/ftgrays.h"
 
 #else
 
-#include "ftsmooth.h"
-#include "ftgrays.h"
+#include "ft2/ftsmooth.h"
+#include "ft2/ftgrays.h"
 
 #endif
 

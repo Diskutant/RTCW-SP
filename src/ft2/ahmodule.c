@@ -19,10 +19,10 @@
 /***************************************************************************/
 
 
-#include "ftmodule.h"
+#include "ft2/ftmodule.h"
 
 
-#include "ahhint.h"
+#include "ft2/ahhint.h"
 
 
 typedef struct  FT_AutoHinterRec_

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 // bg_lib,c -- standard C library replacement routines used by code
 // compiled for the virtual machine
 
-#include "q_shared.h"
+#include "game/q_shared.h"
 
 /*-
  * Copyright (c) 1992, 1993

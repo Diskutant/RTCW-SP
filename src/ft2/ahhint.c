@@ -19,11 +19,11 @@
 /***************************************************************************/
 
 
-#include "ahhint.h"
-#include "ahglyph.h"
-#include "ahangles.h"
+#include "ft2/ahhint.h"
+#include "ft2/ahglyph.h"
+#include "ft2/ahangles.h"
 
-#include "ftoutln.h"
+#include "ft2/ftoutln.h"
 
 
 #define FACE_GLOBALS( face )  ( (AH_Face_Globals*)( face )->autohint.data )

@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "q_splineshared.h"
+#include "splines/q_splineshared.h"
 #include <float.h>
 
 angles_t ang_zero( 0.0f, 0.0f, 0.0f );

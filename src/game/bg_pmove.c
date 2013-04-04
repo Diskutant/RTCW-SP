@@ -31,9 +31,9 @@ If you have questions concerning this license or the applicable additional terms
 // bg_pmove.c -- both games player movement code
 // takes a playerstate and a usercmd as input and returns a modifed playerstate
 
-#include "q_shared.h"
-#include "bg_public.h"
-#include "bg_local.h"
+#include "game/q_shared.h"
+#include "game/bg_public.h"
+#include "game/bg_local.h"
 
 // Rafael gameskill
 int bg_pmove_gameskill_integer;

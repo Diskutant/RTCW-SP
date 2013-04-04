@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 // sv_game.c -- interface to the game dll
 
-#include "server.h"
+#include "server/server.h"
 
-#include "../game/botlib.h"
+#include "game/botlib.h"
 
 botlib_export_t *botlib_export;
 

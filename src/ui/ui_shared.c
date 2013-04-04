@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 //
 // string allocation/managment
 
-#include "ui_shared.h"
+#include "ui/ui_shared.h"
 
 #define SCROLL_TIME_START                   500
 #define SCROLL_TIME_ADJUST              150

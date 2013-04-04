@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // cvar.c -- dynamic variable tracking
 
-#include "../game/q_shared.h"
-#include "qcommon.h"
+#include "game/q_shared.h"
+#include "qcommon/qcommon.h"
 
 cvar_t      *cvar_vars;
 cvar_t      *cvar_cheats;

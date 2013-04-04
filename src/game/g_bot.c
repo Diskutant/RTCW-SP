@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // g_bot.c
 
-#include "g_local.h"
-#include "../botai/botai.h"
+#include "game/g_local.h"
+#include "botai/botai.h"
 
 
 static int g_numBots;

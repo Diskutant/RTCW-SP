@@ -17,13 +17,13 @@
 
 
 
-#include "sfobjs.h"
+#include "ft2/sfobjs.h"
 
 
-#include "sfnt.h"
-#include "psnames.h"
-#include "ttnameid.h"
-#include "tterrors.h"
+#include "ft2/sfnt.h"
+#include "ft2/psnames.h"
+#include "ft2/ttnameid.h"
+#include "ft2/tterrors.h"
 
 
 /*************************************************************************/

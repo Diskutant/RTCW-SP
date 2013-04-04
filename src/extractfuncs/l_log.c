@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <string.h>
 
 #define MAX_QPATH 64
-#include "../bspc/qbsp.h"
+#include "bspc/qbsp.h"
 
 #define MAX_LOGFILENAMESIZE     1024
 

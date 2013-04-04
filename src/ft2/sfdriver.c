@@ -16,17 +16,17 @@
 /***************************************************************************/
 
 
-#include "sfnt.h"
-#include "ftobjs.h"
+#include "ft2/sfnt.h"
+#include "ft2/ftobjs.h"
 
 
 
-#include "sfdriver.h"
-#include "ttload.h"
-#include "ttsbit.h"
-#include "ttpost.h"
-#include "ttcmap.h"
-#include "sfobjs.h"
+#include "ft2/sfdriver.h"
+#include "ft2/ttload.h"
+#include "ft2/ttsbit.h"
+#include "ft2/ttpost.h"
+#include "ft2/ttcmap.h"
+#include "ft2/sfobjs.h"
 
 #include <string.h>     /* for strcmp() */
 

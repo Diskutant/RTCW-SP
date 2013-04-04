@@ -18,8 +18,8 @@
 /*                                                                         */
 /***************************************************************************/
 
-#include "ahglobal.h"
-#include "ahglyph.h"
+#include "ft2/ahglobal.h"
+#include "ft2/ahglyph.h"
 
 #define MAX_TEST_CHARACTERS  12
 

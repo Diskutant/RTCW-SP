@@ -37,8 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // CM_FastPointTrace( trace_t *results, const idVec3 &start, const idVec3 &end );
 
-#include "idAudio.h"
-#include "idAudioHardware.h"
+#include "idLib/idAudio.h"
+#include "idLib/idAudioHardware.h"
 
 #define NUM_PLAY_NOTIFICATIONS  16
 

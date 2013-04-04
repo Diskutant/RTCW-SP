@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 // tr_sky.c
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 
 #define SKY_SUBDIVISIONS        8
 #define HALF_SKY_SUBDIVISIONS   ( SKY_SUBDIVISIONS / 2 )

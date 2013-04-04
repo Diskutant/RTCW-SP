@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 
 int r_firstSceneDrawSurf;
 

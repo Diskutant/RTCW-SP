@@ -16,14 +16,14 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "ftstream.h"
-#include "sfnt.h"
-#include "ttnameid.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftstream.h"
+#include "ft2/sfnt.h"
+#include "ft2/ttnameid.h"
 
 
-#include "ttdriver.h"
-#include "ttgload.h"
+#include "ft2/ttdriver.h"
+#include "ft2/ttgload.h"
 
 
 /*************************************************************************/

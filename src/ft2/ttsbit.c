@@ -16,11 +16,11 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "tterrors.h"
-#include "tttags.h"
+#include "ft2/ftdebug.h"
+#include "ft2/tterrors.h"
+#include "ft2/tttags.h"
 
-#include "ttsbit.h"
+#include "ft2/ttsbit.h"
 
 
 

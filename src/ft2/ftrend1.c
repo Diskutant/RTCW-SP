@@ -16,13 +16,13 @@
 /***************************************************************************/
 
 
-#include "ftobjs.h"
-#include "ftoutln.h"
+#include "ft2/ftobjs.h"
+#include "ft2/ftoutln.h"
 
 
 
-#include "ftrend1.h"
-#include "ftraster.h"
+#include "ft2/ftrend1.h"
+#include "ft2/ftraster.h"
 
 
 /* initialize renderer -- init its raster */

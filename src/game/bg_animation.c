@@ -37,8 +37,8 @@ If you have questions concerning this license or the applicable additional terms
 //
 //===========================================================================
 
-#include "q_shared.h"
-#include "bg_public.h"
+#include "game/q_shared.h"
+#include "game/bg_public.h"
 
 // debug defines, to prevent doing costly string cvar lookups
 //#define	DBGANIMS

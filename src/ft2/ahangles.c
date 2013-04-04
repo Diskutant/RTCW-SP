@@ -20,7 +20,7 @@
 /***************************************************************************/
 
 
-#include "ahangles.h"
+#include "ft2/ahangles.h"
 
 
 /* the following table has been automatically generated with */

@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <limits.h>
 
-#include "g_local.h"
+#include "game/g_local.h"
 
 typedef struct teamgame_s
 {

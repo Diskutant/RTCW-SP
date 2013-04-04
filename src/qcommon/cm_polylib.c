@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 // this is only used for visualization tools in cm_ debug functions
 
 
-#include "cm_local.h"
+#include "qcommon/cm_local.h"
 
 
 // counters are only bumped when running single threaded,

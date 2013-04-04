@@ -34,18 +34,18 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		4 (real tabs)
 //===========================================================================
 
-#include "../game/g_local.h"
-#include "../game/q_shared.h"
-#include "../game/botlib.h"      //bot lib interface
-#include "../game/be_aas.h"
-#include "../game/be_ea.h"
-#include "../game/be_ai_gen.h"
-#include "../game/be_ai_goal.h"
-#include "../game/be_ai_move.h"
-#include "../game/be_ai_weap.h"
-#include "../botai/botai.h"          //bot ai interface
+#include "game/g_local.h"
+#include "game/q_shared.h"
+#include "game/botlib.h"      //bot lib interface
+#include "game/be_aas.h"
+#include "game/be_ea.h"
+#include "game/be_ai_gen.h"
+#include "game/be_ai_goal.h"
+#include "game/be_ai_move.h"
+#include "game/be_ai_weap.h"
+#include "botai/botai.h"          //bot ai interface
 
-#include "ai_cast.h"
+#include "game/ai_cast.h"
 
 /*
 Support routines for the Decision Making layer.

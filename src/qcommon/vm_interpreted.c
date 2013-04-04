@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "vm_local.h"
+#include "qcommon/vm_local.h"
 
 #ifdef DEBUG_VM // bk001204
 static char *opnames[256] = {

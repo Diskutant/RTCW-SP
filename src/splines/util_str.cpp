@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 //need to rewrite this
 
-#include "util_str.h"
+#include "splines/util_str.h"
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>

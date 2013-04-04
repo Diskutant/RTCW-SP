@@ -47,10 +47,10 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "../renderer/tr_local.h"
-#include "../client/client.h"
-#include "linux_local.h"
-#include "unix_glw.h"
+#include "renderer/tr_local.h"
+#include "client/client.h"
+#include "unix/linux_local.h"
+#include "unix/unix_glw.h"
 glwstate_t glw_state;
 
 #include <SDL/SDL.h>

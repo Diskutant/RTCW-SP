@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // tr_shade_calc.c
 
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 
 
 #define WAVEVALUE( table, base, amplitude, phase, freq )  ( ( base ) + table[ myftol( ( ( ( phase ) + tess.shaderTime * ( freq ) ) * FUNCTABLE_SIZE ) ) & FUNCTABLE_MASK ] * ( amplitude ) )

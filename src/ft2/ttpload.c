@@ -16,14 +16,14 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "ftobjs.h"
-#include "ftstream.h"
-#include "tttags.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftobjs.h"
+#include "ft2/ftstream.h"
+#include "ft2/tttags.h"
 
-#include "ttpload.h"
+#include "ft2/ttpload.h"
 
-#include "tterrors.h"
+#include "ft2/tterrors.h"
 
 
 /*************************************************************************/

@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // tr_init.c -- functions that are not called every frame
 
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 
 
 //#ifdef __USEA3D

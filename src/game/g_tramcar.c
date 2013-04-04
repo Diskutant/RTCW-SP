@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 /*
 	SP_Tramcar
 */
-#include "g_local.h"
+#include "game/g_local.h"
 
 // defines
 #define TRAMCAR_START_ON        1

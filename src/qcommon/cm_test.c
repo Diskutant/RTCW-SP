@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "cm_local.h"
+#include "qcommon/cm_local.h"
 
 
 /*

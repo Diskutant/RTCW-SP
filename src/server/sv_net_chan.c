@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "../game/q_shared.h"
-#include "../qcommon/qcommon.h"
-#include "server.h"
+#include "game/q_shared.h"
+#include "qcommon/qcommon.h"
+#include "server/server.h"
 
 #if DO_NET_ENCODE
 /*

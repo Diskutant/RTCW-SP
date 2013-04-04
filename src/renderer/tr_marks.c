@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // tr_marks.c -- polygon projection on the world polygons
 
-#include "tr_local.h"
+#include "renderer/tr_local.h"
 //#include "assert.h"
 
 #define MAX_VERTS_ON_POLY       64

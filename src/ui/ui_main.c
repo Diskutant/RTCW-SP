@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 =======================================================================
 */
 
-#include "ui_local.h"
+#include "ui/ui_local.h"
 
 uiInfo_t uiInfo;
 

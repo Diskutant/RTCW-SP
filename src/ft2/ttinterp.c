@@ -16,14 +16,14 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "ftcalc.h"
-#include "ftsystem.h"
+#include "ft2/ftdebug.h"
+#include "ft2/ftcalc.h"
+#include "ft2/ftsystem.h"
 
 
-#include "ttinterp.h"
+#include "ft2/ttinterp.h"
 
-#include "tterrors.h"
+#include "ft2/tterrors.h"
 
 
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER

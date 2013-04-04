@@ -16,12 +16,12 @@
 /***************************************************************************/
 
 
-#include "ftdebug.h"
-#include "tterrors.h"
+#include "ft2/ftdebug.h"
+#include "ft2/tterrors.h"
 
 
-#include "ttload.h"
-#include "ttcmap.h"
+#include "ft2/ttload.h"
+#include "ft2/ttcmap.h"
 
 
 /*************************************************************************/

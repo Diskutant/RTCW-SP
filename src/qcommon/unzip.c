@@ -34,8 +34,8 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "../client/client.h"
-#include "unzip.h"
+#include "client/client.h"
+#include "qcommon/unzip.h"
 
 /* unzip.h -- IO for uncompress .zip files using zlib 
    Version 0.15 beta, Mar 19th, 1998,

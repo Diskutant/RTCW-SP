@@ -41,7 +41,7 @@
 #include <stdio.h>
 
 //#include "../qcommon/qcommon.h"
-#include "../client/snd_local.h"
+#include "client/snd_local.h"
 
 qboolean snd_inited = qfalse;
 

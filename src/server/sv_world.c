@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // world.c -- world query functions
 
-#include "server.h"
+#include "server/server.h"
 
 /*
 ================

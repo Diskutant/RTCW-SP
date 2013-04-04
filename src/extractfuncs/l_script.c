@@ -46,8 +46,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <limits.h>
 #include <string.h>
 #include <stdarg.h>
-#include "l_memory.h"
-#include "l_script.h"
+#include "extractfuncs/l_memory.h"
+#include "extractfuncs/l_script.h"
 
 typedef enum {qfalse, qtrue}    qboolean;
 
@@ -55,21 +55,21 @@ typedef enum {qfalse, qtrue}    qboolean;
 
 #ifdef BOTLIB
 //include files for usage in the bot library
-#include "../game/q_shared.h"
-#include "botlib.h"
-#include "be_interface.h"
-#include "l_script.h"
-#include "l_memory.h"
-#include "l_log.h"
-#include "l_libvar.h"
+#include "game/q_shared.h"
+#include "botlib/botlib.h"
+#include "botlib/be_interface.h"
+#include "extractfuncs/l_script.h"
+#include "extractfuncs/l_memory.h"
+#include "extractfuncs/l_log.h"
+#include "extractfuncs/l_libvar.h"
 #endif //BOTLIB
 
 #ifdef MEQCC
 //include files for usage in MrElusive's QuakeC Compiler
 #include "qcc.h"
-#include "l_script.h"
-#include "l_memory.h"
-#include "l_log.h"
+#include "extractfuncs/l_script.h"
+#include "extractfuncs/l_memory.h"
+#include "extractfuncs/l_log.h"
 
 #define qtrue   true
 #define qfalse  false
@@ -77,9 +77,9 @@ typedef enum {qfalse, qtrue}    qboolean;
 
 #ifdef BSPC
 //include files for usage in the BSP Converter
-#include "../bspc/qbsp.h"
-#include "../bspc/l_log.h"
-#include "../bspc/l_mem.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
 
 #define qtrue   true
 #define qfalse  false

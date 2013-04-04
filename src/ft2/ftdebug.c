@@ -41,7 +41,7 @@
 /*************************************************************************/
 
 
-#include "ftdebug.h"
+#include "ft2/ftdebug.h"
 
 #ifdef FT_DEBUG_LEVEL_TRACE
 char ft_trace_levels[trace_max];
