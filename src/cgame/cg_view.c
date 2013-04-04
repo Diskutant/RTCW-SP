@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // cg_view.c -- setup all the parameters (position, angle, etc)
 // for a 3D rendering
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 //========================
 extern int notebookModel;

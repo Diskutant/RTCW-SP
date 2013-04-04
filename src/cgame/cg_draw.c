@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 // cg_draw.c -- draw all of the graphical elements during
 // active (after loading) gameplay
 
-#include "cg_local.h"
-#include "../ui/ui_shared.h"
+#include "cgame/cg_local.h"
+#include "ui/ui_shared.h"
 
 //----(SA) added to make it easier to raise/lower our statsubar by only changing one thing
 #define STATUSBARHEIGHT 452

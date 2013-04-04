@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 // cg_effects.c -- these functions generate localentities, usually as a result
 // of event processing
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 
 /*

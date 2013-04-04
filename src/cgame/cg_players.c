@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
  *
 */
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 #define SWING_RIGHT 1
 #define SWING_LEFT  2

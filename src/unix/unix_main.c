@@ -56,11 +56,11 @@ If you have questions concerning this license or the applicable additional terms
 // FIXME TTimo should we gard this? most *nix system should comply?
 #include <termios.h>
 
-#include "../game/q_shared.h"
-#include "../qcommon/qcommon.h"
-#include "../renderer/tr_public.h"
+#include "game/q_shared.h"
+#include "qcommon/qcommon.h"
+#include "renderer/tr_public.h"
 
-#include "linux_local.h" // bk001204
+#include "unix/linux_local.h" // bk001204
 
 // Structure containing functions exported from refresh DLL
 refexport_t re;
@@ -1285,7 +1285,7 @@ void Sys_ParseArgs( int argc, char* argv[] ) {
 	}
 }
 
-#include "../client/client.h"
+#include "client/client.h"
 extern clientStatic_t cls;
 
 int main( int argc, char* argv[] ) {

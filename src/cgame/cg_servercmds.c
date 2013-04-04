@@ -32,8 +32,8 @@ If you have questions concerning this license or the applicable additional terms
 // these are processed at snapshot transition time, so there will definately
 // be a valid snapshot this frame
 
-#include "cg_local.h"
-#include "../ui/ui_shared.h" // bk001205 - for Q3_ui as well
+#include "cgame/cg_local.h"
+#include "ui/ui_shared.h" // bk001205 - for Q3_ui as well
 
 
 /*

@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // cg_info.c -- display information while data is being loading
 
-#include "cg_local.h"
-#include "../ui/ui_shared.h"
+#include "cgame/cg_local.h"
+#include "ui/ui_shared.h"
 
 #define MAX_LOADING_PLAYER_ICONS    16
 #define MAX_LOADING_ITEM_ICONS      26

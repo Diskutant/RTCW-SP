@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // Ridah, cg_trails.c - draws a trail using multiple junction points
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 typedef struct trailJunc_s
 {

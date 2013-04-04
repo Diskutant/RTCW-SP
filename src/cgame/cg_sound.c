@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // Ridah, cg_sound.c - parsing and use of sound script files
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 
 // we have to define these static lists, since we can't alloc memory within the cgame

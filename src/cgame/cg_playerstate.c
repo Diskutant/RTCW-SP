@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 // following another player or playing back a demo, it will be checked
 // when the snapshot transitions like all the other entities
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 /*
 ==============

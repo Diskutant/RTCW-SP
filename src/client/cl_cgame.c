@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 // cl_cgame.c  -- client system interaction with client game
 
-#include "client.h"
+#include "client/client.h"
 
-#include "../game/botlib.h"
+#include "game/botlib.h"
 
 extern botlib_export_t *botlib_export;
 

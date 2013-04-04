@@ -52,21 +52,21 @@ If you have questions concerning this license or the applicable additional terms
 #include <string.h>
 #include <stdarg.h>
 #include <time.h>
-#include "l_memory.h"
-#include "l_script.h"
-#include "l_precomp.h"
+#include "botlib/l_memory.h"
+#include "botlib/l_script.h"
+#include "botlib/l_precomp.h"
 
 typedef enum {qfalse, qtrue}    qboolean;
 #endif //SCREWUP
 
 #ifdef BOTLIB
-#include "../game/q_shared.h"
-#include "../game/botlib.h"
-#include "be_interface.h"
-#include "l_memory.h"
-#include "l_script.h"
-#include "l_precomp.h"
-#include "l_log.h"
+#include "game/q_shared.h"
+#include "game/botlib.h"
+#include "botlib/be_interface.h"
+#include "botlib/l_memory.h"
+#include "botlib/l_script.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_log.h"
 #endif //BOTLIB
 
 #ifdef MEQCC
@@ -84,10 +84,10 @@ typedef enum {qfalse, qtrue}    qboolean;
 
 #ifdef BSPC
 //include files for usage in the BSP Converter
-#include "../bspc/qbsp.h"
-#include "../bspc/l_log.h"
-#include "../bspc/l_mem.h"
-#include "l_precomp.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
+#include "botlib/l_precomp.h"
 
 #define qtrue   true
 #define qfalse  false
@@ -98,7 +98,7 @@ typedef enum {qfalse, qtrue}    qboolean;
 #endif //BSPC
 
 #if defined( QUAKE ) && !defined( BSPC )
-#include "l_utils.h"
+#include "botlib/l_utils.h"
 #endif //QUAKE
 
 //#define DEBUG_EVAL

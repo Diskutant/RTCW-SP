@@ -294,7 +294,7 @@ fail:
 //-------------------------------------------------------------------------------
 // Ridah, mesh compression
 float r_anormals[NUMMDCVERTEXNORMALS][3] = {
-#include "anorms256.h"
+	#include "renderer/anorms256.h"
 };
 
 /*

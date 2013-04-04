@@ -35,20 +35,20 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "../game/q_shared.h"
-#include "l_memory.h"
-#include "l_log.h"
-#include "l_utils.h"
-#include "l_script.h"
-#include "l_precomp.h"
-#include "l_struct.h"
-#include "l_libvar.h"
-#include "aasfile.h"
-#include "../game/botlib.h"
-#include "../game/be_aas.h"
-#include "be_aas_funcs.h"
-#include "be_interface.h"
-#include "be_ai_weight.h"
+#include "game/q_shared.h"
+#include "botlib/l_memory.h"
+#include "botlib/l_log.h"
+#include "botlib/l_utils.h"
+#include "botlib/l_script.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_struct.h"
+#include "botlib/l_libvar.h"
+#include "botlib/aasfile.h"
+#include "game/botlib.h"
+#include "game/be_aas.h"
+#include "botlib/be_aas_funcs.h"
+#include "botlib/be_interface.h"
+#include "botlib/be_ai_weight.h"
 
 #define MAX_INVENTORYVALUE          999999
 #define EVALUATERECURSIVELY

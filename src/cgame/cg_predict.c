@@ -33,7 +33,7 @@ If you have questions concerning this license or the applicable additional terms
 // ahead the client's movement.
 // It also handles local physics interaction, like fragments bouncing off walls
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 static pmove_t cg_pmove;
 

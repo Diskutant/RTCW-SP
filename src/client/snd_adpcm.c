@@ -26,7 +26,7 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#include "snd_local.h"
+#include "client/snd_local.h"
 
 
 void S_AdpcmEncode( short indata[], char outdata[], int len, struct adpcm_state *state ) {

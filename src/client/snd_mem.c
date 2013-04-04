@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "snd_local.h"
+#include "client/snd_local.h"
 
 #define DEF_COMSOUNDMEGS "24"    // (SA) upped for GD
 

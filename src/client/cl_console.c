@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // console.c
 
-#include "client.h"
+#include "client/client.h"
 
 
 int g_console_field_width = 78;

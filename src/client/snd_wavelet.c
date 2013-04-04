@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "snd_local.h"
+#include "client/snd_local.h"
 
 int myftol( float f );
 

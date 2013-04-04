@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 ///////////////////////
 extern int propellerModel;

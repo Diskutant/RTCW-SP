@@ -34,7 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 //
 // NOTE: some AI's are treated different, mostly for aesthetical reasons.
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 // a flameChunk is a ball or section of fuel which goes from fuel->blue ignition->flame ball
 // optimization is necessary, since lots of these will be spawned, but as they grow, they can be

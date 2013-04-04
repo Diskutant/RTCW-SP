@@ -29,7 +29,7 @@ If you have questions concerning this license or the applicable additional terms
 // Rafael particles
 // cg_particles.c
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 #define MUSTARD     1
 #define BLOODRED    2

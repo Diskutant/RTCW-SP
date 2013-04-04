@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // cl_parse.c  -- parse a message received from the server
 
-#include "client.h"
+#include "client/client.h"
 
 char *svc_strings[256] = {
 	"svc_bad",

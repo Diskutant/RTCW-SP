@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // unix_net.c
 
-#include "../game/q_shared.h"
-#include "../qcommon/qcommon.h"
+#include "game/q_shared.h"
+#include "qcommon/qcommon.h"
 
 #include <unistd.h>
 #include <sys/socket.h>

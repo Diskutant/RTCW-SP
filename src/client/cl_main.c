@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // cl_main.c  -- client main loop
 
-#include "client.h"
+#include "client/client.h"
 #include <limits.h>
 
 cvar_t  *cl_nodelta;

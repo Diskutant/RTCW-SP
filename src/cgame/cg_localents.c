@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 // cg_localents.c -- every frame, generate renderer commands for locally
 // processed entities, like smoke puffs, gibs, shells, etc.
 
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 // Ridah, increased this
 //#define	MAX_LOCAL_ENTITIES	512

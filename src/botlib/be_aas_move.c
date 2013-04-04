@@ -35,16 +35,16 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "../game/q_shared.h"
-#include "l_memory.h"
-#include "l_script.h"
-#include "l_precomp.h"
-#include "l_struct.h"
-#include "aasfile.h"
-#include "../game/botlib.h"
-#include "../game/be_aas.h"
-#include "be_aas_funcs.h"
-#include "be_aas_def.h"
+#include "game/q_shared.h"
+#include "botlib/l_memory.h"
+#include "botlib/l_script.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_struct.h"
+#include "botlib/aasfile.h"
+#include "game/botlib.h"
+#include "game/be_aas.h"
+#include "botlib/be_aas_funcs.h"
+#include "botlib/be_aas_def.h"
 
 //#define BSPC
 

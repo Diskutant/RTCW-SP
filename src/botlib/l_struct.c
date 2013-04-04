@@ -36,22 +36,22 @@ If you have questions concerning this license or the applicable additional terms
  *****************************************************************************/
 
 #ifdef BOTLIB
-#include "../game/q_shared.h"
-#include "../game/botlib.h"              //for the include of be_interface.h
-#include "l_script.h"
-#include "l_precomp.h"
-#include "l_struct.h"
-#include "l_utils.h"
-#include "be_interface.h"
+#include "game/q_shared.h"
+#include "game/botlib.h"              //for the include of be_interface.h
+#include "botlib/l_script.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_struct.h"
+#include "botlib/l_utils.h"
+#include "botlib/be_interface.h"
 #endif //BOTLIB
 
 #ifdef BSPC
 //include files for usage in the BSP Converter
-#include "../bspc/qbsp.h"
-#include "../bspc/l_log.h"
-#include "../bspc/l_mem.h"
-#include "l_precomp.h"
-#include "l_struct.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_struct.h"
 
 #define qtrue   true
 #define qfalse  false

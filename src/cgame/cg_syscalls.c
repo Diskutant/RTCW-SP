@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // cg_syscalls.c -- this file is only included when building a dll
 // cg_syscalls.asm is included instead when building a qvm
-#include "cg_local.h"
+#include "cgame/cg_local.h"
 
 static intptr_t ( QDECL * syscall )( intptr_t arg, ... ) = ( intptr_t ( QDECL * )( intptr_t, ... ) ) - 1;
 

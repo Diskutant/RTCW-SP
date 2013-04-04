@@ -35,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "../game/q_shared.h"
-#include "l_memory.h"
-#include "l_libvar.h"
+#include "game/q_shared.h"
+#include "botlib/l_memory.h"
+#include "botlib/l_libvar.h"
 
 //list with library variables
 libvar_t *libvarlist;

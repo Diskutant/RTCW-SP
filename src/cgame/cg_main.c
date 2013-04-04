@@ -34,8 +34,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "cg_local.h"
-#include "../ui/ui_shared.h"
+#include "cgame/cg_local.h"
+#include "ui/ui_shared.h"
 
 displayContextDef_t cgDC;
 

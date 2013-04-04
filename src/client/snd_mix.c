@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "snd_local.h"
+#include "client/snd_local.h"
 
 portable_samplepair_t paintbuffer[PAINTBUFFER_SIZE];
 static int snd_vol;
