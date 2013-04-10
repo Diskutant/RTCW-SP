@@ -36,29 +36,29 @@ If you have questions concerning this license or the applicable additional terms
  *****************************************************************************/
 
 
-#include "../game/g_local.h"
-#include "../game/botlib.h"
-#include "../game/be_aas.h"
-#include "../game/be_ea.h"
-#include "../game/be_ai_char.h"
-#include "../game/be_ai_chat.h"
-#include "../game/be_ai_gen.h"
-#include "../game/be_ai_goal.h"
-#include "../game/be_ai_move.h"
-#include "../game/be_ai_weap.h"
-#include "../botai/botai.h"
+#include "game/g_local.h"
+#include "game/botlib.h"
+#include "game/be_aas.h"
+#include "game/be_ea.h"
+#include "game/be_ai_char.h"
+#include "game/be_ai_chat.h"
+#include "game/be_ai_gen.h"
+#include "game/be_ai_goal.h"
+#include "game/be_ai_move.h"
+#include "game/be_ai_weap.h"
+#include "botai/botai.h"
 //
-#include "ai_main.h"
-#include "ai_dmq3.h"
-#include "ai_chat.h"
-#include "ai_cmd.h"
-#include "ai_dmnet.h"
-#include "ai_team.h"
+#include "botai/ai_main.h"
+#include "botai/ai_dmq3.h"
+#include "botai/ai_chat.h"
+#include "botai/ai_cmd.h"
+#include "botai/ai_dmnet.h"
+#include "botai/ai_team.h"
 //
-#include "chars.h"               //characteristics
-#include "inv.h"             //indexes into the inventory
-#include "syn.h"             //synonyms
-#include "match.h"               //string matching types and vars
+#include "botai/chars.h"               //characteristics
+#include "botai/inv.h"             //indexes into the inventory
+#include "botai/syn.h"             //synonyms
+#include "botai/match.h"               //string matching types and vars
 
 #define IDEAL_ATTACKDIST            140
 #define WEAPONINDEX_MACHINEGUN  2

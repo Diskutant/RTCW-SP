@@ -274,7 +274,7 @@ add_subdirectory(src/cgame)
 add_subdirectory(src/extractfuncs)
 add_subdirectory(src/ui)
 add_subdirectory(src/client)
-#add_subdirectory(src/game)
+add_subdirectory(src/game)
 # according to the original cons build system, bspc was not built.
 # a cmake file exists anyway -- though untested.
 # You will need GtkRadiant, you can find it here: https://github.com/TTimo/GtkRadiant

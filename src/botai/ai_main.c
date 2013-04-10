@@ -35,28 +35,28 @@ If you have questions concerning this license or the applicable additional terms
  *
  *****************************************************************************/
 
-#include "../game/g_local.h"
-#include "../game/q_shared.h"
-#include "../game/botlib.h"      //bot lib interface
-#include "../game/be_aas.h"
-#include "../game/be_ea.h"
-#include "../game/be_ai_char.h"
-#include "../game/be_ai_chat.h"
-#include "../game/be_ai_gen.h"
-#include "../game/be_ai_goal.h"
-#include "../game/be_ai_move.h"
-#include "../game/be_ai_weap.h"
-#include "../botai/botai.h"          //bot ai interface
+#include "game/g_local.h"
+#include "game/q_shared.h"
+#include "game/botlib.h"      //bot lib interface
+#include "game/be_aas.h"
+#include "game/be_ea.h"
+#include "game/be_ai_char.h"
+#include "game/be_ai_chat.h"
+#include "game/be_ai_gen.h"
+#include "game/be_ai_goal.h"
+#include "game/be_ai_move.h"
+#include "game/be_ai_weap.h"
+#include "botai/botai.h"          //bot ai interface
 
-#include "ai_main.h"
-#include "ai_dmq3.h"
-#include "ai_chat.h"
-#include "ai_cmd.h"
-#include "ai_dmnet.h"
+#include "botai/ai_main.h"
+#include "botai/ai_dmq3.h"
+#include "botai/ai_chat.h"
+#include "botai/ai_cmd.h"
+#include "botai/ai_dmnet.h"
 //
-#include "chars.h"
-#include "inv.h"
-#include "syn.h"
+#include "botai/chars.h"
+#include "botai/inv.h"
+#include "botai/syn.h"
 
 #define MAX_PATH        144
 
