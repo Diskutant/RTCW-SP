@@ -82,6 +82,12 @@ static refEntity_t lastBoneEntity;
 
 static int totalrv, totalrt, totalv, totalt;    //----(SA)
 
+#ifndef WIN32
+# ifndef __inline
+#  define __inline __inline__
+# endif
+#endif
+
 //-----------------------------------------------------------------------------
 
 static float ProjectRadius( float r, vec3_t location ) {

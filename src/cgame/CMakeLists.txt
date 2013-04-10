@@ -19,7 +19,7 @@ list(SORT C_SOURCES)
 
 add_definitions(-DCGAMEDLL)
 # Set the compiler to use
-set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "-fPIC")
+set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -fPIC")
 
 # use the OS suffix instead of .dll, things get confusing when that happens
 # the variable name is `SO` because I am on linux
@@ -29,3 +29,8 @@ set(SO cgame-rtcw${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_library(${SO} MODULE ${C_SOURCES})
 set_target_properties(${SO} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
 target_link_libraries(${SO} dl m)
+
+install(
+	TARGETS ${SO}
+	DESTINATION ${BASEGAME}
+)

@@ -49,6 +49,7 @@ include(CheckFunctionExists)
 include(CheckIncludeFile)
 include(CheckLibraryExists)
 include(CheckCXXCompilerFlag)
+include(CheckCCompilerFlag)
 
 # Check type sizes since we need them
 check_type_size(int8_t INT8_T)
@@ -168,11 +169,62 @@ elseif(WIN32)
 	#endif(MSVC)
 endif(UNIX OR APPLE)
 
+# Set the install directory for the .so's
+set(BASEGAME "main")
+
+# Set the basic build types, there's debug, release, and demo
+if(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
+	set(DEBUG_BUILD TRUE)
+	set(CXXFLAGS "${CXXFLAGS} -g -Wall -O")
+endif(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
+
+if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+	set(DEMO_BUILD TRUE)
+	set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fno-strict-aliasing -fstrength-reduce -pipe -fsigned-char")
+	add_definitions(-DNDEBUG)
+	# Demo mode only has a second definition from release
+	if(CMAKE_BUILD_TYPE STREQUAL "DEMO")
+		add_definitions( -DWOLF_SP_DEMO)
+		set(BASEGAME "demomain")
+	endif(CMAKE_BUILD_TYPE STREQUAL "DEMO")
+endif(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 
 # windows crap
 if(WIN32)
 	add_definitions(-DWIN32 -D_WIN32)
 endif(WIN32)
+
+# If we are not using Visual Studio, we'll run the following checks
+if(NOT MSVC)
+	# Check if the C++ compiler can accept the -pipe flag, and add it to the compile flags if it works
+	check_c_compiler_flag(-pipe HAVE_PIPE_FLAG)
+	check_cxx_compiler_flag(-pipe HAVE_PIPE_FLAG)
+	# If the flag was accepted, add it to the list of flags
+	if(HAVE_PIPE_FLAG)
+		set(CXXFLAGS "${CXXFLAGS} -pipe")
+	endif(HAVE_PIPE_FLAG)
+
+	# The following are additional library checks, they are not required for Windows
+	if(NOT WIN32)
+		# Check if socket is within the socket library (if the library exists), and add it to the linker flags if needed
+		check_library_exists(socket socket "" HAVE_SOCKET_LIB)
+		if(HAVE_SOCKET_LIB)
+			list(APPEND LINK_LIBS socket)
+		endif(HAVE_SOCKET_LIB)
+		# Check if inet_addr is within the nsl library (if the library exists), and add it to the linker flags if needed
+		check_library_exists(nsl inet_addr "" HAVE_NSL_LIB)
+		if(HAVE_NSL_LIB)
+			list(APPEND LINK_LIBS nsl)
+		endif(HAVE_NSL_LIB)
+		# Check if pthread_create is within the pthread library (if the library exists), and add it to the linker flags if needed
+		check_library_exists(pthread pthread_create "" HAVE_PTHREAD)
+		if(HAVE_PTHREAD)
+			set(LDFLAGS "${LDFLAGS} -pthread")
+		else(HAVE_PTHREAD)
+			message(FATAL_ERROR "The pthread library is required to build ${PROJECT_NAME}")
+		endif(HAVE_PTHREAD)
+	endif(NOT WIN32)
+endif(NOT MSVC)
 
 
 # Find the required SDL libraries
@@ -197,6 +249,22 @@ find_program(PACMAN pacman)
 ## Gentoo package manager, emerge
 find_program(EMERGE emerge)
 
+# Find perl
+find_program(PERL perl)
+
+set(USE_RUN_CC_PL TRUE)
+if(PERL AND USE_RUN_CC_PL)
+	# C++ compiles
+	set(CMAKE_CXX_COMPILE_OBJECT "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_CXX_COMPILE_OBJECT}")
+	set(CMAKE_CXX_LINK_EXECUTABLE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_CXX_LINK_EXECUTABLE}")
+	set(CMAKE_CXX_CREATE_SHARED_MODULE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_CXX_CREATE_SHARED_MODULE}")
+	# C compiles
+	set(CMAKE_C_COMPILE_OBJECT "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_COMPILE_OBJECT}")
+	set(CMAKE_C_LINK_EXECUTABLE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_LINK_EXECUTABLE}")
+	set(CMAKE_C_CREATE_SHARED_MODULE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_CREATE_SHARED_MODULE}")
+endif(PERL AND USE_RUN_CC_PL)
+
+
 # Add all the sub directories for compile
 # jpeg-6 sources, this will likely go away soon
 add_subdirectory(src/jpeg-6)
@@ -211,3 +279,12 @@ add_subdirectory(src/client)
 # a cmake file exists anyway -- though untested.
 # You will need GtkRadiant, you can find it here: https://github.com/TTimo/GtkRadiant
 #add_subdirectory(src/bspc)
+
+
+
+# If a INSTDIR was passed in to CMake, use it as the install prefix, otherwise set the default install prefix to the bots directory under the user's home directory
+if(INSTDIR)
+	set(CMAKE_INSTALL_PREFIX "${INSTDIR}")
+else(INSTDIR)
+	set(CMAKE_INSTALL_PREFIX "/opt/wolfsp")
+endif(INSTDIR)

@@ -8,9 +8,10 @@ list(SORT C_SOURCES)
 
 add_definitions(-DSCREWUP)
 # Set the compiler to use
-set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "-g")
+set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
 
 # Compile our program
-set_target_properties(${SO} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
+
 add_executable(extractfuncs ${C_SOURCES})
-set_target_properties(extractfuncs PROPERTIES LINKER_LANGUAGE C)
+set_target_properties(extractfuncs PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
+target_link_libraries(extractfuncs m)

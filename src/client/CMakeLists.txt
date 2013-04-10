@@ -58,7 +58,7 @@ set(ADDITONAL_SOURCES
 list(APPEND CLIENT_SOURCES ${RENDERER_SOURCES} ${QCOMMON_SOURCES} ${UNIX_SOURCES}
 			${ADDITONAL_SOURCES} ${SERVER_SOURCES} ${SERVER_SOURCES})
 
-set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "-g")
+set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
 # message(STATUS "CLIENT_SOURCES: ${CLIENT_SOURCES}")
 
 # Compile our program
@@ -68,3 +68,8 @@ add_dependencies(${PROJECT_NAME} botlib.a jpeg-6.a splines.a)
 # Our executable
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
 target_link_libraries(${PROJECT_NAME} SDL GL dl m botlib.a jpeg-6.a splines.a)
+
+install(
+	TARGETS ${PROJECT_NAME}
+	DESTINATION .
+)

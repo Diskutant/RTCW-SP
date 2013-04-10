@@ -7,7 +7,7 @@ file(GLOB C_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*.c")
 list(SORT C_SOURCES)
 
 # Set the compiler to use
-set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "-g")
+set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
 
 # Add to our library.
 add_library(jpeg-6.a STATIC ${C_SOURCES})
