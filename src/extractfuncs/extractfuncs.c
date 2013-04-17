@@ -175,13 +175,16 @@ void DumpReplaceFunctions( void ) {
 	// if it's different, rename the file over the real header
 	strncpy( path, "g_funcs.tmp", sizeof(path) );
 	f = fopen( path, "rb" );
+	if(!f)
+		Error("Could not open %s\n", path);
 	fseek( f, 0, SEEK_END );
 	len = ftell( f );
 	buf = (unsigned char *) malloc( len + 1 );
 	fseek( f, 0, SEEK_SET );
 	fread( buf, len, 1, f );
 	buf[len] = 0;
-	fclose( f );
+	if(f)
+		fclose( f );
 
 	strncpy( path, func_filename, sizeof(path) );
 	if ( f = fopen( path, "rb" ) ) {
@@ -191,7 +194,8 @@ void DumpReplaceFunctions( void ) {
 		fseek( f, 0, SEEK_SET );
 		fread( newbuf, newlen, 1, f );
 		newbuf[newlen] = 0;
-		fclose( f );
+		if(f)
+			fclose( f );
 
 		if ( len != newlen || Q_stricmp( buf, newbuf ) ) {
 			char newpath[PATH_MAX];
@@ -219,8 +223,10 @@ void DumpReplaceFunctions( void ) {
 		rename( "g_funcs.tmp", func_filename );
 	}
 
-	free( buf );
-	free( newbuf );
+	if(buf)
+		free( buf );
+	if(newbuf)
+		free( newbuf );
 
 	// dump the function declarations
 	strncpy( path, "g_func_decs.tmp", sizeof(path) );
@@ -234,13 +240,16 @@ void DumpReplaceFunctions( void ) {
 	// if it's different, rename the file over the real header
 	strncpy( path, "g_func_decs.tmp", sizeof(path) );
 	f = fopen( path, "rb" );
+	if(!f)
+		Error("Could not open %s for writing.", path);
 	fseek( f, 0, SEEK_END );
 	len = ftell( f );
 	buf = (unsigned char *) malloc( len + 1 );
 	fseek( f, 0, SEEK_SET );
 	fread( buf, len, 1, f );
 	buf[len] = 0;
-	fclose( f );
+	if(f)
+		fclose( f );
 
 	strncpy( path, func_filedesc, sizeof(path) );
 	if ( f = fopen( path, "rb" ) ) {
@@ -250,7 +259,8 @@ void DumpReplaceFunctions( void ) {
 		fseek( f, 0, SEEK_SET );
 		fread( newbuf, newlen, 1, f );
 		newbuf[newlen] = 0;
-		fclose( f );
+		if(f)
+			fclose( f );
 
 		if ( len != newlen || Q_stricmp( buf, newbuf ) ) {
 			char newpath[PATH_MAX];
@@ -279,8 +289,10 @@ void DumpReplaceFunctions( void ) {
 		rename( "g_func_decs.tmp", func_filedesc );
 	}
 
-	free( buf );
-	free( newbuf );
+	if(buf)
+		free( buf );
+	if(newbuf)
+		free( newbuf );
 
 	if ( updated ) {
 		printf( "Updated the function table, recompile required.\n" );
@@ -584,7 +596,8 @@ void ScrewUpFile( char *oldfile, char *newfile ) {
 	} //end while
 	WriteWhiteSpace( fp, script );
 	FreeMemory( script );
-	fclose( fp );
+	if(fp)
+		fclose( fp );
 } //end of the function ScrewUpFile
 
 int verbose = 0;
