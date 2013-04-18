@@ -303,6 +303,9 @@ void DumpReplaceFunctions( void ) {
 replacefunc_t *FindFunctionName( char *funcname ) {
 	replacefunc_t *f;
 
+	if(!replacefuncs)
+		Error("replacefuncs is null! @0x%X", replacefuncs);
+
 	for ( f = replacefuncs; f; f = f->next )
 	{
 		if ( !strcmp( f->name, funcname ) ) {
