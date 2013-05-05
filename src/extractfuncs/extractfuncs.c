@@ -304,7 +304,7 @@ replacefunc_t *FindFunctionName( char *funcname ) {
 	replacefunc_t *f;
 
 	if(!replacefuncs)
-		Error("replacefuncs is null! @0x%X", replacefuncs);
+		printf("WARNING: replacefuncs is null! @0x%p\n", replacefuncs);
 
 	for ( f = replacefuncs; f; f = f->next )
 	{
