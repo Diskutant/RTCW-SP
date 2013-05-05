@@ -37,9 +37,9 @@ If you have questions concerning this license or the applicable additional terms
 //						creates bad brushes
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_bsp_q1.h"
-#include "aas_map.h"         //AAS_CreateMapBrushes
+#include "bspc/qbsp.h"
+#include "bspc/l_bsp_q1.h"
+#include "bspc/aas_map.h"         //AAS_CreateMapBrushes
 
 int q1_numbrushes;
 int q1_numclipbrushes;
@@ -292,11 +292,11 @@ int Q1_SolidTree_r( int nodenum ) {
 		case Q1_CONTENTS_SOLID:
 #ifdef HLCONTENTS
 		case Q1_CONTENTS_CLIP:
-#endif HLCONTENTS
+#endif // HLCONTENTS
 		case Q1_CONTENTS_SKY:
 #ifdef HLCONTENTS
 		case Q1_CONTENTS_TRANSLUCENT:
-#endif HLCONTENTS
+#endif // HLCONTENTS
 			{
 				return true;
 			} //end case
@@ -312,7 +312,7 @@ int Q1_SolidTree_r( int nodenum ) {
 		case Q1_CONTENTS_CURRENT_270:
 		case Q1_CONTENTS_CURRENT_UP:
 		case Q1_CONTENTS_CURRENT_DOWN:
-#endif HLCONTENTS
+#endif // HLCONTENTS
 		default:
 		{
 			return false;
@@ -357,11 +357,11 @@ bspbrush_t *Q1_CreateBrushes_r( bspbrush_t *brush, int nodenum ) {
 		case Q1_CONTENTS_SOLID:
 #ifdef HLCONTENTS
 		case Q1_CONTENTS_CLIP:
-#endif HLCONTENTS
+#endif // HLCONTENTS
 		case Q1_CONTENTS_SKY:
 #ifdef HLCONTENTS
 		case Q1_CONTENTS_TRANSLUCENT:
-#endif HLCONTENTS
+#endif // HLCONTENTS
 			{
 				brush->side = CONTENTS_SOLID;
 				return brush;
@@ -394,7 +394,7 @@ bspbrush_t *Q1_CreateBrushes_r( bspbrush_t *brush, int nodenum ) {
 			Error( "Q1_CreateBrushes_r: found contents %d in Half-Life BSP", leaf->contents );
 			return NULL;
 		}     //end case
-#endif HLCONTENTS
+#endif // HLCONTENTS
 		default:
 		{
 			Error( "Q1_CreateBrushes_r: unknown contents %d in Half-Life BSP", leaf->contents );

@@ -1,0 +1,3 @@
+[submodule "GtkRadiant"]
+	path = GtkRadiant
+	url = git://github.com/TTimo/GtkRadiant.git

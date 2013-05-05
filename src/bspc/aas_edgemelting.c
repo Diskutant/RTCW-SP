@@ -35,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "../botlib/aasfile.h"
-#include "aas_create.h"
+#include "bspc/qbsp.h"
+#include "botlib/aasfile.h"
+#include "bspc/aas_create.h"
 
 //===========================================================================
 // try to melt the windings of the two faces

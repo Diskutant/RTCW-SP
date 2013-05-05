@@ -276,6 +276,11 @@ add_subdirectory(src/extractfuncs)
 add_subdirectory(src/ui)
 add_subdirectory(src/client)
 
+# If we have the GtkRadiant subdirectory from the git submodule
+if(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/GtkRadiant")
+	add_subdirectory(src/bspc)
+endif(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/GtkRadiant")
+
 # according to the original cons build system, bspc was not built.
 # a cmake file exists anyway -- though untested.
 # You will need GtkRadiant, you can find it here: https://github.com/TTimo/GtkRadiant

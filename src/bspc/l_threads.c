@@ -35,10 +35,10 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "l_cmd.h"
-#include "l_threads.h"
-#include "l_log.h"
-#include "l_mem.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_threads.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
 
 #define MAX_THREADS 64
 

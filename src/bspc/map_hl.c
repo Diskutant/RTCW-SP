@@ -35,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:     3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_bsp_hl.h"
-#include "aas_map.h"         //AAS_CreateMapBrushes
+#include "bspc/qbsp.h"
+#include "bspc/l_bsp_hl.h"
+#include "bspc/aas_map.h"         //AAS_CreateMapBrushes
 
 int hl_numbrushes;
 int hl_numclipbrushes;

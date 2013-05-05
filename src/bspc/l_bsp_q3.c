@@ -27,17 +27,17 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "l_cmd.h"
-#include "l_math.h"
-#include "l_mem.h"
-#include "l_log.h"
-#include "l_poly.h"
-#include "../botlib/l_script.h"
-#include "l_qfiles.h"
-#include "l_bsp_q3.h"
-#include "l_bsp_ent.h"
-//#include "qfiles.h"
-#include "q2files.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_math.h"
+#include "bspc/l_mem.h"
+#include "bspc/l_log.h"
+#include "bspc/l_poly.h"
+#include "botlib/l_script.h"
+#include "bspc/l_qfiles.h"
+#include "bspc/l_bsp_q3.h"
+#include "bspc/l_bsp_ent.h"
+//#include "bspc/qfiles.h"
+#include "bspc/q2files.h"
 
 void Q3_ParseEntities( void );
 void Q3_PrintBSPFileSizes( void );
@@ -257,7 +257,7 @@ void Q3_SurfacePlane( q3_dsurface_t *surface, vec3_t normal, float *dist ) {
 	VectorNormalize(normal);
 */
 	if ( VectorLength( normal ) < 0.9 ) {
-		printf( "surface %d bogus normal vector %f %f %f\n", surface - q3_drawSurfaces, normal[0], normal[1], normal[2] );
+		printf( "surface %ld bogus normal vector %f %f %f\n", surface - q3_drawSurfaces, normal[0], normal[1], normal[2] );
 		printf( "t1 = %f %f %f, t2 = %f %f %f\n", t1[0], t1[1], t1[2], t2[0], t2[1], t2[2] );
 		for ( i = 0; i < surface->numVerts; i++ )
 		{

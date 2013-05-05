@@ -49,6 +49,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "botlib/be_interface.h"
 #include "botlib/be_aas_def.h"
 
+extern char *LibVarGetString( char * );
+
 //#define AASFILEDEBUG
 
 //===========================================================================

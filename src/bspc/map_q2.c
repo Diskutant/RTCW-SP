@@ -40,13 +40,13 @@ If you have questions concerning this license or the applicable additional terms
 // AAS,  Area Awareness System
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_mem.h"
-#include "../botlib/aasfile.h"           //aas_bbox_t
-#include "aas_store.h"       //AAS_MAX_BBOXES
-#include "aas_cfg.h"
-#include "aas_map.h"         //AAS_CreateMapBrushes
-#include "l_bsp_q2.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
+#include "botlib/aasfile.h"           //aas_bbox_t
+#include "bspc/aas_store.h"       //AAS_MAX_BBOXES
+#include "bspc/aas_cfg.h"
+#include "bspc/aas_map.h"         //AAS_CreateMapBrushes
+#include "bspc/l_bsp_q2.h"
 
 #ifdef ME
 

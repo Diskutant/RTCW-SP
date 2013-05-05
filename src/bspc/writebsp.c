@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // NO LONGER IN PROJECT
 #if 0
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 
 int c_nofaces;
 int c_facenodes;

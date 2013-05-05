@@ -45,7 +45,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <unistd.h>
 #endif
 
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 #define stricmp strcasecmp
 
 //file extensions with their type

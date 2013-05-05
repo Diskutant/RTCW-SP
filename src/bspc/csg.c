@@ -38,7 +38,7 @@ If you have questions concerning this license or the applicable additional terms
 //						in micro brushes??
 //===========================================================================
 
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 
 /*
 

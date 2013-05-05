@@ -35,8 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_log.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_log.h"
 
 int allocedmemory;
 
@@ -438,7 +438,7 @@ void *Hunk_Alloc( int size ) {
 	memhunk_t *h;
 
 	if ( !size ) {
-		return (void *) memhunk_high_size;
+		return NULL;
 	}
 	//
 	h = GetClearedMemory( size + sizeof( memhunk_t ) );

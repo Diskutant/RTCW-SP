@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 // NO LONGER USED
 // faces.c
 #if 0
-#include "qbsp.h"
-#include "l_mem.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
 
 
 extern dvertex_t       *dvertexes;

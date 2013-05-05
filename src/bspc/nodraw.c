@@ -27,7 +27,7 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 
 vec3_t draw_mins, draw_maxs;
 qboolean drawflag;

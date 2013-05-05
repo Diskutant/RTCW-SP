@@ -515,6 +515,13 @@ int Q_isalpha( int c ) {
 	return ( 0 );
 }
 
+int Q_isspace( int c )
+{
+	return (c == 0x20 || c == 0x09 || c == 0x0A || c == 0x0B || c == 0x0C
+	|| c == 0x0D);
+}
+
+
 char* Q_strrchr( const char* string, int c ) {
 	char cc = c;
 	char *s;
@@ -701,6 +708,49 @@ void QDECL Com_sprintf( char *dest, int size, const char *fmt, ... ) {
 	}
 	Q_strncpyz( dest, bigbuffer, size );
 }
+#include <string>
+#include <sstream>
+
+// I am too lazy to try and make a C version of this
+// do it in C++ and just export it as a symbol to use in C
+char **Q_strarr(char * dest, const char *src, char delim)
+{
+
+	char *pch;
+	char *array[32000]; // am I really going to be using more than this?
+	std::string s;
+	std::stringstream ss(src);
+	int i = 0;
+	
+	while (std::getline(ss, s, ' ')) {
+		array[i] = const_cast<char*>(s.c_str());
+		++i;
+	}
+	return array;
+}
+
+char *Q_strtrim(char *dest, const char *src)
+{
+	std::string str(src);
+	size_t len = str.length();
+	
+	for(unsigned i = 0; i < len; ++i)
+	{
+		char ch1 = str[i];
+		char ch2 = 0;
+		if(len >= i+1)
+			ch2 = str[i+1];
+		// check if the string is a space character, remove it if it is
+		if(Q_isspace(ch1) && Q_isspace(ch2))
+		{
+			str = str.substr(0, i) + str.substr(i+1, std::string::npos);
+			// adjust our string length to not buffer overflow
+			len = str.length();
+		}
+	}
+	
+	return const_cast<char*>(str.c_str());
+}
 
 
 /*
@@ -712,7 +762,7 @@ varargs versions of all text functions.
 FIXME: make this buffer size safe someday
 ============
 */
-char    * QDECL va( char *format, ... ) {
+char    * QDECL va( const char *format, ... ) {
 	va_list argptr;
 	static char string[2][32000];       // in case va is called by nested functions
 	static int index = 0;
@@ -754,7 +804,7 @@ char *Info_ValueForKey( const char *s, const char *key ) {
 	char    *o;
 
 	if ( !s || !key ) {
-		return "";
+		return NULL;
 	}
 
 	if ( strlen( s ) >= MAX_INFO_STRING ) {
@@ -771,7 +821,7 @@ char *Info_ValueForKey( const char *s, const char *key ) {
 		while ( *s != '\\' )
 		{
 			if ( !*s ) {
-				return "";
+				return NULL;
 			}
 			*o++ = *s++;
 		}
@@ -796,7 +846,7 @@ char *Info_ValueForKey( const char *s, const char *key ) {
 		s++;
 	}
 
-	return "";
+	return NULL;
 }
 
 

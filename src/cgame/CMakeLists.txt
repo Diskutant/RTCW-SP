@@ -17,7 +17,7 @@ list(APPEND C_SOURCES
 # Sort the C sources into a neat list
 list(SORT C_SOURCES)
 
-add_definitions(-DCGAMEDLL)
+#add_definitions(-DCGAMEDLL)
 # Set the compiler to use
 set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -fPIC")
 
@@ -27,7 +27,7 @@ set(SO cgame-rtcw${CMAKE_SHARED_LIBRARY_SUFFIX})
 
 # Add to our library. 
 add_library(${SO} MODULE ${C_SOURCES})
-set_target_properties(${SO} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
+set_target_properties(${SO} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "" COMPILE_DEFINITIONS CGAMEDLL)
 target_link_libraries(${SO} dl m)
 
 install(

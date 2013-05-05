@@ -48,7 +48,7 @@ qboolean QGL_Init( const char *dllname );
 void QGL_EnableLogging( qboolean enable );
 void QGL_Shutdown( void );
 
-
+extern int Sys_GetCPUCount(void);
 
 
 

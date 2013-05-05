@@ -28,7 +28,7 @@ If you have questions concerning this license or the applicable additional terms
 
 // NO LONGER USED
 #if 0
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 
 extern dleaf_t dleafs[MAX_MAP_LEAFS];
 /*

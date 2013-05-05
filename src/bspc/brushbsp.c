@@ -35,11 +35,11 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_mem.h"
-#include "../botlib/aasfile.h"
-#include "aas_store.h"
-#include "aas_cfg.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
+#include "botlib/aasfile.h"
+#include "bspc/aas_store.h"
+#include "bspc/aas_cfg.h"
 
 #include <assert.h>
 

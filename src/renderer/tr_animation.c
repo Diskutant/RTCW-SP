@@ -82,10 +82,16 @@ static refEntity_t lastBoneEntity;
 
 static int totalrv, totalrt, totalv, totalt;    //----(SA)
 
+// #ifndef WIN32
+// # ifndef __inline
+// #  define __inline __inline__
+// # endif
+// #endif
+
+// Ignore __inline, clang doesn't like it and it's useless anyway with modern compilers
 #ifndef WIN32
-# ifndef __inline
-#  define __inline __inline__
-# endif
+# undef __inline
+# define __inline
 #endif
 
 //-----------------------------------------------------------------------------
@@ -1252,7 +1258,7 @@ void RB_SurfaceAnim( mdsSurface_t *surface ) {
 
 	tess.numVertexes += render_count;
 
-	pIndexes = &tess.indexes[baseIndex];
+	pIndexes = (int*)&tess.indexes[baseIndex];
 
 //DBG_SHOWTIME
 
@@ -1379,7 +1385,7 @@ void RB_SurfaceAnim( mdsSurface_t *surface ) {
 			qglBegin( GL_LINES );
 			qglColor3f( .0,.0,.8 );
 
-			pIndexes = &tess.indexes[oldIndexes];
+			pIndexes = (int*)&tess.indexes[oldIndexes];
 			for ( j = 0; j < render_indexes / 3; j++, pIndexes += 3 ) {
 				qglVertex3fv( tempVert + 4 * pIndexes[0] );
 				qglVertex3fv( tempVert + 4 * pIndexes[1] );

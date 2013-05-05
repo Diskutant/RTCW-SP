@@ -35,16 +35,16 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:     3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_bsp_hl.h"
-#include "l_bsp_q1.h"
-#include "l_bsp_q2.h"
-#include "l_bsp_q3.h"
-#include "l_bsp_sin.h"
-#include "l_mem.h"
-#include "../botlib/aasfile.h"           //aas_bbox_t
-#include "aas_store.h"       //AAS_MAX_BBOXES
-#include "aas_cfg.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_bsp_hl.h"
+#include "bspc/l_bsp_q1.h"
+#include "bspc/l_bsp_q2.h"
+#include "bspc/l_bsp_q3.h"
+#include "bspc/l_bsp_sin.h"
+#include "bspc/l_mem.h"
+#include "botlib/aasfile.h"           //aas_bbox_t
+#include "bspc/aas_store.h"       //AAS_MAX_BBOXES
+#include "bspc/aas_cfg.h"
 
 // TTimo: messy...
 #define stricmp strcasecmp

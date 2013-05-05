@@ -64,6 +64,39 @@ static int vidRestartTime = 0;
 #define CTRL(a) ((a) - 'a' + 1)
 
 /*
+ * \brief Gets number of CPU cores
+ */
+int Sys_GetCPUCount(void)
+{
+	static int Sys_CPUCount = 0;
+	if (!Sys_CPUCount) {
+		#if defined(sysconf) && defined(_SC_NPROCESSORS_ONLN)
+		if (Sys_CPUCount <= 0) {
+			Sys_CPUCount = (int)sysconf(_SC_NPROCESSORS_ONLN);
+		}
+		#endif
+		#ifdef sysctlbyname
+		if (Sys_CPUCount <= 0) {
+			size_t size = sizeof(Sys_CPUCount);
+			sysctlbyname("hw.ncpu", &Sys_CPUCount, &size, NULL, 0);
+		}
+		#endif
+		#ifdef __WIN32__
+		if (Sys_CPUCount <= 0) {
+			SYSTEM_INFO info;
+			GetSystemInfo(&info);
+			Sys_CPUCount = info.dwNumberOfProcessors;
+		}
+		#endif
+		/* There has to be at least 1, right? :) */
+		if (Sys_CPUCount <= 0) {
+			Sys_CPUCount = 1;
+		}
+	}
+	return Sys_CPUCount;
+}
+
+/*
  * @brief Prints keyboard identifiers in the console
  */
 static void IN_PrintKey(const SDL_keysym *keysym, keyNum_t key, qboolean down)

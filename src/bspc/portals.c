@@ -35,8 +35,8 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_mem.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
 
 int c_active_portals;
 int c_peak_portals;

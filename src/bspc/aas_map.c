@@ -35,12 +35,12 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "l_mem.h"
-#include "../botlib/aasfile.h"           //aas_bbox_t
-#include "aas_store.h"       //AAS_MAX_BBOXES
-#include "aas_cfg.h"
-#include "../game/surfaceflags.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
+#include "botlib/aasfile.h"           //aas_bbox_t
+#include "bspc/aas_store.h"       //AAS_MAX_BBOXES
+#include "bspc/aas_cfg.h"
+#include "game/surfaceflags.h"
 
 #define SPAWNFLAG_NOT_EASY          0x00000100
 #define SPAWNFLAG_NOT_MEDIUM        0x00000200

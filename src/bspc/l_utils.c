@@ -50,8 +50,8 @@ If you have questions concerning this license or the applicable additional terms
 //#include "l_utils.h"
 #include "be_interface.h"
 #else //BOTLIB
-#include "qbsp.h"
-#include "l_mem.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
 #endif //BOTLIB
 
 #ifdef BOTLIB

@@ -106,6 +106,12 @@ static int hist_current = -1, hist_count = 0;
 // bk001207
 #define MEM_THRESHOLD 96 * 1024 * 1024
 
+// Fix warnings about implicit definitions
+extern void IN_Init( void );
+extern void IN_Shutdown( void );
+extern void IN_Frame( void );
+extern void Sys_SendKeyEvents( void );
+
 /*
 ==================
 Sys_LowPhysicalMemory()
@@ -295,6 +301,18 @@ void Sys_Init( void ) {
 	Cmd_AddCommand( "in_restart", Sys_In_Restart_f );
 
 #if defined __linux__
+	
+	// Try and get the CPU info
+	FILE *proc = fopen("/proc/cpuinfo", "rb");
+	char *arg = 0;
+	size_t size = 0;
+	while(getdelim(&arg, &size, 0, proc) != -1)
+	{
+		puts(arg);
+	}
+	free(arg);
+	fclose(proc);
+	
 #if defined __i386__
 	Cvar_Set( "arch", "linux i386" );
 #elif defined __alpha__
@@ -335,6 +353,12 @@ void Sys_Init( void ) {
 #else
 	Cvar_Set( "arch", "unknown" );
 #endif
+	
+	char str[15];
+	sprintf(str, "%d", Sys_GetCPUCount());
+	
+	Cvar_Set( "sys_cpucores", str );
+	Cvar_Set( "sys_cpustring", Cvar_Get( "arch", "", 0 )->string);
 
 	Cvar_Set( "username", Sys_GetCurrentUser() );
 

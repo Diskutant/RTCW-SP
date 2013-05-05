@@ -49,17 +49,17 @@ If you have questions concerning this license or the applicable additional terms
 #include <sys/stat.h>
 #include <unistd.h>
 #endif
-#include "qbsp.h"
-#include "l_mem.h"
+#include "bspc/qbsp.h"
+#include "bspc/l_mem.h"
 //#include "l_qfiles.h"
-#include "../botlib/aasfile.h"
-#include "../botlib/be_aas_cluster.h"
-#include "../botlib/be_aas_optimize.h"
-#include "aas_create.h"
-#include "aas_store.h"
-#include "aas_file.h"
-#include "aas_cfg.h"
-#include "be_aas_bspc.h"
+#include "botlib/aasfile.h"
+#include "botlib/be_aas_cluster.h"
+#include "botlib/be_aas_optimize.h"
+#include "bspc/aas_create.h"
+#include "bspc/aas_store.h"
+#include "bspc/aas_file.h"
+#include "bspc/aas_cfg.h"
+#include "bspc/be_aas_bspc.h"
 
 #define BSPC_VERSION        "2.1c-wolf"
 

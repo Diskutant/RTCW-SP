@@ -44,6 +44,7 @@ If you have questions concerning this license or the applicable additional terms
 #include <string.h>
 #include <stdarg.h>
 #include <time.h>
+#include <ctype.h>
 #include <math.h>
 #include "extractfuncs/l_memory.h"
 #include "extractfuncs/l_script.h"
@@ -781,7 +782,7 @@ void PC_AddBuiltinDefines( source_t *source ) {
 int PC_ExpandBuiltinDefine( source_t *source, define_t *define,
 							token_t **firsttoken, token_t **lasttoken ) {
 	token_t token;
-	unsigned long t;    //	time_t t; //to prevent LCC warning
+	time_t t;    //	time_t t; //to prevent LCC warning
 	char *curtime;
 
 	memcpy( &token, &source->token, sizeof( token_t ) );

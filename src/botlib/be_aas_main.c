@@ -42,12 +42,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "botlib/l_struct.h"
 #include "botlib/l_utils.h"
 #include "botlib/l_log.h"
+#include "botlib/l_libvar.h"
 #include "botlib/aasfile.h"
 #include "game/botlib.h"
 #include "game/be_aas.h"
 #include "botlib/be_aas_funcs.h"
 #include "botlib/be_interface.h"
 #include "botlib/be_aas_def.h"
+
 
 aas_t aasworlds[MAX_AAS_WORLDS];
 

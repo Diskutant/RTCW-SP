@@ -1796,9 +1796,13 @@ Com_Crash_f
 A way to force a bus error for development reasons
 =================
 */
+// Clang whines about an error we cause on purpose.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wnull-dereference"
 static void Com_Crash_f( void ) {
 	*( int * ) 0 = 0x12345678;
 }
+#pragma clang diagnostic pop
 
 qboolean CL_CDKeyValidate( const char *key, const char *checksum );
 

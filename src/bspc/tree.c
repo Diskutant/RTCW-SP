@@ -35,7 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:     3
 //===========================================================================
 
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 
 extern int c_nodes;
 int c_pruned;

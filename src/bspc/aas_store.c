@@ -35,12 +35,12 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:     3
 //===========================================================================
 
-#include "qbsp.h"
-#include "../botlib/aasfile.h"
-#include "aas_file.h"
-#include "aas_store.h"
-#include "aas_create.h"
-#include "aas_cfg.h"
+#include "bspc/qbsp.h"
+#include "botlib/aasfile.h"
+#include "bspc/aas_file.h"
+#include "bspc/aas_store.h"
+#include "bspc/aas_create.h"
+#include "bspc/aas_cfg.h"
 
 
 //#define NOTHREEVERTEXFACES

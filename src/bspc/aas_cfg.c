@@ -35,14 +35,14 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
+#include "bspc/qbsp.h"
 #include "float.h"
-#include "../botlib/aasfile.h"
-#include "aas_store.h"
-#include "aas_cfg.h"
-#include "../botlib/l_precomp.h"
-#include "../botlib/l_struct.h"
-#include "../botlib/l_libvar.h"
+#include "botlib/aasfile.h"
+#include "bspc/aas_store.h"
+#include "bspc/aas_cfg.h"
+#include "botlib/l_precomp.h"
+#include "botlib/l_struct.h"
+#include "botlib/l_libvar.h"
 
 // TTimo: this is a f*g mess
 // I got rid of all occurences except for bspc it seems

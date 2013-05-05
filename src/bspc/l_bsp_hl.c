@@ -36,13 +36,13 @@ If you have questions concerning this license or the applicable additional terms
 *
 ****/
 
-#include "l_cmd.h"
-#include "l_math.h"
-#include "l_mem.h"
-#include "l_log.h"
-#include "../botlib/l_script.h"
-#include "l_bsp_hl.h"
-#include "l_bsp_ent.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_math.h"
+#include "bspc/l_mem.h"
+#include "bspc/l_log.h"
+#include "botlib/l_script.h"
+#include "bspc/l_bsp_hl.h"
+#include "bspc/l_bsp_ent.h"
 
 //=============================================================================
 
@@ -167,7 +167,7 @@ void HL_AllocMaxBSP( void ) {
 	//edges
 	hl_numedges = 0;
 	hl_dedges = (hl_dedge_t *) GetMemory( HL_MAX_MAP_EDGES * sizeof( hl_dedge_t ) );
-	hl_allocatedbspmem += HL_MAX_MAP_EDGES, sizeof( hl_dedge_t );
+	hl_allocatedbspmem += HL_MAX_MAP_EDGES * sizeof( hl_dedge_t );
 	//mark surfaces
 	hl_nummarksurfaces = 0;
 	hl_dmarksurfaces = (unsigned short *) GetMemory( HL_MAX_MAP_MARKSURFACES * sizeof( unsigned short ) );
@@ -257,11 +257,12 @@ FastChecksum
 ===============
 */
 
-int FastChecksum( void *buffer, int bytes ) {
+int FastChecksum( void *buf, int bytes ) {
 	int checksum = 0;
+	char *buffer = (char*)buf;
 
 	while ( bytes-- )
-		checksum = ( checksum << 4 ) ^ *( (char *)buffer )++;
+		checksum = ( checksum << 4 ) ^ *buffer++;
 
 	return checksum;
 }

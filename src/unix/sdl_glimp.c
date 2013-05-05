@@ -66,6 +66,10 @@ void(APIENTRYP qglMultiTexCoord2fARB) (GLenum target, GLfloat s, GLfloat t);
 void(APIENTRYP qglLockArraysEXT) (GLint first, GLsizei count);
 void(APIENTRYP qglUnlockArraysEXT) (void);
 
+extern void IN_Init(void);
+extern void IN_Shutdown(void);
+extern void IN_Frame(void);
+
 typedef enum
 {
 	RSERR_OK,

@@ -27,15 +27,15 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "l_cmd.h"
-#include "l_math.h"
-#include "l_mem.h"
-#include "l_log.h"
-#include "l_poly.h"
-#include "../botlib/l_script.h"
-#include "q2files.h"
-#include "l_bsp_q2.h"
-#include "l_bsp_ent.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_math.h"
+#include "bspc/l_mem.h"
+#include "bspc/l_log.h"
+#include "bspc/l_poly.h"
+#include "botlib/l_script.h"
+#include "bspc/q2files.h"
+#include "bspc/l_bsp_q2.h"
+#include "bspc/l_bsp_ent.h"
 
 #define q2_dmodel_t         dmodel_t
 #define q2_lump_t               lump_t

@@ -637,6 +637,11 @@ char    *Q_strrchr( const char* string, int c );
 void    Q_strncpyz( char *dest, const char *src, int destsize );
 void    Q_strcat( char *dest, int size, const char *src );
 
+// advanced string parsing made into a compatible library for C
+// NOTE: this uses C++ to work with the string, these functions may be slow
+char **Q_strarr(char *dest, const char *src, char delim);
+char *Q_strtrim(char *dest, const char *src);
+
 // strlen that discounts Quake color sequences
 int Q_PrintStrlen( const char *string );
 // removes color sequences from string
@@ -656,7 +661,7 @@ float   BigFloat( float l );
 float   LittleFloat( float l );
 
 void    Swap_Init( void );
-char    * QDECL va( char *format, ... );
+char    * QDECL va( const char *format, ... );
 
 #ifdef __cplusplus
 }

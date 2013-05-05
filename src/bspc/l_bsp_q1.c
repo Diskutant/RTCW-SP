@@ -27,13 +27,13 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "l_cmd.h"
-#include "l_math.h"
-#include "l_mem.h"
-#include "l_log.h"
-#include "../botlib/l_script.h"
-#include "l_bsp_q1.h"
-#include "l_bsp_ent.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_math.h"
+#include "bspc/l_mem.h"
+#include "bspc/l_log.h"
+#include "botlib/l_script.h"
+#include "bspc/l_bsp_q1.h"
+#include "bspc/l_bsp_ent.h"
 
 //=============================================================================
 
@@ -139,7 +139,7 @@ void Q1_AllocMaxBSP( void ) {
 	//edges
 	q1_numedges = 0;
 	q1_dedges = (q1_dedge_t *) GetMemory( Q1_MAX_MAP_EDGES * sizeof( q1_dedge_t ) );
-	q1_allocatedbspmem += Q1_MAX_MAP_EDGES, sizeof( q1_dedge_t );
+	q1_allocatedbspmem += Q1_MAX_MAP_EDGES * sizeof( q1_dedge_t );
 	//mark surfaces
 	q1_nummarksurfaces = 0;
 	q1_dmarksurfaces = (unsigned short *) GetMemory( Q1_MAX_MAP_MARKSURFACES * sizeof( unsigned short ) );

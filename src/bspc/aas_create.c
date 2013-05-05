@@ -35,17 +35,17 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:		3
 //===========================================================================
 
-#include "qbsp.h"
-#include "../botlib/aasfile.h"
-#include "aas_create.h"
-#include "aas_store.h"
-#include "aas_gsubdiv.h"
-#include "aas_facemerging.h"
-#include "aas_areamerging.h"
-#include "aas_edgemelting.h"
-#include "aas_prunenodes.h"
-#include "aas_cfg.h"
-#include "../game/surfaceflags.h"
+#include "bspc/qbsp.h"
+#include "botlib/aasfile.h"
+#include "bspc/aas_create.h"
+#include "bspc/aas_store.h"
+#include "bspc/aas_gsubdiv.h"
+#include "bspc/aas_facemerging.h"
+#include "bspc/aas_areamerging.h"
+#include "bspc/aas_edgemelting.h"
+#include "bspc/aas_prunenodes.h"
+#include "bspc/aas_cfg.h"
+#include "game/surfaceflags.h"
 
 #define AREAONFACESIDE( face, area )      ( face->frontarea != area )
 
@@ -364,7 +364,7 @@ void AAS_CheckArea( tmp_area_t *tmparea ) {
 			Log_Write( "AAS_CheckArea: area %d face %d: %s\r\n", tmparea->areanum,
 					   face->num, WindingErrorString() );
 		} //end if
-#endif L_DEBUG
+#endif // L_DEBUG
 
 		plane = &mapplanes[face->planenum ^ side];
 
@@ -383,7 +383,7 @@ void AAS_CheckArea( tmp_area_t *tmparea ) {
 			Log_Write( "AAS_CheckArea: area %d face %d winding plane unequal to face plane\r\n",
 					   tmparea->areanum, face->num );
 		} //end if
-#endif L_DEBUG
+#endif // L_DEBUG
 	} //end for
 } //end of the function AAS_CheckArea
 //===========================================================================

@@ -162,8 +162,8 @@ void DumpReplaceFunctions( void ) {
 
 	// dump the function header
 	strncpy( path, ".", sizeof(path) );
-	strncat( path, PATHSEPERATOR_STR, sizeof(path) );
-	strncat( path, "g_funcs.tmp", sizeof(path) );
+	strncat( path, PATHSEPERATOR_STR, sizeof(path) - strlen(path) - 1 );
+	strncat( path, "g_funcs.tmp", sizeof(path) - strlen(path) - 1 );
 	Log_Open( path );
 	for ( rf = replacefuncs; rf; rf = rf->next )
 	{
@@ -187,7 +187,7 @@ void DumpReplaceFunctions( void ) {
 		fclose( f );
 
 	strncpy( path, func_filename, sizeof(path) );
-	if ( f = fopen( path, "rb" ) ) {
+	if ( (f = fopen( path, "rb" )) ) {
 		fseek( f, 0, SEEK_END );
 		newlen = ftell( f );
 		newbuf = (unsigned char *) malloc( newlen + 1 );
@@ -197,7 +197,7 @@ void DumpReplaceFunctions( void ) {
 		if(f)
 			fclose( f );
 
-		if ( len != newlen || Q_stricmp( buf, newbuf ) ) {
+		if ( len != newlen || Q_stricmp( (const char*)buf, (const char*)newbuf ) ) {
 			char newpath[PATH_MAX];
 
 			// delete the old file, rename the new one
@@ -252,7 +252,7 @@ void DumpReplaceFunctions( void ) {
 		fclose( f );
 
 	strncpy( path, func_filedesc, sizeof(path) );
-	if ( f = fopen( path, "rb" ) ) {
+	if ( (f = fopen( path, "rb" )) ) {
 		fseek( f, 0, SEEK_END );
 		newlen = ftell( f );
 		newbuf = (unsigned char *) malloc( newlen + 1 );
@@ -262,7 +262,7 @@ void DumpReplaceFunctions( void ) {
 		if(f)
 			fclose( f );
 
-		if ( len != newlen || Q_stricmp( buf, newbuf ) ) {
+		if ( len != newlen || Q_stricmp( (const char*)buf, (const char*)newbuf ) ) {
 			char newpath[PATH_MAX];
 
 			// delete the old file, rename the new one

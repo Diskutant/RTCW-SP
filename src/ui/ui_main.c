@@ -353,7 +353,7 @@ int Text_Height( const char *text, int font, float scale, int limit ) {
 	float max;
 	glyphInfo_t *glyph;
 	float useScale;
-	const unsigned char *s = text;
+	const unsigned char *s = (const unsigned char*)text;
 
 	fontInfo_t *fnt = &uiInfo.uiDC.Assets.textFont;
 	if ( font == UI_FONT_DEFAULT ) {
@@ -426,7 +426,7 @@ void Text_Paint( float x, float y, int font, float scale, vec4_t color, const ch
 
 	useScale = scale * fnt->glyphScale;
 	if ( text ) {
-		const unsigned char *s = text;
+		const unsigned char *s = (const unsigned char*)text;
 		trap_R_SetColor( color );
 		memcpy( &newColor[0], &color[0], sizeof( vec4_t ) );
 		len = strlen( text );
@@ -507,7 +507,7 @@ void Text_PaintWithCursor( float x, float y, int font, float scale, vec4_t color
 
 	useScale = scale * fnt->glyphScale;
 	if ( text ) {
-		const unsigned char *s = text;
+		const unsigned char *s = (const unsigned char*)text;
 		trap_R_SetColor( color );
 		memcpy( &newColor[0], &color[0], sizeof( vec4_t ) );
 		len = strlen( text );
@@ -604,7 +604,7 @@ static void Text_Paint_Limit(float *maxX, float x, float y, int font, float scal
 	vec4_t newColor;
 	glyphInfo_t *glyph;
 	if (text) {
-		const unsigned char *s = text;
+		const unsigned char *s = (const unsigned char*)text;
 		float max = *maxX;
 		float useScale;
 
@@ -5142,9 +5142,9 @@ static void UI_BuildServerDisplayList( qboolean force ) {
 		return;
 	}
 	// if we shouldn't reset
-	if ( force == 2 ) {
-		force = 0;
-	}
+// 	if ( force == 2 ) {
+// 		force = 0;
+// 	}
 
 	// do motd updates here too
 	trap_Cvar_VariableStringBuffer( "cl_motdString", uiInfo.serverStatus.motd, sizeof( uiInfo.serverStatus.motd ) );

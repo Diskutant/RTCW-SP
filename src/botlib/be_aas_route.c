@@ -69,6 +69,12 @@ If you have questions concerning this license or the applicable additional terms
 
 extern aas_t aasworlds[MAX_AAS_WORLDS];
 
+// Ignore __inline, clang doesn't like it and it's useless anyway with modern compilers
+#ifndef WIN32
+# undef __inline
+# define __inline
+#endif
+
 
 /*
 

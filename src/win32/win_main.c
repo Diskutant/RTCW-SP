@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 // win_main.h
 
-#include "../client/client.h"
-#include "../qcommon/qcommon.h"
-#include "win_local.h"
-#include "resource.h"
+#include "client/client.h"
+#include "qcommon/qcommon.h"
+#include "win32/win_local.h"
+#include "win32/resource.h"
 #include <errno.h>
 #include <float.h>
 #include <fcntl.h>

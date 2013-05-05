@@ -29,9 +29,9 @@ If you have questions concerning this license or the applicable additional terms
 
 // cmdlib.c
 
-#include "l_cmd.h"
-#include "l_log.h"
-#include "l_mem.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -373,11 +373,10 @@ double I_FloatTime( void ) {
 }
 
 void Q_getwd( char *out ) {
-#if defined( WIN32 ) || defined( _WIN32 )
 	getcwd( out, 256 );
+#if defined( WIN32 ) || defined( _WIN32 )
 	strcat( out, "\\" );
 #else
-	getwd( out );
 	strcat( out, "/" );
 #endif
 }

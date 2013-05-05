@@ -37,11 +37,11 @@ If you have questions concerning this license or the applicable additional terms
 //===========================================================================
 
 #include <malloc.h>
-#include "l_cmd.h"
-#include "l_math.h"
-#include "l_poly.h"
-#include "l_log.h"
-#include "l_mem.h"
+#include "bspc/l_cmd.h"
+#include "bspc/l_math.h"
+#include "bspc/l_poly.h"
+#include "bspc/l_log.h"
+#include "bspc/l_mem.h"
 
 //#define	BOGUS_RANGE	8192
 #define BOGUS_RANGE ( 128 * 1024 )
