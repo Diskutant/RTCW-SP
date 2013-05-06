@@ -29,8 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 // win_input.c -- win32 mouse and joystick code
 // 02/21/97 JCB Added extended DirectInput code to support external controllers.
 
-#include "../client/client.h"
-#include "win_local.h"
+#include "client/client.h"
+#include "win32/win_local.h"
 
 
 typedef struct {

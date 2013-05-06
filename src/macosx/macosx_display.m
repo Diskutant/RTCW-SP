@@ -27,10 +27,10 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#import "macosx_display.h"
+#import "macosx/macosx_display.h"
 
-#include "tr_local.h"
-#import "macosx_local.h"
+#include "renderer/tr_local.h"
+#import "macosx/macosx_local.h"
 
 #import <Foundation/Foundation.h>
 #import <IOKit/graphics/IOGraphicsTypes.h>  // for interpreting the kCGDisplayIOFlags element of the display mode

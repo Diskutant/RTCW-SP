@@ -27,8 +27,8 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#include "../client/client.h"
-#include "win_local.h"
+#include "client/client.h"
+#include "win32/win_local.h"
 
 WinVars_t g_wv;
 

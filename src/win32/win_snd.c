@@ -28,8 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #include <float.h>
 
-#include "../client/snd_local.h"
-#include "win_local.h"
+#include "client/snd_local.h"
+#include "win32/win_local.h"
 
 HRESULT ( WINAPI * pDirectSoundCreate )( GUID FAR *lpGUID, LPDIRECTSOUND FAR *lplpDS, IUnknown FAR *pUnkOuter );
 #define iDirectSoundCreate( a,b,c )   pDirectSoundCreate( a,b,c )

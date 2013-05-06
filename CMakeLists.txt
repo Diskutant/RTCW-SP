@@ -42,6 +42,10 @@ endif(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/${GIT_HEAD}")
 SET(VERSION_SIMPLE "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}")
 SET(VERSION_FULL "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}-${VERSION_GIT}")
 
+if(APPLE)
+	add_definitions(-DMACOS_X)
+endif(APPLE)
+
 
 # include cmake stuff for checking various system specific defines
 include(CheckTypeSize)

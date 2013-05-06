@@ -42,11 +42,11 @@ If you have questions concerning this license or the applicable additional terms
 ** related functions that are relevant ONLY to win_glimp.c
 */
 #include <assert.h>
-#include "../renderer/tr_local.h"
-#include "../qcommon/qcommon.h"
-#include "resource.h"
-#include "glw_win.h"
-#include "win_local.h"
+#include "renderer/tr_local.h"
+#include "qcommon/qcommon.h"
+#include "win32/resource.h"
+#include "win32/glw_win.h"
+#include "win32/win_local.h"
 
 extern void WG_CheckHardwareGamma( void );
 extern void WG_RestoreGamma( void );

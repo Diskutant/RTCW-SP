@@ -27,16 +27,16 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-#import "Q3Controller.h"
+#import "macosx/Q3Controller.h"
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
-#include "client.h"
-#include "macosx_local.h"
+#include "macosx/client.h"
+#include "macosx/macosx_local.h"
 
 #ifdef OMNI_TIMER
-#import "macosx_timers.h"
+#import "macosx/macosx_timers.h"
 #endif
 
 #define MAX_ARGC 1024

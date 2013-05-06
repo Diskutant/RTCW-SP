@@ -30,14 +30,14 @@ If you have questions concerning this license or the applicable additional terms
 #import <Foundation/Foundation.h>
 #include <ApplicationServices/ApplicationServices.h>
 
-#import "../client/client.h"
-#import "macosx_local.h"
-#import "../renderer/tr_local.h"
+#import "client/client.h"
+#import "macosx/macosx_local.h"
+#import "renderer/tr_local.h"
 
-#import "Q3Controller.h"
+#import "macosx/Q3Controller.h"
 //#import "CGMouseDeltaFix.h"
-#import "macosx_timers.h"
-#import "macosx_display.h" // For Sys_SetScreenFade
+#import "macosx/macosx_timers.h"
+#import "macosx/macosx_display.h" // For Sys_SetScreenFade
 
 #import <drivers/event_status_driver.h>
 #import <sys/types.h>

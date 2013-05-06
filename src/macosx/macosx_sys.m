@@ -26,11 +26,11 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#import "../client/client.h"
-#import "macosx_local.h"
+#import "client/client.h"
+#import "macosx/macosx_local.h"
 
 #import "dlfcn.h"
-#import "Q3Controller.h"
+#import "macosx/Q3Controller.h"
 
 #import <AppKit/AppKit.h>
 #import <IOKit/IOKitLib.h>

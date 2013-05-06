@@ -26,11 +26,11 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#import "macosx_glimp.h"
+#import "macosx/macosx_glimp.h"
 
-#include "tr_local.h"
-#import "macosx_local.h"
-#import "macosx_display.h"
+#include "renderer/tr_local.h"
+#import "macosx/macosx_local.h"
+#import "macosx/macosx_display.h"
 
 #import <AppKit/AppKit.h>
 #import <Foundation/Foundation.h>

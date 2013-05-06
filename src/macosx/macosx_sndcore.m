@@ -30,14 +30,14 @@ If you have questions concerning this license or the applicable additional terms
 // mac_snddma.c
 // all other sound mixing is portable
 
-#include "../client/snd_local.h"
+#include "client/snd_local.h"
 
 #include <CoreServices/CoreServices.h>
 #include <CoreAudio/AudioHardware.h>
 #include <QuickTime/QuickTime.h>
 
 // For 'ri'
-#include "../renderer/tr_local.h"
+#include "renderer/tr_local.h"
 
 #import <Foundation/NSData.h>
 #import <Foundation/NSString.h>

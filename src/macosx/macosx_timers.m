@@ -36,7 +36,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #ifdef OMNI_TIMER
 
-#import "macosx_timers.h"
+#import "macosx/macosx_timers.h"
 
 #import <Foundation/NSString.h>
 #import <stdio.h>

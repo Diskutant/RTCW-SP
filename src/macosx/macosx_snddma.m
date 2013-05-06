@@ -30,11 +30,11 @@ If you have questions concerning this license or the applicable additional terms
 // mac_snddma.c
 // all other sound mixing is portable
 
-#include "../client/snd_local.h"
+#include "client/snd_local.h"
 #include <Carbon/Carbon.h>
 
 // For 'ri'
-#include "../renderer/tr_local.h"
+#include "renderer/tr_local.h"
 
 #import <Foundation/NSZone.h>
 

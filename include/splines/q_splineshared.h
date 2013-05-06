@@ -72,7 +72,10 @@ If you have questions concerning this license or the applicable additional terms
 #include <stdlib.h>
 #include <time.h>
 #include <ctype.h>
-#include <malloc.h>          // for _alloca()
+// Apple dun like this
+#ifndef MACOS_X
+# include <malloc.h>          // for _alloca()
+#endif
 #pragma intrinsic( memset, memcpy )
 
 
