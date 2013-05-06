@@ -1,0 +1,94 @@
+#!/bin/sh
+# This is a simple script written to try and satisfy the dependency for cmake.
+# it is also used as a place holder for traditional build systems based on
+# autoconf which have a ./configure file in the directory.
+# This script is licensed under the GNU GPL (see COPYING.txt for details)
+
+# Ran once a cmake configure is complete.
+finished() {
+	echo "\n======================"
+	echo "Configuring complete!"
+	echo "Now type \"cd build/\" and then type make or gmake"
+	echo "depending on your platform. This will start the"
+	echo "build process, once complete, run sudo make install"
+	echo "and this will install to /opt/"
+	echo "======================"
+}
+
+if command -v cmake >/dev/null 2>&1; then
+	mkdir -p build/
+	cd build/
+	cmake .. && finished
+else
+# Complicated mess to try and satisfy the cmake dependency, once we have cmake, the world will be a better place
+	echo >&2 "CMake version 1.8 or better is required to compile!"
+
+# check and see if we need sudo
+	if command -v sudo >/dev/null 2>&1; then
+		SUDO='sudo'
+	else
+		SUDO=''
+	fi
+
+	# Now do the awful detection of package managers!
+	if command -v yum >/dev/null 2>&1; then
+		while true; do
+			read -p "Yum detected on this system, would you like me to install cmake via yum [y/n]? " yn
+			case $yn in
+				[Yy]* ) $SUDO yum install cmake; break;;
+				[Nn]* ) exit;;
+				* ) echo "Please answer yes or no.";;
+			esac
+		done
+	else
+		if command -v apt-get >/dev/null 2>&1; then
+			while true; do
+				read -p "apt-get detected on this system, would you like me to install cmake via apt-get [y/n]? " yn
+				case $yn in
+					[Yy]* ) $SUDO apt-get install cmake; break;;
+					[Nn]* ) exit;;
+					* ) echo "Please answer yes or no.";;
+				esac
+			done
+		else
+			if command -v pacman >/dev/null 2>&1; then
+				while true; do
+					read -p "pacman detected on this system, would you like me to install cmake via pacman [y/n]? " yn
+					case $yn in
+						[Yy]* ) $SUDO pacman -S cmake; break;;
+						[Nn]* ) exit;;
+						* ) echo "Please answer yes or no.";;
+					esac
+				done
+			else
+				if command -v pkg_add >/dev/null 2>&1; then
+					while true; do
+						read -p "pkg_add detected on this system, would you like me to install cmake via pkg [y/n]? " yn
+						case $yn in
+							[Yy]* ) $SUDO pkg_add -r cmake; break;;
+							[Nn]* ) exit;;
+							* ) echo "Please answer yes or no.";;
+						esac
+					done
+				else
+					echo "Could not find a suitable package manager!"
+					echo "Please install or compile cmake and make sure it can be found via \$PATH"
+					exit 1
+				fi
+			fi
+		fi
+	fi
+fi
+
+# Stupid fucking bash doesnt have a god damn goto statement and people seem to have their
+# head in their ass about it, thanks asshats, now I have to make more shitty code for a simple
+# script because you didn't like people making shitty code. Thanks.
+if command -v cmake >/dev/null 2>&1; then
+	mkdir -p build/
+	cd build/
+	cmake .. && finished
+else
+	echo "There seems to be an issue with the system and how CMake is installed!"
+	echo "Please make sure CMake is installed and can be found via \$PATH then"
+	echo "re-run ./configure"
+fi
