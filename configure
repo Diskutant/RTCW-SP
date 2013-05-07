@@ -6,7 +6,8 @@
 
 # Ran once a cmake configure is complete.
 finished() {
-	echo "\n======================"
+	echo ""
+	echo "======================"
 	echo "Configuring complete!"
 	echo "Now type \"cd build/\" and then type make or gmake"
 	echo "depending on your platform. This will start the"
@@ -19,6 +20,7 @@ if command -v cmake >/dev/null 2>&1; then
 	mkdir -p build/
 	cd build/
 	cmake .. && finished
+	exit 0
 else
 # Complicated mess to try and satisfy the cmake dependency, once we have cmake, the world will be a better place
 	echo >&2 "CMake version 1.8 or better is required to compile!"

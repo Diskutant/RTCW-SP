@@ -219,14 +219,14 @@ void DumpReplaceFunctions( void ) {
 			strncpy( path, "g_funcs.tmp", sizeof(path) );
 			remove( path );
 		}
+		if(newbuf)
+			free( newbuf );
 	} else {
 		rename( "g_funcs.tmp", func_filename );
 	}
 
 	if(buf)
 		free( buf );
-	if(newbuf)
-		free( newbuf );
 
 	// dump the function declarations
 	strncpy( path, "g_func_decs.tmp", sizeof(path) );
@@ -285,14 +285,15 @@ void DumpReplaceFunctions( void ) {
 			strncpy( path, "g_func_decs.tmp", sizeof(path) );
 			remove( path );
 		}
+		
+		if(newbuf)
+			free( newbuf );
 	} else {
 		rename( "g_func_decs.tmp", func_filedesc );
 	}
 
 	if(buf)
 		free( buf );
-	if(newbuf)
-		free( newbuf );
 
 	if ( updated ) {
 		printf( "Updated the function table, recompile required.\n" );
@@ -645,9 +646,8 @@ int main( int argc, char *argv[] ) {
 	int i;
 	int argbase = 1;
 
-	if ( argc < 2 ) {
+	if ( argc < 2 )
 		Usage();
-	} //end if
 
 	if ( !Q_stricmp( argv[1],"-o" ) ) {
 		if ( argc < 5 ) {
@@ -664,6 +664,7 @@ int main( int argc, char *argv[] ) {
 		GetFunctionNamesFromFile( argv[i] );
 	}
 	DumpReplaceFunctions();
+	return 0;
 }
 
 #endif
