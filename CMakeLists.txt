@@ -188,7 +188,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 	add_definitions(-DNDEBUG)
 	# Demo mode only has a second definition from release
 	if(CMAKE_BUILD_TYPE STREQUAL "DEMO")
-		add_definitions( -DWOLF_SP_DEMO)
+		add_definitions(-DWOLF_SP_DEMO)
 		set(BASEGAME "demomain")
 	endif(CMAKE_BUILD_TYPE STREQUAL "DEMO")
 endif(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
@@ -230,13 +230,6 @@ if(NOT MSVC)
 	endif(NOT WIN32)
 endif(NOT MSVC)
 
-
-# Find the required SDL libraries
-find_package(SDL REQUIRED)
-find_package(SDL_sound REQUIRED)
-
-include_directories(include)
-
 # detect what package manager we have and if it is usable
 # This is so that if we have a missing lib on the system (e.g. libSDL, libjpeg)
 # we can prompt the user to install the lib or not.
@@ -252,6 +245,79 @@ find_program(PKG NAMES pkg_add pkg)
 find_program(PACMAN pacman)
 ## Gentoo package manager, emerge
 find_program(EMERGE emerge)
+## Find sudo in case we need it
+find_program(SUDO sudo)
+if(NOT SUDO_FOUND)
+	set(SUDO FALSE)
+endif(NOT SUDO_FOUND)
+
+# Find the required SDL libraries
+find_package(SDL)
+find_package(SDL_sound)
+
+# Begin the madness!
+#############################################################################################
+set(SDL_Libs)
+set(PACKAGECOMMAND)
+# Pacman is annoying in that they use all lowercase
+# whereas most other package managers use whatever the
+# package name is.
+if(NOT SDL_sound_FOUND)
+	if(NOT PACMAN)
+		set(SDL_Libs "${SDL_Libs} SDL")
+	else(NOT PACMAN)
+		set(SDL_Libs "${SDL_Libs} sdl")
+	endif(NOT PACMAN)
+endif(NOT SDL_sound_FOUND)
+
+if(NOT SDL_sound_FOUND)
+	if(NOT PACMAN)
+		set(SDL_Libs "${SDL_Libs} SDL_sound")
+	else(NOT PACMAN)
+		if(NOT APT)
+			set(SDL_Libs "${SDL_Libs} sdl_sound")
+		else(NOT APT)
+			set(SDL_Libs "${SDL_Libs} libsdl-sound1.2")
+		endif(NOT APT)
+	endif(NOT PACMAN)
+endif(NOT SDL_sound_FOUND)
+
+if(SDL_Libs)
+	if(PACMAN)
+		set(PACKAGECOMMAND "${PACMAN} -S ${SDL_Libs}")
+	else(PACMAN)
+		if(YUM)
+			set(PACKAGECOMMAND "${YUM} install ${SDL_Libs}")
+		else(YUM)
+			if(APT)
+				set(PACKAGECOMMAND "${APT} install ${SDL_Libs}")
+			else(APT)
+				if(PKG)
+					set(PACKAGECOMMAND "${PKG} -r ${SDL_Libs}")
+				else(PKG)
+					if(EMERG)
+						# Untested as of 05/07/13
+						set(PACKAGECOMMAND "${EMERG} ${SDL_Libs}")
+					else(EMERG)
+						message(FATAL_ERROR "Could not find a suitable package manager. Please install ${SDL_Libs} and re-run cmake (or ./configure)")
+					endif(EMERG)
+				endif(PKG)
+			endif(APT)
+		endif(YUM)
+	endif(PACMAN)
+	
+	if(SUDO)
+		message(STATUS "Your sudoers password is required to run the following command:")
+		message(STATUS "${SUDO} ${PACKAGECOMMAND}")
+	endif(SUDO)
+	
+	# Install!
+	execute_process(COMMAND "${SUDO} ${PACKAGECOMMAND}")
+endif(SDL_Libs)
+#############################################################################################
+	
+include_directories(include)
+
 
 # Find perl
 find_program(PERL perl)
