@@ -4,6 +4,8 @@
 # autoconf which have a ./configure file in the directory.
 # This script is licensed under the GNU GPL (see COPYING.txt for details)
 
+BUILDTYPE="RELEASE"
+
 # Ran once a cmake configure is complete.
 finished() {
 	echo ""
@@ -19,7 +21,20 @@ finished() {
 if command -v cmake >/dev/null 2>&1; then
 	mkdir -p build/
 	cd build/
-	cmake .. && finished
+
+	while true; do
+		read -p "Which build type do you want to build for [Release/Debug/Demo]? " yn
+		case $yn in
+			*[Rr][Ee][Ll][Ee][Aa][Ss][Ee]* ) BUILDTYPE="RELEASE"; break;;
+			*[Dd][Ee][Mm][Oo]* ) BUILDTYPE="DEMO"; break;;
+			*[Dd][Ee][Bb][Uu][Gg]* ) BUILDTYPE="DEBUG"; break;;
+			* ) echo "Auto-selected $BUILDTYPE release";;
+		esac
+	done
+
+	echo "Building for $BUILDTYPE..."
+
+	cmake -DCMAKE_BUILD_TYPE:STRING=$BUILDTYPE .. && finished
 	exit 0
 else
 # Complicated mess to try and satisfy the cmake dependency, once we have cmake, the world will be a better place

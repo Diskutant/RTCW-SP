@@ -8,8 +8,8 @@ file(GLOB AI_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../botai/*.c")
 set(GAME_SOURCES ${C_SOURCES})
 set(SOURCE_FILES)
 
-# Remove g_save.c of course
-list(REMOVE_ITEM GAME_SOURCES "g_save.c")
+# Remove g_save.c of course, it is genned by extractfuncs.
+#list(REMOVE_ITEM GAME_SOURCES "g_save.c")
 
 # Additional source files
 list(APPEND C_SOURCES ${AI_SOURCES})
