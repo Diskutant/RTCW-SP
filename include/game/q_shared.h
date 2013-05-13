@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,12 +33,12 @@ If you have questions concerning this license or the applicable additional terms
 // A user mod should never modify this file
 
 #define Q3_VERSION      "Wolf 1.42"
-// ver 1.0.0	- release
-// ver 1.0.1	- post-release work
-// ver 1.1.0	- patch 1 (12/12/01)
-// ver 1.1b	- TTimo SP linux release (+ MP update)
-// ver 1.2.b5	- Mac code merge in
-// ver 1.3	- patch 2 (02/13/02)
+// ver 1.0.0    - release
+// ver 1.0.1    - post-release work
+// ver 1.1.0    - patch 1 (12/12/01)
+// ver 1.1b - TTimo SP linux release (+ MP update)
+// ver 1.2.b5   - Mac code merge in
+// ver 1.3  - patch 2 (02/13/02)
 // ver 1.42     - Justasic build system remake
 
 #define NEW_ANIMS
@@ -55,14 +55,14 @@ If you have questions concerning this license or the applicable additional terms
 #pragma warning(disable : 4125) // decimal digit terminates octal escape sequence
 #pragma warning(disable : 4127) // conditional expression is constant
 #pragma warning(disable : 4136)
-#pragma warning(disable	: 4152) // nonstandard extension, function/data pointer conversion in expression
+#pragma warning(disable : 4152) // nonstandard extension, function/data pointer conversion in expression
 #pragma warning(disable : 4201)
 #pragma warning(disable : 4214)
 #pragma warning(disable : 4244)
-//#pragma warning(disable	: 4142)		// benign redefinition
+//#pragma warning(disable   : 4142)     // benign redefinition
 #pragma warning(disable : 4305) // truncation from const double to float
-//#pragma warning(disable : 4310)		// cast truncates constant value
-//#pragma warning(disable :	4505)		// unreferenced local function has been removed
+//#pragma warning(disable : 4310)       // cast truncates constant value
+//#pragma warning(disable : 4505)       // unreferenced local function has been removed
 #pragma warning(disable : 4514)
 #pragma warning(disable : 4702) // unreachable code
 #pragma warning(disable : 4711) // selected for automatic inline expansion
@@ -179,7 +179,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef __MACOS__
 
 #include <MacTypes.h>
-//DAJ #define	MAC_STATIC	static
+//DAJ #define   MAC_STATIC  static
 #define MAC_STATIC
 
 #define CPUSTRING   "MacOS-PPC"
@@ -191,7 +191,7 @@ If you have questions concerning this license or the applicable additional terms
 #define UI_HARD_LINKED
 #define BOTLIB_HARD_LINKED
 
-void Sys_PumpEvents( void );
+void Sys_PumpEvents(void);
 
 #endif
 
@@ -242,7 +242,7 @@ typedef int clipHandle_t;
 #endif
 #endif
 
-//#define	SND_NORMAL			0x000	// (default) Allow sound to be cut off only by the same sound on this channel
+//#define   SND_NORMAL          0x000   // (default) Allow sound to be cut off only by the same sound on this channel
 #define     SND_OKTOCUT         0x001   // Allow sound to be cut off by any following sounds on this channel
 #define     SND_REQUESTCUT      0x002   // Allow sound to be cut off by following sounds on this channel only for sounds who request cutoff
 #define     SND_CUTOFF          0x004   // Cut off sounds on this channel that are marked 'SND_REQUESTCUT'
@@ -293,9 +293,10 @@ typedef int clipHandle_t;
 #define MAX_SAY_TEXT        150
 
 // paramters for command buffer stuffing
-typedef enum {
+typedef enum
+{
 	EXEC_NOW,           // don't return until completed, a VM should NEVER use this,
-						// because some commands might cause the VM to be unloaded...
+	// because some commands might cause the VM to be unloaded...
 	EXEC_INSERT,        // insert at current position, but don't run yet
 	EXEC_APPEND         // add to end of the command buffer (normal case)
 } cbufExec_t;
@@ -308,7 +309,8 @@ typedef enum {
 
 
 // print levels from renderer (FIXME: set up for game / cgame?)
-typedef enum {
+typedef enum
+{
 	PRINT_ALL,
 	PRINT_DEVELOPER,        // only print when "developer 1"
 	PRINT_WARNING,
@@ -320,13 +322,14 @@ typedef enum {
 #endif
 
 // parameters to the main Error routine
-typedef enum {
+typedef enum
+{
 	ERR_FATAL,                  // exit the entire game with a popup window
 	ERR_DROP,                   // print to console and disconnect from game
 	ERR_SERVERDISCONNECT,       // don't kill server
 	ERR_DISCONNECT,             // client disconnected from the server
 	ERR_NEED_CD,                // pop up the need-cd dialog
-	ERR_ENDGAME                 // not an error.  just clean up properly, exit to the menu, and start up the "endgame" menu  //----(SA)	added
+	ERR_ENDGAME                 // not an error.  just clean up properly, exit to the menu, and start up the "endgame" menu  //----(SA) added
 } errorParm_t;
 
 
@@ -361,10 +364,11 @@ typedef enum {
 #define UI_SMALLFONT75  0x00100000
 
 #if defined( _DEBUG ) && !defined( BSPC )
-	#define HUNK_DEBUG
+#define HUNK_DEBUG
 #endif
 
-typedef enum {
+typedef enum
+{
 	h_high,
 	h_low,
 	h_dontcare
@@ -372,13 +376,13 @@ typedef enum {
 
 #ifdef HUNK_DEBUG
 #define Hunk_Alloc( size, preference )              Hunk_AllocDebug( size, preference, # size, __FILE__, __LINE__ )
-void *Hunk_AllocDebug( int size, ha_pref preference, char *label, char *file, int line );
+void *Hunk_AllocDebug(int size, ha_pref preference, char *label, char *file, int line);
 #else
-void *Hunk_Alloc( int size, ha_pref preference );
+void *Hunk_Alloc(int size, ha_pref preference);
 #endif
 
-void Com_Memset( void* dest, const int val, const size_t count );
-void Com_Memcpy( void* dest, const void* src, const size_t count );
+void Com_Memset(void *dest, const int val, const size_t count);
+void Com_Memcpy(void *dest, const void *src, const size_t count);
 
 #define CIN_system      0x01
 #define CIN_loop        0x02
@@ -491,17 +495,17 @@ extern vec3_t axisDefault[3];
 #define CHECK_NAN_VEC
 #endif
 
-float Q_fabs( float f );
-float Q_rsqrt( float f );       // reciprocal square root
+float Q_fabs(float f);
+float Q_rsqrt(float f);         // reciprocal square root
 
 #define SQRTFAST( x ) ( 1.0f / Q_rsqrt( x ) )
 
-signed char ClampChar( int i );
-signed short ClampShort( int i );
+signed char ClampChar(int i);
+signed short ClampShort(int i);
 
 // this isn't a real cheap function to call!
-int DirToByte( vec3_t dir );
-void ByteToDir( int b, vec3_t dir );
+int DirToByte(vec3_t dir);
+void ByteToDir(int b, vec3_t dir);
 
 #if 1
 
@@ -528,7 +532,8 @@ void ByteToDir( int b, vec3_t dir );
 #ifdef VectorCopy
 #undef VectorCopy
 // this is a little hack to get more efficient copies in our interpreter
-typedef struct {
+typedef struct
+{
 	float v[3];
 } vec3struct_t;
 #define VectorCopy( a,b ) * (vec3struct_t *)b = *(vec3struct_t *)a;
@@ -547,108 +552,108 @@ typedef struct {
 #define SnapVector( v ) {v[0] = ( (int)( v[0] ) ); v[1] = ( (int)( v[1] ) ); v[2] = ( (int)( v[2] ) );}
 
 // just in case you do't want to use the macros
-vec_t _DotProduct( const vec3_t v1, const vec3_t v2 );
-void _VectorSubtract( const vec3_t veca, const vec3_t vecb, vec3_t out );
-void _VectorAdd( const vec3_t veca, const vec3_t vecb, vec3_t out );
-void _VectorCopy( const vec3_t in, vec3_t out );
-void _VectorScale( const vec3_t in, float scale, vec3_t out );
-void _VectorMA( const vec3_t veca, float scale, const vec3_t vecb, vec3_t vecc );
+vec_t _DotProduct(const vec3_t v1, const vec3_t v2);
+void _VectorSubtract(const vec3_t veca, const vec3_t vecb, vec3_t out);
+void _VectorAdd(const vec3_t veca, const vec3_t vecb, vec3_t out);
+void _VectorCopy(const vec3_t in, vec3_t out);
+void _VectorScale(const vec3_t in, float scale, vec3_t out);
+void _VectorMA(const vec3_t veca, float scale, const vec3_t vecb, vec3_t vecc);
 
-unsigned ColorBytes3( float r, float g, float b );
-unsigned ColorBytes4( float r, float g, float b, float a );
+unsigned ColorBytes3(float r, float g, float b);
+unsigned ColorBytes4(float r, float g, float b, float a);
 
-float NormalizeColor( const vec3_t in, vec3_t out );
+float NormalizeColor(const vec3_t in, vec3_t out);
 
-float RadiusFromBounds( const vec3_t mins, const vec3_t maxs );
-void ClearBounds( vec3_t mins, vec3_t maxs );
-void AddPointToBounds( const vec3_t v, vec3_t mins, vec3_t maxs );
-int VectorCompare( const vec3_t v1, const vec3_t v2 );
-vec_t VectorLength( const vec3_t v );
-vec_t VectorLengthSquared( const vec3_t v );
-vec_t Distance( const vec3_t p1, const vec3_t p2 );
-vec_t DistanceSquared( const vec3_t p1, const vec3_t p2 );
-void CrossProduct( const vec3_t v1, const vec3_t v2, vec3_t cross );
-vec_t VectorNormalize( vec3_t v );       // returns vector length
-void VectorNormalizeFast( vec3_t v );     // does NOT return vector length, uses rsqrt approximation
-vec_t VectorNormalize2( const vec3_t v, vec3_t out );
-void VectorInverse( vec3_t v );
-void Vector4Scale( const vec4_t in, vec_t scale, vec4_t out );
-void VectorRotate( vec3_t in, vec3_t matrix[3], vec3_t out );
-int Q_log2( int val );
+float RadiusFromBounds(const vec3_t mins, const vec3_t maxs);
+void ClearBounds(vec3_t mins, vec3_t maxs);
+void AddPointToBounds(const vec3_t v, vec3_t mins, vec3_t maxs);
+int VectorCompare(const vec3_t v1, const vec3_t v2);
+vec_t VectorLength(const vec3_t v);
+vec_t VectorLengthSquared(const vec3_t v);
+vec_t Distance(const vec3_t p1, const vec3_t p2);
+vec_t DistanceSquared(const vec3_t p1, const vec3_t p2);
+void CrossProduct(const vec3_t v1, const vec3_t v2, vec3_t cross);
+vec_t VectorNormalize(vec3_t v);         // returns vector length
+void VectorNormalizeFast(vec3_t v);       // does NOT return vector length, uses rsqrt approximation
+vec_t VectorNormalize2(const vec3_t v, vec3_t out);
+void VectorInverse(vec3_t v);
+void Vector4Scale(const vec4_t in, vec_t scale, vec4_t out);
+void VectorRotate(vec3_t in, vec3_t matrix[3], vec3_t out);
+int Q_log2(int val);
 
-float Q_acos( float c );
+float Q_acos(float c);
 
-int     Q_rand( int *seed );
-float   Q_random( int *seed );
-float   Q_crandom( int *seed );
+int     Q_rand(int *seed);
+float   Q_random(int *seed);
+float   Q_crandom(int *seed);
 
 #define random()    ( ( rand() & 0x7fff ) / ( (float)0x7fff ) )
 #define crandom()   ( 2.0 * ( random() - 0.5 ) )
 
-void vectoangles( const vec3_t value1, vec3_t angles );
-float vectoyaw( const vec3_t vec );
-void AnglesToAxis( const vec3_t angles, vec3_t axis[3] );
+void vectoangles(const vec3_t value1, vec3_t angles);
+float vectoyaw(const vec3_t vec);
+void AnglesToAxis(const vec3_t angles, vec3_t axis[3]);
 // TTimo: const vec_t ** would require explicit casts for ANSI C conformance
 // see unix/const-arg.c
-void AxisToAngles( /*const*/ vec3_t axis[3], vec3_t angles );
-float VectorDistance( vec3_t v1, vec3_t v2 );
+void AxisToAngles(/*const*/ vec3_t axis[3], vec3_t angles);
+float VectorDistance(vec3_t v1, vec3_t v2);
 
-void AxisClear( vec3_t axis[3] );
-void AxisCopy( vec3_t in[3], vec3_t out[3] );
+void AxisClear(vec3_t axis[3]);
+void AxisCopy(vec3_t in[3], vec3_t out[3]);
 
-void SetPlaneSignbits( struct cplane_s *out );
-int BoxOnPlaneSide( vec3_t emins, vec3_t emaxs, struct cplane_s *plane );
+void SetPlaneSignbits(struct cplane_s *out);
+int BoxOnPlaneSide(vec3_t emins, vec3_t emaxs, struct cplane_s *plane);
 
-float   AngleMod( float a );
-float   LerpAngle( float from, float to, float frac );
-float   AngleSubtract( float a1, float a2 );
-void    AnglesSubtract( vec3_t v1, vec3_t v2, vec3_t v3 );
+float   AngleMod(float a);
+float   LerpAngle(float from, float to, float frac);
+float   AngleSubtract(float a1, float a2);
+void    AnglesSubtract(vec3_t v1, vec3_t v2, vec3_t v3);
 
-float AngleNormalize360( float angle );
-float AngleNormalize180( float angle );
-float AngleDelta( float angle1, float angle2 );
+float AngleNormalize360(float angle);
+float AngleNormalize180(float angle);
+float AngleDelta(float angle1, float angle2);
 
-qboolean PlaneFromPoints( vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c );
-void ProjectPointOnPlane( vec3_t dst, const vec3_t p, const vec3_t normal );
-void RotatePointAroundVector( vec3_t dst, const vec3_t dir, const vec3_t point, float degrees );
-void RotateAroundDirection( vec3_t axis[3], float yaw );
-void MakeNormalVectors( const vec3_t forward, vec3_t right, vec3_t up );
+qboolean PlaneFromPoints(vec4_t plane, const vec3_t a, const vec3_t b, const vec3_t c);
+void ProjectPointOnPlane(vec3_t dst, const vec3_t p, const vec3_t normal);
+void RotatePointAroundVector(vec3_t dst, const vec3_t dir, const vec3_t point, float degrees);
+void RotateAroundDirection(vec3_t axis[3], float yaw);
+void MakeNormalVectors(const vec3_t forward, vec3_t right, vec3_t up);
 // perpendicular vector could be replaced by this
 
-int PlaneTypeForNormal( vec3_t normal );
+int PlaneTypeForNormal(vec3_t normal);
 
-void MatrixMultiply( float in1[3][3], float in2[3][3], float out[3][3] );
-void AngleVectors( const vec3_t angles, vec3_t forward, vec3_t right, vec3_t up );
-void PerpendicularVector( vec3_t dst, const vec3_t src );
+void MatrixMultiply(float in1[3][3], float in2[3][3], float out[3][3]);
+void AngleVectors(const vec3_t angles, vec3_t forward, vec3_t right, vec3_t up);
+void PerpendicularVector(vec3_t dst, const vec3_t src);
 
 // Ridah
-void GetPerpendicularViewVector( const vec3_t point, const vec3_t p1, const vec3_t p2, vec3_t up );
-void ProjectPointOntoVector( vec3_t point, vec3_t vStart, vec3_t vEnd, vec3_t vProj );
+void GetPerpendicularViewVector(const vec3_t point, const vec3_t p1, const vec3_t p2, vec3_t up);
+void ProjectPointOntoVector(vec3_t point, vec3_t vStart, vec3_t vEnd, vec3_t vProj);
 // done.
 
 //=============================================
 
-float Com_Clamp( float min, float max, float value );
+float Com_Clamp(float min, float max, float value);
 
-char    *COM_SkipPath( char *pathname );
-void    COM_StripExtension( const char *in, char *out );
-void    COM_StripFilename( char *in, char *out );
-void    COM_DefaultExtension( char *path, int maxSize, const char *extension );
+char    *COM_SkipPath(char *pathname);
+void    COM_StripExtension(const char *in, char *out);
+void    COM_StripFilename(char *in, char *out);
+void    COM_DefaultExtension(char *path, int maxSize, const char *extension);
 
-void    COM_BeginParseSession( const char *name );
-void    COM_RestoreParseSession( char **data_p );
-void    COM_SetCurrentParseLine( int line );
-int     COM_GetCurrentParseLine( void );
-char    *COM_Parse( char **data_p );
-char    *COM_ParseExt( char **data_p, qboolean allowLineBreak );
-int     COM_Compress( char *data_p );
-void    COM_ParseError( char *format, ... );
-void    COM_ParseWarning( char *format, ... );
+void    COM_BeginParseSession(const char *name);
+void    COM_RestoreParseSession(char **data_p);
+void    COM_SetCurrentParseLine(int line);
+int     COM_GetCurrentParseLine(void);
+char    *COM_Parse(char **data_p);
+char    *COM_ParseExt(char **data_p, qboolean allowLineBreak);
+int     COM_Compress(char *data_p);
+void    COM_ParseError(char *format, ...);
+void    COM_ParseWarning(char *format, ...);
 
 // TTimo
-qboolean COM_BitCheck( const int array[], int bitNum );
-void COM_BitSet( int array[], int bitNum );
-void COM_BitClear( int array[], int bitNum );
+qboolean COM_BitCheck(const int array[], int bitNum);
+void COM_BitSet(int array[], int bitNum);
+void COM_BitClear(int array[], int bitNum);
 
 #define MAX_TOKENLENGTH     1024
 
@@ -672,27 +677,29 @@ typedef struct pc_token_s
 
 // data is an in/out parm, returns a parsed out token
 
-void    COM_MatchToken( char**buf_p, char *match );
+void    COM_MatchToken(char **buf_p, char *match);
 
-void SkipBracedSection( char **program );
-void SkipRestOfLine( char **data );
+void SkipBracedSection(char **program);
+void SkipRestOfLine(char **data);
 
-void Parse1DMatrix( char **buf_p, int x, float *m );
-void Parse2DMatrix( char **buf_p, int y, int x, float *m );
-void Parse3DMatrix( char **buf_p, int z, int y, int x, float *m );
+void Parse1DMatrix(char **buf_p, int x, float *m);
+void Parse2DMatrix(char **buf_p, int y, int x, float *m);
+void Parse3DMatrix(char **buf_p, int z, int y, int x, float *m);
 
-void QDECL Com_sprintf( char *dest, int size, const char *fmt, ... );
+void QDECL Com_sprintf(char *dest, int size, const char *fmt, ...);
 
 
 // mode parm for FS_FOpenFile
-typedef enum {
+typedef enum
+{
 	FS_READ,
 	FS_WRITE,
 	FS_APPEND,
 	FS_APPEND_SYNC
 } fsMode_t;
 
-typedef enum {
+typedef enum
+{
 	FS_SEEK_CUR,
 	FS_SEEK_END,
 	FS_SEEK_SET
@@ -700,21 +707,21 @@ typedef enum {
 
 //=============================================
 
-int Q_isprint( int c );
-int Q_islower( int c );
-int Q_isupper( int c );
-int Q_isalpha( int c );
-int Q_isnumeric( int c );       //----(SA)	added
-int Q_isalphanumeric( int c );  //----(SA)	added
-int Q_isforfilename( int c );       //----(SA)	added
+int Q_isprint(int c);
+int Q_islower(int c);
+int Q_isupper(int c);
+int Q_isalpha(int c);
+int Q_isnumeric(int c);         //----(SA)   added
+int Q_isalphanumeric(int c);    //----(SA)   added
+int Q_isforfilename(int c);         //----(SA)   added
 
 // portable case insensitive compare
-int     Q_stricmp( const char *s1, const char *s2 );
-int     Q_strncmp( const char *s1, const char *s2, int n );
-int     Q_stricmpn( const char *s1, const char *s2, int n );
-char    *Q_strlwr( char *s1 );
-char    *Q_strupr( char *s1 );
-char    *Q_strrchr( const char* string, int c );
+int     Q_stricmp(const char *s1, const char *s2);
+int     Q_strncmp(const char *s1, const char *s2, int n);
+int     Q_stricmpn(const char *s1, const char *s2, int n);
+char    *Q_strlwr(char *s1);
+char    *Q_strupr(char *s1);
+char    *Q_strrchr(const char *string, int c);
 
 #ifdef _WIN32
 #define Q_putenv _putenv
@@ -723,16 +730,16 @@ char    *Q_strrchr( const char* string, int c );
 #endif
 
 // buffer size safe library replacements
-void    Q_strncpyz( char *dest, const char *src, int destsize );
-void    Q_strcat( char *dest, int size, const char *src );
+void    Q_strncpyz(char *dest, const char *src, int destsize);
+void    Q_strcat(char *dest, int size, const char *src);
 
 // strlen that discounts Quake color sequences
-int Q_PrintStrlen( const char *string );
+int Q_PrintStrlen(const char *string);
 // removes color sequences from string
-char *Q_CleanStr( char *string );
+char *Q_CleanStr(char *string);
 // Ridah
-int Q_strncasecmp( char *s1, char *s2, int n );
-int Q_strcasecmp( char *s1, char *s2 );
+int Q_strncasecmp(char *s1, char *s2, int n);
+int Q_strcasecmp(char *s1, char *s2);
 // done.
 //=============================================
 
@@ -752,35 +759,35 @@ typedef struct
 
 //=============================================
 
-short   BigShort( short l );
-short   LittleShort( short l );
-int     BigLong( int l );
-int     LittleLong( int l );
-qint64  BigLong64( qint64 l );
-qint64  LittleLong64( qint64 l );
-float   BigFloat( float l );
-float   LittleFloat( float l );
+short   BigShort(short l);
+short   LittleShort(short l);
+int     BigLong(int l);
+int     LittleLong(int l);
+qint64  BigLong64(qint64 l);
+qint64  LittleLong64(qint64 l);
+float   BigFloat(float l);
+float   LittleFloat(float l);
 
-void    Swap_Init( void );
-char    * QDECL va( char *format, ... );
-float   *tv( float x, float y, float z );
+void    Swap_Init(void);
+char     *QDECL va(char *format, ...);
+float   *tv(float x, float y, float z);
 
 //=============================================
 
 //
 // key / value info strings
 //
-char *Info_ValueForKey( const char *s, const char *key );
-void Info_RemoveKey( char *s, const char *key );
-void Info_RemoveKey_big( char *s, const char *key );
-void Info_SetValueForKey( char *s, const char *key, const char *value );
-void Info_SetValueForKey_Big( char *s, const char *key, const char *value );
-qboolean Info_Validate( const char *s );
-void Info_NextPair( const char **s, char *key, char *value );
+char *Info_ValueForKey(const char *s, const char *key);
+void Info_RemoveKey(char *s, const char *key);
+void Info_RemoveKey_big(char *s, const char *key);
+void Info_SetValueForKey(char *s, const char *key, const char *value);
+void Info_SetValueForKey_Big(char *s, const char *key, const char *value);
+qboolean Info_Validate(const char *s);
+void Info_NextPair(const char **s, char *key, char *value);
 
 // this is only here so the functions in q_shared.c and bg_*.c can link
-void QDECL Com_Error( int level, const char *error, ... );
-void QDECL Com_Printf( const char *msg, ... );
+void QDECL Com_Error(int level, const char *error, ...);
+void QDECL Com_Printf(const char *msg, ...);
 
 
 /*
@@ -788,14 +795,14 @@ void QDECL Com_Printf( const char *msg, ... );
 
 SAVE
 
-	12 -
-	13 - (SA) added 'episode' tracking to savegame
-	14 - RF added 'skill'
-	15 - (SA) moved time info above the main game reading
-	16 - (SA) added fog
-	17 - (SA) rats, changed fog.
+    12 -
+    13 - (SA) added 'episode' tracking to savegame
+    14 - RF added 'skill'
+    15 - (SA) moved time info above the main game reading
+    16 - (SA) added fog
+    17 - (SA) rats, changed fog.
   18 - TTimo targetdeath fix
-	   show_bug.cgi?id=434
+       show_bug.cgi?id=434
 
 ==============================================================
 */
@@ -832,18 +839,18 @@ default values.
 */
 
 #define CVAR_ARCHIVE        1   // set to cause it to be saved to vars.rc
-								// used for system variables, not for player
-								// specific configurations
+// used for system variables, not for player
+// specific configurations
 #define CVAR_USERINFO       2   // sent to server on connect or change
 #define CVAR_SERVERINFO     4   // sent in response to front end requests
 #define CVAR_SYSTEMINFO     8   // these cvars will be duplicated on all clients
 #define CVAR_INIT           16  // don't allow change from console at all,
-								// but can be set from the command line
+// but can be set from the command line
 #define CVAR_LATCH          32  // will only change when C code next does
-								// a Cvar_Get(), so it can't be changed
-								// without proper initialization.  modified
-								// will be set, even though the value hasn't
-								// changed yet
+// a Cvar_Get(), so it can't be changed
+// without proper initialization.  modified
+// will be set, even though the value hasn't
+// changed yet
 #define CVAR_ROM            64  // display only, cannot be set by user at all
 #define CVAR_USER_CREATED   128 // created by a set command
 #define CVAR_TEMP           256 // can be set even when cheats are disabled, but is not archived
@@ -851,7 +858,8 @@ default values.
 #define CVAR_NORESTART      1024    // do not clear when a cvar_restart is issued
 
 // nothing outside the Cvar_*() functions should modify these fields!
-typedef struct cvar_s {
+typedef struct cvar_s
+{
 	char        *name;
 	char        *string;
 	char        *resetString;       // cvar_restart will reset to this value
@@ -871,7 +879,8 @@ typedef int cvarHandle_t;
 
 // the modules that run in the virtual machine can't access the cvar_t directly,
 // so they must ask for structured updates
-typedef struct {
+typedef struct
+{
 	cvarHandle_t handle;
 	int modificationCount;
 	float value;
@@ -907,7 +916,8 @@ PlaneTypeForNormal
 
 // plane_t structure
 // !!! if this is changed, it must be changed in asm code too !!!
-typedef struct cplane_s {
+typedef struct cplane_s
+{
 	vec3_t normal;
 	float dist;
 	byte type;              // for fast side tests: 0,1,2 = axial, 3 = nonaxial
@@ -917,7 +927,8 @@ typedef struct cplane_s {
 
 
 // a trace is returned when a box is swept through the world
-typedef struct {
+typedef struct
+{
 	qboolean allsolid;      // if true, plane is not valid
 	qboolean startsolid;    // if true, the initial point was in a solid area
 	float fraction;         // time completed, 1.0 = didn't hit anything
@@ -933,14 +944,16 @@ typedef struct {
 
 
 // markfragments are returned by CM_MarkFragments()
-typedef struct {
+typedef struct
+{
 	int firstPoint;
 	int numPoints;
 } markFragment_t;
 
 
 
-typedef struct {
+typedef struct
+{
 	vec3_t origin;
 	vec3_t axis[3];
 } orientation_t;
@@ -959,7 +972,8 @@ typedef struct {
 // sound channels
 // channel 0 never willingly overrides
 // other channels will allways override a playing sound on that channel
-typedef enum {
+typedef enum
+{
 	CHAN_AUTO,
 	CHAN_LOCAL,     // menu sounds, etc
 	CHAN_WEAPON,
@@ -994,7 +1008,7 @@ typedef enum {
 #define MAX_LOCATIONS       64
 
 #define GENTITYNUM_BITS     10      // don't need to send any more
-//#define	GENTITYNUM_BITS		11		// don't need to send any more		(SA) upped 4/21/2001 adjusted: tr_local.h (802-822), tr_main.c (1501), sv_snapshot (206)
+//#define   GENTITYNUM_BITS     11      // don't need to send any more      (SA) upped 4/21/2001 adjusted: tr_local.h (802-822), tr_main.c (1501), sv_snapshot (206)
 #define MAX_GENTITIES       ( 1 << GENTITYNUM_BITS )
 
 // entitynums are communicated with GENTITY_BITS, so any reserved
@@ -1013,7 +1027,7 @@ typedef enum {
 
 #define MAX_MULTI_SPAWNTARGETS  16 // JPW NERVE
 
-//#define	MAX_CONFIGSTRINGS	1024
+//#define   MAX_CONFIGSTRINGS   1024
 #define MAX_CONFIGSTRINGS   2048
 
 #define MAX_DLIGHT_CONFIGSTRINGS    128
@@ -1038,7 +1052,8 @@ typedef enum {
 #define RESERVED_CONFIGSTRINGS  2   // game can't modify below this, only the system can
 
 #define MAX_GAMESTATE_CHARS 16000
-typedef struct {
+typedef struct
+{
 	int stringOffsets[MAX_CONFIGSTRINGS];
 	char stringData[MAX_GAMESTATE_CHARS];
 	int dataCount;
@@ -1081,10 +1096,10 @@ typedef enum
 #define MAX_HOLDABLE            16
 
 // Ridah, increased this
-//#define	MAX_PS_EVENTS			2
+//#define   MAX_PS_EVENTS           2
 // ACK: I'd really like to make this 4, but that seems to cause network problems
 #define MAX_EVENTS              4   // max events per frame before we drop events
-//#define	MAX_EVENTS				2	// max events per frame before we drop events
+//#define   MAX_EVENTS              2   // max events per frame before we drop events
 
 
 #define PS_PMOVEFRAMECOUNTBITS  6
@@ -1101,7 +1116,8 @@ typedef enum
 // from it.
 //
 // NOTE: all fields in here must be 32 bits (or those within sub-structures)
-typedef struct playerState_s {
+typedef struct playerState_s
+{
 	int commandTime;            // cmd->serverTime of last executed command
 	int pm_type;
 	int bobCycle;               // for view bobbing and footstep generation
@@ -1113,17 +1129,17 @@ typedef struct playerState_s {
 	int weaponTime;
 	int weaponDelay;            // for weapons that don't fire immediately when 'fire' is hit (grenades, venom, ...)
 	int grenadeTimeLeft;            // for delayed grenade throwing.  this is set to a #define for grenade
-									// lifetime when the attack button goes down, then when attack is released
-									// this is the amount of time left before the grenade goes off (or if it
-									// gets to 0 while in players hand, it explodes)
+	// lifetime when the attack button goes down, then when attack is released
+	// this is the amount of time left before the grenade goes off (or if it
+	// gets to 0 while in players hand, it explodes)
 
 
 	int gravity;
-	float leanf;                // amount of 'lean' when player is looking around corner //----(SA)	added
+	float leanf;                // amount of 'lean' when player is looking around corner //----(SA) added
 
 	int speed;
 	int delta_angles[3];            // add to command angles to get view direction
-									// changed by spawns, rotating objects, and teleporters
+	// changed by spawns, rotating objects, and teleporters
 
 	int groundEntityNum;        // ENTITYNUM_NONE = in air
 
@@ -1134,9 +1150,9 @@ typedef struct playerState_s {
 	int torsoAnim;              // mask off ANIM_TOGGLEBIT
 
 	int movementDir;            // a number 0 to 7 that represents the reletive angle
-								// of movement to the view angle (axial and diagonals)
-								// when at rest, the value will remain unchanged
-								// used to twist the legs during strafing
+	// of movement to the view angle (axial and diagonals)
+	// when at rest, the value will remain unchanged
+	// used to twist the legs during strafing
 
 
 
@@ -1176,7 +1192,7 @@ typedef struct playerState_s {
 	int ammoclip[MAX_WEAPONS];          // ammo in clip
 	int holdable[MAX_HOLDABLE];
 	int holding;                        // the current item in holdable[] that is selected (held)
-	int weapons[MAX_WEAPONS / ( sizeof( int ) * 8 )];   // 64 bits for weapons held
+	int weapons[MAX_WEAPONS / (sizeof(int) * 8)];       // 64 bits for weapons held
 
 	// Ridah, allow for individual bounding boxes
 	vec3_t mins, maxs;
@@ -1237,7 +1253,7 @@ typedef struct playerState_s {
 	qboolean releasedFire;
 
 	float aimSpreadScaleFloat;          // (SA) the server-side aimspreadscale that lets it track finer changes but still only
-										// transmit the 8bit int to the client
+	// transmit the 8bit int to the client
 	int aimSpreadScale;         // 0 - 255 increases with angular movement
 	int lastFireTime;           // used by server to hold last firing frame briefly when randomly releasing trigger (AI)
 
@@ -1250,10 +1266,10 @@ typedef struct playerState_s {
 
 	int venomTime;
 
-//----(SA)	added
+//----(SA)  added
 	int accShowBits;            // RF (changed from short), these should all be 32 bit
 	int accHideBits;
-//----(SA)	end
+//----(SA)  end
 
 	aistateEnum_t aiState;
 
@@ -1274,14 +1290,14 @@ typedef struct playerState_s {
 #define BUTTON_USE_HOLDABLE 4
 #define BUTTON_GESTURE      8
 #define BUTTON_WALKING      16          // walking can't just be infered from MOVE_RUN
-										// because a key pressed late in the frame will
-										// only generate a small move value for that frame
-										// walking will use different animations and
-										// won't generate footsteps
-//----(SA)	added
+// because a key pressed late in the frame will
+// only generate a small move value for that frame
+// walking will use different animations and
+// won't generate footsteps
+//----(SA)  added
 #define BUTTON_SPRINT       32
 #define BUTTON_ACTIVATE     64
-//----(SA)	end
+//----(SA)  end
 
 #define BUTTON_ANY          128         // any key whatsoever
 
@@ -1302,16 +1318,17 @@ typedef struct playerState_s {
 //----(SA) end
 
 #define MOVE_RUN            120         // if forwardmove or rightmove are >= MOVE_RUN,
-										// then BUTTON_WALKING should be set
+// then BUTTON_WALKING should be set
 
 
 // usercmd_t is sent to the server each client frame
-typedef struct usercmd_s {
+typedef struct usercmd_s
+{
 	int serverTime;
 	byte buttons;
 	byte wbuttons;
 	byte weapon;
-	byte holdable;          //----(SA)	added
+	byte holdable;          //----(SA)  added
 	int angles[3];
 
 
@@ -1326,30 +1343,32 @@ typedef struct usercmd_s {
 // if entityState->solid == SOLID_BMODEL, modelindex is an inline model number
 #define SOLID_BMODEL    0xffffff
 
-typedef enum {
+typedef enum
+{
 	TR_STATIONARY,
 	TR_INTERPOLATE,             // non-parametric, but interpolate between snapshots
 	TR_LINEAR,
 	TR_LINEAR_STOP,
-	TR_LINEAR_STOP_BACK,        //----(SA)	added.  so reverse movement can be different than forward
+	TR_LINEAR_STOP_BACK,        //----(SA)  added.  so reverse movement can be different than forward
 	TR_SINE,                    // value = base + sin( time / duration ) * delta
 	TR_GRAVITY,
 	// Ridah
 	TR_GRAVITY_LOW,
 	TR_GRAVITY_FLOAT,           // super low grav with no gravity acceleration (floating feathers/fabric/leaves/...)
-	TR_GRAVITY_PAUSED,          //----(SA)	has stopped, but will still do a short trace to see if it should be switched back to TR_GRAVITY
+	TR_GRAVITY_PAUSED,          //----(SA)  has stopped, but will still do a short trace to see if it should be switched back to TR_GRAVITY
 	TR_ACCELERATE,
 	TR_DECCELERATE
 } trType_t;
 
-typedef struct {
+typedef struct
+{
 	trType_t trType;
 	int trTime;
 	int trDuration;             // if non 0, trTime + trDuration = stop time
-//----(SA)	removed
+//----(SA)  removed
 	vec3_t trBase;
 	vec3_t trDelta;             // velocity, etc
-//----(SA)	removed
+//----(SA)  removed
 } trajectory_t;
 
 // RF, put this here so we have a central means of defining a Zombie (kind of a hack, but this is to minimize bandwidth usage)
@@ -1365,7 +1384,8 @@ typedef struct {
 //
 // NOTE: all fields in here must be 32 bits (or those within sub-structures)
 
-typedef struct entityState_s {
+typedef struct entityState_s
+{
 	int number;             // entity index
 	int eType;              // entityType_t
 	int eFlags;
@@ -1411,7 +1431,7 @@ typedef struct entityState_s {
 	int weapon;             // determines weapon and flash model, etc
 	int legsAnim;           // mask off ANIM_TOGGLEBIT
 	int torsoAnim;          // mask off ANIM_TOGGLEBIT
-//	int		weapAnim;		// mask off ANIM_TOGGLEBIT	//----(SA)	removed (weap anims will be client-side only)
+//	int      weapAnim;       // mask off ANIM_TOGGLEBIT  //----(SA)  removed (weap anims will be client-side only)
 
 	int density;            // for particle effects
 
@@ -1431,7 +1451,8 @@ typedef struct entityState_s {
 
 } entityState_t;
 
-typedef enum {
+typedef enum
+{
 	CA_UNINITIALIZED,
 	CA_DISCONNECTED,    // not talking to a server
 	CA_AUTHORIZING,     // not used any more, was checking cd key
@@ -1451,7 +1472,8 @@ typedef enum {
 #define GLYPH_CHARSTART 32
 #define GLYPH_CHAREND 127
 #define GLYPHS_PER_FONT GLYPH_END - GLYPH_START + 1
-typedef struct {
+typedef struct
+{
 	int height;     // number of scan lines
 	int top;        // top of glyph in buffer
 	int bottom;     // bottom of glyph in buffer
@@ -1467,7 +1489,8 @@ typedef struct {
 	char shaderName[32];
 } glyphInfo_t;
 
-typedef struct {
+typedef struct
+{
 	glyphInfo_t glyphs [GLYPHS_PER_FONT];
 	float glyphScale;
 	char name[MAX_QPATH];
@@ -1479,7 +1502,8 @@ typedef struct {
 //=============================================
 
 
-typedef struct qtime_s {
+typedef struct qtime_s
+{
 	int tm_sec;     /* seconds after the minute - [0,59] */
 	int tm_min;     /* minutes after the hour - [0,59] */
 	int tm_hour;    /* hours since midnight - [0,23] */
@@ -1500,7 +1524,8 @@ typedef struct qtime_s {
 
 
 // cinematic states
-typedef enum {
+typedef enum
+{
 	FMV_IDLE,
 	FMV_PLAY,       // play
 	FMV_EOF,        // all other conditions, i.e. stop/EOF/abort
@@ -1510,7 +1535,8 @@ typedef enum {
 	FMV_ID_WAIT
 } e_status;
 
-typedef enum _flag_status {
+typedef enum _flag_status
+{
 	FLAG_ATBASE = 0,
 	FLAG_TAKEN,         // CTF
 	FLAG_TAKEN_RED,     // One Flag CTF
@@ -1533,7 +1559,8 @@ typedef enum _flag_status {
 #define CDCHKSUM_LEN 2
 
 // NERVE - SMF - localization
-typedef enum {
+typedef enum
+{
 	LANGUAGE_FRENCH = 0,
 	LANGUAGE_GERMAN,
 	LANGUAGE_ITALIAN,

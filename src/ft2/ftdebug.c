@@ -56,27 +56,27 @@ char ft_trace_levels[trace_max];
 #include <string.h>
 
 
-FT_EXPORT_FUNC( void )  FT_Message( const char*  fmt, ... )
+FT_EXPORT_FUNC(void)  FT_Message(const char  *fmt, ...)
 {
 	va_list ap;
 
 
-	va_start( ap, fmt );
-	vprintf( fmt, ap );
-	va_end( ap );
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
 }
 
 
-FT_EXPORT_FUNC( void )  FT_Panic( const char*  fmt, ... )
+FT_EXPORT_FUNC(void)  FT_Panic(const char  *fmt, ...)
 {
 	va_list ap;
 
 
-	va_start( ap, fmt );
-	vprintf( fmt, ap );
-	va_end( ap );
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
 
-	exit( EXIT_FAILURE );
+	exit(EXIT_FAILURE);
 }
 
 
@@ -97,21 +97,25 @@ FT_EXPORT_FUNC( void )  FT_Panic( const char*  fmt, ... )
 /*                 components will be traced.                            */
 /*    level     :: The tracing level.                                    */
 /*                                                                       */
-FT_EXPORT_FUNC( void )  FT_SetTraceLevel( FT_Trace component,
-										  char level )
+FT_EXPORT_FUNC(void)  FT_SetTraceLevel(FT_Trace component,
+                                       char level)
 {
-	if ( component >= trace_max ) {
+	if(component >= trace_max)
+	{
 		return;
 	}
 
 	/* if component is `trace_any', change _all_ levels at once */
-	if ( component == trace_any ) {
+	if(component == trace_any)
+	{
 		int n;
 
 
-		for ( n = trace_any; n < trace_max; n++ )
+		for(n = trace_any; n < trace_max; n++)
 			ft_trace_levels[n] = level;
-	} else {    /* otherwise, only change individual component */
+	}
+	else        /* otherwise, only change individual component */
+	{
 		ft_trace_levels[component] = level;
 	}
 }

@@ -22,7 +22,7 @@
 #include "ft2/ftdriver.h"
 
 
-FT_EXPORT_VAR( const FT_Driver_Class )  tt_driver_class;
+FT_EXPORT_VAR(const FT_Driver_Class)  tt_driver_class;
 
 
 #endif /* TTDRIVER_H */

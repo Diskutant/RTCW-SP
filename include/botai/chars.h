@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,11 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 
 //===========================================================================
 //
-// Name:			chars.h
-// Function:		bot characteristics
-// Programmer:		Mr Elusive (MrElusive@idsoftware.com)
-// Last update:		1999-09-08
-// Tab Size:		4 (real tabs)
+// Name:            chars.h
+// Function:        bot characteristics
+// Programmer:      Mr Elusive (MrElusive@idsoftware.com)
+// Last update:     1999-09-08
+// Tab Size:        4 (real tabs)
 //===========================================================================
 
 
@@ -125,7 +125,7 @@ If you have questions concerning this license or the applicable additional terms
 //tendency to jump using a weapon
 #define CHARACTERISTIC_WEAPONJUMPING                38  //float [0, 1]
 //tendency to use the grapple hook when available
-#define CHARACTERISTIC_GRAPPLE_USER                 39  //float [0, 1]	//use this!!
+#define CHARACTERISTIC_GRAPPLE_USER                 39  //float [0, 1]  //use this!!
 //========================================================
 //goal
 //========================================================
@@ -136,7 +136,7 @@ If you have questions concerning this license or the applicable additional terms
 //the self preservation of the bot (rockets near walls etc.)
 #define CHARACTERISTIC_SELFPRESERVATION             42  //float [0, 1]
 //how likely the bot is to take revenge
-#define CHARACTERISTIC_VENGEFULNESS                 43  //float [0, 1]	//use this!!
+#define CHARACTERISTIC_VENGEFULNESS                 43  //float [0, 1]  //use this!!
 //tendency to camp
 #define CHARACTERISTIC_CAMPER                       44  //float [0, 1]
 //========================================================

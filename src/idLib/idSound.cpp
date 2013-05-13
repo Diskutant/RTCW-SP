@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -37,86 +37,118 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "idLib/idAudio.h"
 
-void idSound::start() {
+void idSound::start()
+{
 }
 
-void idSound::finish() {
+void idSound::finish()
+{
 }
 
-idSound::idSound( const char *sname ) {
+idSound::idSound(const char *sname)
+{
 	int hr;
-	name = new idStr( sname );                            // give me a name
+	name = new idStr(sname);                              // give me a name
 
 	lastTimeUsed = -1;
 
 	pSound = NULL;
 
 	// Load the wave file into a DirectSound buffer
-	hr = idSpeak->hw->Create( &pSound, name->c_str(), DSBCAPS_CTRL3D, DS3DALG_HRTF_FULL );
-	if ( hr != E_FAIL ) {
+	hr = idSpeak->hw->Create(&pSound, name->c_str(), DSBCAPS_CTRL3D, DS3DALG_HRTF_FULL);
+
+	if(hr != E_FAIL)
+	{
 		// Get the 3D buffer from the secondary buffer
-		pSound->Get3DBufferInterfaces( idSpeak->getMinDistance(), idSpeak->getMaxDistance() );
-		flags.set( LOADED );
-	} else {
-		SAFE_DELETE( pSound );
+		pSound->Get3DBufferInterfaces(idSpeak->getMinDistance(), idSpeak->getMaxDistance());
+		flags.set(LOADED);
+	}
+	else
+	{
+		SAFE_DELETE(pSound);
 	}
 }
 
-idSound::~idSound() {
+idSound::~idSound()
+{
 }
 
-void idSound::play( const int dwFlags ) {
-	if ( !flags.test( LOADED ) ) {
+void idSound::play(const int dwFlags)
+{
+	if(!flags.test(LOADED))
+	{
 		int hr;
 		pSound = NULL;
-		hr = idSpeak->hw->Create( &pSound, name->c_str(), 0, GUID_NULL );
-		if ( hr != E_FAIL ) {
-			flags.set( LOADED );
-		} else {
-			SAFE_DELETE( pSound );
+		hr = idSpeak->hw->Create(&pSound, name->c_str(), 0, GUID_NULL);
+
+		if(hr != E_FAIL)
+		{
+			flags.set(LOADED);
+		}
+		else
+		{
+			SAFE_DELETE(pSound);
 		}
 	}
-	if ( pSound ) {
+
+	if(pSound)
+	{
 		bIndex = pSound->GetFreeIndex();
-		if ( bIndex != -1 ) {
-			pSound->Play( bIndex, 0, dwFlags );
+
+		if(bIndex != -1)
+		{
+			pSound->Play(bIndex, 0, dwFlags);
 		}
 	}
 }
 
-void idSound::stop() {
-	if ( pSound ) {
-		pSound->Stop( bIndex );
+void idSound::stop()
+{
+	if(pSound)
+	{
+		pSound->Stop(bIndex);
 	}
 }
 
 
-void idSound::update3D( const idVec3& pos, const idVec3& vel ) {
-	if ( flags.test( LOADED ) ) {
-		pSound->SetPosition( bIndex, pos[0], pos[1], pos[2] );
-		pSound->SetVelocity( bIndex, vel[0], vel[1], vel[2] );
+void idSound::update3D(const idVec3 &pos, const idVec3 &vel)
+{
+	if(flags.test(LOADED))
+	{
+		pSound->SetPosition(bIndex, pos[0], pos[1], pos[2]);
+		pSound->SetVelocity(bIndex, vel[0], vel[1], vel[2]);
 	}
 }
 
-void idSound::play3D( const int dwFlags, const idVec3& pos, const idVec3& vel ) {
-	if ( !flags.test( LOADED ) ) {
+void idSound::play3D(const int dwFlags, const idVec3 &pos, const idVec3 &vel)
+{
+	if(!flags.test(LOADED))
+	{
 		int hr;
 		pSound = NULL;
 		// Load the wave file into a DirectSound buffer
-		hr = idSpeak->hw->Create( &pSound, name->c_str(), DSBCAPS_CTRL3D, DS3DALG_HRTF_FULL );
-		if ( hr != E_FAIL ) {
-			pSound->Get3DBufferInterfaces( idSpeak->getMinDistance(), idSpeak->getMaxDistance() );
-			flags.set( LOADED );
-		} else {
-			SAFE_DELETE( pSound );
+		hr = idSpeak->hw->Create(&pSound, name->c_str(), DSBCAPS_CTRL3D, DS3DALG_HRTF_FULL);
+
+		if(hr != E_FAIL)
+		{
+			pSound->Get3DBufferInterfaces(idSpeak->getMinDistance(), idSpeak->getMaxDistance());
+			flags.set(LOADED);
+		}
+		else
+		{
+			SAFE_DELETE(pSound);
 		}
 	}
-	if ( pSound ) {
+
+	if(pSound)
+	{
 		bIndex = pSound->GetFreeIndex();
-		if ( bIndex != -1 ) {
-			pSound->SetPosition( bIndex, pos[0], pos[1], pos[2] );
-			pSound->SetVelocity( bIndex, vel[0], vel[1], vel[2] );
-			pSound->Play( bIndex, 0, dwFlags );
+
+		if(bIndex != -1)
+		{
+			pSound->SetPosition(bIndex, pos[0], pos[1], pos[2]);
+			pSound->SetVelocity(bIndex, vel[0], vel[1], vel[2]);
+			pSound->Play(bIndex, 0, dwFlags);
 		}
 	}
 }

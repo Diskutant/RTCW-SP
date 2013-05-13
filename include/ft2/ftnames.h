@@ -33,17 +33,17 @@ typedef struct  FT_SfntName_
 	FT_UShort language_id;
 	FT_UShort name_id;
 
-	FT_Byte*   string;
+	FT_Byte   *string;
 	FT_UInt string_len;     /* in bytes */
 
 } FT_SfntName;
 
 
-FT_EXPORT_DEF( FT_UInt )  FT_Get_Sfnt_Name_Count( FT_Face face );
+FT_EXPORT_DEF(FT_UInt)  FT_Get_Sfnt_Name_Count(FT_Face face);
 
-FT_EXPORT_DEF( FT_Error )  FT_Get_Sfnt_Name( FT_Face face,
-											 FT_UInt index,
-											 FT_SfntName *  aname );
+FT_EXPORT_DEF(FT_Error)  FT_Get_Sfnt_Name(FT_Face face,
+        FT_UInt index,
+        FT_SfntName   *aname);
 
 
 #endif /* FTNAMES_H */

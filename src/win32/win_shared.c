@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,14 +46,17 @@ Sys_Milliseconds
 ================
 */
 int sys_timeBase;
-int Sys_Milliseconds( void ) {
+int Sys_Milliseconds(void)
+{
 	int sys_curtime;
 	static qboolean initialized = qfalse;
 
-	if ( !initialized ) {
+	if(!initialized)
+	{
 		sys_timeBase = timeGetTime();
 		initialized = qtrue;
 	}
+
 	sys_curtime = timeGetTime() - sys_timeBase;
 
 	return sys_curtime;
@@ -64,14 +67,16 @@ int Sys_Milliseconds( void ) {
 Sys_SnapVector
 ================
 */
-long fastftol( float f ) {
+long fastftol(float f)
+{
 	static int tmp;
 	__asm fld f
 	__asm fistp tmp
 	__asm mov eax, tmp
 }
 
-void Sys_SnapVector( float *v ) {
+void Sys_SnapVector(float *v)
+{
 	int i;
 	float f;
 
@@ -112,7 +117,8 @@ void Sys_SnapVector( float *v ) {
 **
 ** --------------------------------------------------------------------------------
 */
-static void CPUID( int func, unsigned regs[4] ) {
+static void CPUID(int func, unsigned regs[4])
+{
 	unsigned regEAX, regEBX, regECX, regEDX;
 
 	__asm mov eax, func
@@ -129,7 +135,8 @@ static void CPUID( int func, unsigned regs[4] ) {
 	regs[3] = regEDX;
 }
 
-static int IsPentium( void ) {
+static int IsPentium(void)
+{
 	__asm
 	{
 		pushfd                      // save eflags
@@ -144,7 +151,7 @@ static int IsPentium( void ) {
 		test eax, 0x00200000        // check ID bit
 		jz good
 		jmp err                     // cpuid not supported
-set21:
+		set21:
 		or      eax, 0x00200000     // set ID bit
 		push eax                    // store new value
 		popfd                       // store new value in EFLAGS
@@ -155,19 +162,20 @@ set21:
 		jmp err
 	}
 
-err:
+	err:
 	return qfalse;
-good:
+	good:
 	return qtrue;
 }
 
-static int Is3DNOW( void ) {
+static int Is3DNOW(void)
+{
 	unsigned regs[4];
 	char pstring[16];
 	char processorString[13];
 
 	// get name of processor
-	CPUID( 0, ( unsigned int * ) pstring );
+	CPUID(0, (unsigned int *) pstring);
 	processorString[0] = pstring[4];
 	processorString[1] = pstring[5];
 	processorString[2] = pstring[6];
@@ -187,82 +195,99 @@ static int Is3DNOW( void ) {
 //		return qfalse;
 
 	// check AMD-specific functions
-	CPUID( 0x80000000, regs );
-	if ( regs[0] < 0x80000000 ) {
+	CPUID(0x80000000, regs);
+
+	if(regs[0] < 0x80000000)
+	{
 		return qfalse;
 	}
 
 	// bit 31 of EDX denotes 3DNOW! support
-	CPUID( 0x80000001, regs );
-	if ( regs[3] & ( 1 << 31 ) ) {
+	CPUID(0x80000001, regs);
+
+	if(regs[3] & (1 << 31))
+	{
 		return qtrue;
 	}
 
 	return qfalse;
 }
 
-static int IsKNI( void ) {
+static int IsKNI(void)
+{
 	unsigned regs[4];
 
 	// get CPU feature bits
-	CPUID( 1, regs );
+	CPUID(1, regs);
 
 	// bit 25 of EDX denotes KNI existence
-	if ( regs[3] & ( 1 << 25 ) ) {
+	if(regs[3] & (1 << 25))
+	{
 		return qtrue;
 	}
 
 	return qfalse;
 }
 
-static int IsMMX( void ) {
+static int IsMMX(void)
+{
 	unsigned regs[4];
 
 	// get CPU feature bits
-	CPUID( 1, regs );
+	CPUID(1, regs);
 
 	// bit 23 of EDX denotes MMX existence
-	if ( regs[3] & ( 1 << 23 ) ) {
+	if(regs[3] & (1 << 23))
+	{
 		return qtrue;
 	}
+
 	return qfalse;
 }
 
-static int IsP3() {
+static int IsP3()
+{
 	unsigned regs[4];
 
 	// get CPU feature bits
-	CPUID( 1, regs );
-	if ( regs[0] < 6 ) {
+	CPUID(1, regs);
+
+	if(regs[0] < 6)
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x1 ) ) {
+	if(!(regs[3] & 0x1))
+	{
 		return qfalse;    // fp
 	}
 
-	if ( !( regs[3] & 0x8000 ) ) { // cmov
+	if(!(regs[3] & 0x8000))        // cmov
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x800000 ) ) { // mmx
+	if(!(regs[3] & 0x800000))        // mmx
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x2000000 ) ) { // simd
+	if(!(regs[3] & 0x2000000))        // simd
+	{
 		return qfalse;
 	}
 
 	return qtrue;
 }
 
-static int IsAthlon() {
+static int IsAthlon()
+{
 	unsigned regs[4];
 	char pstring[16];
 	char processorString[13];
 
 	// get name of processor
-	CPUID( 0, ( unsigned int * ) pstring );
+	CPUID(0, (unsigned int *) pstring);
 	processorString[0] = pstring[4];
 	processorString[1] = pstring[5];
 	processorString[2] = pstring[6];
@@ -277,52 +302,63 @@ static int IsAthlon() {
 	processorString[11] = pstring[11];
 	processorString[12] = 0;
 
-	if ( strcmp( processorString, "AuthenticAMD" ) ) {
+	if(strcmp(processorString, "AuthenticAMD"))
+	{
 		return qfalse;
 	}
 
-	CPUID( 0x80000000, regs );
+	CPUID(0x80000000, regs);
 
-	if ( regs[0] < 0x80000001 ) {
+	if(regs[0] < 0x80000001)
+	{
 		return qfalse;
 	}
 
 	// get CPU feature bits
-	CPUID( 1, regs );
-	if ( regs[0] < 6 ) {
+	CPUID(1, regs);
+
+	if(regs[0] < 6)
+	{
 		return qfalse;
 	}
 
-	CPUID( 0x80000001, regs );
+	CPUID(0x80000001, regs);
 
-	if ( !( regs[3] & 0x1 ) ) {
+	if(!(regs[3] & 0x1))
+	{
 		return qfalse;    // fp
 	}
 
-	if ( !( regs[3] & 0x8000 ) ) { // cmov
+	if(!(regs[3] & 0x8000))        // cmov
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x800000 ) ) { // mmx
+	if(!(regs[3] & 0x800000))        // mmx
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x400000 ) ) { // k7 mmx
+	if(!(regs[3] & 0x400000))        // k7 mmx
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x80000000 ) ) { // 3dnow
+	if(!(regs[3] & 0x80000000))        // 3dnow
+	{
 		return qfalse;
 	}
 
-	if ( !( regs[3] & 0x40000000 ) ) { // advanced 3dnow
+	if(!(regs[3] & 0x40000000))        // advanced 3dnow
+	{
 		return qfalse;
 	}
 
 	return qtrue;
 }
 
-int Sys_GetProcessorId( void ) {
+int Sys_GetProcessorId(void)
+{
 #if defined _M_ALPHA
 	return CPUID_AXP;
 #elif !defined _M_IX86
@@ -330,23 +366,27 @@ int Sys_GetProcessorId( void ) {
 #else
 
 	// verify we're at least a Pentium or 486 w/ CPUID support
-	if ( !IsPentium() ) {
+	if(!IsPentium())
+	{
 		return CPUID_INTEL_UNSUPPORTED;
 	}
 
 	// check for MMX
-	if ( !IsMMX() ) {
+	if(!IsMMX())
+	{
 		// Pentium or PPro
 		return CPUID_INTEL_PENTIUM;
 	}
 
 	// see if we're an AMD 3DNOW! processor
-	if ( Is3DNOW() ) {
+	if(Is3DNOW())
+	{
 		return CPUID_AMD_3DNOW;
 	}
 
 	// see if we're an Intel Katmai
-	if ( IsKNI() ) {
+	if(IsKNI())
+	{
 		return CPUID_INTEL_KATMAI;
 	}
 
@@ -356,8 +396,9 @@ int Sys_GetProcessorId( void ) {
 #endif
 }
 
-int Sys_GetHighQualityCPU() {
-	return ( !IsP3() && !IsAthlon() ) ? 0 : 1;
+int Sys_GetHighQualityCPU()
+{
+	return (!IsP3() && !IsAthlon()) ? 0 : 1;
 }
 
 /*
@@ -370,26 +411,31 @@ int Sys_GetHighQualityCPU() {
 
 //============================================
 
-char *Sys_GetCurrentUser( void ) {
+char *Sys_GetCurrentUser(void)
+{
 	static char s_userName[1024];
-	unsigned long size = sizeof( s_userName );
+	unsigned long size = sizeof(s_userName);
 
 
-	if ( !GetUserName( s_userName, &size ) ) {
-		strcpy( s_userName, "player" );
+	if(!GetUserName(s_userName, &size))
+	{
+		strcpy(s_userName, "player");
 	}
 
-	if ( !s_userName[0] ) {
-		strcpy( s_userName, "player" );
+	if(!s_userName[0])
+	{
+		strcpy(s_userName, "player");
 	}
 
 	return s_userName;
 }
 
-char    *Sys_DefaultHomePath( void ) {
+char    *Sys_DefaultHomePath(void)
+{
 	return NULL;
 }
 
-char *Sys_DefaultInstallPath( void ) {
+char *Sys_DefaultInstallPath(void)
+{
 	return Sys_Cwd();
 }

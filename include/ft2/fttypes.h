@@ -213,7 +213,7 @@ typedef int FT_Error;
 /* <Description>                                                         */
 /*    A simple typedef for a typeless pointer.                           */
 /*                                                                       */
-typedef void*  FT_Pointer;
+typedef void  *FT_Pointer;
 
 
 /*************************************************************************/
@@ -306,9 +306,9 @@ typedef struct  FT_BBox_
 /*    TrueType tables into an unsigned long to be used within FreeType.  */
 /*                                                                       */
 #define FT_MAKE_TAG( _x1, _x2, _x3, _x4 ) \
-	( ( (FT_ULong)_x1 << 24 ) |		\
-	  ( (FT_ULong)_x2 << 16 ) |		\
-	  ( (FT_ULong)_x3 <<  8 ) |		\
+	( ( (FT_ULong)_x1 << 24 ) |     \
+	  ( (FT_ULong)_x2 << 16 ) |     \
+	  ( (FT_ULong)_x3 <<  8 ) |     \
 	  (FT_ULong)_x4         )
 
 
@@ -331,7 +331,7 @@ typedef struct  FT_BBox_
 /*     FT_List record (see FT_ListRec).  As its name suggests, a         */
 /*     FT_ListNode is a handle to a single list element.                 */
 /*                                                                       */
-typedef struct FT_ListNodeRec_*  FT_ListNode;
+typedef struct FT_ListNodeRec_  *FT_ListNode;
 
 
 /*************************************************************************/
@@ -342,7 +342,7 @@ typedef struct FT_ListNodeRec_*  FT_ListNode;
 /* <Description>                                                         */
 /*    A handle to a list record (see FT_ListRec).                        */
 /*                                                                       */
-typedef struct FT_ListRec_*  FT_List;
+typedef struct FT_ListRec_  *FT_List;
 
 
 /*************************************************************************/
@@ -364,7 +364,7 @@ typedef struct  FT_ListNodeRec_
 {
 	FT_ListNode prev;
 	FT_ListNode next;
-	void*        data;
+	void        *data;
 
 } FT_ListNodeRec;
 

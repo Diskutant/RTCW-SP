@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,7 +42,8 @@ If you have questions concerning this license or the applicable additional terms
 // Snapshots are generated at regular time intervals by the server,
 // but they may not be sent if a client's rate level is exceeded, or
 // they may be dropped by the network.
-typedef struct {
+typedef struct
+{
 	int snapFlags;                      // SNAPFLAG_RATE_DELAYED, etc
 	int ping;
 
@@ -59,7 +60,8 @@ typedef struct {
 	int serverCommandSequence;              // snapshot becomes current
 } snapshot_t;
 
-enum {
+enum
+{
 	CGAME_EVENT_NONE,
 	CGAME_EVENT_TEAMMENU,
 	CGAME_EVENT_SCOREBOARD,
@@ -77,7 +79,8 @@ functions imported from the main executable
 
 #define CGAME_IMPORT_API_VERSION    3
 
-typedef enum {
+typedef enum
+{
 	CG_PRINT,
 	CG_ERROR,
 	CG_MILLISECONDS,
@@ -112,7 +115,7 @@ typedef enum {
 // done.
 	CG_CM_MARKFRAGMENTS,
 	CG_S_STARTSOUND,
-	CG_S_STARTSOUNDEX,  //----(SA)	added
+	CG_S_STARTSOUNDEX,  //----(SA)  added
 	CG_S_STARTLOCALSOUND,
 	CG_S_CLEARLOOPINGSOUNDS,
 	CG_S_ADDLOOPINGSOUND,
@@ -123,8 +126,8 @@ typedef enum {
 	CG_S_RESPATIALIZE,
 	CG_S_REGISTERSOUND,
 	CG_S_STARTBACKGROUNDTRACK,
-	CG_S_FADESTREAMINGSOUND,    //----(SA)	modified
-	CG_S_FADEALLSOUNDS,         //----(SA)	added for fading out everything
+	CG_S_FADESTREAMINGSOUND,    //----(SA)  modified
+	CG_S_FADEALLSOUNDS,         //----(SA)  added for fading out everything
 	CG_S_STARTSTREAMINGSOUND,
 	CG_R_LOADWORLDMAP,
 	CG_R_REGISTERMODEL,
@@ -151,7 +154,7 @@ typedef enum {
 	CG_R_RENDERSCENE,
 	CG_R_SETCOLOR,
 	CG_R_DRAWSTRETCHPIC,
-	CG_R_DRAWSTRETCHPIC_GRADIENT,   //----(SA)	added
+	CG_R_DRAWSTRETCHPIC_GRADIENT,   //----(SA)  added
 	CG_R_MODELBOUNDS,
 	CG_R_LERPTAG,
 	CG_GETGLCONFIG,
@@ -179,7 +182,7 @@ typedef enum {
 	CG_REAL_TIME,
 	CG_SNAPVECTOR,
 	CG_REMOVECOMMAND,
-//	CG_R_LIGHTFORPOINT,	// not currently used (sorry, trying to keep CG_MEMSET @ 100)
+//	CG_R_LIGHTFORPOINT,  // not currently used (sorry, trying to keep CG_MEMSET @ 100)
 
 	CG_SENDMOVESPEEDSTOGAME,
 
@@ -189,13 +192,13 @@ typedef enum {
 	CG_CIN_DRAWCINEMATIC,
 	CG_CIN_SETEXTENTS,
 	CG_R_REMAP_SHADER,
-//	CG_S_ADDREALLOOPINGSOUND,	// not currently used (sorry, trying to keep CG_MEMSET @ 100)
+//	CG_S_ADDREALLOOPINGSOUND,    // not currently used (sorry, trying to keep CG_MEMSET @ 100)
 	CG_S_STOPLOOPINGSOUND,
-	CG_S_STOPSTREAMINGSOUND,    //----(SA)	added
+	CG_S_STOPSTREAMINGSOUND,    //----(SA)  added
 
 	CG_LOADCAMERA,
 	CG_STARTCAMERA,
-	CG_STOPCAMERA,  //----(SA)	added
+	CG_STOPCAMERA,  //----(SA)  added
 	CG_GETCAMERAINFO,
 
 	CG_MEMSET = 110,
@@ -212,7 +215,7 @@ typedef enum {
 	CG_TESTPRINTFLOAT,
 	CG_ACOS,
 
-	CG_INGAME_POPUP,        //----(SA)	added
+	CG_INGAME_POPUP,        //----(SA)  added
 	CG_INGAME_CLOSEPOPUP,   // NERVE - SMF
 	CG_LIMBOCHAT,           // NERVE - SMF
 
@@ -228,7 +231,8 @@ functions exported to the main executable
 ==================================================================
 */
 
-typedef enum {
+typedef enum
+{
 	CG_INIT,
 //	void CG_Init( int serverMessageNum, int serverCommandSequence )
 	// called when the level loads or when the renderer is restarted
@@ -261,10 +265,10 @@ typedef enum {
 //	int (*CG_LastAttacker)( void );
 
 	CG_KEY_EVENT,
-//	void	(*CG_KeyEvent)( int key, qboolean down );
+//	void (*CG_KeyEvent)( int key, qboolean down );
 
 	CG_MOUSE_EVENT,
-//	void	(*CG_MouseEvent)( int dx, int dy );
+//	void (*CG_MouseEvent)( int dx, int dy );
 	CG_EVENT_HANDLING,
 //	void (*CG_EventHandling)(int type);
 

@@ -28,22 +28,22 @@ extern "C" {
 #endif
 
 
-LOCAL_DEF
-FT_Error  TT_Load_SBit_Strikes( TT_Face face,
-								FT_Stream stream );
+	LOCAL_DEF
+	FT_Error  TT_Load_SBit_Strikes(TT_Face face,
+	                               FT_Stream stream);
 
-LOCAL_DEF
-void  TT_Free_SBit_Strikes( TT_Face face );
+	LOCAL_DEF
+	void  TT_Free_SBit_Strikes(TT_Face face);
 
-LOCAL_DEF
-FT_Error  TT_Load_SBit_Image( TT_Face face,
-							  FT_Int x_ppem,
-							  FT_Int y_ppem,
-							  FT_UInt glyph_index,
-							  FT_UInt load_flags,
-							  FT_Stream stream,
-							  FT_Bitmap*        map,
-							  TT_SBit_Metrics*  metrics );
+	LOCAL_DEF
+	FT_Error  TT_Load_SBit_Image(TT_Face face,
+	                             FT_Int x_ppem,
+	                             FT_Int y_ppem,
+	                             FT_UInt glyph_index,
+	                             FT_UInt load_flags,
+	                             FT_Stream stream,
+	                             FT_Bitmap        *map,
+	                             TT_SBit_Metrics  *metrics);
 
 
 #ifdef __cplusplus

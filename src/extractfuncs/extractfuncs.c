@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,91 +43,92 @@ If you have questions concerning this license or the applicable additional terms
 
 typedef enum {false, true}  qboolean;
 
-//#define PATHSEPERATOR_STR		"\\"
+//#define PATHSEPERATOR_STR     "\\"
 
-void Error( char *error, ... ) {
+void Error(char *error, ...)
+{
 	va_list argptr;
 
-	va_start( argptr, error );
-	vprintf( error, argptr );
-	va_end( argptr );
+	va_start(argptr, error);
+	vprintf(error, argptr);
+	va_end(argptr);
 
-	exit( 1 );
+	exit(1);
 }
 
 /*
 int FileLength (FILE *f)
 {
-	int		pos;
-	int		end;
+    int     pos;
+    int     end;
 
-	pos = ftell (f);
-	fseek (f, 0, SEEK_END);
-	end = ftell (f);
-	fseek (f, pos, SEEK_SET);
+    pos = ftell (f);
+    fseek (f, 0, SEEK_END);
+    end = ftell (f);
+    fseek (f, pos, SEEK_SET);
 
-	return end;
+    return end;
 } //end of the function FileLength
 
 void Remove(char *buf, int length, char *from, char *to, char *skip)
 {
-	int i, remove = false;
+    int i, remove = false;
 
-	for (i = 0; i < length; i++)
-	{
-		if (remove)
-		{
-			if ((unsigned) length - i > strlen(skip))
-			{
-				if (!strncmp(&buf[i], skip, strlen(skip)))
-				{
-					i += strlen(skip);
-				} //end if
-			} //end if
-			if ((unsigned) length - i > strlen(to))
-			{
-				if (!strncmp(&buf[i], to, strlen(to)))
-				{
-					length = i + strlen(to);
-				} //end if
-			} //end if
-			if (buf[i]) buf[i] = 'a';
-		} //end if
-		else
-		{
-			if ((unsigned) length - i < strlen(from)) return;
-			if (!strncmp(&buf[i], from, strlen(from))) remove = true;
-		} //end else
-	} //end for
+    for (i = 0; i < length; i++)
+    {
+        if (remove)
+        {
+            if ((unsigned) length - i > strlen(skip))
+            {
+                if (!strncmp(&buf[i], skip, strlen(skip)))
+                {
+                    i += strlen(skip);
+                } //end if
+            } //end if
+            if ((unsigned) length - i > strlen(to))
+            {
+                if (!strncmp(&buf[i], to, strlen(to)))
+                {
+                    length = i + strlen(to);
+                } //end if
+            } //end if
+            if (buf[i]) buf[i] = 'a';
+        } //end if
+        else
+        {
+            if ((unsigned) length - i < strlen(from)) return;
+            if (!strncmp(&buf[i], from, strlen(from))) remove = true;
+        } //end else
+    } //end for
 } //end of the function Remove
 
 void main(int argc, char *argv[])
 {
-	FILE *fp;
-	int filelength;
-	char *from, *to, *skip, *ptr;
+    FILE *fp;
+    int filelength;
+    char *from, *to, *skip, *ptr;
 
-	if (argc < 2) Error("USAGE: screwup <infile> <outfile> <from> <to>");
-	fp = fopen(argv[1], "rb");
-	if (!fp) Error("error opening %s\n", argv[1]);
+    if (argc < 2) Error("USAGE: screwup <infile> <outfile> <from> <to>");
+    fp = fopen(argv[1], "rb");
+    if (!fp) Error("error opening %s\n", argv[1]);
 
-	filelength = FileLength(fp);
-	ptr = malloc(filelength);
-	fread(ptr, filelength, 1, fp);
-	fclose(fp);
+    filelength = FileLength(fp);
+    ptr = malloc(filelength);
+    fread(ptr, filelength, 1, fp);
+    fclose(fp);
 
-	from = argv[3];//"be_aas_bspq2.c";
-	to = argv[4];//"BotWeaponNameFromModel";
-	skip = "GetBotAPI";
+    from = argv[3];//"be_aas_bspq2.c";
+    to = argv[4];//"BotWeaponNameFromModel";
+    skip = "GetBotAPI";
 
-	Remove(ptr, filelength, from, to, skip);
+    Remove(ptr, filelength, from, to, skip);
 
-	fp = fopen(argv[2], "wb");
-	if (!fp) Error("error opening %s\n", argv[2]);
-	fwrite(ptr, filelength, 1, fp);
-	fclose(fp);
+    fp = fopen(argv[2], "wb");
+    if (!fp) Error("error opening %s\n", argv[2]);
+    fwrite(ptr, filelength, 1, fp);
+    fclose(fp);
 
-	free(ptr);
+    free(ptr);
 } //end of the function main
 */
 
@@ -143,14 +144,15 @@ typedef struct replacefunc_s
 replacefunc_t *replacefuncs;
 int numfuncs;
 
-extern int Q_stricmp( const char *s1, const char *s2 );
+extern int Q_stricmp(const char *s1, const char *s2);
 
 // the function names
 //#define DEFAULT_FUNCBASE "g_func"
 static char *func_filename = "g_funcs.h";
 static char *func_filedesc = "g_func_decs.h";
 
-void DumpReplaceFunctions( void ) {
+void DumpReplaceFunctions(void)
+{
 	replacefunc_t *rf;
 	char path[PATH_MAX];
 	FILE    *f;
@@ -161,175 +163,214 @@ void DumpReplaceFunctions( void ) {
 	updated = 0;
 
 	// dump the function header
-	strncpy( path, ".", sizeof(path) );
-	strncat( path, PATHSEPERATOR_STR, sizeof(path) - strlen(path) - 1 );
-	strncat( path, "g_funcs.tmp", sizeof(path) - strlen(path) - 1 );
-	Log_Open( path );
-	for ( rf = replacefuncs; rf; rf = rf->next )
+	strncpy(path, ".", sizeof(path));
+	strncat(path, PATHSEPERATOR_STR, sizeof(path) - strlen(path) - 1);
+	strncat(path, "g_funcs.tmp", sizeof(path) - strlen(path) - 1);
+	Log_Open(path);
+
+	for(rf = replacefuncs; rf; rf = rf->next)
 	{
-		Log_Print( "{\"%s\", (byte *)%s},\n", rf->name, rf->name );
+		Log_Print("{\"%s\", (byte *)%s},\n", rf->name, rf->name);
 	} //end for
-	Log_Print( "{0, 0}\n" );
+
+	Log_Print("{0, 0}\n");
 	Log_Close();
 
 	// if it's different, rename the file over the real header
-	strncpy( path, "g_funcs.tmp", sizeof(path) );
-	f = fopen( path, "rb" );
+	strncpy(path, "g_funcs.tmp", sizeof(path));
+	f = fopen(path, "rb");
+
 	if(!f)
 		Error("Could not open %s\n", path);
-	fseek( f, 0, SEEK_END );
-	len = ftell( f );
-	buf = (unsigned char *) malloc( len + 1 );
-	fseek( f, 0, SEEK_SET );
-	fread( buf, len, 1, f );
+
+	fseek(f, 0, SEEK_END);
+	len = ftell(f);
+	buf = (unsigned char *) malloc(len + 1);
+	fseek(f, 0, SEEK_SET);
+	fread(buf, len, 1, f);
 	buf[len] = 0;
+
 	if(f)
-		fclose( f );
+		fclose(f);
 
-	strncpy( path, func_filename, sizeof(path) );
-	if ( (f = fopen( path, "rb" )) ) {
-		fseek( f, 0, SEEK_END );
-		newlen = ftell( f );
-		newbuf = (unsigned char *) malloc( newlen + 1 );
-		fseek( f, 0, SEEK_SET );
-		fread( newbuf, newlen, 1, f );
+	strncpy(path, func_filename, sizeof(path));
+
+	if((f = fopen(path, "rb")))
+	{
+		fseek(f, 0, SEEK_END);
+		newlen = ftell(f);
+		newbuf = (unsigned char *) malloc(newlen + 1);
+		fseek(f, 0, SEEK_SET);
+		fread(newbuf, newlen, 1, f);
 		newbuf[newlen] = 0;
-		if(f)
-			fclose( f );
 
-		if ( len != newlen || Q_stricmp( (const char*)buf, (const char*)newbuf ) ) {
+		if(f)
+			fclose(f);
+
+		if(len != newlen || Q_stricmp((const char *)buf, (const char *)newbuf))
+		{
 			char newpath[PATH_MAX];
 
 			// delete the old file, rename the new one
-			strncpy( path, func_filename, sizeof(path) );
-			remove( path );
+			strncpy(path, func_filename, sizeof(path));
+			remove(path);
 
-			strncpy( newpath, "g_funcs.tmp", sizeof(newpath) );
-			rename( newpath, path );
+			strncpy(newpath, "g_funcs.tmp", sizeof(newpath));
+			rename(newpath, path);
 
 			// make g_save recompile itself
-			remove( "debug\\g_save.obj" );
-			remove( "debug\\g_save.sbr" );
-			remove( "release\\g_save.obj" );
-			remove( "release\\g_save.sbr" );
+			remove("debug\\g_save.obj");
+			remove("debug\\g_save.sbr");
+			remove("release\\g_save.obj");
+			remove("release\\g_save.sbr");
 
 			updated = 1;
-		} else {
-			// delete the old file
-			strncpy( path, "g_funcs.tmp", sizeof(path) );
-			remove( path );
 		}
+		else
+		{
+			// delete the old file
+			strncpy(path, "g_funcs.tmp", sizeof(path));
+			remove(path);
+		}
+
 		if(newbuf)
-			free( newbuf );
-	} else {
-		rename( "g_funcs.tmp", func_filename );
+			free(newbuf);
+	}
+	else
+	{
+		rename("g_funcs.tmp", func_filename);
 	}
 
 	if(buf)
-		free( buf );
+		free(buf);
 
 	// dump the function declarations
-	strncpy( path, "g_func_decs.tmp", sizeof(path) );
-	Log_Open( path );
-	for ( rf = replacefuncs; rf; rf = rf->next )
+	strncpy(path, "g_func_decs.tmp", sizeof(path));
+	Log_Open(path);
+
+	for(rf = replacefuncs; rf; rf = rf->next)
 	{
-		Log_Print( "extern %s;\n", rf->dec );
+		Log_Print("extern %s;\n", rf->dec);
 	} //end for
+
 	Log_Close();
 
 	// if it's different, rename the file over the real header
-	strncpy( path, "g_func_decs.tmp", sizeof(path) );
-	f = fopen( path, "rb" );
+	strncpy(path, "g_func_decs.tmp", sizeof(path));
+	f = fopen(path, "rb");
+
 	if(!f)
 		Error("Could not open %s for writing.", path);
-	fseek( f, 0, SEEK_END );
-	len = ftell( f );
-	buf = (unsigned char *) malloc( len + 1 );
-	fseek( f, 0, SEEK_SET );
-	fread( buf, len, 1, f );
+
+	fseek(f, 0, SEEK_END);
+	len = ftell(f);
+	buf = (unsigned char *) malloc(len + 1);
+	fseek(f, 0, SEEK_SET);
+	fread(buf, len, 1, f);
 	buf[len] = 0;
+
 	if(f)
-		fclose( f );
+		fclose(f);
 
-	strncpy( path, func_filedesc, sizeof(path) );
-	if ( (f = fopen( path, "rb" )) ) {
-		fseek( f, 0, SEEK_END );
-		newlen = ftell( f );
-		newbuf = (unsigned char *) malloc( newlen + 1 );
-		fseek( f, 0, SEEK_SET );
-		fread( newbuf, newlen, 1, f );
+	strncpy(path, func_filedesc, sizeof(path));
+
+	if((f = fopen(path, "rb")))
+	{
+		fseek(f, 0, SEEK_END);
+		newlen = ftell(f);
+		newbuf = (unsigned char *) malloc(newlen + 1);
+		fseek(f, 0, SEEK_SET);
+		fread(newbuf, newlen, 1, f);
 		newbuf[newlen] = 0;
-		if(f)
-			fclose( f );
 
-		if ( len != newlen || Q_stricmp( (const char*)buf, (const char*)newbuf ) ) {
+		if(f)
+			fclose(f);
+
+		if(len != newlen || Q_stricmp((const char *)buf, (const char *)newbuf))
+		{
 			char newpath[PATH_MAX];
 
 			// delete the old file, rename the new one
-			strncpy( path, func_filedesc, sizeof(path) );
-			remove( path );
+			strncpy(path, func_filedesc, sizeof(path));
+			remove(path);
 
-			strncpy( newpath, "g_func_decs.tmp", sizeof(path) );
-			rename( newpath, path );
+			strncpy(newpath, "g_func_decs.tmp", sizeof(path));
+			rename(newpath, path);
 
 			// make g_save recompile itself
 			// NOTE TTimo win32 only? (harmless on *nix anyway)
-			remove( "debug\\g_save.obj" );
-			remove( "debug\\g_save.sbr" );
-			remove( "release\\g_save.obj" );
-			remove( "release\\g_save.sbr" );
+			remove("debug\\g_save.obj");
+			remove("debug\\g_save.sbr");
+			remove("release\\g_save.obj");
+			remove("release\\g_save.sbr");
 
 			updated = 1;
-		} else {
-			// delete the old file
-			strncpy( path, "g_func_decs.tmp", sizeof(path) );
-			remove( path );
 		}
-		
+		else
+		{
+			// delete the old file
+			strncpy(path, "g_func_decs.tmp", sizeof(path));
+			remove(path);
+		}
+
 		if(newbuf)
-			free( newbuf );
-	} else {
-		rename( "g_func_decs.tmp", func_filedesc );
+			free(newbuf);
+	}
+	else
+	{
+		rename("g_func_decs.tmp", func_filedesc);
 	}
 
 	if(buf)
-		free( buf );
+		free(buf);
 
-	if ( updated ) {
-		printf( "Updated the function table, recompile required.\n" );
+	if(updated)
+	{
+		printf("Updated the function table, recompile required.\n");
 	}
 
 } //end of the function DumpReplaceFunctions
 
-replacefunc_t *FindFunctionName( char *funcname ) {
+replacefunc_t *FindFunctionName(char *funcname)
+{
 	replacefunc_t *f;
 
 	if(!replacefuncs)
 		printf("WARNING: replacefuncs is null! @0x%p\n", replacefuncs);
 
-	for ( f = replacefuncs; f; f = f->next )
+	for(f = replacefuncs; f; f = f->next)
 	{
-		if ( !strcmp( f->name, funcname ) ) {
+		if(!strcmp(f->name, funcname))
+		{
 			return f;
 		}
 	} //end for
+
 	return NULL;
 } //end of the function FindFunctionName
 
-int MayScrewUp( char *funcname ) {
-	if ( !strcmp( funcname, "GetBotAPI" ) ) {
+int MayScrewUp(char *funcname)
+{
+	if(!strcmp(funcname, "GetBotAPI"))
+	{
 		return false;
 	}
-	if ( !strcmp( funcname, "main" ) ) {
+
+	if(!strcmp(funcname, "main"))
+	{
 		return false;
 	}
-	if ( !strcmp( funcname, "WinMain" ) ) {
+
+	if(!strcmp(funcname, "WinMain"))
+	{
 		return false;
 	}
+
 	return true;
 } //end of the function MayScrewUp
 
-typedef struct tokenList_s {
+typedef struct tokenList_s
+{
 	token_t token;
 	struct tokenList_s *next;
 } tokenList_t;
@@ -338,73 +379,89 @@ typedef struct tokenList_s {
 tokenList_t tokenList[MAX_TOKEN_LIST];
 int tokenListHead = 0;
 
-void ConcatDec( tokenList_t *list, char *str, int inc ) {
-/*
-	if (!((list->token.type == TT_NAME) || (list->token.string[0] == '*'))) {
-		if (list->token.string[0] == ')' || list->token.string[0] == '(') {
-			if (inc++ >= 2)
-				return;
-		} else {
-			return;
-		}
+void ConcatDec(tokenList_t *list, char *str, int inc)
+{
+	/*
+	    if (!((list->token.type == TT_NAME) || (list->token.string[0] == '*'))) {
+	        if (list->token.string[0] == ')' || list->token.string[0] == '(') {
+	            if (inc++ >= 2)
+	                return;
+	        } else {
+	            return;
+	        }
+	    }
+	*/
+	if(list->next)
+	{
+		ConcatDec(list->next, str, inc);
 	}
-*/
-	if ( list->next ) {
-		ConcatDec( list->next, str, inc );
-	}
-	strcat( str, list->token.string );
-	strcat( str, " " );
+
+	strcat(str, list->token.string);
+	strcat(str, " ");
 }
 
-void AddFunctionName( char *funcname, char *filename, tokenList_t *head ) {
+void AddFunctionName(char *funcname, char *filename, tokenList_t *head)
+{
 	replacefunc_t *f;
 	tokenList_t     *list;
 
-	if ( FindFunctionName( funcname ) ) {
+	if(FindFunctionName(funcname))
+	{
 		return;
 	}
 
 #if defined( __linux__ )
+
 	// the bad thing is, this doesn't preprocess .. on __linux__ this
 	// function is not implemented (q_math.c)
-	if ( !Q_stricmp( funcname, "BoxOnPlaneSide" ) ) {
+	if(!Q_stricmp(funcname, "BoxOnPlaneSide"))
+	{
 		return;
 	}
+
 #endif
 
 	// NERVE - SMF - workaround for Graeme's predifined MACOSX functions
 	// TTimo - looks like linux version needs to escape those too
 #if defined( _WIN32 ) || defined( __linux__ )
-	if ( !Q_stricmp( funcname, "qmax" ) ) {
-		return;
-	} else if ( !Q_stricmp( funcname, "qmin" ) ) {
+
+	if(!Q_stricmp(funcname, "qmax"))
+	{
 		return;
 	}
+	else if(!Q_stricmp(funcname, "qmin"))
+	{
+		return;
+	}
+
 #endif
 	// -NERVE - SMF
 
-	f = (replacefunc_t *) GetMemory( sizeof( replacefunc_t ) + strlen( funcname ) + 1 + 6 + strlen( filename ) + 1 );
-	f->name = (char *) f + sizeof( replacefunc_t );
-	strcpy( f->name, funcname );
-	f->newname = (char *) f + sizeof( replacefunc_t ) + strlen( funcname ) + 1;
-	sprintf( f->newname, "F%d", numfuncs++ );
-	f->filename = (char *) f + sizeof( replacefunc_t ) + strlen( funcname ) + 1 + strlen( f->newname ) + 1;
-	strcpy( f->filename, filename );
+	f = (replacefunc_t *) GetMemory(sizeof(replacefunc_t) + strlen(funcname) + 1 + 6 + strlen(filename) + 1);
+	f->name = (char *) f + sizeof(replacefunc_t);
+	strcpy(f->name, funcname);
+	f->newname = (char *) f + sizeof(replacefunc_t) + strlen(funcname) + 1;
+	sprintf(f->newname, "F%d", numfuncs++);
+	f->filename = (char *) f + sizeof(replacefunc_t) + strlen(funcname) + 1 + strlen(f->newname) + 1;
+	strcpy(f->filename, filename);
 	f->next = replacefuncs;
 	replacefuncs = f;
 
 	// construct the declaration
 	list = head;
 	f->dec[0] = '\0';
-	ConcatDec( list, f->dec, 0 );
+	ConcatDec(list, f->dec, 0);
 
 } //end of the function AddFunctionName
 
-void AddTokenToList( tokenList_t **head, token_t *token ) {
+void AddTokenToList(tokenList_t **head, token_t *token)
+{
 	tokenList_t *newhead;
 
 	newhead = &tokenList[tokenListHead++]; //GetMemory( sizeof( tokenList_t ) );
-	if ( tokenListHead == MAX_TOKEN_LIST ) {
+
+	if(tokenListHead == MAX_TOKEN_LIST)
+	{
 		tokenListHead = 0;
 	}
 
@@ -416,14 +473,15 @@ void AddTokenToList( tokenList_t **head, token_t *token ) {
 /*
 void KillTokenList( tokenList_t *head )
 {
-	if (head->next) {
-		KillTokenList( head->next );
-		FreeMemory( head->next );
-		head->next = NULL;
-	}
+    if (head->next) {
+        KillTokenList( head->next );
+        FreeMemory( head->next );
+        head->next = NULL;
+    }
 }
 */
-void StripTokenList( tokenList_t *head ) {
+void StripTokenList(tokenList_t *head)
+{
 	tokenList_t *trav, *lastTrav;
 
 	trav = head;
@@ -431,19 +489,25 @@ void StripTokenList( tokenList_t *head ) {
 	// now go back to the start of the declaration
 	lastTrav = trav;
 	trav = trav->next;  // should be on the function name now
-	while ( ( trav->token.type == TT_NAME ) || ( trav->token.string[0] == '*' ) ) {
+
+	while((trav->token.type == TT_NAME) || (trav->token.string[0] == '*'))
+	{
 		lastTrav = trav;
 		trav = trav->next;
-		if ( !trav ) {
+
+		if(!trav)
+		{
 			return;
 		}
 	}
+
 	// now kill everything after lastTrav
 //	KillTokenList( lastTrav );
 	lastTrav->next = NULL;
 }
 
-void GetFunctionNamesFromFile( char *filename ) {
+void GetFunctionNamesFromFile(char *filename)
+{
 	source_t *source;
 	token_t token, lasttoken;
 	int indent = 0, brace;
@@ -451,218 +515,284 @@ void GetFunctionNamesFromFile( char *filename ) {
 	tokenList_t *listHead;
 
 	// filter some files out
-	if ( !Q_stricmp( filename, "bg_lib.c" ) ) {
+	if(!Q_stricmp(filename, "bg_lib.c"))
+	{
 		return;
 	}
 
 	listHead = NULL;
-	source = LoadSourceFile( filename );
-	if ( !source ) {
-		Error( "error opening %s", filename );
+	source = LoadSourceFile(filename);
+
+	if(!source)
+	{
+		Error("error opening %s", filename);
 		return;
 	} //end if
+
 //	printf("loaded %s\n", filename);
 //	if (!PC_ReadToken(source, &lasttoken))
 //	{
 //		FreeSource(source);
 //		return;
 //	} //end if
-	while ( 1 )
+	while(1)
 	{
-		if ( !PC_ReadToken( source, &token ) ) {
+		if(!PC_ReadToken(source, &token))
+		{
 			break;
 		}
-		AddTokenToList( &listHead, &token );
-		if ( token.type == TT_PUNCTUATION ) {
-			switch ( token.string[0] )
-			{
-			case ';':
-			{
-				isStatic = 0;
-				break;
-			}
-			case '{':
-			{
-				indent++;
-				break;
-			}     //end case
-			case '}':
-			{
-				indent--;
-				if ( indent < 0 ) {
-					indent = 0;
-				}
-				break;
-			}     //end case
-			case '(':
-			{
-				if ( indent <= 0 && lasttoken.type == TT_NAME ) {
-					StripTokenList( listHead );
 
-					brace = 1;
-					while ( PC_ReadToken( source, &token ) )
+		AddTokenToList(&listHead, &token);
+
+		if(token.type == TT_PUNCTUATION)
+		{
+			switch(token.string[0])
+			{
+				case ';':
+				{
+					isStatic = 0;
+					break;
+				}
+				case '{':
+				{
+					indent++;
+					break;
+				}     //end case
+				case '}':
+				{
+					indent--;
+
+					if(indent < 0)
 					{
-						AddTokenToList( &listHead, &token );
-						if ( token.string[0] == '(' ) {
-							brace++;
-						}     //end if
-						else if ( token.string[0] == ')' ) {
-							brace--;
-							if ( brace <= 0 ) {
-								if ( !PC_ReadToken( source, &token ) ) {
-									break;
-								}
-								if ( token.string[0] == '{' ) {
-									indent++;
-									if ( !isStatic && MayScrewUp( lasttoken.string ) ) {
-										AddFunctionName( lasttoken.string, filename, listHead );
-									}     //end if
-								}     //end if
-								break;
+						indent = 0;
+					}
+
+					break;
+				}     //end case
+				case '(':
+				{
+					if(indent <= 0 && lasttoken.type == TT_NAME)
+					{
+						StripTokenList(listHead);
+
+						brace = 1;
+
+						while(PC_ReadToken(source, &token))
+						{
+							AddTokenToList(&listHead, &token);
+
+							if(token.string[0] == '(')
+							{
+								brace++;
 							}     //end if
-						}     //end if
-					}     //end while
-				}     //end if
-				break;
-			}     //end case
+							else if(token.string[0] == ')')
+							{
+								brace--;
+
+								if(brace <= 0)
+								{
+									if(!PC_ReadToken(source, &token))
+									{
+										break;
+									}
+
+									if(token.string[0] == '{')
+									{
+										indent++;
+
+										if(!isStatic && MayScrewUp(lasttoken.string))
+										{
+											AddFunctionName(lasttoken.string, filename, listHead);
+										}     //end if
+									}     //end if
+
+									break;
+								}     //end if
+							}     //end if
+						}     //end while
+					}     //end if
+
+					break;
+				}     //end case
 			} //end if
 		} //end switch
-		if ( token.type == TT_NAME ) {
-			if ( token.string[0] == 's' && !strcmp( token.string, "static" ) ) {
+
+		if(token.type == TT_NAME)
+		{
+			if(token.string[0] == 's' && !strcmp(token.string, "static"))
+			{
 				isStatic = 1;
 			}
 		}
-		memcpy( &lasttoken, &token, sizeof( token_t ) );
+
+		memcpy(&lasttoken, &token, sizeof(token_t));
 	} //end while
-	FreeSource( source );
+
+	FreeSource(source);
 } //end of the function GetFunctionNamesFromFile
 
-void WriteWhiteSpace( FILE *fp, script_t *script ) {
+void WriteWhiteSpace(FILE *fp, script_t *script)
+{
 	int c;
 	//write out the white space
-	c = PS_NextWhiteSpaceChar( script );
-	while ( c )
+	c = PS_NextWhiteSpaceChar(script);
+
+	while(c)
 	{
 		//NOTE: do NOT write out carriage returns (for unix/linux compatibility
-		if ( c != 13 ) {
-			fputc( c, fp );
+		if(c != 13)
+		{
+			fputc(c, fp);
 		}
-		c = PS_NextWhiteSpaceChar( script );
+
+		c = PS_NextWhiteSpaceChar(script);
 	} //end while
 } //end of the function WriteWhiteSpace
 
-void WriteString( FILE *fp, script_t *script ) {
+void WriteString(FILE *fp, script_t *script)
+{
 	char *ptr;
 
 	ptr = script->endwhitespace_p;
-	while ( ptr < script->script_p )
+
+	while(ptr < script->script_p)
 	{
-		fputc( *ptr, fp );
+		fputc(*ptr, fp);
 		ptr++;
 	} //end while
 } //end of the function WriteString
 
-void ScrewUpFile( char *oldfile, char *newfile ) {
+void ScrewUpFile(char *oldfile, char *newfile)
+{
 	FILE *fp;
 	script_t *script;
 	token_t token;
 	replacefunc_t *f;
 	char *ptr;
 
-	printf( "screwing up file %s\n", oldfile );
-	script = LoadScriptFile( oldfile );
-	if ( !script ) {
-		Error( "error opening %s\n", oldfile );
-	}
-	fp = fopen( newfile, "wb" );
-	if ( !fp ) {
-		Error( "error opening %s\n", newfile );
-	}
-	//
-	while ( PS_ReadToken( script, &token ) )
+	printf("screwing up file %s\n", oldfile);
+	script = LoadScriptFile(oldfile);
+
+	if(!script)
 	{
-		WriteWhiteSpace( fp, script );
-		if ( token.type == TT_NAME ) {
-			f = FindFunctionName( token.string );
-			if ( f ) {
-				ptr = f->newname;
-			} else { ptr = token.string;}
-			while ( *ptr )
+		Error("error opening %s\n", oldfile);
+	}
+
+	fp = fopen(newfile, "wb");
+
+	if(!fp)
+	{
+		Error("error opening %s\n", newfile);
+	}
+
+	//
+	while(PS_ReadToken(script, &token))
+	{
+		WriteWhiteSpace(fp, script);
+
+		if(token.type == TT_NAME)
+		{
+			f = FindFunctionName(token.string);
+
+			if(f)
 			{
-				fputc( *ptr, fp );
+				ptr = f->newname;
+			}
+			else
+			{
+				ptr = token.string;
+			}
+
+			while(*ptr)
+			{
+				fputc(*ptr, fp);
 				ptr++;
 			} //end while
 		} //end if
 		else
 		{
-			WriteString( fp, script );
+			WriteString(fp, script);
 		} //end else
 	} //end while
-	WriteWhiteSpace( fp, script );
-	FreeMemory( script );
+
+	WriteWhiteSpace(fp, script);
+	FreeMemory(script);
+
 	if(fp)
-		fclose( fp );
+		fclose(fp);
 } //end of the function ScrewUpFile
 
 int verbose = 0;
 
 #ifdef _WIN32
 
-void main( int argc, char *argv[] ) {
+void main(int argc, char *argv[])
+{
 	WIN32_FIND_DATA filedata;
 	HWND handle;
 	int done; //, i;
 
-	if ( argc < 2 ) {
-		Error( "USAGE: screwup <file filter>\n" );
+	if(argc < 2)
+	{
+		Error("USAGE: screwup <file filter>\n");
 	} //end if
 
-	handle = FindFirstFile( argv[1], &filedata );
-	done = ( handle == INVALID_HANDLE_VALUE );
-	while ( !done )
+	handle = FindFirstFile(argv[1], &filedata);
+	done = (handle == INVALID_HANDLE_VALUE);
+
+	while(!done)
 	{
-		if ( !( filedata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) ) {
+		if(!(filedata.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+		{
 			//
-			GetFunctionNamesFromFile( filedata.cFileName );
+			GetFunctionNamesFromFile(filedata.cFileName);
 		} //end if
-		  //find the next file
-		done = !FindNextFile( handle, &filedata );
+
+		//find the next file
+		done = !FindNextFile(handle, &filedata);
 	} //end while
+
 	DumpReplaceFunctions();
 } //end of the function main
 
 #else
 
-void Usage() {
-	Error( "USAGE: screwup  [-o <funcs> <func_desc>] <file1> [<file2> ..]\n"
-		   "no -o defaults to g_funcs.h g_func_decs.h\n" );
+void Usage()
+{
+	Error("USAGE: screwup  [-o <funcs> <func_desc>] <file1> [<file2> ..]\n"
+	      "no -o defaults to g_funcs.h g_func_decs.h\n");
 }
 
 /*
 *nix version, let the shell do the pattern matching
 (that's what shells are for :-))
 */
-int main( int argc, char *argv[] ) {
+int main(int argc, char *argv[])
+{
 	int i;
 	int argbase = 1;
 
-	if ( argc < 2 )
+	if(argc < 2)
 		Usage();
 
-	if ( !Q_stricmp( argv[1],"-o" ) ) {
-		if ( argc < 5 ) {
+	if(!Q_stricmp(argv[1], "-o"))
+	{
+		if(argc < 5)
+		{
 			Usage();
 		}
+
 		func_filename = argv[2];
 		func_filedesc = argv[3];
 		argbase = 4;
 	}
 
-	for ( i = argbase; i < argc; i++ )
+	for(i = argbase; i < argc; i++)
 	{
-		printf( "%d: %s\n", i, argv[i] );
-		GetFunctionNamesFromFile( argv[i] );
+		printf("%d: %s\n", i, argv[i]);
+		GetFunctionNamesFromFile(argv[i]);
 	}
+
 	DumpReplaceFunctions();
 	return 0;
 }

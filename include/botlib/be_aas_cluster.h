@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,16 +28,16 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		be_aas_cluster.h
+ * name:        be_aas_cluster.h
  *
- * desc:		AAS
+ * desc:        AAS
  *
  *
  *****************************************************************************/
 
 #ifdef AASINTERN
 //initialize the AAS clustering
-void AAS_InitClustering( void );
-void AAS_SetViewPortalsAsClusterPortals( void );
+void AAS_InitClustering(void);
+void AAS_SetViewPortalsAsClusterPortals(void);
 #endif //AASINTERN
 

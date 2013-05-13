@@ -42,42 +42,42 @@ typedef enum  AH_UV_
 
 
 LOCAL_DEF
-void  ah_setup_uv( AH_Outline*  outline,
-				   AH_UV source );
+void  ah_setup_uv(AH_Outline  *outline,
+                  AH_UV source);
 
 
 /* AH_Outline functions - they should be typically called in this order */
 
 LOCAL_DEF
-FT_Error  ah_outline_new( FT_Memory memory,
-						  AH_Outline**  aoutline );
+FT_Error  ah_outline_new(FT_Memory memory,
+                         AH_Outline  **aoutline);
 
 LOCAL_DEF
-FT_Error  ah_outline_load( AH_Outline*  outline,
-						   FT_Face face );
+FT_Error  ah_outline_load(AH_Outline  *outline,
+                          FT_Face face);
 
 LOCAL_DEF
-void  ah_outline_compute_segments( AH_Outline*  outline );
+void  ah_outline_compute_segments(AH_Outline  *outline);
 
 LOCAL_DEF
-void  ah_outline_link_segments( AH_Outline*  outline );
+void  ah_outline_link_segments(AH_Outline  *outline);
 
 LOCAL_DEF
-void  ah_outline_detect_features( AH_Outline*  outline );
+void  ah_outline_detect_features(AH_Outline  *outline);
 
 LOCAL_DEF
-void  ah_outline_compute_blue_edges( AH_Outline*       outline,
-									 AH_Face_Globals*  globals );
+void  ah_outline_compute_blue_edges(AH_Outline       *outline,
+                                    AH_Face_Globals  *globals);
 
 LOCAL_DEF
-void  ah_outline_scale_blue_edges( AH_Outline*       outline,
-								   AH_Face_Globals*  globals );
+void  ah_outline_scale_blue_edges(AH_Outline       *outline,
+                                  AH_Face_Globals  *globals);
 
 LOCAL_DEF
-void  ah_outline_save( AH_Outline*  outline, AH_Loader*  loader );
+void  ah_outline_save(AH_Outline  *outline, AH_Loader  *loader);
 
 LOCAL_DEF
-void  ah_outline_done( AH_Outline*  outline );
+void  ah_outline_done(AH_Outline  *outline);
 
 
 #endif /* AHGLYPH_H */

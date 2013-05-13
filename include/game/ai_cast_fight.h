@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 //===========================================================================
 //
-// Name:			ai_cast_fight.h
-// Function:		Wolfenstein AI Fighting Values
-// Programmer:		Ridah
-// Tab Size:		4 (real tabs)
+// Name:            ai_cast_fight.h
+// Function:        Wolfenstein AI Fighting Values
+// Programmer:      Ridah
+// Tab Size:        4 (real tabs)
 //===========================================================================
 
 // This is where all constants should reside, which decide when or if a character
@@ -39,4 +39,4 @@ If you have questions concerning this license or the applicable additional terms
 
 #define LOPER_GROUND_RANGE              200
 #define BLACKGUARD_MELEE_RANGE          48
-#define REJECT_MELEE_RANGE              90  //----(SA)	added
+#define REJECT_MELEE_RANGE              90  //----(SA)  added

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 //===========================================================================
 //
-// Name:			be_aas_routetable.h
-// Function:		Area Awareness System, Route-table defines
-// Programmer:		Ridah
-// Tab Size:		3
+// Name:            be_aas_routetable.h
+// Function:        Area Awareness System, Route-table defines
+// Programmer:      Ridah
+// Tab Size:        3
 //===========================================================================
 
 #ifndef RT_DEFINED
@@ -41,8 +41,8 @@ If you have questions concerning this license or the applicable additional terms
 #define RTBID                       ( ( 'B' << 24 ) + ( 'T' << 16 ) + ( 'R' << 8 ) + 'X' )
 #define RTBVERSION                  17
 
-#define RTB_BADTRAVELFLAGS          ( TFL_JUMPPAD | TFL_ROCKETJUMP | TFL_BFGJUMP | TFL_GRAPPLEHOOK | TFL_DOUBLEJUMP | TFL_RAMPJUMP | TFL_STRAFEJUMP | TFL_LAVA )    //----(SA)	modified since slime is no longer deadly
-//#define RTB_BADTRAVELFLAGS			(TFL_JUMPPAD|TFL_ROCKETJUMP|TFL_BFGJUMP|TFL_GRAPPLEHOOK|TFL_DOUBLEJUMP|TFL_RAMPJUMP|TFL_STRAFEJUMP|TFL_SLIME|TFL_LAVA)
+#define RTB_BADTRAVELFLAGS          ( TFL_JUMPPAD | TFL_ROCKETJUMP | TFL_BFGJUMP | TFL_GRAPPLEHOOK | TFL_DOUBLEJUMP | TFL_RAMPJUMP | TFL_STRAFEJUMP | TFL_LAVA )    //----(SA)  modified since slime is no longer deadly
+//#define RTB_BADTRAVELFLAGS            (TFL_JUMPPAD|TFL_ROCKETJUMP|TFL_BFGJUMP|TFL_GRAPPLEHOOK|TFL_DOUBLEJUMP|TFL_RAMPJUMP|TFL_STRAFEJUMP|TFL_SLIME|TFL_LAVA)
 
 #define MAX_VISIBLE_AREAS   1024    // going over this limit will result in excessive memory usage, try and keep RANGE low enough so this limit won't be reached
 #define MAX_LOCALTRAVELTIME 60      // use this to tweak memory usage (reduces parent count, increases local count (and cpu usage) - find a balance)
@@ -62,17 +62,17 @@ typedef struct
 {
 	unsigned short int parent;              // parent we belong to
 	unsigned short int childIndex;          // our index in the parent's list of children
-//	unsigned short int	numRouteIndexes;
-//	int					startRouteIndexes;
+//	unsigned short int   numRouteIndexes;
+//	int                  startRouteIndexes;
 } aas_rt_parent_link_t;
 
 typedef struct
 {
 	unsigned short int areanum;
-//	int					numLocalRoutes;
-//	int					startLocalRoutes;
-//	int					numParentRoutes;
-//	int					startParentRoutes;
+//	int                  numLocalRoutes;
+//	int                  startLocalRoutes;
+//	int                  numParentRoutes;
+//	int                  startParentRoutes;
 	int numParentLinks;
 	int startParentLinks;
 } aas_rt_child_t;
@@ -84,7 +84,7 @@ typedef struct
 	int startParentChildren;
 	int numVisibleParents;
 	int startVisibleParents;                        // list of other parents that we can see (used for fast hide/retreat checks)
-//	int					startParentTravelTimes;
+//	int                  startParentTravelTimes;
 } aas_rt_parent_t;
 
 // this is what each aasworld attaches itself to
@@ -104,20 +104,20 @@ typedef struct
 	int numVisibleParents;
 	unsigned short int          *visibleParents;
 
-//	int							numLocalRoutes;
-//	aas_rt_route_t				*localRoutes;		// the list of routes to all other local areas
+//	int                          numLocalRoutes;
+//	aas_rt_route_t               *localRoutes;       // the list of routes to all other local areas
 
-//	int							numParentRoutes;
-//	unsigned char				*parentRoutes;		// reachability to each other parent, as an offset from our first reachability
+//	int                          numParentRoutes;
+//	unsigned char                *parentRoutes;      // reachability to each other parent, as an offset from our first reachability
 
 	int numParentLinks;
 	aas_rt_parent_link_t        *parentLinks;       // links from each child to the parent's it belongs to
 
-//	int							numParentTravelTimes;
-//	unsigned short int			*parentTravelTimes;	// travel times between all parent areas
+//	int                          numParentTravelTimes;
+//	unsigned short int           *parentTravelTimes; // travel times between all parent areas
 
-//	int							numRouteIndexes;
-//	unsigned short int			*routeIndexes;		// each parentLink has a list within here, which
+//	int                          numRouteIndexes;
+//	unsigned short int           *routeIndexes;      // each parentLink has a list within here, which
 	// contains the local indexes of each child that
 	// belongs to the parent, within the source child's
 	// localroutes
@@ -162,10 +162,10 @@ typedef struct
 
 //....................................................................
 
-void AAS_RT_BuildRouteTable( void );
-void AAS_RT_ShowRoute( vec3_t srcpos, int srcnum, int destnum );
-aas_rt_route_t *AAS_RT_GetRoute( int srcnum, vec3_t origin, int destnum );
-void AAS_RT_ShutdownRouteTable( void );
-qboolean AAS_RT_GetHidePos( vec3_t srcpos, int srcnum, int srcarea, vec3_t destpos, int destnum, int destarea, vec3_t returnPos );
-int AAS_RT_GetReachabilityIndex( int areanum, int reachIndex );
+void AAS_RT_BuildRouteTable(void);
+void AAS_RT_ShowRoute(vec3_t srcpos, int srcnum, int destnum);
+aas_rt_route_t *AAS_RT_GetRoute(int srcnum, vec3_t origin, int destnum);
+void AAS_RT_ShutdownRouteTable(void);
+qboolean AAS_RT_GetHidePos(vec3_t srcpos, int srcnum, int srcarea, vec3_t destpos, int destnum, int destarea, vec3_t returnPos);
+int AAS_RT_GetReachabilityIndex(int areanum, int reachIndex);
 

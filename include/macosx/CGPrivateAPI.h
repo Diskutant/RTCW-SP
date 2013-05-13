@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,10 +29,10 @@ If you have questions concerning this license or the applicable additional terms
 
 
 typedef unsigned long CGSNotificationType;
-typedef void * CGSNotificationData;
-typedef void * CGSNotificationArg;
-typedef void * CGSWindowID;
-typedef void * CGSConnectionID;
+typedef void *CGSNotificationData;
+typedef void *CGSNotificationArg;
+typedef void *CGSWindowID;
+typedef void *CGSConnectionID;
 
 typedef unsigned long long CGSUInt64;
 typedef long long CGSInt64;
@@ -52,8 +52,10 @@ typedef unsigned long CGSEventFlag;
 typedef CGSUInt32 CGSError;
 
 
-typedef union {
-	struct {    /* For mouse events */
+typedef union
+{
+	struct      /* For mouse events */
+	{
 		CGSUInt8 subx;              /* sub-pixel position for x */
 		CGSUInt8 suby;              /* sub-pixel position for y */
 		CGSInt16 eventNum;          /* unique identifier for this button */
@@ -65,7 +67,8 @@ typedef union {
 		CGSInt16 deltaY;
 		CGSInt32 _padding[8];
 	} mouse;
-	struct {    /* For pointer movement events */
+	struct      /* For pointer movement events */
+	{
 		CGSInt16 _obsolete_deltaX;      /* Revert to subX, subY, eventNum */
 		CGSInt16 _obsolete_deltaY;      /* for Gonzo 1H */
 		CGSInt32 click;             /* click state of this event */
@@ -76,7 +79,8 @@ typedef union {
 		CGSInt16 deltaY;
 		CGSInt32 _padding[8];
 	} move;
-	struct {    /* For key-down and key-up events */
+	struct      /* For key-down and key-up events */
+	{
 		CGSInt16 reserved;
 		CGSInt16 repeat;        /* for key-down: nonzero if really a repeat */
 		CGSUInt16 charSet;      /* character set code */
@@ -87,14 +91,16 @@ typedef union {
 		CGSInt16 _pad;
 		CGSInt32 _padding[8];
 	} key;
-	struct {    /* For mouse-entered and mouse-exited events */
+	struct      /* For mouse-entered and mouse-exited events */
+	{
 		CGSInt16 reserved;
 		CGSInt16 eventNum;      /* unique identifier from mouse down event */
 		CGSInt32 trackingNum;       /* unique identifier from settrackingrect */
 		CGSInt32 userData;      /* unCGSInt32erpreted CGSInt32eger from settrackingrect */
 		CGSInt32 _padding[9];
 	} tracking;
-	struct {    /* For process-related events */
+	struct      /* For process-related events */
+	{
 		CGSUInt16 notifyCode;   /* CPSNotificationCodes in CPSProcesses.h */
 		CGSUInt16 flags;        /* CPSEventFlags in CPSProcesses.h */
 		CGSUInt32 targetHiPSN;      /* hiword of PSN */
@@ -102,7 +108,8 @@ typedef union {
 		CGSInt32 status;        /* operation result */
 		CGSInt32 _padding[8];
 	} process;
-	struct {        /* For scroll wheel events */
+	struct          /* For scroll wheel events */
+	{
 		CGSInt16 deltaAxis1;
 		CGSInt16 deltaAxis2;
 		CGSInt16 deltaAxis3;
@@ -110,13 +117,15 @@ typedef union {
 		CGSInt32 reserved2;
 		CGSInt32 _padding[9];
 	} scrollWheel;
-	struct {
+	struct
+	{
 		CGSInt32 x;     /* absolute x coordinate in tablet space at full tablet resolution */
 		CGSInt32 y;     /* absolute y coordinate in tablet space at full tablet resolution */
 		CGSInt32 z;     /* absolute z coordinate in tablet space at full tablet resolution */
 		CGSUInt16 buttons;      /* one bit per button - bit 0 is first button - 1 = closed */
 		CGSUInt16 pressure;     /* scaled pressure value; MAXPRESSURE=(2^16)-1, MINPRESSURE=0 */
-		struct {
+		struct
+		{
 			CGSInt16 x; /* scaled tilt x value; range is -((2^15)-1) to (2^15)-1 (-32767 to 32767) */
 			CGSInt16 y; /* scaled tilt y value; range is -((2^15)-1) to (2^15)-1 (-32767 to 32767) */
 		} tilt;
@@ -128,7 +137,8 @@ typedef union {
 		CGSInt16 vendor3;       /* vendor-defined signed 16-bit integer */
 		CGSInt32 _padding[4];
 	} tablet;
-	struct {
+	struct
+	{
 		CGSUInt16 vendorID;     /* vendor-defined ID - typically will be USB vendor ID */
 		CGSUInt16 tabletID;     /* vendor-defined tablet ID - typically will be USB product ID for the tablet */
 		CGSUInt16 pointerID;    /* vendor-defined ID of the specific pointing device */
@@ -143,10 +153,12 @@ typedef union {
 		CGSInt16 reserved1;
 		CGSInt32 _padding[4];
 	} proximity;
-	struct {    /* For AppKit-defined, sys-defined, and app-defined events */
+	struct      /* For AppKit-defined, sys-defined, and app-defined events */
+	{
 		CGSInt16 reserved;
 		CGSInt16 subtype;       /* event subtype for compound events */
-		union {
+		union
+		{
 			CGSFloat32 F[11];   /* for use in compound events */
 			CGSInt32 L[11];     /* for use in compound events */
 			CGSInt16 S[22];     /* for use in compound events */
@@ -156,7 +168,8 @@ typedef union {
 } CGSEventRecordData;
 
 
-struct _CGSEventRecord {
+struct _CGSEventRecord
+{
 	CGSEventRecordVersion major;
 	CGSEventRecordVersion minor;
 	CGSByteCount length;    /* Length of complete event record */
@@ -173,15 +186,15 @@ typedef struct _CGSEventRecord CGSEventRecord;
 typedef CGSEventRecord *CGSEventRecordPtr;
 
 
-typedef void ( *CGSNotifyProcPtr )( CGSNotificationType type,
-									CGSNotificationData data,
-									CGSByteCount dataLength,
-									CGSNotificationArg arg );
+typedef void (*CGSNotifyProcPtr)(CGSNotificationType type,
+                                 CGSNotificationData data,
+                                 CGSByteCount dataLength,
+                                 CGSNotificationArg arg);
 
 // Define a type for the 'CGSRegisterNotifyProc' call.  Don't reference it explicitly since we don't want link errors if Apple removes this private function.
-typedef CGSError ( *CGSRegisterNotifyProcType )( CGSNotifyProcPtr proc,
-												 CGSNotificationType type,
-												 CGSNotificationArg arg );
+typedef CGSError(*CGSRegisterNotifyProcType)(CGSNotifyProcPtr proc,
+        CGSNotificationType type,
+        CGSNotificationArg arg);
 
 
 #define kCGSEventNotificationMouseMoved                    ( 710 + 5 )

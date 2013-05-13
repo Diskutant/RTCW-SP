@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		be_aas_def.h
+ * name:        be_aas_def.h
  *
- * desc:		AAS
+ * desc:        AAS
  *
  *
  *****************************************************************************/
@@ -38,15 +38,15 @@ If you have questions concerning this license or the applicable additional terms
 //debugging on
 #define AAS_DEBUG
 
-//#define MAX_CLIENTS			128
-//#define	MAX_MODELS			256		// these are sent over the net as 8 bits
-//#define	MAX_SOUNDS			256		// so they cannot be blindly increased
-//#define	MAX_CONFIGSTRINGS	1024
-#define MAX_CONFIGSTRINGS   2048    //----(SA)	upped
+//#define MAX_CLIENTS           128
+//#define   MAX_MODELS          256     // these are sent over the net as 8 bits
+//#define   MAX_SOUNDS          256     // so they cannot be blindly increased
+//#define   MAX_CONFIGSTRINGS   1024
+#define MAX_CONFIGSTRINGS   2048    //----(SA)  upped
 
-//#define	CS_SCORES			32
-//#define	CS_MODELS			(CS_SCORES+MAX_CLIENTS)
-//#define	CS_SOUNDS			(CS_MODELS+MAX_MODELS)
+//#define   CS_SCORES           32
+//#define   CS_MODELS           (CS_SCORES+MAX_CLIENTS)
+//#define   CS_SOUNDS           (CS_MODELS+MAX_MODELS)
 
 #define DF_AASENTNUMBER( x )      ( x - ( *aasworlds ).entities )
 #define DF_NUMBERAASENT( x )      ( &( *aasworlds ).entities[x] )
@@ -54,7 +54,7 @@ If you have questions concerning this license or the applicable additional terms
 #define DF_CLIENTAASENT( x )      ( &( *aasworlds ).entities[x + 1] )
 
 #ifndef MAX_PATH
-	#define MAX_PATH                MAX_QPATH
+#define MAX_PATH                MAX_QPATH
 #endif
 
 //string index (for model, sound and image index)
@@ -129,7 +129,7 @@ typedef struct aas_settings_s
 typedef struct aas_routingcache_s
 {
 	struct aas_routingcache_s *prev, *next;
-        unsigned char *reachabilities;
+	unsigned char *reachabilities;
 	int size;                                   //size of the routing cache
 	float time;                                 //last time accessed or updated
 	int cluster;                                //cluster the cache is for
@@ -137,10 +137,11 @@ typedef struct aas_routingcache_s
 	vec3_t origin;                              //origin within the area
 	float starttraveltime;                      //travel time to start with
 	int travelflags;                            //combinations of the travel flags
-/*	aas_routingcache_t is read from disk, use dummy 32bit pointers (for 64bit).
-	struct aas_routingcache_s *prev, *next;
-	unsigned char *reachabilities;              //reachabilities used for routing
-*/	int dummypointers32bit[3];
+	/*  aas_routingcache_t is read from disk, use dummy 32bit pointers (for 64bit).
+	    struct aas_routingcache_s *prev, *next;
+	    unsigned char *reachabilities;              //reachabilities used for routing
+	*/
+	int dummypointers32bit[3];
 	unsigned short int traveltimes[1];          //travel time for every area (variable sized)
 } aas_routingcache_t;
 
@@ -255,9 +256,9 @@ typedef struct aas_s
 	//reversed reachability links
 	aas_reversedreachability_t *reversedreachability;
 	//travel times within the areas
-	unsigned short ***areatraveltimes;
+	unsigned short ** *areatraveltimes;
 	//array of size numclusters with cluster cache
-	aas_routingcache_t ***clusterareacache;
+	aas_routingcache_t ** *clusterareacache;
 	aas_routingcache_t **portalcache;
 	//maximum travel time through portals
 	int *portalmaxtraveltimes;

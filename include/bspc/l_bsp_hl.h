@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,11 +28,11 @@ If you have questions concerning this license or the applicable additional terms
 
 /***
 *
-*	Copyright (c) 1998, Valve LLC. All rights reserved.
+*   Copyright (c) 1998, Valve LLC. All rights reserved.
 *
-*	This product contains software technology licensed from Id
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
-*	All Rights Reserved.
+*   This product contains software technology licensed from Id
+*   Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
+*   All Rights Reserved.
 *
 ****/
 
@@ -314,19 +314,19 @@ extern int hl_numsurfedges;
 extern int             *hl_dsurfedges; //[MAX_MAP_SURFEDGES];
 extern int hl_dsurfedges_checksum;
 
-int FastChecksum( void *buffer, int bytes );
+int FastChecksum(void *buffer, int bytes);
 
-void HL_AllocMaxBSP( void );
-void HL_FreeMaxBSP( void );
+void HL_AllocMaxBSP(void);
+void HL_FreeMaxBSP(void);
 
-void HL_DecompressVis( byte *in, byte *decompressed );
-int HL_CompressVis( byte *vis, byte *dest );
+void HL_DecompressVis(byte *in, byte *decompressed);
+int HL_CompressVis(byte *vis, byte *dest);
 
-void HL_LoadBSPFile( char *filename, int offset, int length );
-void HL_WriteBSPFile( char *filename );
-void HL_PrintBSPFileSizes( void );
-void HL_PrintBSPFileSizes( void );
-void HL_ParseEntities( void );
-void HL_UnparseEntities( void );
+void HL_LoadBSPFile(char *filename, int offset, int length);
+void HL_WriteBSPFile(char *filename);
+void HL_PrintBSPFileSizes(void);
+void HL_PrintBSPFileSizes(void);
+void HL_ParseEntities(void);
+void HL_UnparseEntities(void);
 
 #endif

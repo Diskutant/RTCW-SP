@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,15 +31,15 @@ If you have questions concerning this license or the applicable additional terms
 
 @class NSDictionary;
 
-extern NSDictionary *Sys_GetMatchingDisplayMode( qboolean allowStretchedModes );
+extern NSDictionary *Sys_GetMatchingDisplayMode(qboolean allowStretchedModes);
 
 extern void Sys_StoreGammaTables();
-extern void Sys_GetGammaTable( glwgamma_t *table );
-extern void Sys_SetScreenFade( glwgamma_t *table, float fraction );
+extern void Sys_GetGammaTable(glwgamma_t *table);
+extern void Sys_SetScreenFade(glwgamma_t *table, float fraction);
 
 extern void Sys_FadeScreens();
-extern void Sys_FadeScreen( CGDirectDisplayID display );
+extern void Sys_FadeScreen(CGDirectDisplayID display);
 extern void Sys_UnfadeScreens();
-extern void Sys_UnfadeScreen( CGDirectDisplayID display, glwgamma_t *table );
+extern void Sys_UnfadeScreen(CGDirectDisplayID display, glwgamma_t *table);
 extern void Sys_ReleaseAllDisplays();
 

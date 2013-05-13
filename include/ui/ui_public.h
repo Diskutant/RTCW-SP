@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,7 +31,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #define UI_API_VERSION  4
 
-typedef struct {
+typedef struct
+{
 	connstate_t connState;
 	int connectPacketCount;
 	int clientNum;
@@ -40,7 +41,8 @@ typedef struct {
 	char messageString[MAX_STRING_CHARS];
 } uiClientState_t;
 
-typedef enum {
+typedef enum
+{
 	UI_ERROR,
 	UI_PRINT,
 	UI_MILLISECONDS,
@@ -56,7 +58,7 @@ typedef enum {
 	UI_CMD_EXECUTETEXT,
 	UI_FS_FOPENFILE,
 	UI_FS_READ,
-	UI_FS_SEEK, //----(SA)	added
+	UI_FS_SEEK, //----(SA)  added
 	UI_FS_WRITE,
 	UI_FS_FCLOSEFILE,
 	UI_FS_GETFILELIST,
@@ -82,8 +84,8 @@ typedef enum {
 	UI_CM_LOADMODEL,
 	UI_S_REGISTERSOUND,
 	UI_S_STARTLOCALSOUND,
-	UI_S_FADESTREAMINGSOUND,    //----(SA)	added
-	UI_S_FADEALLSOUNDS,         //----(SA)	added
+	UI_S_FADESTREAMINGSOUND,    //----(SA)  added
+	UI_S_FADEALLSOUNDS,         //----(SA)  added
 	UI_KEY_KEYNUMTOSTRINGBUF,
 	UI_KEY_GETBINDINGBUF,
 	UI_KEY_SETBINDING,
@@ -156,27 +158,28 @@ typedef enum {
 
 } uiImport_t;
 
-typedef enum {
+typedef enum
+{
 	UIMENU_NONE,
 	UIMENU_MAIN,
 	UIMENU_INGAME,
 	UIMENU_NEED_CD,
-	UIMENU_ENDGAME, //----(SA)	added
+	UIMENU_ENDGAME, //----(SA)  added
 	UIMENU_BAD_CD_KEY,
 	UIMENU_TEAM,
-	UIMENU_PREGAME, //----(SA)	added
+	UIMENU_PREGAME, //----(SA)  added
 	UIMENU_POSTGAME,
 	UIMENU_NOTEBOOK,
 	UIMENU_CLIPBOARD,
 	UIMENU_HELP,
-	UIMENU_BOOK1,           //----(SA)	added
-	UIMENU_BOOK2,           //----(SA)	added
-	UIMENU_BOOK3,           //----(SA)	added
+	UIMENU_BOOK1,           //----(SA)  added
+	UIMENU_BOOK2,           //----(SA)  added
+	UIMENU_BOOK3,           //----(SA)  added
 	UIMENU_WM_PICKTEAM,     // NERVE - SMF - for multiplayer only
 	UIMENU_WM_PICKPLAYER,   // NERVE - SMF - for multiplayer only
 	UIMENU_WM_QUICKMESSAGE, // NERVE - SMF
 	UIMENU_WM_LIMBO,        // NERVE - SMF
-	UIMENU_BRIEFING         //----(SA)	added
+	UIMENU_BRIEFING         //----(SA)  added
 } uiMenuCommand_t;
 
 #define SORT_HOST           0
@@ -188,38 +191,39 @@ typedef enum {
 #define SORT_SAVENAME       0
 #define SORT_SAVETIME       1
 
-typedef enum {
+typedef enum
+{
 	UI_GETAPIVERSION = 0,   // system reserved
 
 	UI_INIT,
-//	void	UI_Init( void );
+//	void UI_Init( void );
 
 	UI_SHUTDOWN,
-//	void	UI_Shutdown( void );
+//	void UI_Shutdown( void );
 
 	UI_KEY_EVENT,
-//	void	UI_KeyEvent( int key );
+//	void UI_KeyEvent( int key );
 
 	UI_MOUSE_EVENT,
-//	void	UI_MouseEvent( int dx, int dy );
+//	void UI_MouseEvent( int dx, int dy );
 
 	UI_REFRESH,
-//	void	UI_Refresh( int time );
+//	void UI_Refresh( int time );
 
 	UI_IS_FULLSCREEN,
 //	qboolean UI_IsFullscreen( void );
 
 	UI_SET_ACTIVE_MENU,
-//	void	UI_SetActiveMenu( uiMenuCommand_t menu );
+//	void UI_SetActiveMenu( uiMenuCommand_t menu );
 
 	UI_GET_ACTIVE_MENU,
-//	void	UI_GetActiveMenu( void );
+//	void UI_GetActiveMenu( void );
 
 	UI_CONSOLE_COMMAND,
 //	qboolean UI_ConsoleCommand( void );
 
 	UI_DRAW_CONNECT_SCREEN,
-//	void	UI_DrawConnectScreen( qboolean overlay );
+//	void UI_DrawConnectScreen( qboolean overlay );
 	UI_HASUNIQUECDKEY
 // if !overlay, the background will be drawn, otherwise it will be
 // overlayed over whatever the cgame has drawn.

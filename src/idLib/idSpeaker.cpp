@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@ If you have questions concerning this license or the applicable additional terms
 #define NUM_PLAY_NOTIFICATIONS  16
 
 
-idStreamingBuffer*  g_pStreamingSound[MAX_STREAMING_SOUNDS];
+idStreamingBuffer  *g_pStreamingSound[MAX_STREAMING_SOUNDS];
 HANDLE g_hNotificationEvent[MAX_STREAMING_SOUNDS];
 
 dword g_dwNotifyThreadID      = 0;
@@ -55,28 +55,36 @@ CRITICAL_SECTION g_crit;
 // Name: NotificationProc()
 // Desc: Handles dsound notifcation events
 //-----------------------------------------------------------------------------
-dword WINAPI NotificationProc( LPVOID lpParameter ) {
+dword WINAPI NotificationProc(LPVOID lpParameter)
+{
 	HWND hDlg = (HWND) lpParameter;
 	MSG msg;
 	dword dwResult;
 	bool bDone = false;
 
-	while ( !bDone )
+	while(!bDone)
 	{
-		dwResult = MsgWaitForMultipleObjects( MAX_STREAMING_SOUNDS, g_hNotificationEvent,
-											  false, INFINITE, QS_ALLEVENTS );
+		dwResult = MsgWaitForMultipleObjects(MAX_STREAMING_SOUNDS, g_hNotificationEvent,
+		                                     false, INFINITE, QS_ALLEVENTS);
 		dwResult -= WAIT_OBJECT_0;
 
-		if ( dwResult < MAX_STREAMING_SOUNDS ) {
-			EnterCriticalSection( &g_crit );
-			if ( g_pStreamingSound[dwResult] && g_pStreamingSound[dwResult]->IsSoundPlaying() ) {
+		if(dwResult < MAX_STREAMING_SOUNDS)
+		{
+			EnterCriticalSection(&g_crit);
+
+			if(g_pStreamingSound[dwResult] && g_pStreamingSound[dwResult]->IsSoundPlaying())
+			{
 				g_pStreamingSound[dwResult]->HandleWaveStreamNotification();
 			}
-			LeaveCriticalSection( &g_crit );
-		} else if ( dwResult == MAX_STREAMING_SOUNDS ) {
-			while ( PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+
+			LeaveCriticalSection(&g_crit);
+		}
+		else if(dwResult == MAX_STREAMING_SOUNDS)
+		{
+			while(PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
 			{
-				if ( msg.message == WM_QUIT ) {
+				if(msg.message == WM_QUIT)
+				{
 					bDone = true;
 				}
 			}
@@ -87,52 +95,61 @@ dword WINAPI NotificationProc( LPVOID lpParameter ) {
 }
 
 
-idSpeaker::idSpeaker() {
+idSpeaker::idSpeaker()
+{
 	HRESULT hr;
 
 	hw = new idAudioHardware();
 	bool init = true;
-	if ( FAILED( hr = hw->Initialize( DSSCL_PRIORITY, 2, 22050, 16 ) ) ) {
+
+	if(FAILED(hr = hw->Initialize(DSSCL_PRIORITY, 2, 22050, 16)))
+	{
 		init = false;           // do more here
 		return;
 	}
 
 	int i;
-	for ( i = 0; i < MAX_STREAMING_SOUNDS; i++ ) {
+
+	for(i = 0; i < MAX_STREAMING_SOUNDS; i++)
+	{
 		g_pStreamingSound[i] = NULL;
-		g_hNotificationEvent[i] = CreateEvent( NULL, false, false, NULL );
-		if ( g_hNotificationEvent[i] == NULL ) {
-			Com_Error( ERR_DROP, "could not create all windows events" );
+		g_hNotificationEvent[i] = CreateEvent(NULL, false, false, NULL);
+
+		if(g_hNotificationEvent[i] == NULL)
+		{
+			Com_Error(ERR_DROP, "could not create all windows events");
 		}
 	}
-	InitializeCriticalSection( &g_crit );
+
+	InitializeCriticalSection(&g_crit);
 
 	// Create a thread to handle DSound notifications
-	g_hNotifyThread = CreateThread( NULL, 0, NotificationProc,
-									g_wv.hWnd, 0, &g_dwNotifyThreadID );
+	g_hNotifyThread = CreateThread(NULL, 0, NotificationProc,
+	                               g_wv.hWnd, 0, &g_dwNotifyThreadID);
 
 	// Get the 3D listener, so we can control its params
-	hw->Get3DListenerInterface( &pDSListener );
+	hw->Get3DListenerInterface(&pDSListener);
 
 	// Get listener parameters
-	dsListenerParams.dwSize = sizeof( DS3DLISTENER );
-	pDSListener->GetAllParameters( &dsListenerParams );
+	dsListenerParams.dwSize = sizeof(DS3DLISTENER);
+	pDSListener->GetAllParameters(&dsListenerParams);
 
-	s_dopplerFactor = Cvar_Get( "s_dopplerFactor", "1.0", CVAR_ARCHIVE );
-	s_distanceFactor = Cvar_Get( "s_distanceFactor", "1.0", CVAR_ARCHIVE );
-	s_rolloffFactor = Cvar_Get( "s_rolloffFactor", "1.0", CVAR_ARCHIVE );
-	s_minDistance = Cvar_Get( "s_minDistance", "1.0", CVAR_ARCHIVE );
-	s_maxDistance = Cvar_Get( "s_maxDistance", "40.0", CVAR_ARCHIVE );
-	s_musicVolume = Cvar_Get( "s_musicVolume", "0.25", CVAR_ARCHIVE );
+	s_dopplerFactor = Cvar_Get("s_dopplerFactor", "1.0", CVAR_ARCHIVE);
+	s_distanceFactor = Cvar_Get("s_distanceFactor", "1.0", CVAR_ARCHIVE);
+	s_rolloffFactor = Cvar_Get("s_rolloffFactor", "1.0", CVAR_ARCHIVE);
+	s_minDistance = Cvar_Get("s_minDistance", "1.0", CVAR_ARCHIVE);
+	s_maxDistance = Cvar_Get("s_maxDistance", "40.0", CVAR_ARCHIVE);
+	s_musicVolume = Cvar_Get("s_musicVolume", "0.25", CVAR_ARCHIVE);
 
 	listener.Zero();
 	listenerTop.Zero();
 	listenerFront.Zero();
 
-	Com_Printf( "Sound system underway and doing nicely\n" );
+	Com_Printf("Sound system underway and doing nicely\n");
 }
 
-bool idSpeaker::loop( const char *intro, const char *filename, int channel, bool looping, bool in3d, bool useNotification ) {
+bool idSpeaker::loop(const char *intro, const char *filename, int channel, bool looping, bool in3d, bool useNotification)
+{
 	HRESULT hr;
 	idWavefile waveFile;
 	dword dwNotifySize;
@@ -145,24 +162,34 @@ bool idSpeaker::loop( const char *intro, const char *filename, int channel, bool
 	flags = 0;
 	cflags = DSBCAPS_GETCURRENTPOSITION2;
 
-	if ( in3d ) {
+	if(in3d)
+	{
 		cflags |= DSBCAPS_CTRL3D;
 		algo = DS3DALG_NO_VIRTUALIZATION;
 	}
-	if ( looping ) {
+
+	if(looping)
+	{
 		flags = DSBPLAY_LOOPING;
 	}
-	if ( useNotification ) {
+
+	if(useNotification)
+	{
 		cflags |= DSBCAPS_CTRLPOSITIONNOTIFY;
 	}
 
 	bool success = false;
-	if ( useNotification ) {
-		EnterCriticalSection( &g_crit );
+
+	if(useNotification)
+	{
+		EnterCriticalSection(&g_crit);
 	}
+
 	// Load the wave file
-	if ( SUCCEEDED( hr = waveFile.Open( intro, NULL, WAVEFILE_READ ) ) ) {
-		if ( waveFile.GetSize() != 0 && waveFile.m_pwfx != NULL ) {
+	if(SUCCEEDED(hr = waveFile.Open(intro, NULL, WAVEFILE_READ)))
+	{
+		if(waveFile.GetSize() != 0 && waveFile.m_pwfx != NULL)
+		{
 
 			// The wave file is valid, and waveFile.m_pwfx is the wave's format
 			// so we are done with the reader.
@@ -179,65 +206,88 @@ bool idSpeaker::loop( const char *intro, const char *filename, int channel, bool
 			dwNotifySize = nSamplesPerSec * 3 * nBlockAlign / NUM_PLAY_NOTIFICATIONS;
 			dwNotifySize -= dwNotifySize % nBlockAlign;
 
-			if ( g_pStreamingSound[channel] ) {
-				g_pStreamingSound[channel]->Stop( 0 );            // streaming is always 0
+			if(g_pStreamingSound[channel])
+			{
+				g_pStreamingSound[channel]->Stop(0);              // streaming is always 0
 			}
+
 			// Create a new sound
-			SAFE_DELETE( g_pStreamingSound[channel] );
+			SAFE_DELETE(g_pStreamingSound[channel]);
 
 			// Set up the direct sound buffer.  Request the NOTIFY flag, so
 			// that we are notified as the sound buffer plays.  Note, that using this flag
 			// may limit the amount of hardware acceleration that can occur.
-			if ( SUCCEEDED( hr = hw->CreateStreaming( &g_pStreamingSound[channel], intro, filename,
-													  cflags,
-													  algo, useNotification, NUM_PLAY_NOTIFICATIONS,
-													  dwNotifySize, g_hNotificationEvent[channel] ) ) ) {
+			if(SUCCEEDED(hr = hw->CreateStreaming(&g_pStreamingSound[channel], intro, filename,
+			                                      cflags,
+			                                      algo, useNotification, NUM_PLAY_NOTIFICATIONS,
+			                                      dwNotifySize, g_hNotificationEvent[channel])))
+			{
 				g_pStreamingSound[channel]->looping = looping;
 				g_pStreamingSound[channel]->in3D = in3d;
-				if ( in3d ) {
+
+				if(in3d)
+				{
 					g_pStreamingSound[channel]->Get3DBufferInterfaces();
 				}
 			}
+
 			success = true;
 		}
 	}
-	if ( useNotification ) {
-		LeaveCriticalSection( &g_crit );
+
+	if(useNotification)
+	{
+		LeaveCriticalSection(&g_crit);
 	}
+
 	return success;
 }
 
-void idSpeaker::stopLoop( int channel ) {
-	if ( this && g_pStreamingSound[channel] ) {
-		g_pStreamingSound[channel]->Stop( 0 );                // looping is always channel 0
+void idSpeaker::stopLoop(int channel)
+{
+	if(this && g_pStreamingSound[channel])
+	{
+		g_pStreamingSound[channel]->Stop(0);                  // looping is always channel 0
 	}
 }
 
-void idSpeaker::updateLoop() {
-	if ( this ) {
+void idSpeaker::updateLoop()
+{
+	if(this)
+	{
 		int i;
-		if ( g_pStreamingSound[0] ) {
-			g_pStreamingSound[0]->SetVolume( 0, idSpeak->getMusicVolume() );
+
+		if(g_pStreamingSound[0])
+		{
+			g_pStreamingSound[0]->SetVolume(0, idSpeak->getMusicVolume());
 		}
-		for ( i = 0; i < MAX_STREAMING_SOUNDS; i++ ) {
-			if ( g_pStreamingSound[i] && !g_pStreamingSound[i]->UsingNotification() ) {
+
+		for(i = 0; i < MAX_STREAMING_SOUNDS; i++)
+		{
+			if(g_pStreamingSound[i] && !g_pStreamingSound[i]->UsingNotification())
+			{
 				g_pStreamingSound[i]->HandleWaveStreamNotification();
 			}
 		}
 	}
 }
 
-idSpeaker::~idSpeaker() {
+idSpeaker::~idSpeaker()
+{
 
 	int i;
 	// Close down notification thread
-	PostThreadMessage( g_dwNotifyThreadID, WM_QUIT, 0, 0 );
-	WaitForSingleObject( g_hNotifyThread, INFINITE );
-	CloseHandle( g_hNotifyThread );
-	if ( g_hNotificationEvent ) {
-		for ( i = 0; i < MAX_STREAMING_SOUNDS; i++ ) {
-			if ( g_hNotificationEvent[i] ) {
-				CloseHandle( g_hNotificationEvent[i] );
+	PostThreadMessage(g_dwNotifyThreadID, WM_QUIT, 0, 0);
+	WaitForSingleObject(g_hNotifyThread, INFINITE);
+	CloseHandle(g_hNotifyThread);
+
+	if(g_hNotificationEvent)
+	{
+		for(i = 0; i < MAX_STREAMING_SOUNDS; i++)
+		{
+			if(g_hNotificationEvent[i])
+			{
+				CloseHandle(g_hNotificationEvent[i]);
 			}
 		}
 	}
@@ -245,27 +295,31 @@ idSpeaker::~idSpeaker() {
 	delete hw;
 }
 
-void idSpeaker::process() {
+void idSpeaker::process()
+{
 
-	pDSListener->SetPosition( listener.x, listener.y, listener.z, DS3D_DEFERRED );
-	pDSListener->SetOrientation( listenerFront.x, listenerFront.y, listenerFront.z, listenerTop.x, listenerTop.y, listenerTop.z, DS3D_DEFERRED );
+	pDSListener->SetPosition(listener.x, listener.y, listener.z, DS3D_DEFERRED);
+	pDSListener->SetOrientation(listenerFront.x, listenerFront.y, listenerFront.z, listenerTop.x, listenerTop.y, listenerTop.z, DS3D_DEFERRED);
 
 
-	pDSListener->SetDopplerFactor( s_dopplerFactor->value, DS3D_DEFERRED );
-	pDSListener->SetDistanceFactor( s_distanceFactor->value, DS3D_DEFERRED );
-	pDSListener->SetRolloffFactor( s_rolloffFactor->value, DS3D_DEFERRED );
+	pDSListener->SetDopplerFactor(s_dopplerFactor->value, DS3D_DEFERRED);
+	pDSListener->SetDistanceFactor(s_distanceFactor->value, DS3D_DEFERRED);
+	pDSListener->SetRolloffFactor(s_rolloffFactor->value, DS3D_DEFERRED);
 
 	pDSListener->CommitDeferredSettings();
 }
 
-int idSpeaker::getAudioHardwareChannel() {
+int idSpeaker::getAudioHardwareChannel()
+{
 	return 0;
 }
 
-void idSpeaker::LOCK() {
+void idSpeaker::LOCK()
+{
 }
 
-void idSpeaker::UNLOCK() {
+void idSpeaker::UNLOCK()
+{
 }
 
 

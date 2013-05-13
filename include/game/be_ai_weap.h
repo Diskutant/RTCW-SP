@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		be_ai_weap.h
+ * name:        be_ai_weap.h
  *
- * desc:		weapon AI
+ * desc:        weapon AI
  *
  *
  *****************************************************************************/
@@ -92,18 +92,18 @@ typedef struct weaponinfo_s
 } weaponinfo_t;
 
 //setup the weapon AI
-int BotSetupWeaponAI( void );
+int BotSetupWeaponAI(void);
 //shut down the weapon AI
-void BotShutdownWeaponAI( void );
+void BotShutdownWeaponAI(void);
 //returns the best weapon to fight with
-int BotChooseBestFightWeapon( int weaponstate, int *inventory );
+int BotChooseBestFightWeapon(int weaponstate, int *inventory);
 //returns the information of the current weapon
-void BotGetWeaponInfo( int weaponstate, int weapon, weaponinfo_t *weaponinfo );
+void BotGetWeaponInfo(int weaponstate, int weapon, weaponinfo_t *weaponinfo);
 //loads the weapon weights
-int BotLoadWeaponWeights( int weaponstate, char *filename );
+int BotLoadWeaponWeights(int weaponstate, char *filename);
 //returns a handle to a newly allocated weapon state
-int BotAllocWeaponState( void );
+int BotAllocWeaponState(void);
 //frees the weapon state
-void BotFreeWeaponState( int weaponstate );
+void BotFreeWeaponState(int weaponstate);
 //resets the whole weapon state
-void BotResetWeaponState( int weaponstate );
+void BotResetWeaponState(int weaponstate);

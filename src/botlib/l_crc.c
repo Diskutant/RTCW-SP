@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		l_crc.c
+ * name:        l_crc.c
  *
- * desc:		CRC calculation
+ * desc:        CRC calculation
  *
  *
  *****************************************************************************/
@@ -92,64 +92,73 @@ unsigned short crctable[257] =
 
 //===========================================================================
 //
-// Parameter:				-
-// Returns:					-
-// Changes Globals:		-
+// Parameter:               -
+// Returns:                 -
+// Changes Globals:     -
 //===========================================================================
-void CRC_Init( unsigned short *crcvalue ) {
+void CRC_Init(unsigned short *crcvalue)
+{
 	*crcvalue = CRC_INIT_VALUE;
 } //end of the function CRC_Init
 //===========================================================================
 //
-// Parameter:				-
-// Returns:					-
-// Changes Globals:		-
+// Parameter:               -
+// Returns:                 -
+// Changes Globals:     -
 //===========================================================================
-void CRC_ProcessByte( unsigned short *crcvalue, byte data ) {
-	*crcvalue = ( *crcvalue << 8 ) ^ crctable[( *crcvalue >> 8 ) ^ data];
+void CRC_ProcessByte(unsigned short *crcvalue, byte data)
+{
+	*crcvalue = (*crcvalue << 8) ^ crctable[(*crcvalue >> 8) ^ data];
 } //end of the function CRC_ProcessByte
 //===========================================================================
 //
-// Parameter:				-
-// Returns:					-
-// Changes Globals:		-
+// Parameter:               -
+// Returns:                 -
+// Changes Globals:     -
 //===========================================================================
-unsigned short CRC_Value( unsigned short crcvalue ) {
+unsigned short CRC_Value(unsigned short crcvalue)
+{
 	return crcvalue ^ CRC_XOR_VALUE;
 } //end of the function CRC_Value
 //===========================================================================
 //
-// Parameter:				-
-// Returns:					-
-// Changes Globals:		-
+// Parameter:               -
+// Returns:                 -
+// Changes Globals:     -
 //===========================================================================
-unsigned short CRC_ProcessString( unsigned char *data, int length ) {
+unsigned short CRC_ProcessString(unsigned char *data, int length)
+{
 	unsigned short crcvalue;
 	int i, ind;
 
-	CRC_Init( &crcvalue );
+	CRC_Init(&crcvalue);
 
-	for ( i = 0; i < length; i++ )
+	for(i = 0; i < length; i++)
 	{
-		ind = ( crcvalue >> 8 ) ^ data[i];
-		if ( ind < 0 || ind > 256 ) {
+		ind = (crcvalue >> 8) ^ data[i];
+
+		if(ind < 0 || ind > 256)
+		{
 			ind = 0;
 		}
-		crcvalue = ( crcvalue << 8 ) ^ crctable[ind];
+
+		crcvalue = (crcvalue << 8) ^ crctable[ind];
 	} //end for
-	return CRC_Value( crcvalue );
+
+	return CRC_Value(crcvalue);
 } //end of the function CRC_ProcessString
 //===========================================================================
 //
-// Parameter:				-
-// Returns:					-
-// Changes Globals:		-
+// Parameter:               -
+// Returns:                 -
+// Changes Globals:     -
 //===========================================================================
-void CRC_ContinueProcessString( unsigned short *crc, char *data, int length ) {
+void CRC_ContinueProcessString(unsigned short *crc, char *data, int length)
+{
 	int i;
 
-	for ( i = 0; i < length; i++ )
+	for(i = 0; i < length; i++)
 	{
-		*crc = ( *crc << 8 ) ^ crctable[( *crc >> 8 ) ^ data[i]];
+		*crc = (*crc << 8) ^ crctable[(*crc >> 8) ^ data[i]];
 	} //end for
 } //end of the function CRC_ProcessString

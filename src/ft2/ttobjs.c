@@ -65,14 +65,15 @@
 /*    zone :: A pointer to the target glyph zone.                        */
 /*                                                                       */
 LOCAL_FUNC
-void  TT_Done_GlyphZone( TT_GlyphZone*  zone ) {
+void  TT_Done_GlyphZone(TT_GlyphZone  *zone)
+{
 	FT_Memory memory = zone->memory;
 
 
-	FREE( zone->contours );
-	FREE( zone->tags );
-	FREE( zone->cur );
-	FREE( zone->org );
+	FREE(zone->contours);
+	FREE(zone->tags);
+	FREE(zone->cur);
+	FREE(zone->org);
 
 	zone->max_points   = zone->n_points   = 0;
 	zone->max_contours = zone->n_contours = 0;
@@ -101,25 +102,28 @@ void  TT_Done_GlyphZone( TT_GlyphZone*  zone ) {
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 LOCAL_FUNC
-FT_Error TT_New_GlyphZone( FT_Memory memory,
-						   FT_UShort maxPoints,
-						   FT_Short maxContours,
-						   TT_GlyphZone*  zone ) {
+FT_Error TT_New_GlyphZone(FT_Memory memory,
+                          FT_UShort maxPoints,
+                          FT_Short maxContours,
+                          TT_GlyphZone  *zone)
+{
 	FT_Error error;
 
 
-	if ( maxPoints > 0 ) {
+	if(maxPoints > 0)
+	{
 		maxPoints += 2;
 	}
 
-	MEM_Set( zone, 0, sizeof( *zone ) );
+	MEM_Set(zone, 0, sizeof(*zone));
 	zone->memory = memory;
 
-	if ( ALLOC_ARRAY( zone->org,      maxPoints * 2, FT_F26Dot6 ) ||
-		 ALLOC_ARRAY( zone->cur,      maxPoints * 2, FT_F26Dot6 ) ||
-		 ALLOC_ARRAY( zone->tags,     maxPoints,     FT_Byte    ) ||
-		 ALLOC_ARRAY( zone->contours, maxContours,   FT_UShort  ) ) {
-		TT_Done_GlyphZone( zone );
+	if(ALLOC_ARRAY(zone->org,      maxPoints * 2, FT_F26Dot6) ||
+	        ALLOC_ARRAY(zone->cur,      maxPoints * 2, FT_F26Dot6) ||
+	        ALLOC_ARRAY(zone->tags,     maxPoints,     FT_Byte) ||
+	        ALLOC_ARRAY(zone->contours, maxContours,   FT_UShort))
+	{
+		TT_Done_GlyphZone(zone);
 	}
 
 	return error;
@@ -150,57 +154,67 @@ FT_Error TT_New_GlyphZone( FT_Memory memory,
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 LOCAL_DEF
-FT_Error  TT_Init_Face( FT_Stream stream,
-						TT_Face face,
-						FT_Int face_index,
-						FT_Int num_params,
-						FT_Parameter*  params ) {
+FT_Error  TT_Init_Face(FT_Stream stream,
+                       TT_Face face,
+                       FT_Int face_index,
+                       FT_Int num_params,
+                       FT_Parameter  *params)
+{
 	FT_Error error;
 	FT_Library library;
-	SFNT_Interface*  sfnt;
+	SFNT_Interface  *sfnt;
 
 
 	library = face->root.driver->root.library;
-	sfnt    = (SFNT_Interface*)FT_Get_Module_Interface( library, "sfnt" );
-	if ( !sfnt ) {
+	sfnt    = (SFNT_Interface *)FT_Get_Module_Interface(library, "sfnt");
+
+	if(!sfnt)
+	{
 		goto Bad_Format;
 	}
 
 	/* create input stream from resource */
-	if ( FILE_Seek( 0 ) ) {
+	if(FILE_Seek(0))
+	{
 		goto Exit;
 	}
 
 	/* check that we have a valid TrueType file */
-	error = sfnt->init_face( stream, face, face_index, num_params, params );
-	if ( error ) {
+	error = sfnt->init_face(stream, face, face_index, num_params, params);
+
+	if(error)
+	{
 		goto Exit;
 	}
 
 	/* We must also be able to accept Mac/GX fonts, as well as OT ones */
-	if ( face->format_tag != 0x00010000L &&    /* MS fonts  */
-		 face->format_tag != TTAG_true   ) {   /* Mac fonts */
-		FT_TRACE2( ( "[not a valid TTF font]\n" ) );
+	if(face->format_tag != 0x00010000L &&      /* MS fonts  */
+	        face->format_tag != TTAG_true)        /* Mac fonts */
+	{
+		FT_TRACE2(("[not a valid TTF font]\n"));
 		goto Bad_Format;
 	}
 
 	/* If we are performing a simple font format check, exit immediately */
-	if ( face_index < 0 ) {
+	if(face_index < 0)
+	{
 		return TT_Err_Ok;
 	}
 
 	/* Load font directory */
-	error = sfnt->load_face( stream, face, face_index, num_params, params );
-	if ( error ) {
+	error = sfnt->load_face(stream, face, face_index, num_params, params);
+
+	if(error)
+	{
 		goto Exit;
 	}
 
-	error = TT_Load_Locations( face, stream ) ||
-			TT_Load_CVT( face, stream ) ||
-			TT_Load_Programs( face, stream );
+	error = TT_Load_Locations(face, stream) ||
+	        TT_Load_CVT(face, stream) ||
+	        TT_Load_Programs(face, stream);
 
 	/* initialize standard glyph loading routines */
-	TT_Init_Glyph_Loading( face );
+	TT_Init_Glyph_Loading(face);
 
 Exit:
 	return error;
@@ -223,33 +237,36 @@ Bad_Format:
 /*    face :: A pointer to the face object to destroy.                   */
 /*                                                                       */
 LOCAL_DEF
-void  TT_Done_Face( TT_Face face ) {
+void  TT_Done_Face(TT_Face face)
+{
 	FT_Memory memory = face->root.memory;
 	FT_Stream stream = face->root.stream;
 
-	SFNT_Interface*  sfnt = (SFNT_Interface*)face->sfnt;
+	SFNT_Interface  *sfnt = (SFNT_Interface *)face->sfnt;
 
 
 	/* for `extended TrueType formats' (i.e. compressed versions) */
-	if ( face->extra.finalizer ) {
-		face->extra.finalizer( face->extra.data );
+	if(face->extra.finalizer)
+	{
+		face->extra.finalizer(face->extra.data);
 	}
 
-	if ( sfnt ) {
-		sfnt->done_face( face );
+	if(sfnt)
+	{
+		sfnt->done_face(face);
 	}
 
 	/* freeing the locations table */
-	FREE( face->glyph_locations );
+	FREE(face->glyph_locations);
 	face->num_locations = 0;
 
 	/* freeing the CVT */
-	FREE( face->cvt );
+	FREE(face->cvt);
 	face->cvt_size = 0;
 
 	/* freeing the programs */
-	RELEASE_Frame( face->font_program );
-	RELEASE_Frame( face->cvt_program );
+	RELEASE_Frame(face->font_program);
+	RELEASE_Frame(face->cvt_program);
 	face->font_program_size = 0;
 	face->cvt_program_size  = 0;
 }
@@ -277,7 +294,8 @@ void  TT_Done_Face( TT_Face face ) {
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 LOCAL_DEF
-FT_Error  TT_Init_Size( TT_Size size ) {
+FT_Error  TT_Init_Size(TT_Size size)
+{
 	FT_Error error = TT_Err_Ok;
 
 
@@ -289,7 +307,7 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 
 	TT_ExecContext exec;
 	FT_UShort n_twilight;
-	TT_MaxProfile*  maxp = &face->max_profile;
+	TT_MaxProfile  *maxp = &face->max_profile;
 
 
 	size->ttmetrics.valid = FALSE;
@@ -308,8 +326,8 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 
 	/* Set default metrics */
 	{
-		FT_Size_Metrics*  metrics  = &size->root.metrics;
-		TT_Size_Metrics*  metrics2 = &size->ttmetrics;
+		FT_Size_Metrics  *metrics  = &size->root.metrics;
+		TT_Size_Metrics  *metrics2 = &size->ttmetrics;
 
 
 		metrics->x_ppem = 0;
@@ -319,32 +337,35 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 		metrics2->stretched = FALSE;
 
 		/* set default compensation (all 0) */
-		for ( i = 0; i < 4; i++ )
+		for(i = 0; i < 4; i++)
 			metrics2->compensations[i] = 0;
 	}
 
 	/* allocate function defs, instruction defs, cvt, and storage area */
-	if ( ALLOC_ARRAY( size->function_defs,
-					  size->max_function_defs,
-					  TT_DefRecord )                ||
+	if(ALLOC_ARRAY(size->function_defs,
+	               size->max_function_defs,
+	               TT_DefRecord)                ||
 
-		 ALLOC_ARRAY( size->instruction_defs,
-					  size->max_instruction_defs,
-					  TT_DefRecord )                ||
+	        ALLOC_ARRAY(size->instruction_defs,
+	                    size->max_instruction_defs,
+	                    TT_DefRecord)                ||
 
-		 ALLOC_ARRAY( size->cvt,
-					  size->cvt_size, FT_Long )     ||
+	        ALLOC_ARRAY(size->cvt,
+	                    size->cvt_size, FT_Long)     ||
 
-		 ALLOC_ARRAY( size->storage,
-					  size->storage_size, FT_Long ) ) {
+	        ALLOC_ARRAY(size->storage,
+	                    size->storage_size, FT_Long))
+	{
 
 		goto Fail_Memory;
 	}
 
 	/* reserve twilight zone */
 	n_twilight = maxp->maxTwilightPoints;
-	error = TT_New_GlyphZone( memory, n_twilight, 0, &size->twilight );
-	if ( error ) {
+	error = TT_New_GlyphZone(memory, n_twilight, 0, &size->twilight);
+
+	if(error)
+	{
 		goto Fail_Memory;
 	}
 
@@ -356,26 +377,31 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 
 
 		face->interpreter = (TT_Interpreter)
-							library->debug_hooks[FT_DEBUG_HOOK_TRUETYPE];
-		if ( !face->interpreter ) {
+		                    library->debug_hooks[FT_DEBUG_HOOK_TRUETYPE];
+
+		if(!face->interpreter)
+		{
 			face->interpreter = (TT_Interpreter)TT_RunIns;
 		}
 	}
 
 	/* Fine, now execute the font program! */
 	exec = size->context;
+
 	/* size objects used during debugging have their own context */
-	if ( !size->debug ) {
-		exec = TT_New_Context( face );
+	if(!size->debug)
+	{
+		exec = TT_New_Context(face);
 	}
 
-	if ( !exec ) {
+	if(!exec)
+	{
 		error = TT_Err_Could_Not_Find_Context;
 		goto Fail_Memory;
 	}
 
 	size->GS = tt_default_graphics_state;
-	TT_Load_Context( exec, face, size );
+	TT_Load_Context(exec, face, size);
 
 	exec->callTop   = 0;
 	exec->top       = 0;
@@ -385,8 +411,8 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 	exec->threshold = 0;
 
 	{
-		FT_Size_Metrics*  metrics    = &exec->metrics;
-		TT_Size_Metrics*  tt_metrics = &exec->tt_metrics;
+		FT_Size_Metrics  *metrics    = &exec->metrics;
+		TT_Size_Metrics  *tt_metrics = &exec->tt_metrics;
 
 
 		metrics->x_ppem   = 0;
@@ -407,32 +433,39 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 	exec->F_dot_P = 0x10000L;
 
 	/* allow font program execution */
-	TT_Set_CodeRange( exec,
-					  tt_coderange_font,
-					  face->font_program,
-					  face->font_program_size );
+	TT_Set_CodeRange(exec,
+	                 tt_coderange_font,
+	                 face->font_program,
+	                 face->font_program_size);
 
 	/* disable CVT and glyph programs coderange */
-	TT_Clear_CodeRange( exec, tt_coderange_cvt );
-	TT_Clear_CodeRange( exec, tt_coderange_glyph );
+	TT_Clear_CodeRange(exec, tt_coderange_cvt);
+	TT_Clear_CodeRange(exec, tt_coderange_glyph);
 
-	if ( face->font_program_size > 0 ) {
-		error = TT_Goto_CodeRange( exec, tt_coderange_font, 0 );
-		if ( !error ) {
-			error = face->interpreter( exec );
+	if(face->font_program_size > 0)
+	{
+		error = TT_Goto_CodeRange(exec, tt_coderange_font, 0);
+
+		if(!error)
+		{
+			error = face->interpreter(exec);
 		}
 
-		if ( error ) {
+		if(error)
+		{
 			goto Fail_Exec;
 		}
-	} else {
+	}
+	else
+	{
 		error = TT_Err_Ok;
 	}
 
-	TT_Save_Context( exec, size );
+	TT_Save_Context(exec, size);
 
-	if ( !size->debug ) {
-		TT_Done_Context( exec );
+	if(!size->debug)
+	{
+		TT_Done_Context(exec);
 	}
 
 #endif /* TT_CONFIG_OPTION_BYTECODE_INTERPRETER */
@@ -443,15 +476,17 @@ FT_Error  TT_Init_Size( TT_Size size ) {
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
 Fail_Exec:
-	if ( !size->debug ) {
-		TT_Done_Context( exec );
+
+	if(!size->debug)
+	{
+		TT_Done_Context(exec);
 	}
 
 Fail_Memory:
 
 #endif
 
-	TT_Done_Size( size );
+	TT_Done_Size(size);
 	return error;
 }
 
@@ -468,31 +503,33 @@ Fail_Memory:
 /*    size :: A handle to the target size object.                        */
 /*                                                                       */
 LOCAL_FUNC
-void  TT_Done_Size( TT_Size size ) {
+void  TT_Done_Size(TT_Size size)
+{
 
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
 	FT_Memory memory = size->root.face->memory;
 
 
-	if ( size->debug ) {
+	if(size->debug)
+	{
 		/* the debug context must be deleted by the debugger itself */
 		size->context = NULL;
 		size->debug   = FALSE;
 	}
 
-	FREE( size->cvt );
+	FREE(size->cvt);
 	size->cvt_size = 0;
 
 	/* free storage area */
-	FREE( size->storage );
+	FREE(size->storage);
 	size->storage_size = 0;
 
 	/* twilight zone */
-	TT_Done_GlyphZone( &size->twilight );
+	TT_Done_GlyphZone(&size->twilight);
 
-	FREE( size->function_defs );
-	FREE( size->instruction_defs );
+	FREE(size->function_defs);
+	FREE(size->instruction_defs);
 
 	size->num_function_defs    = 0;
 	size->max_function_defs    = 0;
@@ -521,14 +558,16 @@ void  TT_Done_Size( TT_Size size ) {
 /*    size :: A handle to the target size object.                        */
 /*                                                                       */
 LOCAL_DEF
-FT_Error  TT_Reset_Size( TT_Size size ) {
+FT_Error  TT_Reset_Size(TT_Size size)
+{
 	TT_Face face;
 	FT_Error error = TT_Err_Ok;
 
-	FT_Size_Metrics*  metrics;
+	FT_Size_Metrics  *metrics;
 
 
-	if ( size->ttmetrics.valid ) {
+	if(size->ttmetrics.valid)
+	{
 		return TT_Err_Ok;
 	}
 
@@ -536,37 +575,40 @@ FT_Error  TT_Reset_Size( TT_Size size ) {
 
 	metrics = &size->root.metrics;
 
-	if ( metrics->x_ppem < 1 || metrics->y_ppem < 1 ) {
+	if(metrics->x_ppem < 1 || metrics->y_ppem < 1)
+	{
 		return TT_Err_Invalid_PPem;
 	}
 
 	/* compute new transformation */
-	if ( metrics->x_ppem >= metrics->y_ppem ) {
+	if(metrics->x_ppem >= metrics->y_ppem)
+	{
 		size->ttmetrics.scale   = metrics->x_scale;
 		size->ttmetrics.ppem    = metrics->x_ppem;
 		size->ttmetrics.x_ratio = 0x10000L;
-		size->ttmetrics.y_ratio = FT_MulDiv( metrics->y_ppem,
-											 0x10000L,
-											 metrics->x_ppem );
-	} else
+		size->ttmetrics.y_ratio = FT_MulDiv(metrics->y_ppem,
+		                                    0x10000L,
+		                                    metrics->x_ppem);
+	}
+	else
 	{
 		size->ttmetrics.scale   = metrics->y_scale;
 		size->ttmetrics.ppem    = metrics->y_ppem;
-		size->ttmetrics.x_ratio = FT_MulDiv( metrics->x_ppem,
-											 0x10000L,
-											 metrics->y_ppem );
+		size->ttmetrics.x_ratio = FT_MulDiv(metrics->x_ppem,
+		                                    0x10000L,
+		                                    metrics->y_ppem);
 		size->ttmetrics.y_ratio = 0x10000L;
 	}
 
 	/* Compute root ascender, descender, test height, and max_advance */
-	metrics->ascender    = ( FT_MulFix( face->root.ascender,
-										metrics->y_scale ) + 32 ) & - 64;
-	metrics->descender   = ( FT_MulFix( face->root.descender,
-										metrics->y_scale ) + 32 ) & - 64;
-	metrics->height      = ( FT_MulFix( face->root.height,
-										metrics->y_scale ) + 32 ) & - 64;
-	metrics->max_advance = ( FT_MulFix( face->root.max_advance_width,
-										metrics->x_scale ) + 32 ) & - 64;
+	metrics->ascender    = (FT_MulFix(face->root.ascender,
+	                                  metrics->y_scale) + 32) & - 64;
+	metrics->descender   = (FT_MulFix(face->root.descender,
+	                                  metrics->y_scale) + 32) & - 64;
+	metrics->height      = (FT_MulFix(face->root.height,
+	                                  metrics->y_scale) + 32) & - 64;
+	metrics->max_advance = (FT_MulFix(face->root.max_advance_width,
+	                                  metrics->x_scale) + 32) & - 64;
 
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
@@ -577,11 +619,11 @@ FT_Error  TT_Reset_Size( TT_Size size ) {
 
 		/* Scale the cvt values to the new ppem.          */
 		/* We use by default the y ppem to scale the CVT. */
-		for ( i = 0; i < size->cvt_size; i++ )
-			size->cvt[i] = FT_MulFix( face->cvt[i], size->ttmetrics.scale );
+		for(i = 0; i < size->cvt_size; i++)
+			size->cvt[i] = FT_MulFix(face->cvt[i], size->ttmetrics.scale);
 
 		/* All twilight points are originally zero */
-		for ( j = 0; j < size->twilight.n_points; j++ )
+		for(j = 0; j < size->twilight.n_points; j++)
 		{
 			size->twilight.org[j].x = 0;
 			size->twilight.org[j].y = 0;
@@ -590,47 +632,58 @@ FT_Error  TT_Reset_Size( TT_Size size ) {
 		}
 
 		/* clear storage area */
-		for ( i = 0; i < size->storage_size; i++ )
+		for(i = 0; i < size->storage_size; i++)
 			size->storage[i] = 0;
 
 		size->GS = tt_default_graphics_state;
 
 		/* get execution context and run prep program */
-		if ( size->debug ) {
+		if(size->debug)
+		{
 			exec = size->context;
-		} else {
-			exec = TT_New_Context( face );
 		}
+		else
+		{
+			exec = TT_New_Context(face);
+		}
+
 		/* debugging instances have their own context */
 
-		if ( !exec ) {
+		if(!exec)
+		{
 			return TT_Err_Could_Not_Find_Context;
 		}
 
-		TT_Load_Context( exec, face, size );
+		TT_Load_Context(exec, face, size);
 
-		TT_Set_CodeRange( exec,
-						  tt_coderange_cvt,
-						  face->cvt_program,
-						  face->cvt_program_size );
+		TT_Set_CodeRange(exec,
+		                 tt_coderange_cvt,
+		                 face->cvt_program,
+		                 face->cvt_program_size);
 
-		TT_Clear_CodeRange( exec, tt_coderange_glyph );
+		TT_Clear_CodeRange(exec, tt_coderange_glyph);
 
 		exec->instruction_trap = FALSE;
 
 		exec->top     = 0;
 		exec->callTop = 0;
 
-		if ( face->cvt_program_size > 0 ) {
-			error = TT_Goto_CodeRange( exec, tt_coderange_cvt, 0 );
-			if ( error ) {
+		if(face->cvt_program_size > 0)
+		{
+			error = TT_Goto_CodeRange(exec, tt_coderange_cvt, 0);
+
+			if(error)
+			{
 				goto End;
 			}
 
-			if ( !size->debug ) {
-				error = face->interpreter( exec );
+			if(!size->debug)
+			{
+				error = face->interpreter(exec);
 			}
-		} else {
+		}
+		else
+		{
 			error = TT_Err_Ok;
 		}
 
@@ -638,17 +691,20 @@ FT_Error  TT_Reset_Size( TT_Size size ) {
 		/* save default graphics state */
 
 End:
-		TT_Save_Context( exec, size );
+		TT_Save_Context(exec, size);
 
-		if ( !size->debug ) {
-			TT_Done_Context( exec );
+		if(!size->debug)
+		{
+			TT_Done_Context(exec);
 		}
+
 		/* debugging instances keep their context */
 	}
 
 #endif /* TT_CONFIG_OPTION_BYTECODE_INTERPRETER */
 
-	if ( !error ) {
+	if(!error)
+	{
 		size->ttmetrics.valid = TRUE;
 	}
 
@@ -671,19 +727,23 @@ End:
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 LOCAL_FUNC
-FT_Error  TT_Init_Driver( TT_Driver driver ) {
+FT_Error  TT_Init_Driver(TT_Driver driver)
+{
 	FT_Error error;
 
 
 	/* set `extra' in glyph loader */
-	error = FT_GlyphLoader_Create_Extra( FT_DRIVER( driver )->glyph_loader );
+	error = FT_GlyphLoader_Create_Extra(FT_DRIVER(driver)->glyph_loader);
 
 	/* init extension registry if needed */
 
 #ifdef TT_CONFIG_OPTION_EXTEND_ENGINE
-	if ( !error ) {
-		return TT_Init_Extensions( driver );
+
+	if(!error)
+	{
+		return TT_Init_Extensions(driver);
 	}
+
 #endif
 
 	return error;
@@ -702,20 +762,22 @@ FT_Error  TT_Init_Driver( TT_Driver driver ) {
 /*    driver :: A handle to the target TrueType driver.                  */
 /*                                                                       */
 LOCAL_FUNC
-void  TT_Done_Driver( TT_Driver driver ) {
+void  TT_Done_Driver(TT_Driver driver)
+{
 	/* destroy extensions registry if needed */
 
 #ifdef TT_CONFIG_OPTION_EXTEND_ENGINE
 
-	TT_Done_Extensions( driver );
+	TT_Done_Extensions(driver);
 
 #endif
 
 #ifdef TT_CONFIG_OPTION_BYTECODE_INTERPRETER
 
 	/* destroy the execution context */
-	if ( driver->context ) {
-		TT_Destroy_Context( driver->context, driver->root.root.memory );
+	if(driver->context)
+	{
+		TT_Destroy_Context(driver->context, driver->root.root.memory);
 		driver->context = NULL;
 	}
 

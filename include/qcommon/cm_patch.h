@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,14 +27,14 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 
-//#define	CULL_BBOX
+//#define   CULL_BBOX
 
 /*
 
 This file does not reference any globals, and has these entry points:
 
 void CM_ClearLevelPatches( void );
-struct patchCollide_s	*CM_GeneratePatchCollide( int width, int height, const vec3_t *points );
+struct patchCollide_s   *CM_GeneratePatchCollide( int width, int height, const vec3_t *points );
 void CM_TraceThroughPatchCollide( traceWork_t *tw, const struct patchCollide_s *pc );
 qboolean CM_PositionTestInPatchCollide( traceWork_t *tw, const struct patchCollide_s *pc );
 void CM_DrawDebugSurface( void (*drawPoly)(int color, int numPoints, flaot *points) );
@@ -70,12 +70,14 @@ properly.
 #define MAX_FACETS          1024
 #define MAX_PATCH_PLANES    2048
 
-typedef struct {
+typedef struct
+{
 	float plane[4];
 	int signbits;           // signx + (signy<<1) + (signz<<2), used as lookup during collision
 } patchPlane_t;
 
-typedef struct {
+typedef struct
+{
 	int surfacePlane;
 	int numBorders;             // 3 or four + 6 axial bevels + 4 or 3 * 4 edge bevels
 	int borderPlanes[4 + 6 + 16];
@@ -83,7 +85,8 @@ typedef struct {
 	qboolean borderNoAdjust[4 + 6 + 16];
 } facet_t;
 
-typedef struct patchCollide_s {
+typedef struct patchCollide_s
+{
 	vec3_t bounds[2];
 	int numPlanes;              // surface planes plus edge planes
 	patchPlane_t    *planes;
@@ -94,7 +97,8 @@ typedef struct patchCollide_s {
 
 #define MAX_GRID_SIZE   129
 
-typedef struct {
+typedef struct
+{
 	int width;
 	int height;
 	qboolean wrapWidth;
@@ -102,9 +106,9 @@ typedef struct {
 	vec3_t points[MAX_GRID_SIZE][MAX_GRID_SIZE];    // [width][height]
 } cGrid_t;
 
-#define SUBDIVIDE_DISTANCE  16  //4	// never more than this units away from curve
+#define SUBDIVIDE_DISTANCE  16  //4 // never more than this units away from curve
 #define PLANE_TRI_EPSILON   0.1
 #define WRAP_POINT_EPSILON  0.1
 
 
-struct patchCollide_s   *CM_GeneratePatchCollide( int width, int height, vec3_t *points );
+struct patchCollide_s   *CM_GeneratePatchCollide(int width, int height, vec3_t *points);

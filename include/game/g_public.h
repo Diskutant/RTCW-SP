@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ If you have questions concerning this license or the applicable additional terms
 #define SVF_BROADCAST           0x00000020  // send to all connected clients
 #define SVF_PORTAL              0x00000040  // merge a second pvs at origin2 into snapshots
 #define SVF_USE_CURRENT_ORIGIN  0x00000080  // entity->r.currentOrigin instead of entity->s.origin
-											// for link position (missiles and movers)
+// for link position (missiles and movers)
 // Ridah
 #define SVF_NOFOOTSTEPS         0x00000100
 // done.
@@ -58,15 +58,16 @@ If you have questions concerning this license or the applicable additional terms
 // recent id changes
 #define SVF_SINGLECLIENT        0x00000800  // only send to a single client (entityShared_t->singleClient)
 #define SVF_NOSERVERINFO        0x00001000  // don't send CS_SERVERINFO updates to this client
-											// so that it can be updated for ping tools without
-											// lagging clients
+// so that it can be updated for ping tools without
+// lagging clients
 #define SVF_NOTSINGLECLIENT     0x00002000  // send entity to everyone but one client
-											// (entityShared_t->singleClient)
+// (entityShared_t->singleClient)
 
 //===============================================================
 
 
-typedef struct {
+typedef struct
+{
 	entityState_t s;                // communicated by server to clients
 
 	qboolean linked;                // qfalse if not in any good cluster
@@ -76,10 +77,10 @@ typedef struct {
 	int singleClient;               // only send to this client when SVF_SINGLECLIENT is set
 
 	qboolean bmodel;                // if false, assume an explicit mins / maxs bounding box
-									// only set by trap_SetBrushModel
+	// only set by trap_SetBrushModel
 	vec3_t mins, maxs;
 	int contents;                   // CONTENTS_TRIGGER, CONTENTS_SOLID, CONTENTS_BODY, etc
-									// a non-solid entity should set to 0
+	// a non-solid entity should set to 0
 
 	vec3_t absmin, absmax;          // derived from mins/maxs and origin + rotation
 
@@ -92,9 +93,9 @@ typedef struct {
 
 	// when a trace call is made and passEntityNum != ENTITYNUM_NONE,
 	// an ent will be excluded from testing if:
-	// ent->s.number == passEntityNum	(don't interact with self)
-	// ent->s.ownerNum = passEntityNum	(don't interact with your own missiles)
-	// entity[ent->s.ownerNum].ownerNum = passEntityNum	(don't interact with other missiles from owner)
+	// ent->s.number == passEntityNum   (don't interact with self)
+	// ent->s.ownerNum = passEntityNum  (don't interact with your own missiles)
+	// entity[ent->s.ownerNum].ownerNum = passEntityNum (don't interact with other missiles from owner)
 	int ownerNum;
 	int eventTime;
 } entityShared_t;
@@ -102,7 +103,8 @@ typedef struct {
 
 
 // the server looks at a sharedEntity, which is the start of the game's gentity_t structure
-typedef struct {
+typedef struct
+{
 	entityState_t s;                // communicated by server to clients
 	entityShared_t r;               // shared by both the server system and game
 } sharedEntity_t;
@@ -114,7 +116,8 @@ typedef struct {
 //
 // system traps provided by the main engine
 //
-typedef enum {
+typedef enum
+{
 	//============== general Quake services ==================
 
 	G_PRINT,        // ( const char *string );
@@ -123,7 +126,7 @@ typedef enum {
 	G_ERROR,        // ( const char *string );
 	// abort the game
 
-	G_ENDGAME,      // ( void );	//----(SA)	added
+	G_ENDGAME,      // ( void );    //----(SA)  added
 	// exit to main menu and start "endgame" menu
 
 	G_MILLISECONDS, // ( void );
@@ -158,7 +161,7 @@ typedef enum {
 	//=========== server specific functionality =============
 
 	G_LOCATE_GAME_DATA,     // ( gentity_t *gEnts, int numGEntities, int sizeofGEntity_t,
-	//							playerState_t *clients, int sizeofGameClient );
+	//                          playerState_t *clients, int sizeofGameClient );
 	// the game needs to let the server system know where and how big the gentities
 	// are, so it can look at them directly without going through an interface
 
@@ -432,7 +435,8 @@ typedef enum {
 //
 // functions exported by the game subsystem
 //
-typedef enum {
+typedef enum
+{
 	GAME_INIT,  // ( int levelTime, int randomSeed, int restart );
 	// init and shutdown will be called every single level
 	// The game should call G_GET_ENTITY_TOKEN to parse through all the

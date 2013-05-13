@@ -23,7 +23,8 @@
 
 #define HUFF_LOOKAHEAD  8   /* # of bits of lookahead */
 
-typedef struct {
+typedef struct
+{
 	/* Basic tables: (element [0] of each array is unused) */
 	INT32 mincode[17];      /* smallest code of length k */
 	INT32 maxcode[18];      /* largest code of length k (-1 if none) */
@@ -43,8 +44,8 @@ typedef struct {
 } d_derived_tbl;
 
 /* Expand a Huffman table definition into the derived format */
-EXTERN void jpeg_make_d_derived_tbl JPP( ( j_decompress_ptr cinfo,
-										   JHUFF_TBL * htbl, d_derived_tbl * *pdtbl ) );
+EXTERN void jpeg_make_d_derived_tbl JPP((j_decompress_ptr cinfo,
+                                        JHUFF_TBL *htbl, d_derived_tbl * *pdtbl));
 
 
 /*
@@ -75,15 +76,17 @@ typedef INT32 bit_buf_type; /* type of bit-extraction buffer */
  * because not all machines measure sizeof in 8-bit bytes.
  */
 
-typedef struct {        /* Bitreading state saved across MCUs */
+typedef struct          /* Bitreading state saved across MCUs */
+{
 	bit_buf_type get_buffer; /* current bit-extraction buffer */
 	int bits_left;      /* # of unused bits in it */
 	boolean printed_eod;    /* flag to suppress multiple warning msgs */
 } bitread_perm_state;
 
-typedef struct {        /* Bitreading working state within an MCU */
+typedef struct          /* Bitreading working state within an MCU */
+{
 	/* current data source state */
-	const JOCTET * next_input_byte; /* => next byte to read from source */
+	const JOCTET *next_input_byte;  /* => next byte to read from source */
 	size_t bytes_in_buffer; /* # of bytes remaining in source buffer */
 	int unread_marker;      /* nonzero if we have hit a marker */
 	/* bit input buffer --- note these values are kept in register variables,
@@ -93,28 +96,28 @@ typedef struct {        /* Bitreading working state within an MCU */
 	int bits_left;      /* # of unused bits in it */
 	/* pointers needed by jpeg_fill_bit_buffer */
 	j_decompress_ptr cinfo; /* back link to decompress master record */
-	boolean * printed_eod_ptr;  /* => flag in permanent state */
+	boolean *printed_eod_ptr;   /* => flag in permanent state */
 } bitread_working_state;
 
 /* Macros to declare and load/save bitread local variables. */
-#define BITREAD_STATE_VARS	\
+#define BITREAD_STATE_VARS  \
 	register bit_buf_type get_buffer;  \
-	register int bits_left;	 \
+	register int bits_left;  \
 	bitread_working_state br_state
 
-#define BITREAD_LOAD_STATE( cinfop,permstate )	\
+#define BITREAD_LOAD_STATE( cinfop,permstate )  \
 	br_state.cinfo = cinfop; \
 	br_state.next_input_byte = cinfop->src->next_input_byte; \
 	br_state.bytes_in_buffer = cinfop->src->bytes_in_buffer; \
-	br_state.unread_marker = cinfop->unread_marker;	\
+	br_state.unread_marker = cinfop->unread_marker; \
 	get_buffer = permstate.get_buffer; \
 	bits_left = permstate.bits_left; \
 	br_state.printed_eod_ptr = &permstate.printed_eod
 
-#define BITREAD_SAVE_STATE( cinfop,permstate )	\
+#define BITREAD_SAVE_STATE( cinfop,permstate )  \
 	cinfop->src->next_input_byte = br_state.next_input_byte; \
 	cinfop->src->bytes_in_buffer = br_state.bytes_in_buffer; \
-	cinfop->unread_marker = br_state.unread_marker;	\
+	cinfop->unread_marker = br_state.unread_marker; \
 	permstate.get_buffer = get_buffer; \
 	permstate.bits_left = bits_left
 
@@ -124,23 +127,23 @@ typedef struct {        /* Bitreading working state within an MCU */
  * before using GET_BITS, PEEK_BITS, or DROP_BITS.
  * The variables get_buffer and bits_left are assumed to be locals,
  * but the state struct might not be (jpeg_huff_decode needs this).
- *	CHECK_BIT_BUFFER(state,n,action);
- *		Ensure there are N bits in get_buffer; if suspend, take action.
+ *  CHECK_BIT_BUFFER(state,n,action);
+ *      Ensure there are N bits in get_buffer; if suspend, take action.
  *      val = GET_BITS(n);
- *		Fetch next N bits.
+ *      Fetch next N bits.
  *      val = PEEK_BITS(n);
- *		Fetch next N bits without removing them from the buffer.
- *	DROP_BITS(n);
- *		Discard next N bits.
+ *      Fetch next N bits without removing them from the buffer.
+ *  DROP_BITS(n);
+ *      Discard next N bits.
  * The value N should be a simple variable, not an expression, because it
  * is evaluated multiple times.
  */
 
 #define CHECK_BIT_BUFFER( state,nbits,action ) \
 	{ if ( bits_left < ( nbits ) ) {  \
-		  if ( !jpeg_fill_bit_buffer( &( state ),get_buffer,bits_left,nbits ) )	 \
-		  { action; }  \
-		  get_buffer = ( state ).get_buffer; bits_left = ( state ).bits_left; } }
+			if ( !jpeg_fill_bit_buffer( &( state ),get_buffer,bits_left,nbits ) )  \
+				{ action; }  \
+			get_buffer = ( state ).get_buffer; bits_left = ( state ).bits_left; } }
 
 #define GET_BITS( nbits ) \
 	( ( (int) ( get_buffer >> ( bits_left -= ( nbits ) ) ) ) & ( ( 1 << ( nbits ) ) - 1 ) )
@@ -152,9 +155,9 @@ typedef struct {        /* Bitreading working state within an MCU */
 	( bits_left -= ( nbits ) )
 
 /* Load up the bit buffer to a depth of at least nbits */
-EXTERN boolean jpeg_fill_bit_buffer JPP( ( bitread_working_state * state,
-										   register bit_buf_type get_buffer, register int bits_left,
-										   int nbits ) );
+EXTERN boolean jpeg_fill_bit_buffer JPP((bitread_working_state *state,
+                                        register bit_buf_type get_buffer, register int bits_left,
+                                        int nbits));
 
 
 /*
@@ -176,27 +179,27 @@ EXTERN boolean jpeg_fill_bit_buffer JPP( ( bitread_working_state * state,
 
 #define HUFF_DECODE( result,state,htbl,failaction,slowlabel ) \
 	{ register int nb, look; \
-	  if ( bits_left < HUFF_LOOKAHEAD ) { \
-		  if ( !jpeg_fill_bit_buffer( &state,get_buffer,bits_left, 0 ) ) {failaction;} \
-		  get_buffer = state.get_buffer; bits_left = state.bits_left; \
-		  if ( bits_left < HUFF_LOOKAHEAD ) { \
-			  nb = 1; goto slowlabel; \
-		  }	\
-	  }	\
-	  look = PEEK_BITS( HUFF_LOOKAHEAD ); \
-	  if ( ( nb = htbl->look_nbits[look] ) != 0 ) {	\
-				 DROP_BITS( nb ); \
-				 result = htbl->look_sym[look];	\
-			 } else { \
-				 nb = HUFF_LOOKAHEAD + 1; \
-slowlabel: \
-				 if ( ( result = jpeg_huff_decode( &state,get_buffer,bits_left,htbl,nb ) ) < 0 ) \
-						{ failaction; }	\
-						get_buffer = state.get_buffer; bits_left = state.bits_left;	\
-						} \
-						}
+		if ( bits_left < HUFF_LOOKAHEAD ) { \
+			if ( !jpeg_fill_bit_buffer( &state,get_buffer,bits_left, 0 ) ) {failaction;} \
+			get_buffer = state.get_buffer; bits_left = state.bits_left; \
+			if ( bits_left < HUFF_LOOKAHEAD ) { \
+				nb = 1; goto slowlabel; \
+			} \
+		} \
+		look = PEEK_BITS( HUFF_LOOKAHEAD ); \
+		if ( ( nb = htbl->look_nbits[look] ) != 0 ) { \
+			DROP_BITS( nb ); \
+			result = htbl->look_sym[look]; \
+		} else { \
+			nb = HUFF_LOOKAHEAD + 1; \
+	slowlabel: \
+			if ( ( result = jpeg_huff_decode( &state,get_buffer,bits_left,htbl,nb ) ) < 0 ) \
+				{ failaction; } \
+			get_buffer = state.get_buffer; bits_left = state.bits_left; \
+		} \
+	}
 
 /* Out-of-line case for Huffman code fetching */
-EXTERN int jpeg_huff_decode JPP( ( bitread_working_state * state,
-								   register bit_buf_type get_buffer, register int bits_left,
-								   d_derived_tbl * htbl, int min_bits ) );
+EXTERN int jpeg_huff_decode JPP((bitread_working_state *state,
+                                 register bit_buf_type get_buffer, register int bits_left,
+                                 d_derived_tbl *htbl, int min_bits));

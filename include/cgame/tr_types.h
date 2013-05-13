@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ If you have questions concerning this license or the applicable additional terms
 #define __TR_TYPES_H
 
 
-#define MAX_CORONAS     32          //----(SA)	not really a reason to limit this other than trying to keep a reasonable count
+#define MAX_CORONAS     32          //----(SA)  not really a reason to limit this other than trying to keep a reasonable count
 #define MAX_DLIGHTS     32          // can't be increased, because bit flags are used on surfaces
 #define MAX_ENTITIES    1023        // can't be increased without changing drawsurf bit packing
 
@@ -42,12 +42,12 @@ If you have questions concerning this license or the applicable additional terms
 #define RF_NOSHADOW         64      // don't add stencil shadows
 
 #define RF_LIGHTING_ORIGIN  128     // use refEntity->lightingOrigin instead of refEntity->origin
-									// for lighting.  This allows entities to sink into the floor
-									// with their origin going solid, and allows all parts of a
-									// player to get the same lighting
+// for lighting.  This allows entities to sink into the floor
+// with their origin going solid, and allows all parts of a
+// player to get the same lighting
 #define RF_SHADOW_PLANE     256     // use refEntity->shadowPlane
 #define RF_WRAP_FRAMES      512     // mod the model frames by the maxframes to allow continuous
-									// animation without needing to know the frame count
+// animation without needing to know the frame count
 
 #define RF_HILIGHT          ( 1 << 8 )  // more than RF_MINLIGHT.  For when an object is "Highlighted" (looked at/training identification/etc)
 #define RF_BLINK            ( 1 << 9 )  // eyes in 'blink' state
@@ -64,22 +64,25 @@ If you have questions concerning this license or the applicable additional terms
 //----(SA)
 #define RDF_UNDERWATER      ( 1 << 4 )  // so the renderer knows to use underwater fog when the player is underwater
 #define RDF_DRAWINGSKY      ( 1 << 5 )
-#define RDF_SNOOPERVIEW     ( 1 << 6 )  //----(SA)	added
+#define RDF_SNOOPERVIEW     ( 1 << 6 )  //----(SA)  added
 
 
-typedef struct {
+typedef struct
+{
 	vec3_t xyz;
 	float st[2];
 	byte modulate[4];
 } polyVert_t;
 
-typedef struct poly_s {
+typedef struct poly_s
+{
 	qhandle_t hShader;
 	int numVerts;
 	polyVert_t          *verts;
 } poly_t;
 
-typedef enum {
+typedef enum
+{
 	RT_MODEL,
 	RT_POLY,
 	RT_SPRITE,
@@ -105,7 +108,8 @@ typedef enum {
 #define REFLAG_SCALEDSPHERECULL 64  // on LOD switch, align the model to the player's camera
 #define REFLAG_FULL_LOD     8   // force a FULL lod
 
-typedef struct {
+typedef struct
+{
 	refEntityType_t reType;
 	int renderfx;
 
@@ -122,7 +126,7 @@ typedef struct {
 	int frame;                      // also used as MODEL_BEAM's diameter
 	int torsoFrame;                 // skeletal torso can have frame independant of legs frame
 
-	vec3_t scale;       //----(SA)	added
+	vec3_t scale;       //----(SA)  added
 
 	// previous data for frame interpolation
 	float oldorigin[3];             // also used as MODEL_BEAM's "to"
@@ -151,7 +155,7 @@ typedef struct {
 	// Ridah, entity fading (gibs, debris, etc)
 	int fadeStartTime, fadeEndTime;
 
-	float hilightIntensity;         //----(SA)	added
+	float hilightIntensity;         //----(SA)  added
 
 	int reFlags;
 
@@ -162,32 +166,34 @@ typedef struct {
 //----(SA)
 
 //                                                                  //
-// WARNING:: synch FOG_SERVER in sv_ccmds.c if you change anything	//
+// WARNING:: synch FOG_SERVER in sv_ccmds.c if you change anything  //
 //                                                                  //
-typedef enum {
-	FOG_NONE,       //	0
+typedef enum
+{
+	FOG_NONE,       //  0
 
-	FOG_SKY,        //	1	fog values to apply to the sky when using density fog for the world (non-distance clipping fog) (only used if(glfogsettings[FOG_MAP].registered) or if(glfogsettings[FOG_MAP].registered))
-	FOG_PORTALVIEW, //	2	used by the portal sky scene
-	FOG_HUD,        //	3	used by the 3D hud scene
+	FOG_SKY,        //  1   fog values to apply to the sky when using density fog for the world (non-distance clipping fog) (only used if(glfogsettings[FOG_MAP].registered) or if(glfogsettings[FOG_MAP].registered))
+	FOG_PORTALVIEW, //  2   used by the portal sky scene
+	FOG_HUD,        //  3   used by the 3D hud scene
 
-	//		The result of these for a given frame is copied to the scene.glFog when the scene is rendered
+	//      The result of these for a given frame is copied to the scene.glFog when the scene is rendered
 
 	// the following are fogs applied to the main world scene
-	FOG_MAP,        //	4	use fog parameter specified using the "fogvars" in the sky shader
-	FOG_WATER,      //	5	used when underwater
-	FOG_SERVER,     //	6	the server has set my fog (probably a target_fog) (keep synch in sv_ccmds.c !!!)
-	FOG_CURRENT,    //	7	stores the current values when a transition starts
-	FOG_LAST,       //	8	stores the current values when a transition starts
-	FOG_TARGET,     //	9	the values it's transitioning to.
+	FOG_MAP,        //  4   use fog parameter specified using the "fogvars" in the sky shader
+	FOG_WATER,      //  5   used when underwater
+	FOG_SERVER,     //  6   the server has set my fog (probably a target_fog) (keep synch in sv_ccmds.c !!!)
+	FOG_CURRENT,    //  7   stores the current values when a transition starts
+	FOG_LAST,       //  8   stores the current values when a transition starts
+	FOG_TARGET,     //  9   the values it's transitioning to.
 
-	FOG_CMD_SWITCHFOG,  // 10	transition to the fog specified in the second parameter of R_SetFog(...) (keep synch in sv_ccmds.c !!!)
+	FOG_CMD_SWITCHFOG,  // 10   transition to the fog specified in the second parameter of R_SetFog(...) (keep synch in sv_ccmds.c !!!)
 
 	NUM_FOGS
 } glfogType_t;
 
 
-typedef struct {
+typedef struct
+{
 	int mode;                   // GL_LINEAR, GL_EXP
 	int hint;                   // GL_DONT_CARE
 	int startTime;              // in ms
@@ -204,13 +210,14 @@ typedef struct {
 	int dirty;
 } glfog_t;
 
-//----(SA)	end
+//----(SA)  end
 
 
 #define MAX_RENDER_STRINGS          8
 #define MAX_RENDER_STRING_LENGTH    32
 
-typedef struct {
+typedef struct
+{
 	int x, y, width, height;
 	float fov_x, fov_y;
 	vec3_t vieworg;
@@ -229,14 +236,15 @@ typedef struct {
 	char text[MAX_RENDER_STRINGS][MAX_RENDER_STRING_LENGTH];
 
 
-//----(SA)	added (needed to pass fog infos into the portal sky scene)
+//----(SA)  added (needed to pass fog infos into the portal sky scene)
 	glfog_t glfog;
-//----(SA)	end
+//----(SA)  end
 
 } refdef_t;
 
 
-typedef enum {
+typedef enum
+{
 	STEREO_CENTER,
 	STEREO_LEFT,
 	STEREO_RIGHT
@@ -250,33 +258,37 @@ typedef enum {
 ** being run right now.  These are constant once the OpenGL
 ** subsystem is initialized.
 */
-typedef enum {
+typedef enum
+{
 	TC_NONE,
 	TC_S3TC,
 	TC_EXT_COMP_S3TC
 } textureCompression_t;
 
-typedef enum {
+typedef enum
+{
 	GLDRV_ICD,                  // driver is integrated with window system
-								// WARNING: there are tests that check for
-								// > GLDRV_ICD for minidriverness, so this
-								// should always be the lowest value in this
-								// enum set
+	// WARNING: there are tests that check for
+	// > GLDRV_ICD for minidriverness, so this
+	// should always be the lowest value in this
+	// enum set
 	GLDRV_STANDALONE,           // driver is a non-3Dfx standalone driver
 	GLDRV_VOODOO                // driver is a 3Dfx standalone driver
 } glDriverType_t;
 
-typedef enum {
+typedef enum
+{
 	GLHW_GENERIC,           // where everthing works the way it should
 	GLHW_3DFX_2D3D,         // Voodoo Banshee or Voodoo3, relevant since if this is
-							// the hardware type then there can NOT exist a secondary
-							// display adapter
+	// the hardware type then there can NOT exist a secondary
+	// display adapter
 	GLHW_RIVA128,           // where you can't interpolate alpha
 	GLHW_RAGEPRO,           // where you can't modulate alpha on alpha textures
 	GLHW_PERMEDIA2          // where you don't have src*dst
 } glHardwareType_t;
 
-typedef struct {
+typedef struct
+{
 	char renderer_string[MAX_STRING_CHARS];
 	char vendor_string[MAX_STRING_CHARS];
 	char version_string[MAX_STRING_CHARS];
@@ -293,13 +305,13 @@ typedef struct {
 	qboolean deviceSupportsGamma;
 	textureCompression_t textureCompression;
 	qboolean textureEnvAddAvailable;
-	qboolean anisotropicAvailable;                  //----(SA)	added
-	float maxAnisotropy;                            //----(SA)	added
+	qboolean anisotropicAvailable;                  //----(SA)  added
+	float maxAnisotropy;                            //----(SA)  added
 
 	// vendor-specific support
 	// NVidia
-	qboolean NVFogAvailable;                    //----(SA)	added
-	int NVFogMode;                                  //----(SA)	added
+	qboolean NVFogAvailable;                    //----(SA)  added
+	int NVFogMode;                                  //----(SA)  added
 	// ATI
 	int ATIMaxTruformTess;                          // for truform support
 	int ATINormalMode;                          // for truform support

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -89,16 +89,16 @@ extern byte dpop[256];
 
 extern char brushsidetextured[MAX_MAP_BRUSHSIDES];
 
-void Q2_AllocMaxBSP( void );
-void Q2_FreeMaxBSP( void );
+void Q2_AllocMaxBSP(void);
+void Q2_FreeMaxBSP(void);
 
-void Q2_DecompressVis( byte *in, byte *decompressed );
-int Q2_CompressVis( byte *vis, byte *dest );
+void Q2_DecompressVis(byte *in, byte *decompressed);
+int Q2_CompressVis(byte *vis, byte *dest);
 
-void Q2_LoadBSPFile( char *filename, int offset, int length );
-void Q2_LoadBSPFileTexinfo( char *filename ); // just for qdata
-void Q2_WriteBSPFile( char *filename );
-void Q2_PrintBSPFileSizes( void );
-void Q2_ParseEntities( void );
-void Q2_UnparseEntities( void );
+void Q2_LoadBSPFile(char *filename, int offset, int length);
+void Q2_LoadBSPFileTexinfo(char *filename);   // just for qdata
+void Q2_WriteBSPFile(char *filename);
+void Q2_PrintBSPFileSizes(void);
+void Q2_ParseEntities(void);
+void Q2_UnparseEntities(void);
 

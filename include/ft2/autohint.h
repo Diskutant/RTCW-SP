@@ -97,11 +97,11 @@ typedef struct FT_AutoHinterRec_  *FT_AutoHinter;
 /*                                                                       */
 /*    global_len    :: The size in bytes of the global hints.            */
 /*                                                                       */
-typedef void ( *FT_AutoHinter_Get_Global_Func )(
-	FT_AutoHinter hinter,
-	FT_Face face,
-	void**         global_hints,
-	long*          global_len );
+typedef void (*FT_AutoHinter_Get_Global_Func)(
+    FT_AutoHinter hinter,
+    FT_Face face,
+    void         **global_hints,
+    long          *global_len);
 
 
 /*************************************************************************/
@@ -119,8 +119,8 @@ typedef void ( *FT_AutoHinter_Get_Global_Func )(
 /*                                                                       */
 /*    global :: A pointer to retrieved global hints to discard.          */
 /*                                                                       */
-typedef void ( *FT_AutoHinter_Done_Global_Func )( FT_AutoHinter hinter,
-												  void*          global );
+typedef void (*FT_AutoHinter_Done_Global_Func)(FT_AutoHinter hinter,
+        void          *global);
 
 
 /*************************************************************************/
@@ -138,8 +138,8 @@ typedef void ( *FT_AutoHinter_Done_Global_Func )( FT_AutoHinter hinter,
 /*                                                                       */
 /*    face   :: A handle to the face.                                    */
 /*                                                                       */
-typedef void ( *FT_AutoHinter_Reset_Func )( FT_AutoHinter hinter,
-											FT_Face face );
+typedef void (*FT_AutoHinter_Reset_Func)(FT_AutoHinter hinter,
+        FT_Face face);
 
 
 /*************************************************************************/
@@ -163,11 +163,11 @@ typedef void ( *FT_AutoHinter_Reset_Func )( FT_AutoHinter hinter,
 /*    It will call the font driver with FT_Load_Glyph(), with            */
 /*    FT_LOAD_NO_SCALE set.                                              */
 /*                                                                       */
-typedef FT_Error ( *FT_AutoHinter_Load_Func )( FT_AutoHinter hinter,
-											   FT_GlyphSlot slot,
-											   FT_Size size,
-											   FT_UInt glyph_index,
-											   FT_ULong load_flags );
+typedef FT_Error(*FT_AutoHinter_Load_Func)(FT_AutoHinter hinter,
+        FT_GlyphSlot slot,
+        FT_Size size,
+        FT_UInt glyph_index,
+        FT_ULong load_flags);
 
 
 /*************************************************************************/

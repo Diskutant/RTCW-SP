@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,12 +27,12 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 /*
- * name:	cg_local.h
+ * name:    cg_local.h
  *
- * desc:	The entire cgame module is unloaded and reloaded on each level change,
- *			so there is NO persistant data between levels on the client side.
- *			If you absolutely need something stored, it can either be kept
- *			by the server in the server stored userinfos, or stashed in a cvar.
+ * desc:    The entire cgame module is unloaded and reloaded on each level change,
+ *          so there is NO persistant data between levels on the client side.
+ *          If you absolutely need something stored, it can either be kept
+ *          by the server in the server stored userinfos, or stashed in a cvar.
 
  *
 */
@@ -57,7 +57,7 @@ If you have questions concerning this license or the applicable additional terms
 #define DUCK_TIME           100
 #define PAIN_TWITCH_TIME    200
 #define WEAPON_SELECT_TIME  1400
-#define HOLDABLE_SELECT_TIME 1400   //----(SA)	for drawing holdable icons
+#define HOLDABLE_SELECT_TIME 1400   //----(SA)  for drawing holdable icons
 #define ITEM_SCALEUP_TIME   1000
 #define ZOOM_TIME           150
 #define ITEM_BLOB_TIME      200
@@ -119,7 +119,8 @@ If you have questions concerning this license or the applicable additional terms
 
 // when changing animation, set animationTime to frameTime + lerping time
 // The current lerp will finish out, then it will lerp to the new animation
-typedef struct {
+typedef struct
+{
 	int oldFrame;
 	int oldFrameTime;               // time when ->oldFrame was exactly on
 
@@ -145,7 +146,7 @@ typedef struct {
 	headAnimation_t *headAnim;
 	// done.
 
-	animation_t *cgAnim;    // pointer to the root of the animation array to use (*animation above points at the current sequence)	//----(SA)	added
+	animation_t *cgAnim;    // pointer to the root of the animation array to use (*animation above points at the current sequence)  //----(SA)  added
 } lerpFrame_t;
 
 // Ridah, effect defines
@@ -158,14 +159,15 @@ typedef struct {
 
 #define MAX_EFFECT_ENTS             20
 
-typedef struct {
+typedef struct
+{
 	lerpFrame_t legs, torso;
 
 	// Ridah, talking animations
 	lerpFrame_t head;
 	// done.
 
-	lerpFrame_t weap;       //----(SA)	autonomous weapon animations
+	lerpFrame_t weap;       //----(SA)  autonomous weapon animations
 
 	int lastTime;                   // last time we were processed/ If the time goes backwards, reset.
 
@@ -195,7 +197,7 @@ typedef struct {
 	float spinnerAngle;
 	int spinnerTime;
 	qboolean spinnerSpinning;
-	//----(SA)	end
+	//----(SA)  end
 
 	// Ridah, so we can do fast tag grabbing
 	refEntity_t legsRefEnt, torsoRefEnt, headRefEnt, gunRefEnt;
@@ -265,7 +267,8 @@ typedef struct {
 } playerEntity_t;
 
 //----(SA)
-typedef struct {
+typedef struct
+{
 	char type[MAX_QPATH];           // md3_lower, md3_lbelt, md3_rbelt, etc.
 	char model[MAX_QPATH];          // lower.md3, belt1.md3, etc.
 } skinModel_t;
@@ -278,7 +281,8 @@ typedef struct {
 
 // centity_t have a direct corespondence with gentity_t in the game, but
 // only the entityState_t is directly communicated to the cgame
-typedef struct centity_s {
+typedef struct centity_s
+{
 	entityState_t currentState;     // from cg.frame
 	entityState_t nextState;        // from cg.nextFrame, if available
 	qboolean interpolate;           // true if next is valid to interpolate to
@@ -332,7 +336,7 @@ typedef struct centity_s {
 	int dl_sound;
 	int dl_atten;
 
-	lerpFrame_t lerpFrame;      //----(SA)	added
+	lerpFrame_t lerpFrame;      //----(SA)  added
 	vec3_t highlightOrigin;             // center of the geometry.  for things like corona placement on treasure
 	qboolean usehighlightOrigin;
 
@@ -361,7 +365,8 @@ typedef struct centity_s {
 // local entities are created as a result of events or predicted actions,
 // and live independantly from all server transmitted entities
 
-typedef struct markPoly_s {
+typedef struct markPoly_s
+{
 	struct markPoly_s   *prevMark, *nextMark;
 	int time;
 	qhandle_t markShader;
@@ -373,8 +378,9 @@ typedef struct markPoly_s {
 	int duration;           // Ridah
 } markPoly_t;
 
-//----(SA)	moved in from cg_view.c
-typedef enum {
+//----(SA)  moved in from cg_view.c
+typedef enum
+{
 	ZOOM_NONE,
 	ZOOM_BINOC,
 	ZOOM_SNIPER,
@@ -384,16 +390,18 @@ typedef enum {
 	ZOOM_MAX_ZOOMS
 } EZoom_t;
 
-typedef enum {
+typedef enum
+{
 	ZOOM_OUT,   // widest angle
 	ZOOM_IN // tightest angle (approaching 0)
 } EZoomInOut_t;
 
 extern float zoomTable[ZOOM_MAX_ZOOMS][2];
 
-//----(SA)	end
+//----(SA)  end
 
-typedef enum {
+typedef enum
+{
 	LE_MARK,
 	LE_EXPLOSION,
 	LE_SPRITE_EXPLOSION,
@@ -414,21 +422,24 @@ typedef enum {
 	LE_SPIRIT_VIEWFLASH
 } leType_t;
 
-typedef enum {
+typedef enum
+{
 	LEF_PUFF_DONT_SCALE  = 0x0001           // do not scale size over time
-	,LEF_TUMBLE          = 0x0002           // tumble over time, used for ejecting shells
-	,LEF_NOFADEALPHA     = 0x0004           // Ridah, sparks
-	,LEF_SMOKING         = 0x0008           // (SA) smoking
-	,LEF_NOTOUCHPARENT   = 0x0010           // (SA) when tracing to eval trajectory, ignore parent cent
-	,LEF_PLAYER_DAMAGE   = 0x0020           // hurt the player on impact
+	, LEF_TUMBLE          = 0x0002          // tumble over time, used for ejecting shells
+	, LEF_NOFADEALPHA     = 0x0004          // Ridah, sparks
+	, LEF_SMOKING         = 0x0008          // (SA) smoking
+	, LEF_NOTOUCHPARENT   = 0x0010          // (SA) when tracing to eval trajectory, ignore parent cent
+	, LEF_PLAYER_DAMAGE   = 0x0020          // hurt the player on impact
 } leFlag_t;
 
-typedef enum {
+typedef enum
+{
 	LEMT_NONE,
 	LEMT_BLOOD
 } leMarkType_t;         // fragment local entities can leave marks on walls
 
-typedef enum {
+typedef enum
+{
 	LEBS_NONE,
 	LEBS_BLOOD,
 	LEBS_ROCK,
@@ -439,7 +450,8 @@ typedef enum {
 
 #define MAX_OLD_POS     3
 
-typedef struct localEntity_s {
+typedef struct localEntity_s
+{
 	struct localEntity_s    *prev, *next;
 	leType_t leType;
 	int leFlags;
@@ -493,7 +505,8 @@ typedef struct localEntity_s {
 //======================================================================
 
 
-typedef struct {
+typedef struct
+{
 	int client;
 	int score;
 	int ping;
@@ -512,7 +525,8 @@ typedef struct {
 } score_t;
 
 
-typedef enum {
+typedef enum
+{
 	ACC_BELT_LEFT,  // belt left (lower)
 	ACC_BELT_RIGHT, // belt right (lower)
 	ACC_BELT,       // belt (upper)
@@ -524,7 +538,7 @@ typedef enum {
 	ACC_MOUTH3,     //
 	//
 	ACC_MAX     // this is bound by network limits, must change network stream to increase this
-				// (SA) No, really?  that's not true is it?  isn't this client-side only?
+	// (SA) No, really?  that's not true is it?  isn't this client-side only?
 } accType_t;
 
 #define ACC_NUM_MOUTH 3 // matches the above count (hat/mouth2/mouth3)
@@ -539,7 +553,8 @@ typedef enum {
 // usually as a result of a userinfo (name, model, etc) change
 #define MAX_CUSTOM_SOUNDS   32
 #define MAX_GIB_MODELS      16
-typedef struct {
+typedef struct
+{
 	qboolean infoValid;
 
 	int clientNum;
@@ -584,10 +599,10 @@ typedef struct {
 	qhandle_t accModels[ACC_MAX];       // see def of ACC_MAX for index descriptions
 	qhandle_t accSkins[ACC_MAX];        // FIXME: put the #define for number of accessory models somewhere. (SA)
 
-	//----(SA)	additional parts for specialized characters (the loper's spinning trunk for example)
+	//----(SA)  additional parts for specialized characters (the loper's spinning trunk for example)
 	qhandle_t partModels[9];        // [0-7] are optionally called in scripts, [8] is reserved for internal use
 	qhandle_t partSkins[9];
-	//----(SA)	end
+	//----(SA)  end
 
 	qhandle_t headModel;
 	qhandle_t headSkin;
@@ -601,14 +616,15 @@ typedef struct {
 
 	qhandle_t gibModels[MAX_GIB_MODELS];
 
-	vec3_t playermodelScale;            //----(SA)	set in the skin.  client-side only
+	vec3_t playermodelScale;            //----(SA)  set in the skin.  client-side only
 
 	int blinkTime;              //----(SA)
 } clientInfo_t;
 
 
 
-typedef enum {
+typedef enum
+{
 	W_PART_1,
 	W_PART_2,
 	W_PART_3,
@@ -619,25 +635,27 @@ typedef enum {
 	W_MAX_PARTS
 } barrelType_t;
 
-typedef enum {
-	W_TP_MODEL,         //	third person model
-	W_FP_MODEL,         //	first person model
-	W_PU_MODEL,         //	pickup model
-	W_FP_MODEL_SWAP,    //	swap out model
-	W_SKTP_MODEL,       //	SKELETAL version third person model
+typedef enum
+{
+	W_TP_MODEL,         //  third person model
+	W_FP_MODEL,         //  first person model
+	W_PU_MODEL,         //  pickup model
+	W_FP_MODEL_SWAP,    //  swap out model
+	W_SKTP_MODEL,       //  SKELETAL version third person model
 	W_NUM_TYPES
 } modelViewType_t;
 
 // each WP_* weapon enum has an associated weaponInfo_t
 // that contains media references necessary to present the
 // weapon and its effects
-typedef struct weaponInfo_s {
+typedef struct weaponInfo_s
+{
 	qboolean registered;
 	gitem_t         *item;
 
-//----(SA)	weapon animation sequences loaded from the weapon.cfg
+//----(SA)  weapon animation sequences loaded from the weapon.cfg
 	animation_t weapAnimations[MAX_WP_ANIMATIONS];
-//----(SA)	end
+//----(SA)  end
 
 	qhandle_t handsModel;               // the hands don't actually draw, they just position the weapon
 
@@ -657,24 +675,24 @@ typedef struct weaponInfo_s {
 	float flashDlight;
 	vec3_t flashDlightColor;
 	sfxHandle_t flashSound[4];          // fast firing weapons randomly choose
-	sfxHandle_t flashEchoSound[4];      //----(SA)	added - distant gun firing sound
+	sfxHandle_t flashEchoSound[4];      //----(SA)  added - distant gun firing sound
 	sfxHandle_t lastShotSound[4];       // sound of the last shot can be different (mauser doesn't have bolt action on last shot for example)
 
-	sfxHandle_t switchSound[4];     //----(SA)	added
+	sfxHandle_t switchSound[4];     //----(SA)  added
 
-	qhandle_t weaponIcon[2];            //----(SA)	[0] is weap icon, [1] is highlight icon
+	qhandle_t weaponIcon[2];            //----(SA)  [0] is weap icon, [1] is highlight icon
 	qhandle_t ammoIcon;
 
 	qhandle_t ammoModel;
 
 	qhandle_t missileModel;
 	sfxHandle_t missileSound;
-	void ( *missileTrailFunc )( centity_t *, const struct weaponInfo_s *wi );
+	void (*missileTrailFunc)(centity_t *, const struct weaponInfo_s *wi);
 	float missileDlight;
 	vec3_t missileDlightColor;
 	int missileRenderfx;
 
-	void ( *ejectBrassFunc )( centity_t * );
+	void (*ejectBrassFunc)(centity_t *);
 
 	float trailRadius;
 	float wiTrailTime;
@@ -684,33 +702,37 @@ typedef struct weaponInfo_s {
 	sfxHandle_t overheatSound;
 	sfxHandle_t reloadSound;
 
-	sfxHandle_t spinupSound;        //----(SA)	added // sound started when fire button goes down, and stepped on when the first fire event happens
-	sfxHandle_t spindownSound;      //----(SA)	added // sound called if the above is running but player doesn't follow through and fire
+	sfxHandle_t spinupSound;        //----(SA)  added // sound started when fire button goes down, and stepped on when the first fire event happens
+	sfxHandle_t spindownSound;      //----(SA)  added // sound called if the above is running but player doesn't follow through and fire
 } weaponInfo_t;
 
 
 // each IT_* item has an associated itemInfo_t
 // that constains media references necessary to present the
 // item and its effects
-typedef struct {
+typedef struct
+{
 	qboolean registered;
 	qhandle_t models[MAX_ITEM_MODELS];
 	qhandle_t icons[MAX_ITEM_ICONS];
 } itemInfo_t;
 
 
-typedef struct {
+typedef struct
+{
 	int itemNum;
 } powerupInfo_t;
 
 #define MAX_VIEWDAMAGE  8
-typedef struct {
+typedef struct
+{
 	int damageTime, damageDuration;
 	float damageX, damageY, damageValue;
 } viewDamage_t;
 
 #define MAX_CAMERA_SHAKE    4
-typedef struct {
+typedef struct
+{
 	int time;
 	float scale;
 	float length;
@@ -725,7 +747,8 @@ typedef struct {
 
 #define MAX_PREDICTED_EVENTS    16
 
-typedef struct {
+typedef struct
+{
 	int clientFrame;                // incremented each frame
 
 	int clientNum;
@@ -752,7 +775,7 @@ typedef struct {
 	int frametime;              // cg.time - cg.oldTime
 
 	int time;                   // this is the time value that the client
-								// is rendering at.
+	// is rendering at.
 	int oldTime;                // time at last frame, used for missile trails and prediction checking
 
 	int physicsTime;            // either cg.snap->time or cg.nextSnap->time
@@ -803,7 +826,7 @@ typedef struct {
 	// zoom key
 	qboolean zoomed;
 	qboolean zoomedBinoc;
-	int zoomedScope;            //----(SA)	changed to int
+	int zoomedScope;            //----(SA)  changed to int
 	int zoomTime;
 	float zoomSensitivity;
 	float zoomval;
@@ -849,7 +872,7 @@ typedef struct {
 	vec4_t fadeColor1;
 	vec4_t fadeColor2;
 
-//----(SA)	added
+//----(SA)  added
 	// game stats
 	int exitStatsTime;
 	int exitStatsFade;
@@ -866,7 +889,7 @@ typedef struct {
 	int numTreasureFound;
 	int numArtifacts;
 	int numArtifactsFound;
-//----(SA)	end
+//----(SA)  end
 
 
 	// low ammo warning state
@@ -882,14 +905,14 @@ typedef struct {
 	int crosshairPowerupNum;
 	int crosshairPowerupTime;
 
-//----(SA)	added
+//----(SA)  added
 	// cursorhints
 	int cursorHintIcon;
 	int cursorHintTime;
 	int cursorHintFade;
 	int cursorHintValue;
 
-//----(SA)	end
+//----(SA)  end
 
 	// powerup active flashing
 	int powerupActive;
@@ -908,7 +931,7 @@ typedef struct {
 	int warmup;
 	int warmupCount;
 
-	// message icon popup time	//----(SA)	added
+	// message icon popup time  //----(SA)  added
 	int yougotmailTime;
 
 	//==========================
@@ -917,7 +940,7 @@ typedef struct {
 	int itemPickupTime;
 	int itemPickupBlendTime;            // the pulse around the crosshair is timed seperately
 
-	int holdableSelectTime;             //----(SA)	for holdable item icon drawing
+	int holdableSelectTime;             //----(SA)  for holdable item icon drawing
 
 	int weaponSelectTime;
 	int weaponAnimation;
@@ -934,7 +957,7 @@ typedef struct {
 
 	int switchbackWeapon;
 	int lastFiredWeapon;
-	int lastWeapSelInBank[MAX_WEAP_BANKS];          // remember which weapon was last selected in a bank for 'weaponbank' commands //----(SA)	added
+	int lastWeapSelInBank[MAX_WEAP_BANKS];          // remember which weapon was last selected in a bank for 'weaponbank' commands //----(SA)   added
 // JPW FIXME NOTE: max_weap_banks > max_weap_banks_mp so this should be OK, but if that changes, change this too
 
 	// status bar head
@@ -971,12 +994,12 @@ typedef struct {
 
 	// RF, new kick angles
 	vec3_t kickAVel;            // for damage feedback, weapon recoil, etc
-								// This is the angular velocity, to give a smooth
-								// rotational feedback, rather than sudden jerks
+	// This is the angular velocity, to give a smooth
+	// rotational feedback, rather than sudden jerks
 	vec3_t kickAngles;          // for damage feedback, weapon recoil, etc
-								// NOTE: this is not transmitted through MSG.C stream
-								// since weapon kicks are client-side, and damage feedback
-								// is rare enough that we can transmit that as an event
+	// NOTE: this is not transmitted through MSG.C stream
+	// since weapon kicks are client-side, and damage feedback
+	// is rare enough that we can transmit that as an event
 	float recoilPitch, recoilPitchAngle;
 
 	// Duffy
@@ -1010,7 +1033,8 @@ typedef struct {
 // loaded at gamestate time are stored in cgMedia_t
 // Other media that can be tied to clients, weapons, or items are
 // stored in the clientInfo_t, itemInfo_t, weaponInfo_t, and powerupInfo_t
-typedef struct {
+typedef struct
+{
 	qhandle_t charsetShader;
 	// JOSEPH 4-17-00
 	qhandle_t menucharsetShader;
@@ -1050,7 +1074,7 @@ typedef struct {
 	qhandle_t targetEffectExplosionShader;
 
 	qhandle_t machinegunBrassModel;
-	qhandle_t panzerfaustBrassModel;    //----(SA)	added
+	qhandle_t panzerfaustBrassModel;    //----(SA)  added
 
 	// Rafael
 	qhandle_t smallgunBrassModel;
@@ -1064,7 +1088,7 @@ typedef struct {
 
 	qhandle_t friendShader;
 
-//	qhandle_t	medicReviveShader;	//----(SA)	commented out from MP
+//	qhandle_t    medicReviveShader;  //----(SA)  commented out from MP
 	qhandle_t balloonShader;
 	qhandle_t connectionShader;
 
@@ -1074,17 +1098,17 @@ typedef struct {
 	qhandle_t viewBloodShader;
 	qhandle_t tracerShader;
 	qhandle_t crosshairShader[NUM_CROSSHAIRS];
-	qhandle_t crosshairFriendly;    //----(SA)	added
+	qhandle_t crosshairFriendly;    //----(SA)  added
 	qhandle_t lagometerShader;
 	qhandle_t backTileShader;
 	qhandle_t noammoShader;
 
 	qhandle_t reticleShader;
-//	qhandle_t	reticleShaderSimple;
+//	qhandle_t    reticleShaderSimple;
 	qhandle_t reticleShaderSimpleQ;
-//	qhandle_t	snooperShader;
+//	qhandle_t    snooperShader;
 	qhandle_t snooperShaderSimple;
-//	qhandle_t	binocShaderSimple;
+//	qhandle_t    binocShaderSimple;
 	qhandle_t binocShaderSimpleQ;   // same as above, but quartered.  (trying to save texture space)
 
 	qhandle_t smokePuffShader;
@@ -1095,7 +1119,7 @@ typedef struct {
 
 	qhandle_t nailPuffShader;
 
-//----(SA)	modified
+//----(SA)  modified
 
 	// cursor hints
 	// would be nice to specify these in the menu scripts instead of permanent handles...
@@ -1103,7 +1127,7 @@ typedef struct {
 
 	qhandle_t youGotMailShader;         // '!' - new entry in notebook
 	qhandle_t youGotObjectiveShader;    // '<checkmark> - you completed objective
-//----(SA)	end
+//----(SA)  end
 
 	// Rafael
 	qhandle_t snowShader;
@@ -1194,7 +1218,7 @@ typedef struct {
 	qhandle_t zombieLoogie;
 	qhandle_t flamebarrel;
 	qhandle_t mg42muzzleflash;
-	//qhandle_t	mg42muzzleflashgg;
+	//qhandle_t mg42muzzleflashgg;
 	qhandle_t planemuzzleflash;
 
 	// Rafael
@@ -1203,8 +1227,8 @@ typedef struct {
 	qhandle_t waterSplashModel;
 	qhandle_t waterSplashShader;
 
-	qhandle_t thirdPersonBinocModel;    //----(SA)	added
-	qhandle_t cigModel;     //----(SA)	added
+	qhandle_t thirdPersonBinocModel;    //----(SA)  added
+	qhandle_t cigModel;     //----(SA)  added
 
 	qhandle_t batModel;
 	qhandle_t spiritSkullModel;
@@ -1241,16 +1265,16 @@ typedef struct {
 	qhandle_t flamethrowerFuelStream;
 	qhandle_t flamethrowerFuelShader;
 	qhandle_t onFireShader, onFireShader2;
-	//qhandle_t	dripWetShader, dripWetShader2;
+	//qhandle_t dripWetShader, dripWetShader2;
 	qhandle_t viewFadeBlack;
 	qhandle_t sparkFlareShader;
 	qhandle_t funnelFireShader[NUM_FUNNEL_SPRITES];
 
 	qhandle_t spotLightShader;
 	qhandle_t spotLightBeamShader;
-	qhandle_t spotLightBaseModel;       //----(SA)	added
-	qhandle_t spotLightLightModel;      //----(SA)	added
-	qhandle_t spotLightLightModelBroke;     //----(SA)	added
+	qhandle_t spotLightBaseModel;       //----(SA)  added
+	qhandle_t spotLightLightModel;      //----(SA)  added
+	qhandle_t spotLightLightModelBroke;     //----(SA)  added
 
 	qhandle_t lightningHitWallShader;
 	qhandle_t lightningWaveShader;
@@ -1292,10 +1316,10 @@ typedef struct {
 
 //----(SA)
 	// proto/super/heini armor parts
-	qhandle_t protoArmor[9 * 3];        // 9 parts, 3 sections each	(nodam, dam1, dam2)
+	qhandle_t protoArmor[9 * 3];        // 9 parts, 3 sections each (nodam, dam1, dam2)
 	qhandle_t superArmor[16 * 3];       // 14 parts, 3 sections each
 	qhandle_t heinrichArmor[22 * 3];    // 20 parts, 3 sections each
-//----(SA)	end
+//----(SA)  end
 
 	// medals shown during gameplay
 	qhandle_t medalImpressive;
@@ -1321,7 +1345,7 @@ typedef struct {
 	sfxHandle_t sfx_railg;
 	sfxHandle_t sfx_rockexp;
 	sfxHandle_t sfx_dynamiteexp;
-	sfxHandle_t sfx_dynamiteexpDist;    //----(SA)	added
+	sfxHandle_t sfx_dynamiteexpDist;    //----(SA)  added
 	sfxHandle_t sfx_spearhit;
 	sfxHandle_t sfx_knifehit[5];
 	sfxHandle_t sfx_bullet_metalhit[3];
@@ -1369,8 +1393,8 @@ typedef struct {
 	sfxHandle_t underWaterSound;
 	sfxHandle_t medkitSound;
 	sfxHandle_t wineSound;
-	sfxHandle_t bookSound;      //----(SA)	added
-	sfxHandle_t staminaSound;   //----(SA)	added
+	sfxHandle_t bookSound;      //----(SA)  added
+	sfxHandle_t staminaSound;   //----(SA)  added
 	sfxHandle_t elecSound;
 	sfxHandle_t fireSound;
 	sfxHandle_t waterSound;
@@ -1393,14 +1417,14 @@ typedef struct {
 	sfxHandle_t debBounce3Sound;
 	//----(SA) end
 
-	//----(SA)	added
+	//----(SA)  added
 	sfxHandle_t grenadePulseSound4;
 	sfxHandle_t grenadePulseSound3;
 	sfxHandle_t grenadePulseSound2;
 	sfxHandle_t grenadePulseSound1;
 	//----(SA)
 
-//----(SA)	added
+//----(SA)  added
 	sfxHandle_t sparkSounds[2];
 //----(SA)
 
@@ -1438,9 +1462,9 @@ typedef struct {
 
 //	sfxHandle_t grenadebounce1;
 //	sfxHandle_t grenadebounce2;
-	sfxHandle_t grenadebounce[GRENBOUNCE_TOTAL][2]; //----(SA)	modified
+	sfxHandle_t grenadebounce[GRENBOUNCE_TOTAL][2]; //----(SA)  modified
 
-	sfxHandle_t dynamitebounce1;    //----(SA)	added
+	sfxHandle_t dynamitebounce1;    //----(SA)  added
 
 	sfxHandle_t fbarrelexp1;
 	sfxHandle_t fbarrelexp2;
@@ -1479,7 +1503,7 @@ typedef struct soundScriptSound_s
 
 #define MAX_SOUND_SCRIPT_SOUNDS 8192
 extern soundScriptSound_t soundScriptSounds[MAX_SOUND_SCRIPT_SOUNDS];
-//DAJ defined in cg_sound.c int	numSoundScriptSounds;
+//DAJ defined in cg_sound.c int numSoundScriptSounds;
 
 
 typedef struct soundScript_s
@@ -1503,11 +1527,11 @@ typedef struct soundScript_s
 // we have to define these static lists, since we can't alloc memory within the cgame
 
 #define FILE_HASH_SIZE          1024
-extern soundScript_t*      hashTable[FILE_HASH_SIZE];
+extern soundScript_t      *hashTable[FILE_HASH_SIZE];
 
 #define MAX_SOUND_SCRIPTS       4096
 extern soundScript_t soundScripts[MAX_SOUND_SCRIPTS];
-//DAJ defined in cg_sound.c int	numSoundScripts;
+//DAJ defined in cg_sound.c int numSoundScripts;
 
 extern soundScript_t soundScripts[MAX_SOUND_SCRIPTS];
 
@@ -1519,7 +1543,8 @@ extern soundScript_t soundScripts[MAX_SOUND_SCRIPTS];
 // loaded or calculated from the gamestate.  It will NOT
 // be cleared when a tournement restart is done, allowing
 // all clients to begin playing instantly
-typedef struct {
+typedef struct
+{
 	gameState_t gameState;              // gamestate from server
 	glconfig_t glconfig;                // rendering configuration
 	float screenXScale;                 // derived from glconfig
@@ -1570,7 +1595,7 @@ typedef struct {
 	qhandle_t gameModels[MAX_MODELS];
 
 	sfxHandle_t gameSounds[MAX_SOUNDS];
-	int gameSoundTypes[MAX_SOUNDS];             //----(SA)	added
+	int gameSoundTypes[MAX_SOUNDS];             //----(SA)  added
 
 	int numInlineModels;
 	qhandle_t inlineDrawModel[MAX_MODELS];
@@ -1584,7 +1609,7 @@ typedef struct {
 	int teamChatPos;
 	int teamLastChatPos;
 
-	char itemPrintNames[MAX_ITEMS][32];             //----(SA)	added
+	char itemPrintNames[MAX_ITEMS][32];             //----(SA)  added
 
 	int cursorX;
 	int cursorY;
@@ -1595,7 +1620,7 @@ typedef struct {
 	qhandle_t activeCursor;
 
 	// screen fading
-	//----(SA)	modified just in name so global searching is easier to narrow down (added 'scrF')
+	//----(SA)  modified just in name so global searching is easier to narrow down (added 'scrF')
 	float scrFadeAlpha, scrFadeAlphaCurrent;
 	int scrFadeStartTime;
 	int scrFadeDuration;
@@ -1631,14 +1656,14 @@ extern vmCvar_t cg_drawFPS;
 extern vmCvar_t cg_drawSnapshot;
 extern vmCvar_t cg_draw3dIcons;
 extern vmCvar_t cg_drawIcons;
-extern vmCvar_t cg_youGotMail;          //----(SA)	added
+extern vmCvar_t cg_youGotMail;          //----(SA)  added
 extern vmCvar_t cg_drawAmmoWarning;
 extern vmCvar_t cg_drawCrosshair;
 extern vmCvar_t cg_drawCrosshairNames;
 extern vmCvar_t cg_drawCrosshairPickups;
 extern vmCvar_t cg_hudAlpha;
 extern vmCvar_t cg_useWeapsForZoom;
-extern vmCvar_t cg_weaponCycleDelay;            //----(SA)	added
+extern vmCvar_t cg_weaponCycleDelay;            //----(SA)  added
 extern vmCvar_t cg_cycleAllWeaps;
 extern vmCvar_t cg_drawAllWeaps;
 extern vmCvar_t cg_drawRewards;
@@ -1646,7 +1671,7 @@ extern vmCvar_t cg_drawTeamOverlay;
 extern vmCvar_t cg_crosshairX;
 extern vmCvar_t cg_crosshairY;
 extern vmCvar_t cg_crosshairSize;
-extern vmCvar_t cg_crosshairAlpha;          //----(SA)	added
+extern vmCvar_t cg_crosshairAlpha;          //----(SA)  added
 extern vmCvar_t cg_crosshairHealth;
 extern vmCvar_t cg_drawStatus;
 extern vmCvar_t cg_draw2D;
@@ -1672,9 +1697,9 @@ extern vmCvar_t cg_drawGun;
 extern vmCvar_t cg_drawFPGun;
 extern vmCvar_t cg_drawGamemodels;
 extern vmCvar_t cg_cursorHints;
-extern vmCvar_t cg_hintFadeTime;            //----(SA)	added
+extern vmCvar_t cg_hintFadeTime;            //----(SA)  added
 extern vmCvar_t cg_viewsize;
-extern vmCvar_t cg_letterbox;           //----(SA)	added
+extern vmCvar_t cg_letterbox;           //----(SA)  added
 extern vmCvar_t cg_tracerChance;
 extern vmCvar_t cg_tracerWidth;
 extern vmCvar_t cg_tracerLength;
@@ -1716,7 +1741,7 @@ extern vmCvar_t cg_teamChatsOnly;
 extern vmCvar_t cg_enableBreath;
 extern vmCvar_t cg_autoactivate;
 extern vmCvar_t cg_emptyswitch;
-extern vmCvar_t cg_useSuggestedWeapons;         //----(SA)	added
+extern vmCvar_t cg_useSuggestedWeapons;         //----(SA)  added
 extern vmCvar_t cg_particleDist;
 extern vmCvar_t cg_particleLOD;
 extern vmCvar_t cg_smoothClients;
@@ -1732,7 +1757,7 @@ extern vmCvar_t cg_cameraMode;
 extern vmCvar_t cg_smallFont;
 extern vmCvar_t cg_bigFont;
 
-extern vmCvar_t cg_blinktime;           //----(SA)	added
+extern vmCvar_t cg_blinktime;           //----(SA)  added
 
 extern vmCvar_t cg_currentSelectedPlayer;
 extern vmCvar_t cg_currentSelectedPlayerName;
@@ -1751,7 +1776,7 @@ extern vmCvar_t cg_skybox;
 extern vmCvar_t cg_gameSkill;
 // done
 
-extern vmCvar_t cg_reloading;           //----(SA)	added
+extern vmCvar_t cg_reloading;           //----(SA)  added
 
 // JPW NERVE
 extern vmCvar_t cg_medicChargeTime;
@@ -1789,89 +1814,89 @@ extern vmCvar_t mp_mapTitle;
 //
 // cg_main.c
 //
-const char *CG_ConfigString( int index );
-const char *CG_Argv( int arg );
+const char *CG_ConfigString(int index);
+const char *CG_Argv(int arg);
 // CG_Argv uses static string, need second version for concurrent use:
-const char *CG_Argv2( int arg );
+const char *CG_Argv2(int arg);
 
-void QDECL CG_Printf( const char *msg, ... );
-void QDECL CG_Error( const char *msg, ... );
+void QDECL CG_Printf(const char *msg, ...);
+void QDECL CG_Error(const char *msg, ...);
 
-void CG_StartMusic( void );
-void CG_QueueMusic( void ); //----(SA)	added
+void CG_StartMusic(void);
+void CG_QueueMusic(void);   //----(SA)   added
 
-void CG_UpdateCvars( void );
+void CG_UpdateCvars(void);
 
-int CG_CrosshairPlayer( void );
-int CG_LastAttacker( void );
-void CG_LoadMenus( const char *menuFile );
-void CG_KeyEvent( int key, qboolean down );
-void CG_MouseEvent( int x, int y );
-void CG_EventHandling( int type );
+int CG_CrosshairPlayer(void);
+int CG_LastAttacker(void);
+void CG_LoadMenus(const char *menuFile);
+void CG_KeyEvent(int key, qboolean down);
+void CG_MouseEvent(int x, int y);
+void CG_EventHandling(int type);
 
-qboolean CG_GetTag( int clientNum, char *tagname, orientation_t * or );
-qboolean CG_GetWeaponTag( int clientNum, char *tagname, orientation_t * or );
+qboolean CG_GetTag(int clientNum, char *tagname, orientation_t *or);
+qboolean CG_GetWeaponTag(int clientNum, char *tagname, orientation_t *or);
 
 //
 // cg_view.c
 //
-void CG_TestModel_f( void );
-void CG_TestGun_f( void );
-void CG_TestModelNextFrame_f( void );
-void CG_TestModelPrevFrame_f( void );
-void CG_TestModelNextSkin_f( void );
-void CG_TestModelPrevSkin_f( void );
-void CG_ZoomDown_f( void );
-void CG_ZoomIn_f( void );
-void CG_ZoomOut_f( void );
-void CG_ZoomUp_f( void );
+void CG_TestModel_f(void);
+void CG_TestGun_f(void);
+void CG_TestModelNextFrame_f(void);
+void CG_TestModelPrevFrame_f(void);
+void CG_TestModelNextSkin_f(void);
+void CG_TestModelPrevSkin_f(void);
+void CG_ZoomDown_f(void);
+void CG_ZoomIn_f(void);
+void CG_ZoomOut_f(void);
+void CG_ZoomUp_f(void);
 
-void CG_DrawActiveFrame( int serverTime, stereoFrame_t stereoView, qboolean demoPlayback );
+void CG_DrawActiveFrame(int serverTime, stereoFrame_t stereoView, qboolean demoPlayback);
 
-void CG_Concussive( centity_t *cent );
+void CG_Concussive(centity_t *cent);
 //
 // cg_drawtools.c
 //
-void CG_AdjustFrom640( float *x, float *y, float *w, float *h );
-void CG_FillRect( float x, float y, float width, float height, const float *color );
-void CG_HorizontalPercentBar( float x, float y, float width, float height, float percent );
-void CG_DrawPic( float x, float y, float width, float height, qhandle_t hShader );
-void CG_FilledBar( float x, float y, float w, float h, const float *startColorIn, float *endColor, const float *bgColor, float frac, int flags );
+void CG_AdjustFrom640(float *x, float *y, float *w, float *h);
+void CG_FillRect(float x, float y, float width, float height, const float *color);
+void CG_HorizontalPercentBar(float x, float y, float width, float height, float percent);
+void CG_DrawPic(float x, float y, float width, float height, qhandle_t hShader);
+void CG_FilledBar(float x, float y, float w, float h, const float *startColorIn, float *endColor, const float *bgColor, float frac, int flags);
 // JOSEPH 10-26-99
-void CG_DrawStretchPic( float x, float y, float width, float height, qhandle_t hShader );
+void CG_DrawStretchPic(float x, float y, float width, float height, qhandle_t hShader);
 // END JOSEPH
-void CG_DrawString( float x, float y, const char *string,
-					float charWidth, float charHeight, const float *modulate );
+void CG_DrawString(float x, float y, const char *string,
+                   float charWidth, float charHeight, const float *modulate);
 
 
-void CG_DrawStringExt( int x, int y, const char *string, const float *setColor,
-					   qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars );
+void CG_DrawStringExt(int x, int y, const char *string, const float *setColor,
+                      qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars);
 // JOSEPH 4-17-00
-void CG_DrawStringExt2( int x, int y, const char *string, const float *setColor,
-						qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars );
+void CG_DrawStringExt2(int x, int y, const char *string, const float *setColor,
+                       qboolean forceColor, qboolean shadow, int charWidth, int charHeight, int maxChars);
 // END JOSEPH
-void CG_DrawBigString( int x, int y, const char *s, float alpha );
-void CG_DrawBigStringColor( int x, int y, const char *s, vec4_t color );
-void CG_DrawSmallString( int x, int y, const char *s, float alpha );
-void CG_DrawSmallStringColor( int x, int y, const char *s, vec4_t color );
+void CG_DrawBigString(int x, int y, const char *s, float alpha);
+void CG_DrawBigStringColor(int x, int y, const char *s, vec4_t color);
+void CG_DrawSmallString(int x, int y, const char *s, float alpha);
+void CG_DrawSmallStringColor(int x, int y, const char *s, vec4_t color);
 // JOSEPH 4-25-00
-void CG_DrawBigString2( int x, int y, const char *s, float alpha );
-void CG_DrawBigStringColor2( int x, int y, const char *s, vec4_t color );
+void CG_DrawBigString2(int x, int y, const char *s, float alpha);
+void CG_DrawBigStringColor2(int x, int y, const char *s, vec4_t color);
 // END JOSEPH
-int CG_DrawStrlen( const char *str );
+int CG_DrawStrlen(const char *str);
 
-float   *CG_FadeColor( int startMsec, int totalMsec );
-float *CG_TeamColor( int team );
-void CG_TileClear( void );
-void CG_ColorForHealth( vec4_t hcolor );
-void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
+float   *CG_FadeColor(int startMsec, int totalMsec);
+float *CG_TeamColor(int team);
+void CG_TileClear(void);
+void CG_ColorForHealth(vec4_t hcolor);
+void CG_GetColorForHealth(int health, int armor, vec4_t hcolor);
 
-void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
+void UI_DrawProportionalString(int x, int y, const char *str, int style, vec4_t color);
 
 // new hud stuff
-void CG_DrawRect( float x, float y, float width, float height, float size, const float *color );
-void CG_DrawSides( float x, float y, float w, float h, float size );
-void CG_DrawTopBottom( float x, float y, float w, float h, float size );
+void CG_DrawRect(float x, float y, float width, float height, float size, const float *color);
+void CG_DrawSides(float x, float y, float w, float h, float size);
+void CG_DrawTopBottom(float x, float y, float w, float h, float size);
 
 
 
@@ -1885,38 +1910,38 @@ extern char systemChat[256];
 extern char teamChat1[256];
 extern char teamChat2[256];
 
-void CG_AddLagometerFrameInfo( void );
-void CG_AddLagometerSnapshotInfo( snapshot_t *snap );
-void CG_CenterPrint( const char *str, int y, int charWidth );
-void CG_ObjectivePrint( const char *str, int charWidth, int team );     // NERVE - SMF
-void CG_DrawHead( float x, float y, float w, float h, int clientNum, vec3_t headAngles );
-void CG_DrawActive( stereoFrame_t stereoView );
-void CG_DrawFlagModel( float x, float y, float w, float h, int team );
+void CG_AddLagometerFrameInfo(void);
+void CG_AddLagometerSnapshotInfo(snapshot_t *snap);
+void CG_CenterPrint(const char *str, int y, int charWidth);
+void CG_ObjectivePrint(const char *str, int charWidth, int team);       // NERVE - SMF
+void CG_DrawHead(float x, float y, float w, float h, int clientNum, vec3_t headAngles);
+void CG_DrawActive(stereoFrame_t stereoView);
+void CG_DrawFlagModel(float x, float y, float w, float h, int team);
 
-void CG_DrawTeamBackground( int x, int y, int w, int h, float alpha, int team );
-void CG_OwnerDraw( float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, int font, float scale, vec4_t color, qhandle_t shader, int textStyle );
-void CG_Text_Paint( float x, float y, int font, float scale, vec4_t color, const char *text, float adjust, int limit, int style );    //----(SA)	modified
-int CG_Text_Width( const char *text, int font, float scale, int limit );
-int CG_Text_Height( const char *text, int font, float scale, int limit );
+void CG_DrawTeamBackground(int x, int y, int w, int h, float alpha, int team);
+void CG_OwnerDraw(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, int font, float scale, vec4_t color, qhandle_t shader, int textStyle);
+void CG_Text_Paint(float x, float y, int font, float scale, vec4_t color, const char *text, float adjust, int limit, int style);      //----(SA) modified
+int CG_Text_Width(const char *text, int font, float scale, int limit);
+int CG_Text_Height(const char *text, int font, float scale, int limit);
 void CG_SelectPrevPlayer();
 void CG_SelectNextPlayer();
-float CG_GetValue( int ownerDraw, int type ); // 'type' is relative or absolute (fractional-'0.5' or absolute- '50' health)
-qboolean CG_OwnerDrawVisible( int flags );
-void CG_RunMenuScript( char **args );
+float CG_GetValue(int ownerDraw, int type);   // 'type' is relative or absolute (fractional-'0.5' or absolute- '50' health)
+qboolean CG_OwnerDrawVisible(int flags);
+void CG_RunMenuScript(char **args);
 void CG_ShowResponseHead();
-void CG_SetPrintString( int type, const char *p );
+void CG_SetPrintString(int type, const char *p);
 void CG_InitTeamChat();
-void CG_GetTeamColor( vec4_t *color );
+void CG_GetTeamColor(vec4_t *color);
 const char *CG_GetGameStatusText();
 const char *CG_GetKillerText();
-void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, qhandle_t skin, vec3_t origin, vec3_t angles );
-void CG_Text_PaintChar( float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader );
+void CG_Draw3DModel(float x, float y, float w, float h, qhandle_t model, qhandle_t skin, vec3_t origin, vec3_t angles);
+void CG_Text_PaintChar(float x, float y, float width, float height, float scale, float s, float t, float s2, float t2, qhandle_t hShader);
 void CG_CheckOrderPending();
 const char *CG_GameTypeString();
 qboolean CG_YourTeamHasFlag();
 qboolean CG_OtherTeamHasFlag();
-qhandle_t CG_StatusHandle( int task );
-void CG_Fade( int r, int g, int b, int a, int time, int duration ); //----(SA)	modified
+qhandle_t CG_StatusHandle(int task);
+void CG_Fade(int r, int g, int b, int a, int time, int duration);   //----(SA)   modified
 
 void CG_CalcShakeCamera();
 void CG_ApplyShakeCamera();
@@ -1926,241 +1951,241 @@ void CG_ApplyShakeCamera();
 //
 // cg_player.c
 //
-qboolean CG_EntOnFire( centity_t *cent );    // Ridah
-void CG_Player( centity_t *cent );
-void CG_ResetPlayerEntity( centity_t *cent );
-void CG_AddRefEntityWithPowerups( refEntity_t *ent, int powerups, int team, entityState_t *es, const vec3_t fireRiseDir );
-void CG_NewClientInfo( int clientNum );
-sfxHandle_t CG_CustomSound( int clientNum, const char *soundName );
+qboolean CG_EntOnFire(centity_t *cent);      // Ridah
+void CG_Player(centity_t *cent);
+void CG_ResetPlayerEntity(centity_t *cent);
+void CG_AddRefEntityWithPowerups(refEntity_t *ent, int powerups, int team, entityState_t *es, const vec3_t fireRiseDir);
+void CG_NewClientInfo(int clientNum);
+sfxHandle_t CG_CustomSound(int clientNum, const char *soundName);
 
 // Rafael particles
 extern qboolean initparticles;
-int CG_NewParticleArea( int num );
+int CG_NewParticleArea(int num);
 
 //
 // cg_predict.c
 //
-void CG_BuildSolidList( void );
-int CG_PointContents( const vec3_t point, int passEntityNum );
-void CG_Trace( trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
-			   int skipNumber, int mask );
-void CG_PredictPlayerState( void );
-void CG_LoadDeferredPlayers( void );
+void CG_BuildSolidList(void);
+int CG_PointContents(const vec3_t point, int passEntityNum);
+void CG_Trace(trace_t *result, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end,
+              int skipNumber, int mask);
+void CG_PredictPlayerState(void);
+void CG_LoadDeferredPlayers(void);
 
 
 //
 // cg_events.c
 //
-void CG_CheckEvents( centity_t *cent );
-const char  *CG_PlaceString( int rank );
-void CG_EntityEvent( centity_t *cent, vec3_t position );
-void CG_PainEvent( centity_t *cent, int health, qboolean crouching );
+void CG_CheckEvents(centity_t *cent);
+const char  *CG_PlaceString(int rank);
+void CG_EntityEvent(centity_t *cent, vec3_t position);
+void CG_PainEvent(centity_t *cent, int health, qboolean crouching);
 
 
 //
 // cg_ents.c
 //
-void CG_SetEntitySoundPosition( centity_t *cent );
-void CG_AddPacketEntities( void );
-void CG_Beam( centity_t *cent );
-void CG_AdjustPositionForMover( const vec3_t in, int moverNum, int fromTime, int toTime, vec3_t out, vec3_t outDeltaAngles );
+void CG_SetEntitySoundPosition(centity_t *cent);
+void CG_AddPacketEntities(void);
+void CG_Beam(centity_t *cent);
+void CG_AdjustPositionForMover(const vec3_t in, int moverNum, int fromTime, int toTime, vec3_t out, vec3_t outDeltaAngles);
 
-void CG_PositionEntityOnTag( refEntity_t *entity, const refEntity_t *parent,
-							 char *tagName, int startIndex, vec3_t *offset );
-void CG_PositionRotatedEntityOnTag( refEntity_t *entity, const refEntity_t *parent, char *tagName );
+void CG_PositionEntityOnTag(refEntity_t *entity, const refEntity_t *parent,
+                            char *tagName, int startIndex, vec3_t *offset);
+void CG_PositionRotatedEntityOnTag(refEntity_t *entity, const refEntity_t *parent, char *tagName);
 
 
 //----(SA)
-void CG_AttachedPartChange( centity_t *cent );
-void CG_NextItem_f( void );
-void CG_PrevItem_f( void );
-void CG_Item_f( void );
-//----(SA)	end
+void CG_AttachedPartChange(centity_t *cent);
+void CG_NextItem_f(void);
+void CG_PrevItem_f(void);
+void CG_Item_f(void);
+//----(SA)  end
 
 
 //
 // cg_weapons.c
 //
-void CG_LastWeaponUsed_f( void );     //----(SA)	added
-void CG_NextWeaponInBank_f( void );   //----(SA)	added
-void CG_PrevWeaponInBank_f( void );   //----(SA)	added
-void CG_AltWeapon_f( void );
-void CG_NextWeapon_f( void );
-void CG_PrevWeapon_f( void );
-void CG_Weapon_f( void );
-void CG_WeaponBank_f( void );
-void CG_WeaponSuggest( int weap );
+void CG_LastWeaponUsed_f(void);       //----(SA) added
+void CG_NextWeaponInBank_f(void);     //----(SA) added
+void CG_PrevWeaponInBank_f(void);     //----(SA) added
+void CG_AltWeapon_f(void);
+void CG_NextWeapon_f(void);
+void CG_PrevWeapon_f(void);
+void CG_Weapon_f(void);
+void CG_WeaponBank_f(void);
+void CG_WeaponSuggest(int weap);
 
-void CG_FinishWeaponChange( int lastweap, int newweap );
+void CG_FinishWeaponChange(int lastweap, int newweap);
 
-void CG_RegisterWeapon( int weaponNum );
-void CG_RegisterItemVisuals( int itemNum );
+void CG_RegisterWeapon(int weaponNum);
+void CG_RegisterItemVisuals(int itemNum);
 
-void CG_FireWeapon( centity_t *cent );   //----(SA)	modified.
-//void CG_EndFireWeapon( centity_t *cent, int firemode );	//----(SA)	added
-void CG_MissileHitWall( int weapon, int clientNum, vec3_t origin, vec3_t dir, int surfaceFlags );   //	(SA) modified to send missilehitwall surface parameters
+void CG_FireWeapon(centity_t *cent);     //----(SA)  modified.
+//void CG_EndFireWeapon( centity_t *cent, int firemode );   //----(SA)  added
+void CG_MissileHitWall(int weapon, int clientNum, vec3_t origin, vec3_t dir, int surfaceFlags);     //   (SA) modified to send missilehitwall surface parameters
 
-void CG_MissileHitWallSmall( int weapon, int clientNum, vec3_t origin, vec3_t dir );
-void CG_DrawTracer( vec3_t start, vec3_t finish );
+void CG_MissileHitWallSmall(int weapon, int clientNum, vec3_t origin, vec3_t dir);
+void CG_DrawTracer(vec3_t start, vec3_t finish);
 
 // Rafael
-void CG_MG42EFX( centity_t *cent );
+void CG_MG42EFX(centity_t *cent);
 
-void CG_FLAKEFX( centity_t *cent, int whichgun );
+void CG_FLAKEFX(centity_t *cent, int whichgun);
 
-void CG_MortarEFX( centity_t *cent );
+void CG_MortarEFX(centity_t *cent);
 
 // Ridah
-qboolean CG_MonsterUsingWeapon( centity_t *cent, int aiChar, int weaponNum );
+qboolean CG_MonsterUsingWeapon(centity_t *cent, int aiChar, int weaponNum);
 
 // Rafael
-void CG_MissileHitWall2( int weapon, int clientNum, vec3_t origin, vec3_t dir );
+void CG_MissileHitWall2(int weapon, int clientNum, vec3_t origin, vec3_t dir);
 // done
 
-void CG_MissileHitPlayer( centity_t *cent, int weapon, vec3_t origin, vec3_t dir, int entityNum );
+void CG_MissileHitPlayer(centity_t *cent, int weapon, vec3_t origin, vec3_t dir, int entityNum);
 //----(SA)
-void CG_VenomFire( entityState_t *es, qboolean fullmode );
+void CG_VenomFire(entityState_t *es, qboolean fullmode);
 //----(SA)
-void CG_Bullet( vec3_t origin, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum, qboolean wolfkick, int otherEntNum2 );
+void CG_Bullet(vec3_t origin, int sourceEntityNum, vec3_t normal, qboolean flesh, int fleshEntityNum, qboolean wolfkick, int otherEntNum2);
 
-void CG_RailTrail( clientInfo_t *ci, vec3_t start, vec3_t end, int type );   //----(SA)	added 'type'
-void CG_GrappleTrail( centity_t *ent, const weaponInfo_t *wi );
-void CG_AddViewWeapon( playerState_t *ps );
-void CG_AddPlayerWeapon( refEntity_t *parent, playerState_t *ps, centity_t *cent );
-void CG_DrawWeaponSelect( void );
-void CG_DrawHoldableSelect( void );
+void CG_RailTrail(clientInfo_t *ci, vec3_t start, vec3_t end, int type);     //----(SA)  added 'type'
+void CG_GrappleTrail(centity_t *ent, const weaponInfo_t *wi);
+void CG_AddViewWeapon(playerState_t *ps);
+void CG_AddPlayerWeapon(refEntity_t *parent, playerState_t *ps, centity_t *cent);
+void CG_DrawWeaponSelect(void);
+void CG_DrawHoldableSelect(void);
 
-void CG_OutOfAmmoChange( void );
-void CG_HoldableUsedupChange( void ); //----(SA)	added
+void CG_OutOfAmmoChange(void);
+void CG_HoldableUsedupChange(void);   //----(SA) added
 
 //----(SA) added to header to access from outside cg_weapons.c
-void CG_AddDebris( vec3_t origin, vec3_t dir, int speed, int duration, int count );
+void CG_AddDebris(vec3_t origin, vec3_t dir, int speed, int duration, int count);
 //----(SA) done
 
-void CG_ClientDamage( int entnum, int enemynum, int id );
+void CG_ClientDamage(int entnum, int enemynum, int id);
 
-void CG_AddBulletParticles( vec3_t origin, vec3_t dir, int speed, int duration, int count, float randScale );
+void CG_AddBulletParticles(vec3_t origin, vec3_t dir, int speed, int duration, int count, float randScale);
 
 //
 // cg_marks.c
 //
-void    CG_InitMarkPolys( void );
-void    CG_AddMarks( void );
-void    CG_ImpactMark( qhandle_t markShader,
-					   const vec3_t origin, const vec3_t dir,
-					   float orientation,
-					   float r, float g, float b, float a,
-					   qboolean alphaFade,
-					   float radius, qboolean temporary, int duration );
+void    CG_InitMarkPolys(void);
+void    CG_AddMarks(void);
+void    CG_ImpactMark(qhandle_t markShader,
+                      const vec3_t origin, const vec3_t dir,
+                      float orientation,
+                      float r, float g, float b, float a,
+                      qboolean alphaFade,
+                      float radius, qboolean temporary, int duration);
 
 // Rafael particles
 //
 // cg_particles.c
 //
-void    CG_ClearParticles( void );
-void    CG_AddParticles( void );
-void    CG_ParticleSnow( qhandle_t pshader, vec3_t origin, vec3_t origin2, int turb, float range, int snum );
-void    CG_ParticleSmoke( qhandle_t pshader, centity_t *cent );
-void    CG_AddParticleShrapnel( localEntity_t *le );
-void    CG_ParticleSnowFlurry( qhandle_t pshader, centity_t *cent );
-void    CG_ParticleBulletDebris( vec3_t org, vec3_t vel, int duration );
-void    CG_ParticleDirtBulletDebris( vec3_t org, vec3_t vel, int duration );     // DHM - Nerve
-void    CG_ParticleDirtBulletDebris_Core( vec3_t org, vec3_t vel, int duration, float width, float height, float alpha, char *shadername );  // NERVE - SMF // JPW addtnl params
-void    CG_ParticleSparks( vec3_t org, vec3_t vel, int duration, float x, float y, float speed );
-void    CG_ParticleDust( centity_t *cent, vec3_t origin, vec3_t dir );
-void    CG_ParticleMisc( qhandle_t pshader, vec3_t origin, int size, int duration, float alpha );
+void    CG_ClearParticles(void);
+void    CG_AddParticles(void);
+void    CG_ParticleSnow(qhandle_t pshader, vec3_t origin, vec3_t origin2, int turb, float range, int snum);
+void    CG_ParticleSmoke(qhandle_t pshader, centity_t *cent);
+void    CG_AddParticleShrapnel(localEntity_t *le);
+void    CG_ParticleSnowFlurry(qhandle_t pshader, centity_t *cent);
+void    CG_ParticleBulletDebris(vec3_t org, vec3_t vel, int duration);
+void    CG_ParticleDirtBulletDebris(vec3_t org, vec3_t vel, int duration);       // DHM - Nerve
+void    CG_ParticleDirtBulletDebris_Core(vec3_t org, vec3_t vel, int duration, float width, float height, float alpha, char *shadername);    // NERVE - SMF // JPW addtnl params
+void    CG_ParticleSparks(vec3_t org, vec3_t vel, int duration, float x, float y, float speed);
+void    CG_ParticleDust(centity_t *cent, vec3_t origin, vec3_t dir);
+void    CG_ParticleMisc(qhandle_t pshader, vec3_t origin, int size, int duration, float alpha);
 
 // Ridah
-void CG_ParticleExplosion( char *animStr, vec3_t origin, vec3_t vel, int duration, int sizeStart, int sizeEnd );
+void CG_ParticleExplosion(char *animStr, vec3_t origin, vec3_t vel, int duration, int sizeStart, int sizeEnd);
 
 // Rafael snow pvs check
-void    CG_SnowLink( centity_t *cent, qboolean particleOn );
+void    CG_SnowLink(centity_t *cent, qboolean particleOn);
 // done.
 
 // Rafael bats
-void CG_ParticleBat( centity_t *cent );
-void    CG_ParticleBats( qhandle_t pshader, centity_t *cent );
-void    CG_BatsUpdatePosition( centity_t *cent );
-void CG_ParticleImpactSmokePuff( qhandle_t pshader, vec3_t origin );
-void CG_ParticleImpactSmokePuffExtended( qhandle_t pshader, vec3_t origin, vec3_t dir, int radius, int lifetime, int vel, int acc, int maxroll, float alpha );       // (SA) so I can add more parameters without screwing up the one that's there
-void CG_Particle_Bleed( qhandle_t pshader, vec3_t start, vec3_t dir, int fleshEntityNum, int duration );
-void CG_GetBleedOrigin( vec3_t head_origin, vec3_t torso_origin, vec3_t legs_origin, int fleshEntityNum );
-void CG_Particle_OilParticle( qhandle_t pshader, vec3_t origin, vec3_t origin2, int ptime, int snum );
-void CG_Particle_OilSlick( qhandle_t pshader, centity_t *cent );
-void CG_OilSlickRemove( centity_t *cent );
-void CG_BloodPool( localEntity_t *le, qhandle_t pshader, trace_t *tr );
-void CG_ParticleBloodCloudZombie( centity_t *cent, vec3_t origin, vec3_t dir );
-void CG_ParticleBloodCloud( centity_t *cent, vec3_t origin, vec3_t dir );
+void CG_ParticleBat(centity_t *cent);
+void    CG_ParticleBats(qhandle_t pshader, centity_t *cent);
+void    CG_BatsUpdatePosition(centity_t *cent);
+void CG_ParticleImpactSmokePuff(qhandle_t pshader, vec3_t origin);
+void CG_ParticleImpactSmokePuffExtended(qhandle_t pshader, vec3_t origin, vec3_t dir, int radius, int lifetime, int vel, int acc, int maxroll, float alpha);         // (SA) so I can add more parameters without screwing up the one that's there
+void CG_Particle_Bleed(qhandle_t pshader, vec3_t start, vec3_t dir, int fleshEntityNum, int duration);
+void CG_GetBleedOrigin(vec3_t head_origin, vec3_t torso_origin, vec3_t legs_origin, int fleshEntityNum);
+void CG_Particle_OilParticle(qhandle_t pshader, vec3_t origin, vec3_t origin2, int ptime, int snum);
+void CG_Particle_OilSlick(qhandle_t pshader, centity_t *cent);
+void CG_OilSlickRemove(centity_t *cent);
+void CG_BloodPool(localEntity_t *le, qhandle_t pshader, trace_t *tr);
+void CG_ParticleBloodCloudZombie(centity_t *cent, vec3_t origin, vec3_t dir);
+void CG_ParticleBloodCloud(centity_t *cent, vec3_t origin, vec3_t dir);
 // done
 
 // Ridah, trails
 //
 // cg_trails.c
 //
-int CG_AddTrailJunc( int headJuncIndex, qhandle_t shader, int spawnTime, int sType, vec3_t pos, int trailLife, float alphaStart, float alphaEnd, float startWidth, float endWidth, int flags, vec3_t colorStart, vec3_t colorEnd, float sRatio, float animSpeed );
-int CG_AddSparkJunc( int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alphaStart, float alphaEnd, float startWidth, float endWidth );
-int CG_AddSmokeJunc( int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alpha, float startWidth, float endWidth );
-int CG_AddFireJunc( int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alpha, float startWidth, float endWidth );
-void CG_AddTrails( void );
-void CG_ClearTrails( void );
+int CG_AddTrailJunc(int headJuncIndex, qhandle_t shader, int spawnTime, int sType, vec3_t pos, int trailLife, float alphaStart, float alphaEnd, float startWidth, float endWidth, int flags, vec3_t colorStart, vec3_t colorEnd, float sRatio, float animSpeed);
+int CG_AddSparkJunc(int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alphaStart, float alphaEnd, float startWidth, float endWidth);
+int CG_AddSmokeJunc(int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alpha, float startWidth, float endWidth);
+int CG_AddFireJunc(int headJuncIndex, qhandle_t shader, vec3_t pos, int trailLife, float alpha, float startWidth, float endWidth);
+void CG_AddTrails(void);
+void CG_ClearTrails(void);
 // done.
 
 // Ridah, sound scripting
-int CG_SoundScriptPrecache( const char *name );
-qboolean CG_SoundPlaySoundScript( const char *name, vec3_t org, int entnum );
-void CG_SoundPlayIndexedScript( int index, vec3_t org, int entnum );
-void CG_SoundInit( void );
+int CG_SoundScriptPrecache(const char *name);
+qboolean CG_SoundPlaySoundScript(const char *name, vec3_t org, int entnum);
+void CG_SoundPlayIndexedScript(int index, vec3_t org, int entnum);
+void CG_SoundInit(void);
 // done.
 
 // Ridah, flamethrower
-void CG_FireFlameChunks( centity_t *cent, vec3_t origin, vec3_t angles, float speedScale, qboolean firing, int flags ); //----(SA)	added 'flags'
-void CG_InitFlameChunks( void );
-void CG_AddFlameChunks( void );
-void CG_UpdateFlamethrowerSounds( void );
-void CG_FlameDamage( int owner, vec3_t org, float radius );
+void CG_FireFlameChunks(centity_t *cent, vec3_t origin, vec3_t angles, float speedScale, qboolean firing, int flags);   //----(SA)   added 'flags'
+void CG_InitFlameChunks(void);
+void CG_AddFlameChunks(void);
+void CG_UpdateFlamethrowerSounds(void);
+void CG_FlameDamage(int owner, vec3_t org, float radius);
 // done.
 
 //
 // cg_localents.c
 //
-void    CG_InitLocalEntities( void );
-localEntity_t   *CG_AllocLocalEntity( void );
-void    CG_AddLocalEntities( void );
+void    CG_InitLocalEntities(void);
+localEntity_t   *CG_AllocLocalEntity(void);
+void    CG_AddLocalEntities(void);
 
 //
 // cg_effects.c
 //
-int CG_GetOriginForTag( centity_t * cent, refEntity_t * parent, char *tagName, int startIndex, vec3_t org, vec3_t axis[3] );
-localEntity_t *CG_SmokePuff( const vec3_t p,
-							 const vec3_t vel,
-							 float radius,
-							 float r, float g, float b, float a,
-							 float duration,
-							 int startTime,
-							 int fadeInTime,
-							 int leFlags,
-							 qhandle_t hShader );
+int CG_GetOriginForTag(centity_t *cent, refEntity_t *parent, char *tagName, int startIndex, vec3_t org, vec3_t axis[3]);
+localEntity_t *CG_SmokePuff(const vec3_t p,
+                            const vec3_t vel,
+                            float radius,
+                            float r, float g, float b, float a,
+                            float duration,
+                            int startTime,
+                            int fadeInTime,
+                            int leFlags,
+                            qhandle_t hShader);
 
-void CG_BubbleTrail( vec3_t start, vec3_t end, float size, float spacing );
-void CG_SpawnEffect( vec3_t org );
-void CG_GibPlayer( centity_t *cent, vec3_t playerOrigin, vec3_t gdir );
-void CG_LoseHat( centity_t *cent, vec3_t dir );         //----(SA)	added
-void CG_GibHead( vec3_t headOrigin );
+void CG_BubbleTrail(vec3_t start, vec3_t end, float size, float spacing);
+void CG_SpawnEffect(vec3_t org);
+void CG_GibPlayer(centity_t *cent, vec3_t playerOrigin, vec3_t gdir);
+void CG_LoseHat(centity_t *cent, vec3_t dir);           //----(SA)   added
+void CG_GibHead(vec3_t headOrigin);
 
-void CG_Bleed( vec3_t origin, int entityNum );
+void CG_Bleed(vec3_t origin, int entityNum);
 
-localEntity_t *CG_MakeExplosion( vec3_t origin, vec3_t dir,
-								 qhandle_t hModel, qhandle_t shader, int msec,
-								 qboolean isSprite );
+localEntity_t *CG_MakeExplosion(vec3_t origin, vec3_t dir,
+                                qhandle_t hModel, qhandle_t shader, int msec,
+                                qboolean isSprite);
 // Ridah
-void CG_DynamicLightningBolt( qhandle_t shader, vec3_t start, vec3_t pend, int numBolts, float maxWidth, qboolean fade, float startAlpha, int recursion, int randseed );
-void CG_SparklerSparks( vec3_t origin, int count );
-void CG_ClearFlameChunks( void );
-void CG_ProjectedSpotLight( vec3_t start, vec3_t dir );
+void CG_DynamicLightningBolt(qhandle_t shader, vec3_t start, vec3_t pend, int numBolts, float maxWidth, qboolean fade, float startAlpha, int recursion, int randseed);
+void CG_SparklerSparks(vec3_t origin, int count);
+void CG_ClearFlameChunks(void);
+void CG_ProjectedSpotLight(vec3_t start, vec3_t dir);
 // done.
 
 //----(SA)
-void CG_Spotlight( centity_t *cent, float *color, vec3_t start, vec3_t dir, int segs, float range, int startWidth, float coneAngle, int flags );
+void CG_Spotlight(centity_t *cent, float *color, vec3_t start, vec3_t dir, int segs, float range, int startWidth, float coneAngle, int flags);
 #define SL_NOTRACE          0x001   // don't do a trace check for shortening the beam, always draw at full 'range' length
 #define SL_NODLIGHT         0x002   // don't put a dlight at the end
 #define SL_NOSTARTCAP       0x004   // dont' cap the start circle
@@ -2170,51 +2195,51 @@ void CG_Spotlight( centity_t *cent, float *color, vec3_t start, vec3_t dir, int 
 #define SL_LOCKUV           0x080   // lock the texture coordinates at the 'true' length of the requested beam.
 #define SL_NOCORE           0x100   // don't draw the center 'core' beam
 #define SL_TRACEWORLDONLY   0x200
-//----(SA)	done
+//----(SA)  done
 
-void CG_RumbleEfx( float pitch, float yaw );
+void CG_RumbleEfx(float pitch, float yaw);
 
 //
 // cg_snapshot.c
 //
-void CG_ProcessSnapshots( void );
+void CG_ProcessSnapshots(void);
 
 //
 // cg_info.c
 //
-void CG_LoadingString( const char *s );
-void CG_LoadingItem( int itemNum );
-void CG_LoadingClient( int clientNum );
-void CG_DrawInformation( void );
-const char *CG_translateString( const char *str );
+void CG_LoadingString(const char *s);
+void CG_LoadingItem(int itemNum);
+void CG_LoadingClient(int clientNum);
+void CG_DrawInformation(void);
+const char *CG_translateString(const char *str);
 
 //
 // cg_scoreboard.c
 //
-qboolean CG_DrawScoreboard( void );
-void CG_DrawTourneyScoreboard( void );
+qboolean CG_DrawScoreboard(void);
+void CG_DrawTourneyScoreboard(void);
 
 //
 // cg_consolecmds.c
 //
-qboolean CG_ConsoleCommand( void );
-void CG_InitConsoleCommands( void );
+qboolean CG_ConsoleCommand(void);
+void CG_InitConsoleCommands(void);
 
 //
 // cg_servercmds.c
 //
-void CG_ExecuteNewServerCommands( int latestSequence );
-void CG_ParseServerinfo( void );
-void CG_SetConfigValues( void );
-void CG_ShaderStateChanged( void );
-void CG_SendMoveSpeed( animation_t *animList, int numAnims, char *modelName );
+void CG_ExecuteNewServerCommands(int latestSequence);
+void CG_ParseServerinfo(void);
+void CG_SetConfigValues(void);
+void CG_ShaderStateChanged(void);
+void CG_SendMoveSpeed(animation_t *animList, int numAnims, char *modelName);
 
 //
 // cg_playerstate.c
 //
-void CG_Respawn( void );
-void CG_TransitionPlayerState( playerState_t *ps, playerState_t *ops );
-void CG_LoadClientInfo( clientInfo_t *ci );
+void CG_Respawn(void);
+void CG_TransitionPlayerState(playerState_t *ps, playerState_t *ops);
+void CG_LoadClientInfo(clientInfo_t *ci);
 
 
 //===============================================
@@ -2225,238 +2250,239 @@ void CG_LoadClientInfo( clientInfo_t *ci );
 //
 
 // print message on the local console
-void        trap_Print( const char *fmt );
+void        trap_Print(const char *fmt);
 
 // abort the game
-void        trap_Error( const char *fmt );
+void        trap_Error(const char *fmt);
 
 // exit game to main menu (credits/etc)
-void        trap_Endgame( void );   //----(SA)	added
+void        trap_Endgame(void);     //----(SA)   added
 
 // milliseconds should only be used for performance tuning, never
 // for anything game related.  Get time from the CG_DrawActiveFrame parameter
-int         trap_Milliseconds( void );
+int         trap_Milliseconds(void);
 
 // console variable interaction
-void        trap_Cvar_Register( vmCvar_t *vmCvar, const char *varName, const char *defaultValue, int flags );
-void        trap_Cvar_Update( vmCvar_t *vmCvar );
-void        trap_Cvar_Set( const char *var_name, const char *value );
-void        trap_Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+void        trap_Cvar_Register(vmCvar_t *vmCvar, const char *varName, const char *defaultValue, int flags);
+void        trap_Cvar_Update(vmCvar_t *vmCvar);
+void        trap_Cvar_Set(const char *var_name, const char *value);
+void        trap_Cvar_VariableStringBuffer(const char *var_name, char *buffer, int bufsize);
 
 // ServerCommand and ConsoleCommand parameter access
-int         trap_Argc( void );
-void        trap_Argv( int n, char *buffer, int bufferLength );
-void        trap_Args( char *buffer, int bufferLength );
+int         trap_Argc(void);
+void        trap_Argv(int n, char *buffer, int bufferLength);
+void        trap_Args(char *buffer, int bufferLength);
 
 // filesystem access
 // returns length of file
-int         trap_FS_FOpenFile( const char *qpath, fileHandle_t *f, fsMode_t mode );
-void        trap_FS_Read( void *buffer, int len, fileHandle_t f );
-void        trap_FS_Write( const void *buffer, int len, fileHandle_t f );
-void        trap_FS_FCloseFile( fileHandle_t f );
-void        trap_FS_CopyFile( char *from, char *to );   //DAJ
+int         trap_FS_FOpenFile(const char *qpath, fileHandle_t *f, fsMode_t mode);
+void        trap_FS_Read(void *buffer, int len, fileHandle_t f);
+void        trap_FS_Write(const void *buffer, int len, fileHandle_t f);
+void        trap_FS_FCloseFile(fileHandle_t f);
+void        trap_FS_CopyFile(char *from, char *to);     //DAJ
 
 // add commands to the local console as if they were typed in
 // for map changing, etc.  The command is not executed immediately,
 // but will be executed in order the next time console commands
 // are processed
-void        trap_SendConsoleCommand( const char *text );
+void        trap_SendConsoleCommand(const char *text);
 
 // register a command name so the console can perform command completion.
 // FIXME: replace this with a normal console command "defineCommand"?
-void        trap_AddCommand( const char *cmdName );
+void        trap_AddCommand(const char *cmdName);
 
 // send a string to the server over the network
-void        trap_SendClientCommand( const char *s );
+void        trap_SendClientCommand(const char *s);
 
 // force a screen update, only used during gamestate load
-void        trap_UpdateScreen( void );
+void        trap_UpdateScreen(void);
 
 // model collision
-void        trap_CM_LoadMap( const char *mapname );
-int         trap_CM_NumInlineModels( void );
-clipHandle_t trap_CM_InlineModel( int index );      // 0 = world, 1+ = bmodels
-clipHandle_t trap_CM_TempBoxModel( const vec3_t mins, const vec3_t maxs );
-clipHandle_t trap_CM_TempCapsuleModel( const vec3_t mins, const vec3_t maxs );
-int         trap_CM_PointContents( const vec3_t p, clipHandle_t model );
-int         trap_CM_TransformedPointContents( const vec3_t p, clipHandle_t model, const vec3_t origin, const vec3_t angles );
-void        trap_CM_BoxTrace( trace_t *results, const vec3_t start, const vec3_t end,
-							  const vec3_t mins, const vec3_t maxs,
-							  clipHandle_t model, int brushmask );
-void        trap_CM_TransformedBoxTrace( trace_t *results, const vec3_t start, const vec3_t end,
-										 const vec3_t mins, const vec3_t maxs,
-										 clipHandle_t model, int brushmask,
-										 const vec3_t origin, const vec3_t angles );
+void        trap_CM_LoadMap(const char *mapname);
+int         trap_CM_NumInlineModels(void);
+clipHandle_t trap_CM_InlineModel(int index);        // 0 = world, 1+ = bmodels
+clipHandle_t trap_CM_TempBoxModel(const vec3_t mins, const vec3_t maxs);
+clipHandle_t trap_CM_TempCapsuleModel(const vec3_t mins, const vec3_t maxs);
+int         trap_CM_PointContents(const vec3_t p, clipHandle_t model);
+int         trap_CM_TransformedPointContents(const vec3_t p, clipHandle_t model, const vec3_t origin, const vec3_t angles);
+void        trap_CM_BoxTrace(trace_t *results, const vec3_t start, const vec3_t end,
+                             const vec3_t mins, const vec3_t maxs,
+                             clipHandle_t model, int brushmask);
+void        trap_CM_TransformedBoxTrace(trace_t *results, const vec3_t start, const vec3_t end,
+                                        const vec3_t mins, const vec3_t maxs,
+                                        clipHandle_t model, int brushmask,
+                                        const vec3_t origin, const vec3_t angles);
 
-void        trap_CM_CapsuleTrace( trace_t *results, const vec3_t start, const vec3_t end,
-								  const vec3_t mins, const vec3_t maxs,
-								  clipHandle_t model, int brushmask );
-void        trap_CM_TransformedCapsuleTrace( trace_t *results, const vec3_t start, const vec3_t end,
-											 const vec3_t mins, const vec3_t maxs,
-											 clipHandle_t model, int brushmask,
-											 const vec3_t origin, const vec3_t angles );
+void        trap_CM_CapsuleTrace(trace_t *results, const vec3_t start, const vec3_t end,
+                                 const vec3_t mins, const vec3_t maxs,
+                                 clipHandle_t model, int brushmask);
+void        trap_CM_TransformedCapsuleTrace(trace_t *results, const vec3_t start, const vec3_t end,
+        const vec3_t mins, const vec3_t maxs,
+        clipHandle_t model, int brushmask,
+        const vec3_t origin, const vec3_t angles);
 
 // Returns the projection of a polygon onto the solid brushes in the world
-int         trap_CM_MarkFragments( int numPoints, const vec3_t *points,
-								   const vec3_t projection,
-								   int maxPoints, vec3_t pointBuffer,
-								   int maxFragments, markFragment_t *fragmentBuffer );
+int         trap_CM_MarkFragments(int numPoints, const vec3_t *points,
+                                  const vec3_t projection,
+                                  int maxPoints, vec3_t pointBuffer,
+                                  int maxFragments, markFragment_t *fragmentBuffer);
 
 // normal sounds will have their volume dynamically changed as their entity
 // moves and the listener moves
-void        trap_S_StartSound( vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx );
-void        trap_S_StartSoundEx( vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx, int flags );
-void        trap_S_StopLoopingSound( int entnum );
+void        trap_S_StartSound(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx);
+void        trap_S_StartSoundEx(vec3_t origin, int entityNum, int entchannel, sfxHandle_t sfx, int flags);
+void        trap_S_StopLoopingSound(int entnum);
 
-void        trap_S_StopStreamingSound( int entnum );  // usually AI.  character is talking and needs to be shut up /now/
+void        trap_S_StopStreamingSound(int entnum);    // usually AI.  character is talking and needs to be shut up /now/
 
 // a local sound is always played full volume
-void        trap_S_StartLocalSound( sfxHandle_t sfx, int channelNum );
-void        trap_S_ClearLoopingSounds( qboolean killall );
-void        trap_S_AddLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, int volume );
-void        trap_S_AddRangedLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, int range );
-void        trap_S_AddRealLoopingSound( int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx );
-void        trap_S_UpdateEntityPosition( int entityNum, const vec3_t origin );
+void        trap_S_StartLocalSound(sfxHandle_t sfx, int channelNum);
+void        trap_S_ClearLoopingSounds(qboolean killall);
+void        trap_S_AddLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, int volume);
+void        trap_S_AddRangedLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx, int range);
+void        trap_S_AddRealLoopingSound(int entityNum, const vec3_t origin, const vec3_t velocity, sfxHandle_t sfx);
+void        trap_S_UpdateEntityPosition(int entityNum, const vec3_t origin);
 
 // Ridah, talking animations
-int         trap_S_GetVoiceAmplitude( int entityNum );
+int         trap_S_GetVoiceAmplitude(int entityNum);
 // done.
 
 // repatialize recalculates the volumes of sound as they should be heard by the
 // given entityNum and position
-void trap_S_Respatialize( int entityNum, const vec3_t origin, vec3_t axis[3], int inwater );
-sfxHandle_t trap_S_RegisterSound( const char *sample );     // returns buzz if not found
-void        trap_S_StartBackgroundTrack( const char *intro, const char *loop, int fadeupTime ); // empty name stops music
-void        trap_S_StopBackgroundTrack( void );
-void        trap_S_FadeBackgroundTrack( float targetvol, int time, int sound );  //----(SA)	added
-void        trap_S_StartStreamingSound( const char *intro, const char *loop, int entnum, int channel, int attenuation );
-void        trap_S_FadeAllSound( float targetvol, int time ); //----(SA)	added
+void trap_S_Respatialize(int entityNum, const vec3_t origin, vec3_t axis[3], int inwater);
+sfxHandle_t trap_S_RegisterSound(const char *sample);       // returns buzz if not found
+void        trap_S_StartBackgroundTrack(const char *intro, const char *loop, int fadeupTime);   // empty name stops music
+void        trap_S_StopBackgroundTrack(void);
+void        trap_S_FadeBackgroundTrack(float targetvol, int time, int sound);    //----(SA)  added
+void        trap_S_StartStreamingSound(const char *intro, const char *loop, int entnum, int channel, int attenuation);
+void        trap_S_FadeAllSound(float targetvol, int time);   //----(SA) added
 
-void        trap_R_LoadWorldMap( const char *mapname );
+void        trap_R_LoadWorldMap(const char *mapname);
 
 // all media should be registered during level startup to prevent
 // hitches during gameplay
-qhandle_t   trap_R_RegisterModel( const char *name );           // returns rgb axis if not found
-qhandle_t   trap_R_RegisterSkin( const char *name );            // returns all white if not found
-qhandle_t   trap_R_RegisterShader( const char *name );          // returns all white if not found
-qhandle_t   trap_R_RegisterShaderNoMip( const char *name );         // returns all white if not found
+qhandle_t   trap_R_RegisterModel(const char *name);             // returns rgb axis if not found
+qhandle_t   trap_R_RegisterSkin(const char *name);              // returns all white if not found
+qhandle_t   trap_R_RegisterShader(const char *name);            // returns all white if not found
+qhandle_t   trap_R_RegisterShaderNoMip(const char *name);           // returns all white if not found
 
-qboolean    trap_R_GetSkinModel( qhandle_t skinid, const char *type, char *name );   //----(SA) added
-qhandle_t   trap_R_GetShaderFromModel( qhandle_t modelid, int surfnum, int withlightmap );   //----(SA)	added
+qboolean    trap_R_GetSkinModel(qhandle_t skinid, const char *type, char *name);     //----(SA) added
+qhandle_t   trap_R_GetShaderFromModel(qhandle_t modelid, int surfnum, int withlightmap);     //----(SA)  added
 
 // a scene is built up by calls to R_ClearScene and the various R_Add functions.
 // Nothing is drawn until R_RenderScene is called.
-void        trap_R_ClearScene( void );
-void        trap_R_AddRefEntityToScene( const refEntity_t *re );
+void        trap_R_ClearScene(void);
+void        trap_R_AddRefEntityToScene(const refEntity_t *re);
 
 // polys are intended for simple wall marks, not really for doing
 // significant construction
-void        trap_R_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts );
+void        trap_R_AddPolyToScene(qhandle_t hShader, int numVerts, const polyVert_t *verts);
 // Ridah
-void        trap_R_AddPolysToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys );
-void        trap_RB_ZombieFXAddNewHit( int entityNum, const vec3_t hitPos, const vec3_t hitDir );
+void        trap_R_AddPolysToScene(qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys);
+void        trap_RB_ZombieFXAddNewHit(int entityNum, const vec3_t hitPos, const vec3_t hitDir);
 // done.
-void        trap_R_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b, int overdraw );
-void        trap_R_AddCoronaToScene( const vec3_t org, float r, float g, float b, float scale, int id, int flags );  //----(SA)	modified
-void        trap_R_RenderScene( const refdef_t *fd );
-void        trap_R_SetColor( const float *rgba );   // NULL = 1,1,1,1
-void        trap_R_DrawStretchPic( float x, float y, float w, float h,
-								   float s1, float t1, float s2, float t2, qhandle_t hShader );
-void        trap_R_DrawStretchPicGradient( float x, float y, float w, float h,
-										   float s1, float t1, float s2, float t2, qhandle_t hShader, const float *gradientColor, int gradientType );
+void        trap_R_AddLightToScene(const vec3_t org, float intensity, float r, float g, float b, int overdraw);
+void        trap_R_AddCoronaToScene(const vec3_t org, float r, float g, float b, float scale, int id, int flags);    //----(SA)  modified
+void        trap_R_RenderScene(const refdef_t *fd);
+void        trap_R_SetColor(const float *rgba);     // NULL = 1,1,1,1
+void        trap_R_DrawStretchPic(float x, float y, float w, float h,
+                                  float s1, float t1, float s2, float t2, qhandle_t hShader);
+void        trap_R_DrawStretchPicGradient(float x, float y, float w, float h,
+        float s1, float t1, float s2, float t2, qhandle_t hShader, const float *gradientColor, int gradientType);
 
-void        trap_R_ModelBounds( clipHandle_t model, vec3_t mins, vec3_t maxs );
-int         trap_R_LerpTag( orientation_t *tag, const refEntity_t *refent, const char *tagName, int startIndex );
-void        trap_R_RemapShader( const char *oldShader, const char *newShader, const char *timeOffset );
+void        trap_R_ModelBounds(clipHandle_t model, vec3_t mins, vec3_t maxs);
+int         trap_R_LerpTag(orientation_t *tag, const refEntity_t *refent, const char *tagName, int startIndex);
+void        trap_R_RemapShader(const char *oldShader, const char *newShader, const char *timeOffset);
 
 //----(SA)
-void    trap_R_SetFog( int fogvar, int var1, int var2, float r, float g, float b, float density );
+void    trap_R_SetFog(int fogvar, int var1, int var2, float r, float g, float b, float density);
 
 //----(SA)
 
 // The glconfig_t will not change during the life of a cgame.
 // If it needs to change, the entire cgame will be restarted, because
 // all the qhandle_t are then invalid.
-void        trap_GetGlconfig( glconfig_t *glconfig );
+void        trap_GetGlconfig(glconfig_t *glconfig);
 
 // the gamestate should be grabbed at startup, and whenever a
 // configstring changes
-void        trap_GetGameState( gameState_t *gamestate );
+void        trap_GetGameState(gameState_t *gamestate);
 
 // cgame will poll each frame to see if a newer snapshot has arrived
 // that it is interested in.  The time is returned seperately so that
 // snapshot latency can be calculated.
-void        trap_GetCurrentSnapshotNumber( int *snapshotNumber, int *serverTime );
+void        trap_GetCurrentSnapshotNumber(int *snapshotNumber, int *serverTime);
 
 // a snapshot get can fail if the snapshot (or the entties it holds) is so
 // old that it has fallen out of the client system queue
-qboolean    trap_GetSnapshot( int snapshotNumber, snapshot_t *snapshot );
+qboolean    trap_GetSnapshot(int snapshotNumber, snapshot_t *snapshot);
 
 // retrieve a text command from the server stream
 // the current snapshot will hold the number of the most recent command
 // qfalse can be returned if the client system handled the command
 // argc() / argv() can be used to examine the parameters of the command
-qboolean    trap_GetServerCommand( int serverCommandNumber );
+qboolean    trap_GetServerCommand(int serverCommandNumber);
 
 // returns the most recent command number that can be passed to GetUserCmd
 // this will always be at least one higher than the number in the current
 // snapshot, and it may be quite a few higher if it is a fast computer on
 // a lagged connection
-int         trap_GetCurrentCmdNumber( void );
+int         trap_GetCurrentCmdNumber(void);
 
-qboolean    trap_GetUserCmd( int cmdNumber, usercmd_t *ucmd );
+qboolean    trap_GetUserCmd(int cmdNumber, usercmd_t *ucmd);
 
 // used for the weapon/holdable select and zoom
-void        trap_SetUserCmdValue( int stateValue, int holdValue, float sensitivityScale, int cld );     // NERVE - SMF - added cld
+void        trap_SetUserCmdValue(int stateValue, int holdValue, float sensitivityScale, int cld);       // NERVE - SMF - added cld
 
 // aids for VM testing
-void        testPrintInt( char *string, int i );
-void        testPrintFloat( char *string, float f );
+void        testPrintInt(char *string, int i);
+void        testPrintFloat(char *string, float f);
 
-int         trap_MemoryRemaining( void );
-void        trap_R_RegisterFont( const char *fontName, int pointSize, fontInfo_t *font );
-qboolean    trap_Key_IsDown( int keynum );
-int         trap_Key_GetCatcher( void );
-void        trap_Key_SetCatcher( int catcher );
-int         trap_Key_GetKey( const char *binding );
+int         trap_MemoryRemaining(void);
+void        trap_R_RegisterFont(const char *fontName, int pointSize, fontInfo_t *font);
+qboolean    trap_Key_IsDown(int keynum);
+int         trap_Key_GetCatcher(void);
+void        trap_Key_SetCatcher(int catcher);
+int         trap_Key_GetKey(const char *binding);
 
 // RF
-void trap_SendMoveSpeedsToGame( int entnum, char *movespeeds );
+void trap_SendMoveSpeedsToGame(int entnum, char *movespeeds);
 
-typedef enum {
+typedef enum
+{
 	SYSTEM_PRINT,
 	CHAT_PRINT,
 	TEAMCHAT_PRINT
 } q3print_t; // bk001201 - warning: useless keyword or type name in empty declaration
 
-void trap_UI_Popup( const char *arg0 );   //----(SA)	added
-void trap_UI_ClosePopup( const char *arg0 );     // NERVE - SMF
-void trap_UI_LimboChat( const char *arg0 );     // NERVE - SMF
+void trap_UI_Popup(const char *arg0);     //----(SA) added
+void trap_UI_ClosePopup(const char *arg0);       // NERVE - SMF
+void trap_UI_LimboChat(const char *arg0);       // NERVE - SMF
 
-int trap_CIN_PlayCinematic( const char *arg0, int xpos, int ypos, int width, int height, int bits );
-e_status trap_CIN_StopCinematic( int handle );
-e_status trap_CIN_RunCinematic( int handle );
-void trap_CIN_DrawCinematic( int handle );
-void trap_CIN_SetExtents( int handle, int x, int y, int w, int h );
+int trap_CIN_PlayCinematic(const char *arg0, int xpos, int ypos, int width, int height, int bits);
+e_status trap_CIN_StopCinematic(int handle);
+e_status trap_CIN_RunCinematic(int handle);
+void trap_CIN_DrawCinematic(int handle);
+void trap_CIN_SetExtents(int handle, int x, int y, int w, int h);
 
-void trap_SnapVector( float *v );
+void trap_SnapVector(float *v);
 
-qboolean    trap_GetEntityToken( char *buffer, int bufferSize );
+qboolean    trap_GetEntityToken(char *buffer, int bufferSize);
 
 // Duffy, camera stuff
 #define CAM_PRIMARY 0   // the main camera for cutscenes, etc.
-qboolean    trap_loadCamera( int camNum, const char *name );
-void        trap_startCamera( int camNum, int time );
-void        trap_stopCamera( int camNum );    //----(SA)	added
-qboolean    trap_getCameraInfo( int camNum, int time, vec3_t *origin, vec3_t *angles, float *fov );
-void        CG_StartCamera( const char *name, qboolean startBlack );
-void        CG_StopCamera( void );
+qboolean    trap_loadCamera(int camNum, const char *name);
+void        trap_startCamera(int camNum, int time);
+void        trap_stopCamera(int camNum);      //----(SA) added
+qboolean    trap_getCameraInfo(int camNum, int time, vec3_t *origin, vec3_t *angles, float *fov);
+void        CG_StartCamera(const char *name, qboolean startBlack);
+void        CG_StopCamera(void);
 
-//----(SA)	added
-int         CG_LoadCamera( const char *name );
-void        CG_FreeCamera( int camNum );
-//----(SA)	end
+//----(SA)  added
+int         CG_LoadCamera(const char *name);
+void        CG_FreeCamera(int camNum);
+//----(SA)  end
 
-void CG_StartShakeCamera( float p, int duration, vec3_t src, float radius );
+void CG_StartShakeCamera(float p, int duration, vec3_t src, float radius);
 
-qboolean    trap_GetModelInfo( int clientNum, char *modelName, animModelInfo_t **modelInfo );
+qboolean    trap_GetModelInfo(int clientNum, char *modelName, animModelInfo_t **modelInfo);

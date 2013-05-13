@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -52,21 +52,21 @@ If you have questions concerning this license or the applicable additional terms
 
 // Prototypes
 
-int OtherTeam( int team );
-const char *TeamName( int team );
-const char *OtherTeamName( int team );
-const char *TeamColorString( int team );
+int OtherTeam(int team);
+const char *TeamName(int team);
+const char *OtherTeamName(int team);
+const char *TeamColorString(int team);
 
-void Team_DroppedFlagThink( gentity_t *ent );
-void Team_FragBonuses( gentity_t *targ, gentity_t *inflictor, gentity_t *attacker );
-void Team_CheckHurtCarrier( gentity_t *targ, gentity_t *attacker );
-void Team_InitGame( void );
-void Team_ReturnFlag( int team );
-void Team_FreeEntity( gentity_t *ent );
-gentity_t *SelectCTFSpawnPoint( team_t team, int teamstate, vec3_t origin, vec3_t angles );
-gentity_t *Team_GetLocation( gentity_t *ent );
-qboolean Team_GetLocationMsg( gentity_t *ent, char *loc, int loclen );
-void TeamplayInfoMessage( gentity_t *ent );
-void CheckTeamStatus( void );
+void Team_DroppedFlagThink(gentity_t *ent);
+void Team_FragBonuses(gentity_t *targ, gentity_t *inflictor, gentity_t *attacker);
+void Team_CheckHurtCarrier(gentity_t *targ, gentity_t *attacker);
+void Team_InitGame(void);
+void Team_ReturnFlag(int team);
+void Team_FreeEntity(gentity_t *ent);
+gentity_t *SelectCTFSpawnPoint(team_t team, int teamstate, vec3_t origin, vec3_t angles);
+gentity_t *Team_GetLocation(gentity_t *ent);
+qboolean Team_GetLocationMsg(gentity_t *ent, char *loc, int loclen);
+void TeamplayInfoMessage(gentity_t *ent);
+void CheckTeamStatus(void);
 
-int Pickup_Team( gentity_t *ent, gentity_t *other );
+int Pickup_Team(gentity_t *ent, gentity_t *other);

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		be_interface.h
+ * name:        be_interface.h
  *
- * desc:		botlib interface
+ * desc:        botlib interface
  *
  *
  *****************************************************************************/
@@ -49,13 +49,13 @@ If you have questions concerning this license or the applicable additional terms
 "a madman is just someone living in another reality which isn't shared among many people"
 */
 
-//#define DEBUG			//debug code
+//#define DEBUG         //debug code
 #define RANDOMIZE       //randomize bot behaviour
 #if defined( WIN32 ) || defined( _WIN32 )
 #define AASZIP          //allow reading directly from aasX.zip files
 #endif
 #define QUAKE2          //bot for Quake2
-//#define HALFLIFE		//bot for Half-Life
+//#define HALFLIFE      //bot for Half-Life
 
 //==========================================================
 //
@@ -89,5 +89,5 @@ extern botlib_import_t botimport;
 extern int bot_developer;                   //true if developer is on
 
 //
-int Sys_MilliSeconds( void );
+int Sys_MilliSeconds(void);
 

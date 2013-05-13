@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@ If you have questions concerning this license or the applicable additional terms
 
 //===========================================================================
 //
-// Name:			ai_cast_global.h
-// Function:		Global AI Cast defines
-// Programmer:		Ridah
-// Tab Size:		4 (real tabs)
+// Name:            ai_cast_global.h
+// Function:        Global AI Cast defines
+// Programmer:      Ridah
+// Tab Size:        4 (real tabs)
 //===========================================================================
 
 // TTimo no typedef, "warning: useless keyword or type name in empty declaration"
@@ -45,41 +45,41 @@ struct cast_state_s;
 
 extern qboolean saveGamePending;
 
-qboolean AICast_SameTeam( struct cast_state_s *cs, int enemynum );
-struct cast_state_s *AICast_GetCastState( int entitynum );
-void AICast_ScriptLoad( void );
-void AICast_ScriptEvent( struct cast_state_s *cs, char *eventStr, char *params );
-void AICast_ForceScriptEvent( struct cast_state_s *cs, char *eventStr, char *params );
-qboolean AICast_AIDamageOK( struct cast_state_s *cs, struct cast_state_s *ocs );
-gentity_t *AICast_FindEntityForName( char *name );
-gentity_t *AICast_TravEntityForName( gentity_t *startent, char *name );
-void AICast_ScriptParse( struct cast_state_s *cs );
-void AICast_StartFrame( int time );
-void AICast_StartServerFrame( int time );
-void AICast_RecordWeaponFire( gentity_t *ent );
-void AICast_AIDoor_Touch( gentity_t *ent, gentity_t *aidoor_trigger, gentity_t *door );
-float AICast_GetAccuracy( int entnum );
-void AICast_Activate( int activatorNum, int entNum );
-void AICast_CheckDangerousEntity( gentity_t *ent, int dangerFlags, float dangerDist, float tacticalLevel, float aggressionLevel, qboolean hurtFriendly );
-qboolean AICast_NoFlameDamage( int entNum );
-void AICast_SetFlameDamage( int entNum, qboolean status );
-qboolean AICast_HasFiredWeapon( int entNum, int weapon );
-void G_SetAASBlockingEntity( gentity_t *ent, qboolean blocking );
-qboolean AICast_InFieldOfVision( vec3_t viewangles, float fov, vec3_t angles );
-qboolean AICast_VisibleFromPos( vec3_t srcpos, int srcnum,
-								vec3_t destpos, int destnum, qboolean updateVisPos );
-qboolean AICast_AllowFlameDamage( int entNum );
-void AICast_AdjustIdealYawForMover( int entnum, float yaw );
-void AICast_AgePlayTime( int entnum );
-int AICast_NoReload( int entnum );
-void AICast_RecordScriptSound( int client );
-void AICast_UpdateVisibility( gentity_t *srcent, gentity_t *destent, qboolean shareVis, qboolean directview );
-void AICast_ProcessBullet( gentity_t *attacker, vec3_t start, vec3_t end );
-void AICast_AudibleEvent( int srcnum, vec3_t pos, float range );
+qboolean AICast_SameTeam(struct cast_state_s *cs, int enemynum);
+struct cast_state_s *AICast_GetCastState(int entitynum);
+void AICast_ScriptLoad(void);
+void AICast_ScriptEvent(struct cast_state_s *cs, char *eventStr, char *params);
+void AICast_ForceScriptEvent(struct cast_state_s *cs, char *eventStr, char *params);
+qboolean AICast_AIDamageOK(struct cast_state_s *cs, struct cast_state_s *ocs);
+gentity_t *AICast_FindEntityForName(char *name);
+gentity_t *AICast_TravEntityForName(gentity_t *startent, char *name);
+void AICast_ScriptParse(struct cast_state_s *cs);
+void AICast_StartFrame(int time);
+void AICast_StartServerFrame(int time);
+void AICast_RecordWeaponFire(gentity_t *ent);
+void AICast_AIDoor_Touch(gentity_t *ent, gentity_t *aidoor_trigger, gentity_t *door);
+float AICast_GetAccuracy(int entnum);
+void AICast_Activate(int activatorNum, int entNum);
+void AICast_CheckDangerousEntity(gentity_t *ent, int dangerFlags, float dangerDist, float tacticalLevel, float aggressionLevel, qboolean hurtFriendly);
+qboolean AICast_NoFlameDamage(int entNum);
+void AICast_SetFlameDamage(int entNum, qboolean status);
+qboolean AICast_HasFiredWeapon(int entNum, int weapon);
+void G_SetAASBlockingEntity(gentity_t *ent, qboolean blocking);
+qboolean AICast_InFieldOfVision(vec3_t viewangles, float fov, vec3_t angles);
+qboolean AICast_VisibleFromPos(vec3_t srcpos, int srcnum,
+                               vec3_t destpos, int destnum, qboolean updateVisPos);
+qboolean AICast_AllowFlameDamage(int entNum);
+void AICast_AdjustIdealYawForMover(int entnum, float yaw);
+void AICast_AgePlayTime(int entnum);
+int AICast_NoReload(int entnum);
+void AICast_RecordScriptSound(int client);
+void AICast_UpdateVisibility(gentity_t *srcent, gentity_t *destent, qboolean shareVis, qboolean directview);
+void AICast_ProcessBullet(gentity_t *attacker, vec3_t start, vec3_t end);
+void AICast_AudibleEvent(int srcnum, vec3_t pos, float range);
 
-//----(SA)	added
-int AICast_PlayTime( int entnum );
-int AICast_NumAttempts( int entnum );
-//----(SA)	end
+//----(SA)  added
+int AICast_PlayTime(int entnum);
+int AICast_NumAttempts(int entnum);
+//----(SA)  end
 
-void AICast_RegisterPain( int entnum );
+void AICast_RegisterPain(int entnum);

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -72,8 +72,8 @@ typedef struct
 	char version;
 	char encoding;
 	char bits_per_pixel;
-	unsigned short xmin,ymin,xmax,ymax;
-	unsigned short hres,vres;
+	unsigned short xmin, ymin, xmax, ymax;
+	unsigned short hres, vres;
 	unsigned char palette[48];
 	char reserved;
 	char color_planes;
@@ -187,7 +187,8 @@ typedef struct
 	char name[MAX_SKINNAME];        // name of pcx file
 } dsprframe_t;
 
-typedef struct {
+typedef struct
+{
 	int ident;
 	int version;
 	int numframes;
@@ -302,7 +303,7 @@ typedef struct
 	float origin[3];            // for sounds or lights
 	int headnode;
 	int firstface, numfaces;            // submodels just draw faces
-										// without walking the bsp tree
+	// without walking the bsp tree
 } dmodel_t;
 
 

@@ -50,16 +50,16 @@ void GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned c
 	Uint16 table[3][256];
 	int    i, j;
 
-	if (!glConfig.deviceSupportsGamma || r_ignorehwgamma->integer > 0)
+	if(!glConfig.deviceSupportsGamma || r_ignorehwgamma->integer > 0)
 	{
 		return;
 	}
 
-	for (i = 0; i < 256; i++)
+	for(i = 0; i < 256; i++)
 	{
-		table[0][i] = ((( Uint16 ) red[i]) << 8) | red[i];
-		table[1][i] = ((( Uint16 ) green[i]) << 8) | green[i];
-		table[2][i] = ((( Uint16 ) blue[i]) << 8) | blue[i];
+		table[0][i] = (((Uint16) red[i]) << 8) | red[i];
+		table[1][i] = (((Uint16) green[i]) << 8) | green[i];
+		table[2][i] = (((Uint16) blue[i]) << 8) | blue[i];
 	}
 
 #ifdef _WIN32
@@ -71,20 +71,22 @@ void GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned c
 
 		vinfo.dwOSVersionInfoSize = sizeof(vinfo);
 		GetVersionEx(&vinfo);
-		if (vinfo.dwMajorVersion >= 5 && vinfo.dwPlatformId == VER_PLATFORM_WIN32_NT)
+
+		if(vinfo.dwMajorVersion >= 5 && vinfo.dwPlatformId == VER_PLATFORM_WIN32_NT)
 		{
 			ri.Printf(PRINT_DEVELOPER, "performing gamma clamp.\n");
-			for (j = 0 ; j < 3 ; j++)
+
+			for(j = 0 ; j < 3 ; j++)
 			{
-				for (i = 0 ; i < 128 ; i++)
+				for(i = 0 ; i < 128 ; i++)
 				{
-					if (table[j][i] > ((128 + i) << 8))
+					if(table[j][i] > ((128 + i) << 8))
 					{
 						table[j][i] = (128 + i) << 8;
 					}
 				}
 
-				if (table[j][127] > 254 << 8)
+				if(table[j][127] > 254 << 8)
 				{
 					table[j][127] = 254 << 8;
 				}
@@ -94,11 +96,11 @@ void GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned c
 #endif
 
 	// enforce constantly increasing
-	for (j = 0; j < 3; j++)
+	for(j = 0; j < 3; j++)
 	{
-		for (i = 1; i < 256; i++)
+		for(i = 1; i < 256; i++)
 		{
-			if (table[j][i] < table[j][i - 1])
+			if(table[j][i] < table[j][i - 1])
 			{
 				table[j][i] = table[j][i - 1];
 			}

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,17 +28,17 @@ If you have questions concerning this license or the applicable additional terms
 
 //===========================================================================
 //
-// Name:				b_aas_bspc.h
-// Function:		Area Awareness System
-// Programmer:		Mr Elusive (MrElusive@demigod.demon.nl)
-// Last update:	1999-02-28
-// Tab Size:		3
+// Name:                b_aas_bspc.h
+// Function:        Area Awareness System
+// Programmer:      Mr Elusive (MrElusive@demigod.demon.nl)
+// Last update: 1999-02-28
+// Tab Size:        3
 //===========================================================================
 
-void AAS_CalcReachAndClusters( struct quakefile_s *qf );
+void AAS_CalcReachAndClusters(struct quakefile_s *qf);
 
 // Ridah
-void AAS_SetWorldPointer( aas_t *newaasworld );
+void AAS_SetWorldPointer(aas_t *newaasworld);
 // done.
 
 

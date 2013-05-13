@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -54,12 +54,12 @@ typedef struct
 extern int num_entities;
 extern entity_t entities[MAX_MAP_ENTITIES];
 
-void StripTrailing( char *e );
-void SetKeyValue( entity_t *ent, char *key, char *value );
-char *ValueForKey( entity_t *ent, char *key ); // will return "" if not present
-vec_t FloatForKey( entity_t *ent, char *key );
-void GetVectorForKey( entity_t *ent, char *key, vec3_t vec );
-qboolean ParseEntity( script_t *script );
-epair_t *ParseEpair( script_t *script );
-void PrintEntity( entity_t *ent );
+void StripTrailing(char *e);
+void SetKeyValue(entity_t *ent, char *key, char *value);
+char *ValueForKey(entity_t *ent, char *key);   // will return "" if not present
+vec_t FloatForKey(entity_t *ent, char *key);
+void GetVectorForKey(entity_t *ent, char *key, vec3_t vec);
+qboolean ParseEntity(script_t *script);
+epair_t *ParseEpair(script_t *script);
+void PrintEntity(entity_t *ent);
 

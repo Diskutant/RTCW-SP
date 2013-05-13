@@ -28,22 +28,22 @@ extern "C" {
 #endif
 
 
-LOCAL_DEF
-FT_Error  SFNT_Init_Face( FT_Stream stream,
-						  TT_Face face,
-						  FT_Int face_index,
-						  FT_Int num_params,
-						  FT_Parameter*  params );
+	LOCAL_DEF
+	FT_Error  SFNT_Init_Face(FT_Stream stream,
+	                         TT_Face face,
+	                         FT_Int face_index,
+	                         FT_Int num_params,
+	                         FT_Parameter  *params);
 
-LOCAL_DEF
-FT_Error  SFNT_Load_Face( FT_Stream stream,
-						  TT_Face face,
-						  FT_Int face_index,
-						  FT_Int num_params,
-						  FT_Parameter*  params );
+	LOCAL_DEF
+	FT_Error  SFNT_Load_Face(FT_Stream stream,
+	                         TT_Face face,
+	                         FT_Int face_index,
+	                         FT_Int num_params,
+	                         FT_Parameter  *params);
 
-LOCAL_DEF
-void  SFNT_Done_Face( TT_Face face );
+	LOCAL_DEF
+	void  SFNT_Done_Face(TT_Face face);
 
 
 #ifdef __cplusplus

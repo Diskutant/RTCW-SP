@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -149,8 +149,8 @@ If you have questions concerning this license or the applicable additional terms
 extern "C" {
 #endif
 
-void *osxAllocateMemory( long size );
-void osxFreeMemory( void *pointer );
+	void *osxAllocateMemory(long size);
+	void osxFreeMemory(void *pointer);
 
 #ifdef __cplusplus
 }
@@ -162,14 +162,14 @@ void osxFreeMemory( void *pointer );
 
 #ifdef __MACOS__
 
-//DAJ #define	MAC_STATIC static
+//DAJ #define   MAC_STATIC static
 #define MAC_STATIC
 
 #define CPUSTRING   "MacOS-PPC"
 
 #define PATH_SEP ':'
 
-void Sys_PumpEvents( void );
+void Sys_PumpEvents(void);
 
 #endif
 
@@ -181,7 +181,7 @@ void Sys_PumpEvents( void );
 
 #define PATH_SEP ':'
 
-void Sys_PumpEvents( void );
+void Sys_PumpEvents(void);
 
 #undef QDECL
 #define QDECL   __cdecl
@@ -224,7 +224,8 @@ typedef int sfxHandle_t;
 typedef int fileHandle_t;
 typedef int clipHandle_t;
 
-typedef enum {
+typedef enum
+{
 	INVALID_JOINT = -1
 } jointHandle_t;
 
@@ -266,9 +267,10 @@ typedef enum {
 #define MAX_NAME_LENGTH     32      // max length of a client name
 
 // paramters for command buffer stuffing
-typedef enum {
+typedef enum
+{
 	EXEC_NOW,           // don't return until completed, a VM should NEVER use this,
-						// because some commands might cause the VM to be unloaded...
+	// because some commands might cause the VM to be unloaded...
 	EXEC_INSERT,        // insert at current position, but don't run yet
 	EXEC_APPEND         // add to end of the command buffer (normal case)
 } cbufExec_t;
@@ -282,7 +284,8 @@ typedef enum {
 #undef ERR_FATAL                        // malloc.h on unix
 
 // parameters to the main Error routine
-typedef enum {
+typedef enum
+{
 	ERR_NONE,
 	ERR_FATAL,                  // exit the entire game with a popup window
 	ERR_DROP,                   // print to console and disconnect from game
@@ -433,23 +436,23 @@ extern mat3_t axisDefault;
 #define CHECK_NAN_VEC
 #endif
 
-float Q_fabs( float f );
-float Q_rsqrt( float f );       // reciprocal square root
+float Q_fabs(float f);
+float Q_rsqrt(float f);         // reciprocal square root
 
 #define SQRTFAST( x ) ( 1.0f / Q_rsqrt( x ) )
 
-signed char ClampChar( int i );
-signed short ClampShort( int i );
+signed char ClampChar(int i);
+signed short ClampShort(int i);
 
 // this isn't a real cheap function to call!
-int DirToByte( const idVec3 &dir );
-void ByteToDir( int b, vec3_p dir );
+int DirToByte(const idVec3 &dir);
+void ByteToDir(int b, vec3_p dir);
 
 #define DotProduct( a,b )         ( ( a )[0] * ( b )[0] + ( a )[1] * ( b )[1] + ( a )[2] * ( b )[2] )
 #define VectorSubtract( a,b,c )   ( ( c )[0] = ( a )[0] - ( b )[0],( c )[1] = ( a )[1] - ( b )[1],( c )[2] = ( a )[2] - ( b )[2] )
 #define VectorAdd( a,b,c )        ( ( c )[0] = ( a )[0] + ( b )[0],( c )[1] = ( a )[1] + ( b )[1],( c )[2] = ( a )[2] + ( b )[2] )
 #define VectorCopy( a,b )         ( ( b )[0] = ( a )[0],( b )[1] = ( a )[1],( b )[2] = ( a )[2] )
-//#define VectorCopy(a,b)			((b).x=(a).x,(b).y=(a).y,(b).z=(a).z])
+//#define VectorCopy(a,b)           ((b).x=(a).x,(b).y=(a).y,(b).z=(a).z])
 
 #define VectorScale( v, s, o )    ( ( o )[0] = ( v )[0] * ( s ),( o )[1] = ( v )[1] * ( s ),( o )[2] = ( v )[2] * ( s ) )
 #define VectorMA( v, s, b, o )    ( ( o )[0] = ( v )[0] + ( b )[0] * ( s ),( o )[1] = ( v )[1] + ( b )[1] * ( s ),( o )[2] = ( v )[2] + ( b )[2] * ( s ) )
@@ -470,90 +473,90 @@ void ByteToDir( int b, vec3_p dir );
 
 #define SnapVector( v ) {v[0] = (int)v[0]; v[1] = (int)v[1]; v[2] = (int)v[2];}
 
-float NormalizeColor( vec3_c in, vec3_p out );
+float NormalizeColor(vec3_c in, vec3_p out);
 
-int VectorCompare( vec3_c v1, vec3_c v2 );
-float VectorLength( vec3_c v );
-float Distance( vec3_c p1, vec3_c p2 );
-float DistanceSquared( vec3_c p1, vec3_c p2 );
-float VectorNormalize( vec3_p v );       // returns vector length
-void VectorNormalizeFast( vec3_p v );     // does NOT return vector length, uses rsqrt approximation
-float VectorNormalize2( vec3_c v, vec3_p out );
-void VectorInverse( vec3_p v );
-void VectorRotate( vec3_c in, mat3_c matrix, vec3_p out );
-void VectorPolar( vec3_p v, float radius, float theta, float phi );
-void VectorSnap( vec3_p v );
-void Vector53Copy( const idVec5_t &in, vec3_p out );
-void Vector5Scale( const idVec5_t &v, float scale, idVec5_t &out );
-void Vector5Add( const idVec5_t &va, const idVec5_t &vb, idVec5_t &out );
-void VectorRotate3( vec3_c vIn, vec3_c vRotation, vec3_p out );
-void VectorRotate3Origin( vec3_c vIn, vec3_c vRotation, vec3_c vOrigin, vec3_p out );
+int VectorCompare(vec3_c v1, vec3_c v2);
+float VectorLength(vec3_c v);
+float Distance(vec3_c p1, vec3_c p2);
+float DistanceSquared(vec3_c p1, vec3_c p2);
+float VectorNormalize(vec3_p v);         // returns vector length
+void VectorNormalizeFast(vec3_p v);       // does NOT return vector length, uses rsqrt approximation
+float VectorNormalize2(vec3_c v, vec3_p out);
+void VectorInverse(vec3_p v);
+void VectorRotate(vec3_c in, mat3_c matrix, vec3_p out);
+void VectorPolar(vec3_p v, float radius, float theta, float phi);
+void VectorSnap(vec3_p v);
+void Vector53Copy(const idVec5_t &in, vec3_p out);
+void Vector5Scale(const idVec5_t &v, float scale, idVec5_t &out);
+void Vector5Add(const idVec5_t &va, const idVec5_t &vb, idVec5_t &out);
+void VectorRotate3(vec3_c vIn, vec3_c vRotation, vec3_p out);
+void VectorRotate3Origin(vec3_c vIn, vec3_c vRotation, vec3_c vOrigin, vec3_p out);
 
 
-int Q_log2( int val );
+int Q_log2(int val);
 
-int     Q_rand( int *seed );
-float   Q_random( int *seed );
-float   Q_crandom( int *seed );
+int     Q_rand(int *seed);
+float   Q_random(int *seed);
+float   Q_crandom(int *seed);
 
 #define random()    ( ( rand() & 0x7fff ) / ( (float)0x7fff ) )
 #define crandom()   ( 2.0 * ( random() - 0.5 ) )
 
-float Q_rint( float in );
+float Q_rint(float in);
 
-void vectoangles( vec3_c value1, angles_p angles );
-void AnglesToAxis( angles_c angles, mat3_p axis );
+void vectoangles(vec3_c value1, angles_p angles);
+void AnglesToAxis(angles_c angles, mat3_p axis);
 
-void AxisCopy( mat3_c in, mat3_p out );
-qboolean AxisRotated( mat3_c in );          // assumes a non-degenerate axis
+void AxisCopy(mat3_c in, mat3_p out);
+qboolean AxisRotated(mat3_c in);            // assumes a non-degenerate axis
 
-int SignbitsForNormal( vec3_c normal );
-int BoxOnPlaneSide( const Bounds &b, struct cplane_s *p );
+int SignbitsForNormal(vec3_c normal);
+int BoxOnPlaneSide(const Bounds &b, struct cplane_s *p);
 
-float   AngleMod( float a );
-float   LerpAngle( float from, float to, float frac );
-float   AngleSubtract( float a1, float a2 );
-void    AnglesSubtract( angles_c v1, angles_c v2, angles_p v3 );
+float   AngleMod(float a);
+float   LerpAngle(float from, float to, float frac);
+float   AngleSubtract(float a1, float a2);
+void    AnglesSubtract(angles_c v1, angles_c v2, angles_p v3);
 
-float AngleNormalize360( float angle );
-float AngleNormalize180( float angle );
-float AngleDelta( float angle1, float angle2 );
+float AngleNormalize360(float angle);
+float AngleNormalize180(float angle);
+float AngleDelta(float angle1, float angle2);
 
-qboolean PlaneFromPoints( idVec4 &plane, vec3_c a, vec3_c b, vec3_c c );
-void ProjectPointOnPlane( vec3_p dst, vec3_c p, vec3_c normal );
-void RotatePointAroundVector( vec3_p dst, vec3_c dir, vec3_c point, float degrees );
-void RotateAroundDirection( mat3_p axis, float yaw );
-void MakeNormalVectors( vec3_c forward, vec3_p right, vec3_p up );
+qboolean PlaneFromPoints(idVec4 &plane, vec3_c a, vec3_c b, vec3_c c);
+void ProjectPointOnPlane(vec3_p dst, vec3_c p, vec3_c normal);
+void RotatePointAroundVector(vec3_p dst, vec3_c dir, vec3_c point, float degrees);
+void RotateAroundDirection(mat3_p axis, float yaw);
+void MakeNormalVectors(vec3_c forward, vec3_p right, vec3_p up);
 // perpendicular vector could be replaced by this
 
-int PlaneTypeForNormal( vec3_c normal );
+int PlaneTypeForNormal(vec3_c normal);
 
-void MatrixMultiply( mat3_c in1, mat3_c in2, mat3_p out );
-void MatrixInverseMultiply( mat3_c in1, mat3_c in2, mat3_p out );   // in2 is transposed during multiply
-void MatrixTransformVector( vec3_c in, mat3_c matrix, vec3_p out );
-void MatrixProjectVector( vec3_c in, mat3_c matrix, vec3_p out ); // Places the vector into a new coordinate system.
-void AngleVectors( angles_c angles, vec3_p forward, vec3_p right, vec3_p up );
-void PerpendicularVector( vec3_p dst, vec3_c src );
+void MatrixMultiply(mat3_c in1, mat3_c in2, mat3_p out);
+void MatrixInverseMultiply(mat3_c in1, mat3_c in2, mat3_p out);     // in2 is transposed during multiply
+void MatrixTransformVector(vec3_c in, mat3_c matrix, vec3_p out);
+void MatrixProjectVector(vec3_c in, mat3_c matrix, vec3_p out);   // Places the vector into a new coordinate system.
+void AngleVectors(angles_c angles, vec3_p forward, vec3_p right, vec3_p up);
+void PerpendicularVector(vec3_p dst, vec3_c src);
 
-float TriangleArea( vec3_c a, vec3_c b, vec3_c c );
+float TriangleArea(vec3_c a, vec3_c b, vec3_c c);
 #endif                                      // __cplusplus
 
 //=============================================
 
-float Com_Clamp( float min, float max, float value );
+float Com_Clamp(float min, float max, float value);
 
 #define FILE_HASH_SIZE      1024
-int Com_HashString( const char *fname );
+int Com_HashString(const char *fname);
 
-char    *Com_SkipPath( char *pathname );
+char    *Com_SkipPath(char *pathname);
 
 // it is ok for out == in
-void    Com_StripExtension( const char *in, char *out );
+void    Com_StripExtension(const char *in, char *out);
 
 // "extension" should include the dot: ".map"
-void    Com_DefaultExtension( char *path, int maxSize, const char *extension );
+void    Com_DefaultExtension(char *path, int maxSize, const char *extension);
 
-int Com_ParseInfos( const char *buf, int max, char infos[][MAX_INFO_STRING] );
+int Com_ParseInfos(const char *buf, int max, char infos[][MAX_INFO_STRING]);
 
 /*
 =====================================================================================
@@ -564,107 +567,109 @@ SCRIPT PARSING
 */
 
 // this just controls the comment printing, it doesn't actually load a file
-void Com_BeginParseSession( const char *filename );
-void Com_EndParseSession( void );
+void Com_BeginParseSession(const char *filename);
+void Com_EndParseSession(void);
 
-int Com_GetCurrentParseLine( void );
+int Com_GetCurrentParseLine(void);
 
 // Will never return NULL, just empty strings.
 // An empty string will only be returned at end of file.
 // ParseOnLine will return empty if there isn't another token on this line
 
 // this funny typedef just means a moving pointer into a const char * buffer
-const char *Com_Parse( const char *( *data_p ) );
-const char *Com_ParseOnLine( const char *( *data_p ) );
-const char *Com_ParseRestOfLine( const char *( *data_p ) );
+const char *Com_Parse(const char * (*data_p));
+const char *Com_ParseOnLine(const char * (*data_p));
+const char *Com_ParseRestOfLine(const char * (*data_p));
 
-void Com_UngetToken( void );
+void Com_UngetToken(void);
 
 #ifdef __cplusplus
-void Com_MatchToken( const char *( *buf_p ), const char *match, qboolean warning = qfalse );
+void Com_MatchToken(const char * (*buf_p), const char *match, qboolean warning = qfalse);
 #else
-void Com_MatchToken( const char *( *buf_p ), const char *match, qboolean warning );
+void Com_MatchToken(const char * (*buf_p), const char *match, qboolean warning);
 #endif
 
-void Com_ScriptError( const char *msg, ... );
-void Com_ScriptWarning( const char *msg, ... );
+void Com_ScriptError(const char *msg, ...);
+void Com_ScriptWarning(const char *msg, ...);
 
-void Com_SkipBracedSection( const char *( *program ) );
-void Com_SkipRestOfLine( const char *( *data ) );
+void Com_SkipBracedSection(const char * (*program));
+void Com_SkipRestOfLine(const char * (*data));
 
-float Com_ParseFloat( const char *( *buf_p ) );
-int Com_ParseInt( const char *( *buf_p ) );
+float Com_ParseFloat(const char * (*buf_p));
+int Com_ParseInt(const char * (*buf_p));
 
-void Com_Parse1DMatrix( const char *( *buf_p ), int x, float *m );
-void Com_Parse2DMatrix( const char *( *buf_p ), int y, int x, float *m );
-void Com_Parse3DMatrix( const char *( *buf_p ), int z, int y, int x, float *m );
+void Com_Parse1DMatrix(const char * (*buf_p), int x, float *m);
+void Com_Parse2DMatrix(const char * (*buf_p), int y, int x, float *m);
+void Com_Parse3DMatrix(const char * (*buf_p), int z, int y, int x, float *m);
 
 //=====================================================================================
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void QDECL Com_sprintf( char *dest, int size, const char *fmt, ... );
+	void QDECL Com_sprintf(char *dest, int size, const char *fmt, ...);
 
 
 // mode parm for FS_FOpenFile
-typedef enum {
-	FS_READ,
-	FS_WRITE,
-	FS_APPEND,
-	FS_APPEND_SYNC
-} fsMode_t;
+	typedef enum
+	{
+		FS_READ,
+		FS_WRITE,
+		FS_APPEND,
+		FS_APPEND_SYNC
+	} fsMode_t;
 
-typedef enum {
-	FS_SEEK_CUR,
-	FS_SEEK_END,
-	FS_SEEK_SET
-} fsOrigin_t;
+	typedef enum
+	{
+		FS_SEEK_CUR,
+		FS_SEEK_END,
+		FS_SEEK_SET
+	} fsOrigin_t;
 
 //=============================================
 
-int Q_isprint( int c );
-int Q_islower( int c );
-int Q_isupper( int c );
-int Q_isalpha( int c );
+	int Q_isprint(int c);
+	int Q_islower(int c);
+	int Q_isupper(int c);
+	int Q_isalpha(int c);
 
 // portable case insensitive compare
-int     Q_stricmp( const char *s1, const char *s2 );
-int     Q_strncmp( const char *s1, const char *s2, int n );
-int     Q_stricmpn( const char *s1, const char *s2, int n );
-char    *Q_strlwr( char *s1 );
-char    *Q_strupr( char *s1 );
-char    *Q_strrchr( const char* string, int c );
+	int     Q_stricmp(const char *s1, const char *s2);
+	int     Q_strncmp(const char *s1, const char *s2, int n);
+	int     Q_stricmpn(const char *s1, const char *s2, int n);
+	char    *Q_strlwr(char *s1);
+	char    *Q_strupr(char *s1);
+	char    *Q_strrchr(const char *string, int c);
 
 // buffer size safe library replacements
-void    Q_strncpyz( char *dest, const char *src, int destsize );
-void    Q_strcat( char *dest, int size, const char *src );
+	void    Q_strncpyz(char *dest, const char *src, int destsize);
+	void    Q_strcat(char *dest, int size, const char *src);
 
 // advanced string parsing made into a compatible library for C
 // NOTE: this uses C++ to work with the string, these functions may be slow
-char **Q_strarr(char *dest, const char *src, char delim);
-char *Q_strtrim(char *dest, const char *src);
+	char **Q_strarr(char *dest, const char *src, char delim);
+	char *Q_strtrim(char *dest, const char *src);
 
 // strlen that discounts Quake color sequences
-int Q_PrintStrlen( const char *string );
+	int Q_PrintStrlen(const char *string);
 // removes color sequences from string
-char *Q_CleanStr( char *string );
+	char *Q_CleanStr(char *string);
 
-int         Com_Filter( const char *filter, const char *name, int casesensitive );
-const char *Com_StringContains( const char *str1, const char *str2, int casesensitive );
+	int         Com_Filter(const char *filter, const char *name, int casesensitive);
+	const char *Com_StringContains(const char *str1, const char *str2, int casesensitive);
 
 
 //=============================================
 
-short   BigShort( short l );
-short   LittleShort( short l );
-int     BigLong( int l );
-int     LittleLong( int l );
-float   BigFloat( float l );
-float   LittleFloat( float l );
+	short   BigShort(short l);
+	short   LittleShort(short l);
+	int     BigLong(int l);
+	int     LittleLong(int l);
+	float   BigFloat(float l);
+	float   LittleFloat(float l);
 
-void    Swap_Init( void );
-char    * QDECL va( const char *format, ... );
+	void    Swap_Init(void);
+	char     *QDECL va(const char *format, ...);
 
 #ifdef __cplusplus
 }
@@ -676,39 +681,46 @@ char    * QDECL va( const char *format, ... );
 //
 // mapfile parsing
 //
-typedef struct ePair_s {
+typedef struct ePair_s
+{
 	char    *key;
 	char    *value;
 } ePair_t;
 
-typedef struct mapSide_s {
+typedef struct mapSide_s
+{
 	char material[MAX_QPATH];
 	idVec4 plane;
 	idVec4 textureVectors[2];
 } mapSide_t;
 
-typedef struct {
+typedef struct
+{
 	int numSides;
 	mapSide_t   **sides;
 } mapBrush_t;
 
-typedef struct {
+typedef struct
+{
 	idVec3 xyz;
 	float st[2];
 } patchVertex_t;
 
-typedef struct {
+typedef struct
+{
 	char material[MAX_QPATH];
 	int width, height;
 	patchVertex_t   *patchVerts;
 } mapPatch_t;
 
-typedef struct {
+typedef struct
+{
 	char modelName[MAX_QPATH];
 	float matrix[16];
 } mapModel_t;
 
-typedef struct mapPrimitive_s {
+typedef struct mapPrimitive_s
+{
 	int numEpairs;
 	ePair_t         **ePairs;
 
@@ -718,7 +730,8 @@ typedef struct mapPrimitive_s {
 	mapModel_t      *model;
 } mapPrimitive_t;
 
-typedef struct mapEntity_s {
+typedef struct mapEntity_s
+{
 	int numPrimitives;
 	mapPrimitive_t  **primitives;
 
@@ -726,7 +739,8 @@ typedef struct mapEntity_s {
 	ePair_t         **ePairs;
 } mapEntity_t;
 
-typedef struct {
+typedef struct
+{
 	int numEntities;
 	mapEntity_t     **entities;
 } mapFile_t;
@@ -734,16 +748,17 @@ typedef struct {
 
 // the order of entities, brushes, and sides will be maintained, the
 // lists won't be swapped on each load or save
-mapFile_t *ParseMapFile( const char *text );
-void FreeMapFile( mapFile_t *mapFile );
-void WriteMapFile( const mapFile_t *mapFile, FILE *f );
+mapFile_t *ParseMapFile(const char *text);
+void FreeMapFile(mapFile_t *mapFile);
+void WriteMapFile(const mapFile_t *mapFile, FILE *f);
 
 // key names are case-insensitive
-const char  *ValueForMapEntityKey( const mapEntity_t *ent, const char *key );
-float   FloatForMapEntityKey( const mapEntity_t *ent, const char *key );
-qboolean    GetVectorForMapEntityKey( const mapEntity_t *ent, const char *key, idVec3 &vec );
+const char  *ValueForMapEntityKey(const mapEntity_t *ent, const char *key);
+float   FloatForMapEntityKey(const mapEntity_t *ent, const char *key);
+qboolean    GetVectorForMapEntityKey(const mapEntity_t *ent, const char *key, idVec3 &vec);
 
-typedef struct {
+typedef struct
+{
 	idVec3 xyz;
 	idVec2 st;
 	idVec3 normal;
@@ -751,14 +766,15 @@ typedef struct {
 	byte smoothing[4];              // colors for silhouette smoothing
 } drawVert_t;
 
-typedef struct {
+typedef struct
+{
 	int width, height;
 	drawVert_t  *verts;
 } drawVertMesh_t;
 
 // Tesselate a map patch into smoothed, drawable vertexes
 // MaxError of around 4 is reasonable
-drawVertMesh_t *SubdivideMapPatch( const mapPatch_t *patch, float maxError );
+drawVertMesh_t *SubdivideMapPatch(const mapPatch_t *patch, float maxError);
 #endif          // __cplusplus
 
 //=========================================
@@ -767,16 +783,17 @@ drawVertMesh_t *SubdivideMapPatch( const mapPatch_t *patch, float maxError );
 extern "C" {
 #endif
 
-void QDECL Com_Error( int level, const char *error, ... );
-void QDECL Com_Printf( const char *msg, ... );
-void QDECL Com_DPrintf( const char *msg, ... );
+	void QDECL Com_Error(int level, const char *error, ...);
+	void QDECL Com_Printf(const char *msg, ...);
+	void QDECL Com_DPrintf(const char *msg, ...);
 
 #ifdef __cplusplus
 }
 #endif
 
 
-typedef struct {
+typedef struct
+{
 	qboolean frameMemory;
 	int currentElements;
 	int maxElements;            // will reallocate and move when exceeded
@@ -785,20 +802,20 @@ typedef struct {
 
 // you don't need to init the growlist if you don't mind it growing and moving
 // the list as it expands
-void        Com_InitGrowList( growList_t *list, int maxElements );
-int         Com_AddToGrowList( growList_t *list, void *data );
-void        *Com_GrowListElement( const growList_t *list, int index );
-int         Com_IndexForGrowListElement( const growList_t *list, const void *element );
+void        Com_InitGrowList(growList_t *list, int maxElements);
+int         Com_AddToGrowList(growList_t *list, void *data);
+void        *Com_GrowListElement(const growList_t *list, int index);
+int         Com_IndexForGrowListElement(const growList_t *list, const void *element);
 
 
 //
 // key / value info strings
 //
-char *Info_ValueForKey( const char *s, const char *key );
-void Info_RemoveKey( char *s, const char *key );
-void Info_SetValueForKey( char *s, const char *key, const char *value );
-qboolean Info_Validate( const char *s );
-void Info_NextPair( const char *( *s ), char key[MAX_INFO_KEY], char value[MAX_INFO_VALUE] );
+char *Info_ValueForKey(const char *s, const char *key);
+void Info_RemoveKey(char *s, const char *key);
+void Info_SetValueForKey(char *s, const char *key, const char *value);
+qboolean Info_Validate(const char *s);
+void Info_NextPair(const char * (*s), char key[MAX_INFO_KEY], char value[MAX_INFO_VALUE]);
 
 // get cvar defs, collision defs, etc
 //#include "../shared/interface.h"

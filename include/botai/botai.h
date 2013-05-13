@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -96,15 +96,15 @@ typedef struct bsp_trace_s
 
 // from the server
 /*
-void	trap_Cvar_Register( vmCvar_t *cvar, const char *var_name, const char *value, int flags );
-void	trap_Cvar_Update( vmCvar_t *cvar );
-void	trap_Cvar_Set( const char *var_name, const char *value );
-int		trap_Cvar_VariableIntegerValue( const char *var_name );
-void	trap_Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
-void	trap_GetConfigstring( int num, char *buffer, int bufferSize );
-void	trap_GetServerinfo( char *buffer, int bufferSize );
-int		trap_PointContents( const vec3_t point, int passEntityNum );
+void    trap_Cvar_Register( vmCvar_t *cvar, const char *var_name, const char *value, int flags );
+void    trap_Cvar_Update( vmCvar_t *cvar );
+void    trap_Cvar_Set( const char *var_name, const char *value );
+int     trap_Cvar_VariableIntegerValue( const char *var_name );
+void    trap_Cvar_VariableStringBuffer( const char *var_name, char *buffer, int bufsize );
+void    trap_GetConfigstring( int num, char *buffer, int bufferSize );
+void    trap_GetServerinfo( char *buffer, int bufferSize );
+int     trap_PointContents( const vec3_t point, int passEntityNum );
 qboolean trap_InPVS( const vec3_t p1, const vec3_t p2 );
-int		trap_BotAllocateClient( void );
-void	trap_BotFreeClient( int clientNum );
+int     trap_BotAllocateClient( void );
+void    trap_BotFreeClient( int clientNum );
 */

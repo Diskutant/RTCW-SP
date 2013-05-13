@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #define CONTENTS_SOLID          1       // an eye is never valid in a solid
 
-#define CONTENTS_LIGHTGRID      4   //----(SA)	added
+#define CONTENTS_LIGHTGRID      4   //----(SA)  added
 
 #define CONTENTS_LAVA           8
 #define CONTENTS_SLIME          16
@@ -88,7 +88,7 @@ If you have questions concerning this license or the applicable additional terms
 #define SURF_LADDER             0x8
 #define SURF_NOIMPACT           0x10    // don't make missile explosions
 #define SURF_NOMARKS            0x20    // don't leave missile marks
-//#define	SURF_FLESH			0x40	// make flesh sounds and effects
+//#define   SURF_FLESH          0x40    // make flesh sounds and effects
 #define SURF_CERAMIC            0x40    // out of surf's, so replacing unused 'SURF_FLESH'
 #define SURF_NODRAW             0x80    // don't generate a drawsurface at all
 #define SURF_HINT               0x100   // make a primary bsp splitter
@@ -111,17 +111,17 @@ If you have questions concerning this license or the applicable additional terms
 // END JOSEPH
 
 // (SA)
-//#define SURF_SMGROUP			0x200000
+//#define SURF_SMGROUP          0x200000
 #define SURF_GLASS              0x200000    // out of surf's, so replacing unused 'SURF_SMGROUP'
 #define SURF_SNOW               0x400000
 #define SURF_ROOF               0x800000
 
-//#define	SURF_RUBBLE				0x1000000	// stole 'rubble' for
+//#define   SURF_RUBBLE             0x1000000   // stole 'rubble' for
 #define SURF_RUBBLE             0x1000000
 #define SURF_CARPET             0x2000000
 
 #define SURF_MONSTERSLICK       0x4000000   // slick surf that only affects ai's
-// #define SURF_DUST				0x8000000 // leave a dust trail when walking on this surface
+// #define SURF_DUST                0x8000000 // leave a dust trail when walking on this surface
 #define SURF_MONSLICK_W         0x8000000
 
 #define SURF_MONSLICK_N         0x10000000

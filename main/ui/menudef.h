@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -127,11 +127,11 @@ If you have questions concerning this license or the applicable additional terms
 #define CG_SHOW_TEXTASINT                   0x00200000
 #define CG_SHOW_HIGHLIGHTED                 0x00100000
 
-#define CG_SHOW_NOT_V_BINOC                 0x00200000  //----(SA)	added	// hide on binoc huds
-#define CG_SHOW_NOT_V_SNIPER                0x00400000  //----(SA)	added	// hide on sniper huds
-#define CG_SHOW_NOT_V_SNOOPER               0x00800000  //----(SA)	added	// hide on snooper huds
-#define CG_SHOW_NOT_V_FGSCOPE               0x01000000  //----(SA)	added	// hide on fg42 scope huds
-#define CG_SHOW_NOT_V_CLEAR                 0x02000000  //----(SA)	added	// hide on normal, full-view huds
+#define CG_SHOW_NOT_V_BINOC                 0x00200000  //----(SA)  added   // hide on binoc huds
+#define CG_SHOW_NOT_V_SNIPER                0x00400000  //----(SA)  added   // hide on sniper huds
+#define CG_SHOW_NOT_V_SNOOPER               0x00800000  //----(SA)  added   // hide on snooper huds
+#define CG_SHOW_NOT_V_FGSCOPE               0x01000000  //----(SA)  added   // hide on fg42 scope huds
+#define CG_SHOW_NOT_V_CLEAR                 0x02000000  //----(SA)  added   // hide on normal, full-view huds
 
 #define CG_SHOW_2DONLY                      0x10000000
 
@@ -251,7 +251,7 @@ If you have questions concerning this license or the applicable additional terms
 #define CG_AREA_HOLDABLE            79
 #define CG_CURSORHINT_STATUS        80  // like 'health' bar when pointing at a func_explosive
 #define CG_PLAYER_WEAPON_STABILITY  81  // shows aimSpreadScale value
-#define CG_NEWMESSAGE               82  // 'you got mail!'	//----(SA)	added
+#define CG_NEWMESSAGE               82  // 'you got mail!'  //----(SA)  added
 
 #define UI_OWNERDRAW_BASE           200
 #define UI_HANDICAP                 200

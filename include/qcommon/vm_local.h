@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "game/q_shared.h"
 #include "qcommon/qcommon.h"
 
-typedef enum {
+typedef enum
+{
 	OP_UNDEF,
 
 	OP_IGNORE,
@@ -120,7 +121,8 @@ typedef enum {
 
 typedef intptr_t vmptr_t;
 
-typedef struct vmSymbol_s {
+typedef struct vmSymbol_s
+{
 	struct vmSymbol_s   *next;
 	int symValue;
 	int profileCount;
@@ -130,11 +132,12 @@ typedef struct vmSymbol_s {
 #define VM_OFFSET_PROGRAM_STACK     0
 #define VM_OFFSET_SYSTEM_CALL       sizeof(intptr_t)
 
-struct vm_s {
+struct vm_s
+{
 	/* DO NOT MOVE OR CHANGE THESE WITHOUT CHANGING THE VM_OFFSET_* DEFINES
 	// USED BY THE ASM CODE <--------------- see above */
 	intptr_t programStack;               // the vm may be recursively entered
-	intptr_t ( *systemCall )( intptr_t *parms );
+	intptr_t (*systemCall)(intptr_t *parms);
 
 	//------------------------------------
 
@@ -142,7 +145,7 @@ struct vm_s {
 
 	// for dynamic linked modules
 	void        *dllHandle;
-	intptr_t ( QDECL *entryPoint )( intptr_t callNum, ... );
+	intptr_t (QDECL *entryPoint)(intptr_t callNum, ...);
 
 	// for interpreted modules
 	qboolean currentlyInterpreting;
@@ -171,14 +174,14 @@ struct vm_s {
 extern vm_t    *currentVM;
 extern int vm_debugLevel;
 
-void VM_Compile( vm_t *vm, vmHeader_t *header );
-intptr_t VM_CallCompiled( vm_t *vm, intptr_t *args );
+void VM_Compile(vm_t *vm, vmHeader_t *header);
+intptr_t VM_CallCompiled(vm_t *vm, intptr_t *args);
 
-void VM_PrepareInterpreter( vm_t *vm, vmHeader_t *header );
-intptr_t VM_CallInterpreted( vm_t *vm, intptr_t *args );
+void VM_PrepareInterpreter(vm_t *vm, vmHeader_t *header);
+intptr_t VM_CallInterpreted(vm_t *vm, intptr_t *args);
 
-vmSymbol_t *VM_ValueToFunctionSymbol( vm_t *vm, int value );
-int VM_SymbolToValue( vm_t *vm, const char *symbol );
-const char *VM_ValueToSymbol( vm_t *vm, int value );
-void VM_LogSyscalls( intptr_t *args );
+vmSymbol_t *VM_ValueToFunctionSymbol(vm_t *vm, int value);
+int VM_SymbolToValue(vm_t *vm, const char *symbol);
+const char *VM_ValueToSymbol(vm_t *vm, int value);
+void VM_LogSyscalls(intptr_t *args);
 

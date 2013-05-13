@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -68,28 +68,29 @@ If you have questions concerning this license or the applicable additional terms
 
 typedef int idSoundHandle;
 
-class idSound {
+class idSound
+{
 
 public:
-static void        start();
-static void        finish();
+	static void        start();
+	static void        finish();
 
-idSound( const char *name = NULL );                 // register me!
-~idSound();
-void        play( const int dwFlags = 0 );
-void        play3D( const int dwFlags, const idVec3& pos, const idVec3& vel );
-void        stop();
-void        update3D( const idVec3& pos, const idVec3& vel );
+	idSound(const char *name = NULL);                   // register me!
+	~idSound();
+	void        play(const int dwFlags = 0);
+	void        play3D(const int dwFlags, const idVec3 &pos, const idVec3 &vel);
+	void        stop();
+	void        update3D(const idVec3 &pos, const idVec3 &vel);
 
 protected:
 private:
-friend class idSpeaker;
-friend class idWaveform;
+	friend class idSpeaker;
+	friend class idWaveform;
 
-int lastTimeUsed;
+	int lastTimeUsed;
 
-idAudioBuffer   *pSound;
-int bIndex;
+	idAudioBuffer   *pSound;
+	int bIndex;
 };
 
 

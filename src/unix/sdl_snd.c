@@ -70,14 +70,16 @@ void Snd_Memset(void *dest, const int val, const size_t count)
 {
 	int *pDest, i, iterate;
 
-	if (!use_custom_memset)
+	if(!use_custom_memset)
 	{
 		Com_Memset(dest, val, count);
 		return;
 	}
+
 	iterate = count / sizeof(int);
 	pDest   = (int *)dest;
-	for (i = 0; i < iterate; i++)
+
+	for(i = 0; i < iterate; i++)
 	{
 		pDest[i] = val;
 	}
@@ -92,12 +94,13 @@ SNDDMA_AudioCallback
 static void SNDDMA_AudioCallback(void *userdata, Uint8 *stream, int len)
 {
 	int pos = (dmapos * (dma.samplebits / 8));
-	if (pos >= dmasize)
+
+	if(pos >= dmasize)
 	{
 		dmapos = pos = 0;
 	}
 
-	if (!snd_inited)  /* shouldn't happen, but just in case... */
+	if(!snd_inited)   /* shouldn't happen, but just in case... */
 	{
 		memset(stream, '\0', len);
 		return;
@@ -108,13 +111,15 @@ static void SNDDMA_AudioCallback(void *userdata, Uint8 *stream, int len)
 		int len1     = len;
 		int len2     = 0;
 
-		if (len1 > tobufend)
+		if(len1 > tobufend)
 		{
 			len1 = tobufend;
 			len2 = len - len1;
 		}
+
 		memcpy(stream, dma.buffer + pos, len1);
-		if (len2 <= 0)
+
+		if(len2 <= 0)
 		{
 			dmapos += (len1 / (dma.samplebits / 8));
 		}
@@ -125,7 +130,7 @@ static void SNDDMA_AudioCallback(void *userdata, Uint8 *stream, int len)
 		}
 	}
 
-	if (dmapos >= dmasize)
+	if(dmapos >= dmasize)
 	{
 		dmapos = 0;
 	}
@@ -160,15 +165,15 @@ static void SNDDMA_PrintAudiospec(const char *str, const SDL_AudioSpec *spec)
 	Com_Printf("%s:\n", str);
 
 
-	for (i = 0; i < formatToStringTableSize; i++)
+	for(i = 0; i < formatToStringTableSize; i++)
 	{
-		if (spec->format == formatToStringTable[i].enumFormat)
+		if(spec->format == formatToStringTable[i].enumFormat)
 		{
 			fmt = formatToStringTable[i].stringFormat;
 		}
 	}
 
-	if (fmt)
+	if(fmt)
 	{
 		Com_Printf("  Format:   %s\n", fmt);
 	}
@@ -194,12 +199,12 @@ qboolean SNDDMA_Init(void)
 	SDL_AudioSpec obtained;
 	int           tmp;
 
-	if (snd_inited)
+	if(snd_inited)
 	{
 		return qtrue;
 	}
 
-	if (!s_sdlBits)
+	if(!s_sdlBits)
 	{
 		s_sdlBits     = Cvar_Get("s_sdlBits", "16", CVAR_ARCHIVE);
 		s_sdlSpeed    = Cvar_Get("s_sdlSpeed", "0", CVAR_ARCHIVE);
@@ -210,9 +215,9 @@ qboolean SNDDMA_Init(void)
 
 	Com_Printf("SDL_Init( SDL_INIT_AUDIO )... ");
 
-	if (!SDL_WasInit(SDL_INIT_AUDIO))
+	if(!SDL_WasInit(SDL_INIT_AUDIO))
 	{
-		if (SDL_Init(SDL_INIT_AUDIO) == -1)
+		if(SDL_Init(SDL_INIT_AUDIO) == -1)
 		{
 			Com_Printf("FAILED (%s)\n", SDL_GetError());
 			return qfalse;
@@ -221,31 +226,35 @@ qboolean SNDDMA_Init(void)
 
 	Com_Printf("OK\n");
 
-	if (SDL_AudioDriverName(drivername, sizeof(drivername)) == NULL)
+	if(SDL_AudioDriverName(drivername, sizeof(drivername)) == NULL)
 	{
 		strcpy(drivername, "(UNKNOWN)");
 	}
+
 	Com_Printf("SDL audio driver is \"%s\".\n", drivername);
 
 	memset(&desired, '\0', sizeof(desired));
 	memset(&obtained, '\0', sizeof(obtained));
 
 	tmp = ((int) s_sdlBits->value);
-	if ((tmp != 16) && (tmp != 8))
+
+	if((tmp != 16) && (tmp != 8))
 	{
 		tmp = 16;
 	}
 
 	desired.freq = (int) s_sdlSpeed->value;
-	if (!desired.freq)
+
+	if(!desired.freq)
 	{
 		desired.freq = 22050;
 	}
+
 	desired.format = ((tmp == 16) ? AUDIO_S16SYS : AUDIO_U8);
 
 	// I dunno if this is the best idea, but I'll give it a try...
 	//  should probably check a cvar for this...
-	if (s_sdlDevSamps->value)
+	if(s_sdlDevSamps->value)
 	{
 		desired.samples = s_sdlDevSamps->value;
 	}
@@ -255,15 +264,16 @@ qboolean SNDDMA_Init(void)
 #if  1
 		desired.samples = 1024;
 #else
-		if (desired.freq <= 11025)
+
+		if(desired.freq <= 11025)
 		{
 			desired.samples = 256;
 		}
-		else if (desired.freq <= 22050)
+		else if(desired.freq <= 22050)
 		{
 			desired.samples = 512;
 		}
-		else if (desired.freq <= 44100)
+		else if(desired.freq <= 44100)
 		{
 			desired.samples = 1024;
 		}
@@ -271,13 +281,14 @@ qboolean SNDDMA_Init(void)
 		{
 			desired.samples = 2048;  // (*shrug*)
 		}
+
 #endif
 	}
 
 	desired.channels = (int) s_sdlChannels->value;
 	desired.callback = SNDDMA_AudioCallback;
 
-	if (SDL_OpenAudio(&desired, &obtained) == -1)
+	if(SDL_OpenAudio(&desired, &obtained) == -1)
 	{
 		Com_Printf("SDL_OpenAudio() failed: %s\n", SDL_GetError());
 		SDL_QuitSubSystem(SDL_INIT_AUDIO);
@@ -294,17 +305,19 @@ qboolean SNDDMA_Init(void)
 	//  know if it's a good value overall, but at least we know it's
 	//  reasonable...this is why I let the user override.
 	tmp = s_sdlMixSamps->value;
-	if (!tmp)
+
+	if(!tmp)
 	{
 //		tmp = (obtained.samples * obtained.channels) * 10;
-/* need over quarter second of buffertime for low framerates */
-		tmp = 1024*16;
+		/* need over quarter second of buffertime for low framerates */
+		tmp = 1024 * 16;
 	}
 
-	if (tmp & (tmp - 1))  // not a power of two? Seems to confuse something.
+	if(tmp & (tmp - 1))   // not a power of two? Seems to confuse something.
 	{
 		int val = 1;
-		while (val < tmp)
+
+		while(val < tmp)
 			val <<= 1;
 
 		tmp = val;

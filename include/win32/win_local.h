@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -56,61 +56,61 @@ extern "C" {
 #endif
 #endif  ///// (SA) DOOMSOUND
 
-void    IN_MouseEvent( int mstate );
+	void    IN_MouseEvent(int mstate);
 
-void Sys_QueEvent( int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr );
+	void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr);
 
-void    Sys_CreateConsole( void );
-void    Sys_DestroyConsole( void );
+	void    Sys_CreateConsole(void);
+	void    Sys_DestroyConsole(void);
 
-char    *Sys_ConsoleInput( void );
+	char    *Sys_ConsoleInput(void);
 
-qboolean    Sys_GetPacket( netadr_t *net_from, msg_t *net_message );
+	qboolean    Sys_GetPacket(netadr_t *net_from, msg_t *net_message);
 
 // Input subsystem
 
-void    IN_Init( void );
-void    IN_Shutdown( void );
-void    IN_JoystickCommands( void );
+	void    IN_Init(void);
+	void    IN_Shutdown(void);
+	void    IN_JoystickCommands(void);
 
-void    IN_Move( usercmd_t *cmd );
+	void    IN_Move(usercmd_t *cmd);
 // add additional non keyboard / non mouse movement on top of the keyboard move cmd
 
-void    IN_DeactivateWin32Mouse( void );
+	void    IN_DeactivateWin32Mouse(void);
 
-void    IN_Activate( qboolean active );
-void    IN_Frame( void );
+	void    IN_Activate(qboolean active);
+	void    IN_Frame(void);
 
 // window procedure
-LONG WINAPI MainWndProc(
-	HWND hWnd,
-	UINT uMsg,
-	WPARAM wParam,
-	LPARAM lParam );
+	LONG WINAPI MainWndProc(
+	    HWND hWnd,
+	    UINT uMsg,
+	    WPARAM wParam,
+	    LPARAM lParam);
 
-void Conbuf_AppendText( const char *msg );
+	void Conbuf_AppendText(const char *msg);
 
-void SNDDMA_Activate( void );
-int  SNDDMA_InitDS();
+	void SNDDMA_Activate(void);
+	int  SNDDMA_InitDS();
 
-typedef struct
-{
+	typedef struct
+	{
 
-	HINSTANCE reflib_library;           // Handle to refresh DLL
-	qboolean reflib_active;
+		HINSTANCE reflib_library;           // Handle to refresh DLL
+		qboolean reflib_active;
 
-	HWND hWnd;
-	HINSTANCE hInstance;
-	qboolean activeApp;
-	qboolean isMinimized;
-	OSVERSIONINFO osversion;
+		HWND hWnd;
+		HINSTANCE hInstance;
+		qboolean activeApp;
+		qboolean isMinimized;
+		OSVERSIONINFO osversion;
 
-	// when we get a windows message, we store the time off so keyboard processing
-	// can know the exact time of an event
-	unsigned sysMsgTime;
-} WinVars_t;
+		// when we get a windows message, we store the time off so keyboard processing
+		// can know the exact time of an event
+		unsigned sysMsgTime;
+	} WinVars_t;
 
-extern WinVars_t g_wv;
+	extern WinVars_t g_wv;
 
 #ifdef DOOMSOUND    ///// (SA) DOOMSOUND
 #ifdef __cplusplus

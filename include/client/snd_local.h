@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,12 +41,14 @@ If you have questions concerning this license or the applicable additional terms
 
 #define TALKANIM
 
-typedef struct {
+typedef struct
+{
 	int left;           // the final values will be clamped to +/- 0x00ffff00 and shifted down
 	int right;
 } portable_samplepair_t;
 
-typedef struct adpcm_state {
+typedef struct adpcm_state
+{
 	short sample;       /* Previous output value */
 	char index;         /* Index into stepsize table */
 #if defined( __MACOS__ )
@@ -54,14 +56,16 @@ typedef struct adpcm_state {
 #endif
 } adpcm_state_t;
 
-typedef struct sndBuffer_s {
+typedef struct sndBuffer_s
+{
 	short sndChunk[SND_CHUNK_SIZE];
 	struct sndBuffer_s      *next;
 	int size;
 	adpcm_state_t adpcm;
 } sndBuffer;
 
-typedef struct sfx_s {
+typedef struct sfx_s
+{
 	sndBuffer       *soundData;
 	qboolean defaultSound;                  // couldn't be loaded, so use buzz
 	qboolean inMemory;                      // not in Memory
@@ -73,7 +77,8 @@ typedef struct sfx_s {
 	struct sfx_s    *next;
 } sfx_t;
 
-typedef struct {
+typedef struct
+{
 	int channels;
 	int samples;                        // mono samples in buffer
 	int submission_chunk;               // don't mix less than this #
@@ -85,10 +90,11 @@ typedef struct {
 
 #define START_SAMPLE_IMMEDIATE  0x7fffffff
 
-typedef struct loopSound_s {
+typedef struct loopSound_s
+{
 	vec3_t origin;
 	vec3_t velocity;
-	float range;            //----(SA)	added
+	float range;            //----(SA)  added
 	sfx_t       *sfx;
 	int mergeFrame;
 	int vol;
@@ -111,7 +117,7 @@ typedef struct
 	qboolean fixed_origin;      // use origin instead of fetching entnum's origin
 	sfx_t       *thesfx;        // sfx structure
 	qboolean doppler;
-	int flags;                  //----(SA)	added
+	int flags;                  //----(SA)  added
 	qboolean threadReady;
 } channel_t;
 
@@ -119,7 +125,8 @@ typedef struct
 #define WAV_FORMAT_PCM      1
 
 
-typedef struct {
+typedef struct
+{
 	int format;
 	int rate;
 	int width;
@@ -138,24 +145,24 @@ typedef struct {
 */
 
 // initializes cycling through a DMA buffer and returns information on it
-qboolean SNDDMA_Init( void );
+qboolean SNDDMA_Init(void);
 
 // gets the current DMA position
-int     SNDDMA_GetDMAPos( void );
+int     SNDDMA_GetDMAPos(void);
 
 // shutdown the DMA xfer.
-void    SNDDMA_Shutdown( void );
+void    SNDDMA_Shutdown(void);
 
-void    SNDDMA_BeginPainting( void );
+void    SNDDMA_BeginPainting(void);
 
-void    SNDDMA_Submit( void );
+void    SNDDMA_Submit(void);
 
 //====================================================================
 
 #if defined( __MACOS__ )
-  #define   MAX_CHANNELS 64
+#define   MAX_CHANNELS 64
 #else
-  #define MAX_CHANNELS 96
+#define MAX_CHANNELS 96
 #endif
 
 extern channel_t s_channels[MAX_CHANNELS];
@@ -172,35 +179,37 @@ extern dma_t dma;
 extern unsigned char s_entityTalkAmplitude[MAX_CLIENTS];
 #endif
 
-//----(SA)	some flags for queued music tracks
+//----(SA)  some flags for queued music tracks
 #define QUEUED_PLAY_ONCE    -1
 #define QUEUED_PLAY_LOOPED  -2
 #define QUEUED_PLAY_ONCE_SILENT -3  // when done it goes quiet
-//----(SA)	end
+//----(SA)  end
 
 // Ridah, streaming sounds
-typedef struct {
+typedef struct
+{
 	fileHandle_t file;
 	wavinfo_t info;
 	int samples;
-	char name[MAX_QPATH];           //----(SA)	added
+	char name[MAX_QPATH];           //----(SA)  added
 	char loop[MAX_QPATH];
-	int looped;                 //----(SA)	added
+	int looped;                 //----(SA)  added
 	int entnum;
 	int channel;
 	int attenuation;
-	int kill;           //----(SA)	changed
+	int kill;           //----(SA)  changed
 
-	int fadeStart;              //----(SA)	added
-	int fadeEnd;                //----(SA)	added
-	float fadeStartVol;         //----(SA)	added
-	float fadeTargetVol;        //----(SA)	added
+	int fadeStart;              //----(SA)  added
+	int fadeEnd;                //----(SA)  added
+	float fadeStartVol;         //----(SA)  added
+	float fadeTargetVol;        //----(SA)  added
 } streamingSound_t;
 
 
 
 
-typedef struct {
+typedef struct
+{
 	vec3_t origin;
 	qboolean fixedOrigin;
 	int entityNum;
@@ -214,7 +223,8 @@ typedef struct {
 #define MAX_LOOP_SOUNDS 128
 
 // removed many statics into a common sound struct
-typedef struct {
+typedef struct
+{
 	sfx_t       *sfxHash[LOOP_HASH];
 	int numLoopSounds;
 	loopSound_t loopSounds[MAX_LOOP_SOUNDS];
@@ -238,12 +248,12 @@ typedef struct {
 	int s_clearSoundBuffer;
 
 	int s_soundStarted;
-//	qboolean	s_soundMute;
+//	qboolean s_soundMute;
 	int s_soundMute;                // 0 - not muted, 1 - muted, 2 - no new sounds, but play out remaining sounds (so they can die if necessary)
 
 	vec3_t entityPositions[MAX_GENTITIES];
 
-	char nextMusicTrack[MAX_QPATH];         // extracted from CS_MUSIC_QUEUE //----(SA)	added
+	char nextMusicTrack[MAX_QPATH];         // extracted from CS_MUSIC_QUEUE //----(SA) added
 	int nextMusicTrackType;
 } snd_t;
 
@@ -269,27 +279,27 @@ extern cvar_t   *s_mute;
 
 extern cvar_t   *s_testsound;
 extern cvar_t   *s_separation;
-extern cvar_t   *s_currentMusic;    //----(SA)	added
-extern cvar_t   *s_debugMusic;      //----(SA)	added
+extern cvar_t   *s_currentMusic;    //----(SA)  added
+extern cvar_t   *s_debugMusic;      //----(SA)  added
 
-qboolean S_LoadSound( sfx_t *sfx );
+qboolean S_LoadSound(sfx_t *sfx);
 
-void        SND_free( sndBuffer *v );
-sndBuffer*  SND_malloc();
+void        SND_free(sndBuffer *v);
+sndBuffer  *SND_malloc();
 void        SND_setup();
 
-void S_PaintChannels( int endtime );
+void S_PaintChannels(int endtime);
 
-void S_memoryLoad( sfx_t *sfx );
+void S_memoryLoad(sfx_t *sfx);
 portable_samplepair_t *S_GetRawSamplePointer();
 
 // spatializes a channel
-void S_Spatialize( channel_t *ch );
+void S_Spatialize(channel_t *ch);
 
 // adpcm functions
-int  S_AdpcmMemoryNeeded( const wavinfo_t *info );
-void S_AdpcmEncodeSound( sfx_t *sfx, short *samples );
-void S_AdpcmGetSamples( sndBuffer *chunk, short *to );
+int  S_AdpcmMemoryNeeded(const wavinfo_t *info);
+void S_AdpcmEncodeSound(sfx_t *sfx, short *samples);
+void S_AdpcmGetSamples(sndBuffer *chunk, short *to);
 
 // wavelet function
 
@@ -300,10 +310,10 @@ void S_FreeOldestSound();
 
 #define NXStream byte
 
-void encodeWavelet( sfx_t *sfx, short *packets );
-void decodeWavelet( sndBuffer *stream, short *packets );
+void encodeWavelet(sfx_t *sfx, short *packets);
+void decodeWavelet(sndBuffer *stream, short *packets);
 
-void encodeMuLaw( sfx_t *sfx, short *packets );
+void encodeMuLaw(sfx_t *sfx, short *packets);
 extern short mulawToShort[256];
 
 extern short *sfxScratchBuffer;
@@ -312,4 +322,4 @@ extern int sfxScratchIndex;
 
 extern unsigned char s_entityTalkAmplitude[MAX_CLIENTS];
 
-extern float S_GetStreamingFade( streamingSound_t *ss );    //----(SA)	added
+extern float S_GetStreamingFade(streamingSound_t *ss);      //----(SA)   added

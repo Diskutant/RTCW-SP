@@ -215,8 +215,8 @@ struct AH_Point
 	AH_Angle in_angle;
 	AH_Angle out_angle;
 
-	AH_Point*     next;     /* next point in contour     */
-	AH_Point*     prev;     /* previous point in contour */
+	AH_Point     *next;     /* next point in contour     */
+	AH_Point     *prev;     /* previous point in contour */
 };
 
 
@@ -263,19 +263,19 @@ struct AH_Segment
 	AH_Edge_Flags flags;
 	AH_Direction dir;
 
-	AH_Point*      first;       /* first point in edge segment             */
-	AH_Point*      last;        /* last point in edge segment              */
-	AH_Point**     contour;     /* ptr to first point of segment's contour */
+	AH_Point      *first;       /* first point in edge segment             */
+	AH_Point      *last;        /* last point in edge segment              */
+	AH_Point     **contour;     /* ptr to first point of segment's contour */
 
 	FT_Pos pos;                 /* position of segment           */
 	FT_Pos min_coord;           /* minimum coordinate of segment */
 	FT_Pos max_coord;           /* maximum coordinate of segment */
 
-	AH_Edge*       edge;
-	AH_Segment*    edge_next;
+	AH_Edge       *edge;
+	AH_Segment    *edge_next;
 
-	AH_Segment*    link;        /* link segment               */
-	AH_Segment*    serif;       /* primary segment for serifs */
+	AH_Segment    *link;        /* link segment               */
+	AH_Segment    *serif;       /* primary segment for serifs */
 	FT_Pos num_linked;          /* number of linked segments  */
 	FT_Int score;
 };
@@ -323,19 +323,19 @@ struct AH_Edge
 	AH_Edge_Flags flags;
 	AH_Direction dir;
 
-	AH_Segment*    first;
-	AH_Segment*    last;
+	AH_Segment    *first;
+	AH_Segment    *last;
 
 	FT_Pos fpos;
 	FT_Pos opos;
 	FT_Pos pos;
 
-	AH_Edge*       link;
-	AH_Edge*       serif;
+	AH_Edge       *link;
+	AH_Edge       *serif;
 	FT_Int num_linked;
 
 	FT_Int score;
-	FT_Pos*        blue_edge;
+	FT_Pos        *blue_edge;
 };
 
 
@@ -353,23 +353,23 @@ typedef struct  AH_Outline_
 
 	FT_Int max_points;
 	FT_Int num_points;
-	AH_Point*     points;
+	AH_Point     *points;
 
 	FT_Int max_contours;
 	FT_Int num_contours;
-	AH_Point**    contours;
+	AH_Point    **contours;
 
 	FT_Int num_hedges;
-	AH_Edge*      horz_edges;
+	AH_Edge      *horz_edges;
 
 	FT_Int num_vedges;
-	AH_Edge*      vert_edges;
+	AH_Edge      *vert_edges;
 
 	FT_Int num_hsegments;
-	AH_Segment*   horz_segments;
+	AH_Segment   *horz_segments;
 
 	FT_Int num_vsegments;
-	AH_Segment*   vert_segments;
+	AH_Segment   *vert_segments;
 
 } AH_Outline;
 
@@ -467,11 +467,11 @@ typedef struct  AH_Hinter
 	FT_Int algorithm;
 	FT_Face face;
 
-	AH_Face_Globals*  globals;
+	AH_Face_Globals  *globals;
 
-	AH_Outline*       glyph;
+	AH_Outline       *glyph;
 
-	AH_Loader*        loader;
+	AH_Loader        *loader;
 	FT_Vector pp1;
 	FT_Vector pp2;
 

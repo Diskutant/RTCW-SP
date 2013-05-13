@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,136 +46,176 @@ If you have questions concerning this license or the applicable additional terms
 
 #define MAX_STREAMING_SOUNDS    24
 
-class idSpeaker {
+class idSpeaker
+{
 
 public:
-void        process();
+	void        process();
 
-idSpeaker();
-~idSpeaker();
+	idSpeaker();
+	~idSpeaker();
 
-bool        activate();
-bool        loop( const char *intro, const char *filename, int channel, bool looping, bool in3D, bool useNotification );
-void        stopLoop( int channel );
-void        updateLoop();
+	bool        activate();
+	bool        loop(const char *intro, const char *filename, int channel, bool looping, bool in3D, bool useNotification);
+	void        stopLoop(int channel);
+	void        updateLoop();
 
-idAudioHardware     *hw;
+	idAudioHardware     *hw;
 
-idAudioBuffer*  find( const char* fname ) {
-	idAudioBuffer **mat = NULL;
+	idAudioBuffer  *find(const char *fname)
+	{
+		idAudioBuffer **mat = NULL;
 
-	// see if it has been asked for before
-	if ( hashTable.Get( fname, &mat ) ) {
-		return ( *mat );
+		// see if it has been asked for before
+		if(hashTable.Get(fname, &mat))
+		{
+			return (*mat);
+		}
+
+		return NULL;
 	}
-	return NULL;
-}
 
-void        setEntityVolume( const int entityNum, const float v ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		entVol[entityNum] = v;
+	void        setEntityVolume(const int entityNum, const float v)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			entVol[entityNum] = v;
+		}
 	}
-}
 
-void        setEntityPosition( const int entityNum, const float x, const float y, const float z ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		entPos[entityNum].x = x;
-		entPos[entityNum].y = y;
-		entPos[entityNum].z = z;
+	void        setEntityPosition(const int entityNum, const float x, const float y, const float z)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			entPos[entityNum].x = x;
+			entPos[entityNum].y = y;
+			entPos[entityNum].z = z;
+		}
 	}
-}
 
-void        setEntityVelocity( const int entityNum, const float x, const float y, const float z ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		entVel[entityNum].x = x;
-		entVel[entityNum].y = y;
-		entVel[entityNum].z = z;
+	void        setEntityVelocity(const int entityNum, const float x, const float y, const float z)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			entVel[entityNum].x = x;
+			entVel[entityNum].y = y;
+			entVel[entityNum].z = z;
+		}
 	}
-}
 
-float       getEntityVolume( const int entityNum ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		return entVol[entityNum];
-	} else {
-		return getMusicVolume();
+	float       getEntityVolume(const int entityNum)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			return entVol[entityNum];
+		}
+		else
+		{
+			return getMusicVolume();
+		}
 	}
-}
 
-idVec3&     getEntityPosition( const int entityNum ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		return entPos[entityNum];
-	} else {
+	idVec3     &getEntityPosition(const int entityNum)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			return entPos[entityNum];
+		}
+		else
+		{
+			return listener;
+		}
+	}
+
+	idVec3     &getEntityVelocity(const int entityNum)
+	{
+		if(entityNum >= 0 && entityNum < MAX_GENTITIES)
+		{
+			return entVel[entityNum];
+		}
+		else
+		{
+			return listener;
+		}
+	}
+
+	void        setListenerPosition(const float x, const float y, const float z)
+	{
+		listener.x = x;
+		listener.y = y;
+		listener.z = z;
+	}
+
+	void        setListenerAxis(const vec3_t axis0, const vec3_t axis1)
+	{
+		listenerFront.x = axis0[0];
+		listenerFront.y = axis0[1];
+		listenerFront.z = axis0[2];
+		listenerTop.x = axis1[0];
+		listenerTop.y = axis1[1];
+		listenerTop.z = axis1[2];
+	}
+
+	idVec3     &getListenerPosition()
+	{
 		return listener;
 	}
-}
 
-idVec3&     getEntityVelocity( const int entityNum ) {
-	if ( entityNum >= 0 && entityNum < MAX_GENTITIES ) {
-		return entVel[entityNum];
-	} else {
-		return listener;
+	float       getMusicVolume()
+	{
+		return s_musicVolume->value;
 	}
-}
+	float       getMinDistance()
+	{
+		return s_minDistance->value;
+	}
+	float       getMaxDistance()
+	{
+		return s_maxDistance->value;
+	}
 
-void        setListenerPosition( const float x, const float y, const float z ) {
-	listener.x = x;
-	listener.y = y;
-	listener.z = z;
-}
-
-void        setListenerAxis( const vec3_t axis0, const vec3_t axis1 ) {
-	listenerFront.x = axis0[0]; listenerFront.y = axis0[1]; listenerFront.z = axis0[2];
-	listenerTop.x = axis1[0]; listenerTop.y = axis1[1]; listenerTop.z = axis1[2];
-}
-
-idVec3&     getListenerPosition() {
-	return listener;
-}
-
-float       getMusicVolume() {  return s_musicVolume->value; }
-float       getMinDistance() {  return s_minDistance->value; }
-float       getMaxDistance() {  return s_maxDistance->value; }
-
-void        bind( const char *name, idAudioBuffer *nis ) {
-	hashTable.Set( name, nis );
-}
-void        unbind( const char *name ) {
-	hashTable.Remove( name );
-}
+	void        bind(const char *name, idAudioBuffer *nis)
+	{
+		hashTable.Set(name, nis);
+	}
+	void        unbind(const char *name)
+	{
+		hashTable.Remove(name);
+	}
 
 private:
 
-void        LOCK();
-void        UNLOCK();
-bool        initAudioHardware();
-bool        releaseAudioHardware();
-int         getAudioHardwareChannel();
-int         getDMAPos( int channel );
-bool        beginPainting( int channel );
-bool        endPainting( int channel );
-idVec3 entPos[MAX_GENTITIES];
-idVec3 entVel[MAX_GENTITIES];
-float entVol[MAX_GENTITIES];
-idVec3 listener;
-idVec3 listenerFront;
-idVec3 listenerTop;
+	void        LOCK();
+	void        UNLOCK();
+	bool        initAudioHardware();
+	bool        releaseAudioHardware();
+	int         getAudioHardwareChannel();
+	int         getDMAPos(int channel);
+	bool        beginPainting(int channel);
+	bool        endPainting(int channel);
+	idVec3 entPos[MAX_GENTITIES];
+	idVec3 entVel[MAX_GENTITIES];
+	float entVol[MAX_GENTITIES];
+	idVec3 listener;
+	idVec3 listenerFront;
+	idVec3 listenerTop;
 
-cvar_t      *s_dopplerFactor;
-cvar_t      *s_distanceFactor;
-cvar_t      *s_rolloffFactor;
-cvar_t      *s_minDistance;
-cvar_t      *s_maxDistance;
-cvar_t      *s_musicVolume;
+	cvar_t      *s_dopplerFactor;
+	cvar_t      *s_distanceFactor;
+	cvar_t      *s_rolloffFactor;
+	cvar_t      *s_minDistance;
+	cvar_t      *s_maxDistance;
+	cvar_t      *s_musicVolume;
 
-idHashTable<idAudioBuffer*> hashTable;                          // hashed version for loaded sounds
+	idHashTable<idAudioBuffer *> hashTable;                         // hashed version for loaded sounds
 
-friend class idSound;
-friend class idAudioChannel;
+	friend class idSound;
+	friend class idAudioChannel;
 
-LPDIRECTSOUND3DLISTENER pDSListener;
-DS3DLISTENER dsListenerParams;                            // Listener properties
+	LPDIRECTSOUND3DLISTENER pDSListener;
+	DS3DLISTENER dsListenerParams;                            // Listener properties
 
 };
 
-extern idSpeaker* idSpeak;
+extern idSpeaker *idSpeak;
 

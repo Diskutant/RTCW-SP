@@ -51,7 +51,7 @@
 
 #undef  PAIR_TAG
 #define PAIR_TAG( left, right )  ( ( (FT_ULong)left << 16 ) | \
-								   (FT_ULong)right        )
+                                   (FT_ULong)right        )
 
 
 /*************************************************************************/
@@ -87,45 +87,52 @@
 /*    They can be implemented by format-specific interfaces.             */
 /*                                                                       */
 static
-FT_Error  Get_Kerning( TT_Face face,
-					   FT_UInt left_glyph,
-					   FT_UInt right_glyph,
-					   FT_Vector*  kerning ) {
-	TT_Kern_0_Pair*  pair;
+FT_Error  Get_Kerning(TT_Face face,
+                      FT_UInt left_glyph,
+                      FT_UInt right_glyph,
+                      FT_Vector  *kerning)
+{
+	TT_Kern_0_Pair  *pair;
 
 
-	if ( !face ) {
+	if(!face)
+	{
 		return TT_Err_Invalid_Face_Handle;
 	}
 
 	kerning->x = 0;
 	kerning->y = 0;
 
-	if ( face->kern_pairs ) {
+	if(face->kern_pairs)
+	{
 		/* there are some kerning pairs in this font file! */
-		FT_ULong search_tag = PAIR_TAG( left_glyph, right_glyph );
+		FT_ULong search_tag = PAIR_TAG(left_glyph, right_glyph);
 		FT_Long left, right;
 
 
 		left  = 0;
 		right = face->num_kern_pairs - 1;
 
-		while ( left <= right )
+		while(left <= right)
 		{
-			FT_Int middle = left + ( ( right - left ) >> 1 );
+			FT_Int middle = left + ((right - left) >> 1);
 			FT_ULong cur_pair;
 
 
 			pair     = face->kern_pairs + middle;
-			cur_pair = PAIR_TAG( pair->left, pair->right );
+			cur_pair = PAIR_TAG(pair->left, pair->right);
 
-			if ( cur_pair == search_tag ) {
+			if(cur_pair == search_tag)
+			{
 				goto Found;
 			}
 
-			if ( cur_pair < search_tag ) {
+			if(cur_pair < search_tag)
+			{
 				left = middle + 1;
-			} else {
+			}
+			else
+			{
 				right = middle - 1;
 			}
 		}
@@ -183,12 +190,13 @@ Found:
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 static
-FT_Error  Set_Char_Sizes( TT_Size size,
-						  FT_F26Dot6 char_width,
-						  FT_F26Dot6 char_height,
-						  FT_UInt horz_resolution,
-						  FT_UInt vert_resolution ) {
-	FT_Size_Metrics*  metrics = &size->root.metrics;
+FT_Error  Set_Char_Sizes(TT_Size size,
+                         FT_F26Dot6 char_width,
+                         FT_F26Dot6 char_height,
+                         FT_UInt horz_resolution,
+                         FT_UInt vert_resolution)
+{
+	FT_Size_Metrics  *metrics = &size->root.metrics;
 	TT_Face face    = (TT_Face)size->root.face;
 	FT_Long dim_x, dim_y;
 
@@ -202,21 +210,22 @@ FT_Error  Set_Char_Sizes( TT_Size size,
 	/* really don't know whether this is useful, but hey, that's the  */
 	/* spec :-)                                                       */
 	/*                                                                */
-	if ( ( face->header.Flags & 8 ) == 0 ) {
+	if((face->header.Flags & 8) == 0)
+	{
 		/* Compute pixel sizes in 26.6 units */
-		dim_x = ( char_width  * horz_resolution ) / 72;
-		dim_y = ( char_height * vert_resolution ) / 72;
+		dim_x = (char_width  * horz_resolution) / 72;
+		dim_y = (char_height * vert_resolution) / 72;
 
-		metrics->x_scale = FT_DivFix( dim_x, face->root.units_per_EM );
-		metrics->y_scale = FT_DivFix( dim_y, face->root.units_per_EM );
+		metrics->x_scale = FT_DivFix(dim_x, face->root.units_per_EM);
+		metrics->y_scale = FT_DivFix(dim_y, face->root.units_per_EM);
 
-		metrics->x_ppem  = (FT_UShort)( dim_x >> 6 );
-		metrics->y_ppem  = (FT_UShort)( dim_y >> 6 );
+		metrics->x_ppem  = (FT_UShort)(dim_x >> 6);
+		metrics->y_ppem  = (FT_UShort)(dim_y >> 6);
 	}
 
 	size->ttmetrics.valid = FALSE;
 
-	return TT_Reset_Size( size );
+	return TT_Reset_Size(size);
 }
 
 
@@ -241,17 +250,18 @@ FT_Error  Set_Char_Sizes( TT_Size size,
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 static
-FT_Error  Set_Pixel_Sizes( TT_Size size,
-						   FT_UInt pixel_width,
-						   FT_UInt pixel_height ) {
-	FT_UNUSED( pixel_width );
-	FT_UNUSED( pixel_height );
+FT_Error  Set_Pixel_Sizes(TT_Size size,
+                          FT_UInt pixel_width,
+                          FT_UInt pixel_height)
+{
+	FT_UNUSED(pixel_width);
+	FT_UNUSED(pixel_height);
 
 	/* many things have been pre-computed by the base layer */
 
 	size->ttmetrics.valid = FALSE;
 
-	return TT_Reset_Size( size );
+	return TT_Reset_Size(size);
 }
 
 
@@ -282,42 +292,50 @@ FT_Error  Set_Pixel_Sizes( TT_Size size,
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 static
-FT_Error  Load_Glyph( TT_GlyphSlot slot,
-					  TT_Size size,
-					  FT_UShort glyph_index,
-					  FT_UInt load_flags ) {
+FT_Error  Load_Glyph(TT_GlyphSlot slot,
+                     TT_Size size,
+                     FT_UShort glyph_index,
+                     FT_UInt load_flags)
+{
 	FT_Error error;
 
 
-	if ( !slot ) {
+	if(!slot)
+	{
 		return TT_Err_Invalid_Glyph_Handle;
 	}
 
 	/* check whether we want a scaled outline or bitmap */
-	if ( !size ) {
+	if(!size)
+	{
 		load_flags |= FT_LOAD_NO_SCALE | FT_LOAD_NO_HINTING;
 	}
 
-	if ( load_flags & FT_LOAD_NO_SCALE ) {
+	if(load_flags & FT_LOAD_NO_SCALE)
+	{
 		size = NULL;
 	}
 
 	/* reset the size object if necessary */
-	if ( size ) {
+	if(size)
+	{
 		/* these two object must have the same parent */
-		if ( size->root.face != slot->face ) {
+		if(size->root.face != slot->face)
+		{
 			return TT_Err_Invalid_Face_Handle;
 		}
 
-		if ( !size->ttmetrics.valid ) {
-			if ( FT_SET_ERROR( TT_Reset_Size( size ) ) ) {
+		if(!size->ttmetrics.valid)
+		{
+			if(FT_SET_ERROR(TT_Reset_Size(size)))
+			{
 				return error;
 			}
 		}
 	}
 
 	/* now load the glyph outline if necessary */
-	error = TT_Load_Glyph( size, slot, glyph_index, load_flags );
+	error = TT_Load_Glyph(size, slot, glyph_index, load_flags);
 
 	/* force drop-out mode to 2 - irrelevant now */
 	/* slot->outline.dropout_mode = 2; */
@@ -354,32 +372,39 @@ FT_Error  Load_Glyph( TT_GlyphSlot slot,
 /*    Glyph index.  0 means `undefined character code'.                  */
 /*                                                                       */
 static
-FT_UInt  Get_Char_Index( TT_CharMap charmap,
-						 FT_Long charcode ) {
+FT_UInt  Get_Char_Index(TT_CharMap charmap,
+                        FT_Long charcode)
+{
 	FT_Error error;
 	TT_Face face;
-	TT_CMapTable*  cmap;
+	TT_CMapTable  *cmap;
 
 
 	cmap = &charmap->cmap;
 	face = (TT_Face)charmap->root.face;
 
 	/* Load table if needed */
-	if ( !cmap->loaded ) {
-		SFNT_Interface*  sfnt = (SFNT_Interface*)face->sfnt;
+	if(!cmap->loaded)
+	{
+		SFNT_Interface  *sfnt = (SFNT_Interface *)face->sfnt;
 
 
-		error = sfnt->load_charmap( face, cmap, face->root.stream );
-		if ( error ) {
+		error = sfnt->load_charmap(face, cmap, face->root.stream);
+
+		if(error)
+		{
 			return 0;
 		}
 
 		cmap->loaded = TRUE;
 	}
 
-	if ( cmap->get_index ) {
-		return cmap->get_index( cmap, charcode );
-	} else {
+	if(cmap->get_index)
+	{
+		return cmap->get_index(cmap, charcode);
+	}
+	else
+	{
 		return 0;
 	}
 }
@@ -399,18 +424,22 @@ FT_UInt  Get_Char_Index( TT_CharMap charmap,
 
 
 static
-FT_Module_Interface  tt_get_interface( TT_Driver driver,
-									   const char*  interface ) {
-	FT_Module sfntd = FT_Get_Module( driver->root.root.library,
-									 "sfnt" );
-	SFNT_Interface*  sfnt;
+FT_Module_Interface  tt_get_interface(TT_Driver driver,
+                                      const char  *interface)
+{
+	FT_Module sfntd = FT_Get_Module(driver->root.root.library,
+	                                "sfnt");
+	SFNT_Interface  *sfnt;
 
 
 	/* only return the default interface from the SFNT module */
-	if ( sfntd ) {
-		sfnt = ( SFNT_Interface* )( sfntd->clazz->module_interface );
-		if ( sfnt ) {
-			return sfnt->get_interface( FT_MODULE( driver ), interface );
+	if(sfntd)
+	{
+		sfnt = (SFNT_Interface *)(sfntd->clazz->module_interface);
+
+		if(sfnt)
+		{
+			return sfnt->get_interface(FT_MODULE(driver), interface);
 		}
 	}
 
@@ -431,22 +460,22 @@ const FT_Driver_Class tt_driver_class =
 		0,
 #endif
 
-		sizeof( TT_DriverRec ),
+		sizeof(TT_DriverRec),
 
 		"truetype",   /* driver name                           */
 		0x10000L,      /* driver version == 1.0                 */
 		0x20000L,      /* driver requires FreeType 2.0 or above */
 
-		(void*)0,      /* driver specific interface */
+		(void *)0,     /* driver specific interface */
 
 		(FT_Module_Constructor)TT_Init_Driver,
 		(FT_Module_Destructor) TT_Done_Driver,
 		(FT_Module_Requester)  tt_get_interface,
 	},
 
-	sizeof( TT_FaceRec ),
-	sizeof( TT_SizeRec ),
-	sizeof( FT_GlyphSlotRec ),
+	sizeof(TT_FaceRec),
+	sizeof(TT_SizeRec),
+	sizeof(FT_GlyphSlotRec),
 
 
 	(FTDriver_initFace)     TT_Init_Face,
@@ -489,7 +518,7 @@ const FT_Driver_Class tt_driver_class =
 /*    format-specific interface can then be retrieved through the method */
 /*    interface->get_format_interface.                                   */
 /*                                                                       */
-EXPORT_FUNC( const FT_Driver_Class* )  getDriverClass( void )
+EXPORT_FUNC(const FT_Driver_Class *)  getDriverClass(void)
 {
 	return &tt_driver_class;
 }

@@ -64,7 +64,8 @@ const AH_Angle ah_arctan[1L << AH_ATAN_BITS] =
 
 
 LOCAL_FUNC
-AH_Angle  ah_angle( FT_Vector*  v ) {
+AH_Angle  ah_angle(FT_Vector  *v)
+{
 	FT_Pos dx, dy;
 	AH_Angle angle;
 
@@ -73,28 +74,40 @@ AH_Angle  ah_angle( FT_Vector*  v ) {
 	dy = v->y;
 
 	/* check trivial cases */
-	if ( dy == 0 ) {
+	if(dy == 0)
+	{
 		angle = 0;
-		if ( dx < 0 ) {
+
+		if(dx < 0)
+		{
 			angle = AH_PI;
 		}
+
 		return angle;
-	} else if ( dx == 0 )   {
+	}
+	else if(dx == 0)
+	{
 		angle = AH_HALF_PI;
-		if ( dy < 0 ) {
+
+		if(dy < 0)
+		{
 			angle = -AH_HALF_PI;
 		}
+
 		return angle;
 	}
 
 	angle = 0;
-	if ( dx < 0 ) {
+
+	if(dx < 0)
+	{
 		dx = -v->x;
 		dy = -v->y;
 		angle = AH_PI;
 	}
 
-	if ( dy < 0 ) {
+	if(dy < 0)
+	{
 		FT_Pos tmp;
 
 
@@ -104,20 +117,27 @@ AH_Angle  ah_angle( FT_Vector*  v ) {
 		angle -= AH_HALF_PI;
 	}
 
-	if ( dx == 0 && dy == 0 ) {
+	if(dx == 0 && dy == 0)
+	{
 		return 0;
 	}
 
-	if ( dx == dy ) {
+	if(dx == dy)
+	{
 		angle += AH_PI / 4;
-	} else if ( dx > dy ) {
-		angle += ah_arctan[FT_DivFix( dy, dx ) >> ( 16 - AH_ATAN_BITS )];
-	} else {
+	}
+	else if(dx > dy)
+	{
+		angle += ah_arctan[FT_DivFix(dy, dx) >> (16 - AH_ATAN_BITS)];
+	}
+	else
+	{
 		angle += AH_HALF_PI -
-				 ah_arctan[FT_DivFix( dx, dy ) >> ( 16 - AH_ATAN_BITS )];
+		         ah_arctan[FT_DivFix(dx, dy) >> (16 - AH_ATAN_BITS)];
 	}
 
-	if ( angle > AH_PI ) {
+	if(angle > AH_PI)
+	{
 		angle -= AH_2PI;
 	}
 

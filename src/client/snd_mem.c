@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,9 +28,9 @@ If you have questions concerning this license or the applicable additional terms
 
 
 /*****************************************************************************
- * name:		snd_mem.c
+ * name:        snd_mem.c
  *
- * desc:		sound caching
+ * desc:        sound caching
  *
  * $Archive: /Wolf5/src/client/snd_mem.c $
  *
@@ -64,10 +64,11 @@ extern cvar_t   *s_nocompressed;
 SND_free
 ================
 */
-void SND_free( sndBuffer *v ) {
+void SND_free(sndBuffer *v)
+{
 	*(sndBuffer **)v = freelist;
-	freelist = (sndBuffer*)v;
-	inUse += sizeof( sndBuffer );
+	freelist = (sndBuffer *)v;
+	inUse += sizeof(sndBuffer);
 }
 
 /*
@@ -75,15 +76,17 @@ void SND_free( sndBuffer *v ) {
 SND_malloc
 ================
 */
-sndBuffer*  SND_malloc() {
+sndBuffer  *SND_malloc()
+{
 	sndBuffer *v;
 
-	while ( freelist == NULL ) {
+	while(freelist == NULL)
+	{
 		S_FreeOldestSound();
 	}
 
-	inUse -= sizeof( sndBuffer );
-	totalInUse += sizeof( sndBuffer );
+	inUse -= sizeof(sndBuffer);
+	totalInUse += sizeof(sndBuffer);
 
 	v = freelist;
 	freelist = *(sndBuffer **)freelist;
@@ -96,30 +99,34 @@ sndBuffer*  SND_malloc() {
 SND_setup
 ================
 */
-void SND_setup() {
+void SND_setup()
+{
 	sndBuffer *p, *q;
 	cvar_t  *cv;
 	int scs;
 
-	cv = Cvar_Get( "com_soundMegs", DEF_COMSOUNDMEGS, CVAR_LATCH | CVAR_ARCHIVE );
+	cv = Cvar_Get("com_soundMegs", DEF_COMSOUNDMEGS, CVAR_LATCH | CVAR_ARCHIVE);
 
 	scs = cv->integer * 512;
 
-	buffer = malloc( scs * sizeof( sndBuffer ) );
+	buffer = malloc(scs * sizeof(sndBuffer));
 	// allocate the stack based hunk allocator
-	sfxScratchBuffer = malloc( SND_CHUNK_SIZE * sizeof( short ) * 4 );  //Hunk_Alloc(SND_CHUNK_SIZE * sizeof(short) * 4);
+	sfxScratchBuffer = malloc(SND_CHUNK_SIZE * sizeof(short) * 4);      //Hunk_Alloc(SND_CHUNK_SIZE * sizeof(short) * 4);
 	sfxScratchPointer = NULL;
 
-	inUse = scs * sizeof( sndBuffer );
+	inUse = scs * sizeof(sndBuffer);
 	p = buffer;;
 	q = p + scs;
-	while ( --q > p ) {
+
+	while(--q > p)
+	{
 		*(sndBuffer **)q = q - 1;
 	}
+
 	*(sndBuffer **)q = NULL;
 	freelist = p + scs - 1;
 
-	Com_Printf( "Sound memory manager started\n" );
+	Com_Printf("Sound memory manager started\n");
 }
 
 /*
@@ -141,10 +148,11 @@ static int iff_chunk_len;
 GetLittleShort
 ================
 */
-static short GetLittleShort( void ) {
+static short GetLittleShort(void)
+{
 	short val = 0;
 	val = *data_p;
-	val = val + ( *( data_p + 1 ) << 8 );
+	val = val + (*(data_p + 1) << 8);
 	data_p += 2;
 	return val;
 }
@@ -154,12 +162,13 @@ static short GetLittleShort( void ) {
 GetLittleLong
 ================
 */
-static int GetLittleLong( void ) {
+static int GetLittleLong(void)
+{
 	int val = 0;
 	val = *data_p;
-	val = val + ( *( data_p + 1 ) << 8 );
-	val = val + ( *( data_p + 2 ) << 16 );
-	val = val + ( *( data_p + 3 ) << 24 );
+	val = val + (*(data_p + 1) << 8);
+	val = val + (*(data_p + 2) << 16);
+	val = val + (*(data_p + 3) << 24);
 	data_p += 4;
 	return val;
 }
@@ -169,25 +178,32 @@ static int GetLittleLong( void ) {
 FindNextChunk
 ================
 */
-static void FindNextChunk( char *name ) {
-	while ( 1 )
+static void FindNextChunk(char *name)
+{
+	while(1)
 	{
 		data_p = last_chunk;
 
-		if ( data_p >= iff_end ) { // didn't find the chunk
+		if(data_p >= iff_end)      // didn't find the chunk
+		{
 			data_p = NULL;
 			return;
 		}
 
 		data_p += 4;
 		iff_chunk_len = GetLittleLong();
-		if ( iff_chunk_len < 0 ) {
+
+		if(iff_chunk_len < 0)
+		{
 			data_p = NULL;
 			return;
 		}
+
 		data_p -= 8;
-		last_chunk = data_p + 8 + ( ( iff_chunk_len + 1 ) & ~1 );
-		if ( !strncmp( (char *)data_p, name, 4 ) ) {
+		last_chunk = data_p + 8 + ((iff_chunk_len + 1) & ~1);
+
+		if(!strncmp((char *)data_p, name, 4))
+		{
 			return;
 		}
 	}
@@ -198,9 +214,10 @@ static void FindNextChunk( char *name ) {
 FindChunk
 ================
 */
-static void FindChunk( char *name ) {
+static void FindChunk(char *name)
+{
 	last_chunk = iff_data;
-	FindNextChunk( name );
+	FindNextChunk(name);
 }
 
 /*
@@ -208,12 +225,14 @@ static void FindChunk( char *name ) {
 GetWavinfo
 ============
 */
-static wavinfo_t GetWavinfo( char *name, byte *wav, int wavlength ) {
+static wavinfo_t GetWavinfo(char *name, byte *wav, int wavlength)
+{
 	wavinfo_t info;
 
-	Com_Memset( &info, 0, sizeof( info ) );
+	Com_Memset(&info, 0, sizeof(info));
 
-	if ( !wav ) {
+	if(!wav)
+	{
 		return info;
 	}
 
@@ -221,9 +240,11 @@ static wavinfo_t GetWavinfo( char *name, byte *wav, int wavlength ) {
 	iff_end = wav + wavlength;
 
 // find "RIFF" chunk
-	FindChunk( "RIFF" );
-	if ( !( data_p && !strncmp( (char *)data_p + 8, "WAVE", 4 ) ) ) {
-		Com_Printf( "Missing RIFF/WAVE chunks\n" );
+	FindChunk("RIFF");
+
+	if(!(data_p && !strncmp((char *)data_p + 8, "WAVE", 4)))
+	{
+		Com_Printf("Missing RIFF/WAVE chunks\n");
 		return info;
 	}
 
@@ -231,11 +252,14 @@ static wavinfo_t GetWavinfo( char *name, byte *wav, int wavlength ) {
 	iff_data = data_p + 12;
 // DumpChunks ();
 
-	FindChunk( "fmt " );
-	if ( !data_p ) {
-		Com_Printf( "Missing fmt chunk\n" );
+	FindChunk("fmt ");
+
+	if(!data_p)
+	{
+		Com_Printf("Missing fmt chunk\n");
 		return info;
 	}
+
 	data_p += 8;
 	info.format = GetLittleShort();
 	info.channels = GetLittleShort();
@@ -243,16 +267,19 @@ static wavinfo_t GetWavinfo( char *name, byte *wav, int wavlength ) {
 	data_p += 4 + 2;
 	info.width = GetLittleShort() / 8;
 
-	if ( info.format != 1 ) {
-		Com_Printf( "Microsoft PCM format only\n" );
+	if(info.format != 1)
+	{
+		Com_Printf("Microsoft PCM format only\n");
 		return info;
 	}
 
 
 // find data chunk
-	FindChunk( "data" );
-	if ( !data_p ) {
-		Com_Printf( "Missing data chunk\n" );
+	FindChunk("data");
+
+	if(!data_p)
+	{
+		Com_Printf("Missing data chunk\n");
 		return info;
 	}
 
@@ -270,7 +297,8 @@ ResampleSfx
 resample / decimate to the current source rate
 ================
 */
-static void ResampleSfx( sfx_t *sfx, int inrate, int inwidth, byte *data, qboolean compressed ) {
+static void ResampleSfx(sfx_t *sfx, int inrate, int inwidth, byte *data, qboolean compressed)
+{
 	int outcount;
 	int srcsample;
 	float stepscale;
@@ -288,24 +316,36 @@ static void ResampleSfx( sfx_t *sfx, int inrate, int inwidth, byte *data, qboole
 	fracstep = stepscale * 256;
 	chunk = sfx->soundData;
 
-	for ( i = 0 ; i < outcount ; i++ )
+	for(i = 0 ; i < outcount ; i++)
 	{
 		srcsample = samplefrac >> 8;
 		samplefrac += fracstep;
-		if ( inwidth == 2 ) {
-			sample = LittleShort( ( (short *)data )[srcsample] );
-		} else {
-			sample = (int)( ( unsigned char )( data[srcsample] ) - 128 ) << 8;
+
+		if(inwidth == 2)
+		{
+			sample = LittleShort(((short *)data)[srcsample]);
 		}
-		part  = ( i & ( SND_CHUNK_SIZE - 1 ) );
-		if ( part == 0 ) {
+		else
+		{
+			sample = (int)((unsigned char)(data[srcsample]) - 128) << 8;
+		}
+
+		part  = (i & (SND_CHUNK_SIZE - 1));
+
+		if(part == 0)
+		{
 			sndBuffer   *newchunk;
 			newchunk = SND_malloc();
-			if ( chunk == NULL ) {
+
+			if(chunk == NULL)
+			{
 				sfx->soundData = newchunk;
-			} else {
+			}
+			else
+			{
 				chunk->next = newchunk;
 			}
+
 			chunk = newchunk;
 		}
 
@@ -320,7 +360,8 @@ ResampleSfx
 resample / decimate to the current source rate
 ================
 */
-static int ResampleSfxRaw( short *sfx, int inrate, int inwidth, int samples, byte *data ) {
+static int ResampleSfxRaw(short *sfx, int inrate, int inwidth, int samples, byte *data)
+{
 	int outcount;
 	int srcsample;
 	float stepscale;
@@ -334,17 +375,23 @@ static int ResampleSfxRaw( short *sfx, int inrate, int inwidth, int samples, byt
 	samplefrac = 0;
 	fracstep = stepscale * 256;
 
-	for ( i = 0 ; i < outcount ; i++ )
+	for(i = 0 ; i < outcount ; i++)
 	{
 		srcsample = samplefrac >> 8;
 		samplefrac += fracstep;
-		if ( inwidth == 2 ) {
-			sample = LittleShort( ( (short *)data )[srcsample] );
-		} else {
-			sample = (int)( ( unsigned char )( data[srcsample] ) - 128 ) << 8;
+
+		if(inwidth == 2)
+		{
+			sample = LittleShort(((short *)data)[srcsample]);
 		}
+		else
+		{
+			sample = (int)((unsigned char)(data[srcsample]) - 128) << 8;
+		}
+
 		sfx[i] = sample;
 	}
+
 	return outcount;
 }
 
@@ -359,39 +406,47 @@ The filename may be different than sfx->name in the case
 of a forced fallback of a player specific sound
 ==============
 */
-qboolean S_LoadSound( sfx_t *sfx ) {
+qboolean S_LoadSound(sfx_t *sfx)
+{
 	byte    *data;
 	short   *samples;
 	wavinfo_t info;
 	int size;
 
 	// player specific sounds are never directly loaded
-	if ( sfx->soundName[0] == '*' ) {
+	if(sfx->soundName[0] == '*')
+	{
 		return qfalse;
 	}
 
 	// load it in
-	size = FS_ReadFile( sfx->soundName, (void **)&data );
-	if ( !data ) {
+	size = FS_ReadFile(sfx->soundName, (void **)&data);
+
+	if(!data)
+	{
 		return qfalse;
 	}
 
-	info = GetWavinfo( sfx->soundName, data, size );
-	if ( info.channels != 1 ) {
-		Com_Printf( "%s is a stereo wav file\n", sfx->soundName );
-		FS_FreeFile( data );
+	info = GetWavinfo(sfx->soundName, data, size);
+
+	if(info.channels != 1)
+	{
+		Com_Printf("%s is a stereo wav file\n", sfx->soundName);
+		FS_FreeFile(data);
 		return qfalse;
 	}
 
-	if ( info.width == 1 ) {
-		Com_DPrintf( S_COLOR_YELLOW "WARNING: %s is a 8 bit wav file\n", sfx->soundName );
+	if(info.width == 1)
+	{
+		Com_DPrintf(S_COLOR_YELLOW "WARNING: %s is a 8 bit wav file\n", sfx->soundName);
 	}
 
-	if ( info.rate != 22050 ) {
-		Com_DPrintf( S_COLOR_YELLOW "WARNING: %s is not a 22kHz wav file\n", sfx->soundName );
+	if(info.rate != 22050)
+	{
+		Com_DPrintf(S_COLOR_YELLOW "WARNING: %s is not a 22kHz wav file\n", sfx->soundName);
 	}
 
-	samples = Hunk_AllocateTempMemory( info.samples * sizeof( short ) * 2 );
+	samples = Hunk_AllocateTempMemory(info.samples * sizeof(short) * 2);
 
 	sfx->lastTimeUsed = Sys_Milliseconds() + 1;
 
@@ -402,36 +457,46 @@ qboolean S_LoadSound( sfx_t *sfx ) {
 	// sound in as needed
 
 
-	if ( s_nocompressed->value ) {
+	if(s_nocompressed->value)
+	{
 		sfx->soundCompressionMethod = 0;
 		sfx->soundLength = info.samples;
 		sfx->soundData = NULL;
-		ResampleSfx( sfx, info.rate, info.width, data + info.dataofs, qfalse );
-	} else if ( sfx->soundCompressed == qtrue )     {
+		ResampleSfx(sfx, info.rate, info.width, data + info.dataofs, qfalse);
+	}
+	else if(sfx->soundCompressed == qtrue)
+	{
 		sfx->soundCompressionMethod = 1;
 		sfx->soundData = NULL;
-		sfx->soundLength = ResampleSfxRaw( samples, info.rate, info.width, info.samples, ( data + info.dataofs ) );
-		S_AdpcmEncodeSound( sfx, samples );
+		sfx->soundLength = ResampleSfxRaw(samples, info.rate, info.width, info.samples, (data + info.dataofs));
+		S_AdpcmEncodeSound(sfx, samples);
 #ifdef COMPRESSION
-	} else if ( info.samples > ( SND_CHUNK_SIZE * 16 ) && info.width > 1 ) {
+	}
+	else if(info.samples > (SND_CHUNK_SIZE * 16) && info.width > 1)
+	{
 		sfx->soundCompressionMethod = 3;
 		sfx->soundData = NULL;
-		sfx->soundLength = ResampleSfxRaw( samples, info.rate, info.width, info.samples, ( data + info.dataofs ) );
-		encodeMuLaw( sfx, samples );
-	} else if ( info.samples > ( SND_CHUNK_SIZE * 6400 ) && info.width > 1 ) {
+		sfx->soundLength = ResampleSfxRaw(samples, info.rate, info.width, info.samples, (data + info.dataofs));
+		encodeMuLaw(sfx, samples);
+	}
+	else if(info.samples > (SND_CHUNK_SIZE * 6400) && info.width > 1)
+	{
 		sfx->soundCompressionMethod = 2;
 		sfx->soundData = NULL;
-		sfx->soundLength = ResampleSfxRaw( samples, info.rate, info.width, info.samples, ( data + info.dataofs ) );
-		encodeWavelet( sfx, samples );
+		sfx->soundLength = ResampleSfxRaw(samples, info.rate, info.width, info.samples, (data + info.dataofs));
+		encodeWavelet(sfx, samples);
 #endif
-	} else {
+	}
+	else
+	{
 		sfx->soundCompressionMethod = 0;
 		sfx->soundLength = info.samples;
 		sfx->soundData = NULL;
-		ResampleSfx( sfx, info.rate, info.width, data + info.dataofs, qfalse );
+		ResampleSfx(sfx, info.rate, info.width, data + info.dataofs, qfalse);
 	}
-	Hunk_FreeTempMemory( samples );
-	FS_FreeFile( data );
+
+	Hunk_FreeTempMemory(samples);
+	FS_FreeFile(data);
 
 	return qtrue;
 }
@@ -441,6 +506,7 @@ qboolean S_LoadSound( sfx_t *sfx ) {
 S_DisplayFreeMemory
 ================
 */
-void S_DisplayFreeMemory() {
-	Com_Printf( "%d bytes free sound buffer memory, %d total used\n", inUse, totalInUse );
+void S_DisplayFreeMemory()
+{
+	Com_Printf("%d bytes free sound buffer memory, %d total used\n", inUse, totalInUse);
 }

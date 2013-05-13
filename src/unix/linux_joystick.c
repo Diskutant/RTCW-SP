@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -49,7 +49,8 @@ If you have questions concerning this license or the applicable additional terms
 #include <linux/joystick.h>
 
 /* We translate axes movement into keypresses. */
-int joy_keys[16] = {
+int joy_keys[16] =
+{
 	K_LEFTARROW, K_RIGHTARROW,
 	K_UPARROW, K_DOWNARROW,
 	K_JOY16, K_JOY17,
@@ -66,62 +67,70 @@ static int joy_fd = -1;
 
 
 // bk001130 - from linux_glimp.c
-extern cvar_t *  in_joystick;
-extern cvar_t *  in_joystickDebug;
-extern cvar_t *  joy_threshold;
+extern cvar_t   *in_joystick;
+extern cvar_t   *in_joystickDebug;
+extern cvar_t   *joy_threshold;
 
 
 /**********************************************/
 /* Joystick routines.                         */
 /**********************************************/
 // bk001130 - from cvs1.17 (mkv), removed from linux_glimp.c
-void IN_StartupJoystick( void ) {
+void IN_StartupJoystick(void)
+{
 	int i = 0;
 
 	joy_fd = -1;
 
-	if ( !in_joystick->integer ) {
-		Com_DPrintf( "Joystick is not active.\n" );
+	if(!in_joystick->integer)
+	{
+		Com_DPrintf("Joystick is not active.\n");
 		return;
 	}
 
-	for ( i = 0; i < 4; i++ ) {
+	for(i = 0; i < 4; i++)
+	{
 		char filename[PATH_MAX];
 
-		snprintf( filename, PATH_MAX, "/dev/js%d", i );
+		snprintf(filename, PATH_MAX, "/dev/js%d", i);
 
-		joy_fd = open( filename, O_RDONLY | O_NONBLOCK );
+		joy_fd = open(filename, O_RDONLY | O_NONBLOCK);
 
-		if ( joy_fd != -1 ) {
+		if(joy_fd != -1)
+		{
 			struct js_event event;
 			char axes = 0;
 			char buttons = 0;
 			char name[128];
 			int n = -1;
 
-			Com_Printf( "Joystick %s found\n", filename );
+			Com_Printf("Joystick %s found\n", filename);
 
 			/* Get rid of initialization messages. */
-			do {
-				n = read( joy_fd, &event, sizeof( event ) );
+			do
+			{
+				n = read(joy_fd, &event, sizeof(event));
 
-				if ( n == -1 ) {
+				if(n == -1)
+				{
 					break;
 				}
 
-			} while ( ( event.type & JS_EVENT_INIT ) );
+			}
+			while((event.type & JS_EVENT_INIT));
 
 			/* Get joystick statistics. */
-			ioctl( joy_fd, JSIOCGAXES, &axes );
-			ioctl( joy_fd, JSIOCGBUTTONS, &buttons );
+			ioctl(joy_fd, JSIOCGAXES, &axes);
+			ioctl(joy_fd, JSIOCGBUTTONS, &buttons);
 
-			if ( ioctl( joy_fd, JSIOCGNAME( sizeof( name ) ), name ) < 0 ) {
-				strncpy( name, "Unknown", sizeof( name ) );
+			if(ioctl(joy_fd, JSIOCGNAME(sizeof(name)), name) < 0)
+			{
+				strncpy(name, "Unknown", sizeof(name));
 			}
 
-			Com_Printf( "Name:    %s\n", name );
-			Com_Printf( "Axes:    %d\n", axes );
-			Com_Printf( "Buttons: %d\n", buttons );
+			Com_Printf("Name:    %s\n", name);
+			Com_Printf("Axes:    %d\n", axes);
+			Com_Printf("Buttons: %d\n", buttons);
 
 			/* Our work here is done. */
 			return;
@@ -130,14 +139,16 @@ void IN_StartupJoystick( void ) {
 	}
 
 	/* No soup for you. */
-	if ( joy_fd == -1 ) {
-		Com_Printf( "No joystick found.\n" );
+	if(joy_fd == -1)
+	{
+		Com_Printf("No joystick found.\n");
 		return;
 	}
 
 }
 
-void IN_JoyMove( void ) {
+void IN_JoyMove(void)
+{
 	/* Store instantaneous joystick state. Hack to get around
 	 * event model used in Linux joystick driver.
 	   */
@@ -148,61 +159,78 @@ void IN_JoyMove( void ) {
 	unsigned int axes = 0;
 	int i = 0;
 
-	if ( joy_fd == -1 ) {
+	if(joy_fd == -1)
+	{
 		return;
 	}
 
 	/* Empty the queue, dispatching button presses immediately
 	   * and updating the instantaneous state for the axes.
 	   */
-	do {
+	do
+	{
 		int n = -1;
 		struct js_event event;
 
-		n = read( joy_fd, &event, sizeof( event ) );
+		n = read(joy_fd, &event, sizeof(event));
 
-		if ( n == -1 ) {
+		if(n == -1)
+		{
 			/* No error, we're non-blocking. */
 			break;
 		}
 
-		if ( event.type & JS_EVENT_BUTTON ) {
-			Sys_QueEvent( 0, SE_KEY, K_JOY1 + event.number, event.value, 0, NULL );
-		} else if ( event.type & JS_EVENT_AXIS ) {
+		if(event.type & JS_EVENT_BUTTON)
+		{
+			Sys_QueEvent(0, SE_KEY, K_JOY1 + event.number, event.value, 0, NULL);
+		}
+		else if(event.type & JS_EVENT_AXIS)
+		{
 
-			if ( event.number >= 16 ) {
+			if(event.number >= 16)
+			{
 				continue;
 			}
 
 			axes_state[event.number] = event.value;
-		} else {
-			Com_Printf( "Unknown joystick event type\n" );
+		}
+		else
+		{
+			Com_Printf("Unknown joystick event type\n");
 		}
 
-	} while ( 1 );
+	}
+	while(1);
 
 
 	/* Translate our instantaneous state to bits. */
-	for ( i = 0; i < 16; i++ ) {
-		float f = ( (float) axes_state[i] ) / 32767.0f;
+	for(i = 0; i < 16; i++)
+	{
+		float f = ((float) axes_state[i]) / 32767.0f;
 
-		if ( f < -joy_threshold->value ) {
-			axes |= ( 1 << ( i * 2 ) );
-		} else if ( f > joy_threshold->value ) {
-			axes |= ( 1 << ( ( i * 2 ) + 1 ) );
+		if(f < -joy_threshold->value)
+		{
+			axes |= (1 << (i * 2));
+		}
+		else if(f > joy_threshold->value)
+		{
+			axes |= (1 << ((i * 2) + 1));
 		}
 
 	}
 
 	/* Time to update axes state based on old vs. new. */
-	for ( i = 0; i < 16; i++ ) {
+	for(i = 0; i < 16; i++)
+	{
 
-		if ( ( axes & ( 1 << i ) ) && !( old_axes & ( 1 << i ) ) ) {
-			Sys_QueEvent( 0, SE_KEY, joy_keys[i], qtrue, 0, NULL );
+		if((axes & (1 << i)) && !(old_axes & (1 << i)))
+		{
+			Sys_QueEvent(0, SE_KEY, joy_keys[i], qtrue, 0, NULL);
 		}
 
-		if ( !( axes & ( 1 << i ) ) && ( old_axes & ( 1 << i ) ) ) {
-			Sys_QueEvent( 0, SE_KEY, joy_keys[i], qfalse, 0, NULL );
+		if(!(axes & (1 << i)) && (old_axes & (1 << i)))
+		{
+			Sys_QueEvent(0, SE_KEY, joy_keys[i], qfalse, 0, NULL);
 		}
 	}
 

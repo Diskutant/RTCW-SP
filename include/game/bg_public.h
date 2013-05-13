@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@ If you have questions concerning this license or the applicable additional terms
 */
 
 /*
- * name:		bg_public.h
+ * name:        bg_public.h
  *
- * desc:		definitions shared by both the server game and client game modules
+ * desc:        definitions shared by both the server game and client game modules
  *
 */
 
@@ -49,7 +49,7 @@ If you have questions concerning this license or the applicable additional terms
 #define DEFAULT_SHOTGUN_SPREAD  700
 #define DEFAULT_SHOTGUN_COUNT   11
 
-//#define	ITEM_RADIUS			15		// item sizes are needed for client side pickup detection
+//#define   ITEM_RADIUS         15      // item sizes are needed for client side pickup detection
 #define ITEM_RADIUS     10 // Rafael changed the radius so that the items would fit in the 3 new containers
 
 // RF, zombie getup
@@ -59,9 +59,9 @@ If you have questions concerning this license or the applicable additional terms
 #define TESLA_RANGE         800
 #define TESLA_SUPERSOLDIER_RANGE    2000
 // JPW NERVE -- make flamethrower range variable with single/multiplayer -- actual routine is in bg_pmove.c
-float Com_GetFlamethrowerRange( void );
+float Com_GetFlamethrowerRange(void);
 #define FLAMETHROWER_RANGE Com_GetFlamethrowerRange()
-//#define	FLAMETHROWER_RANGE	850
+//#define   FLAMETHROWER_RANGE  850
 // jpw
 #define ZOMBIE_FLAME_SCALE  0.3
 #define ZOMBIE_FLAME_RADIUS ( FLAMETHROWER_RANGE * ZOMBIE_FLAME_SCALE )
@@ -78,21 +78,21 @@ float Com_GetFlamethrowerRange( void );
 #define DEAD_SINK_DEPTH     64
 
 // Ridah, disabled these
-//#define	MINS_Z				-24
-//#define	DEFAULT_VIEWHEIGHT	26
-//#define CROUCH_VIEWHEIGHT	12
+//#define   MINS_Z              -24
+//#define   DEFAULT_VIEWHEIGHT  26
+//#define CROUCH_VIEWHEIGHT 12
 // done.
 
 // Rafael
 // note to self: Corky test
-//#define	DEFAULT_VIEWHEIGHT	26
-//#define CROUCH_VIEWHEIGHT	12
+//#define   DEFAULT_VIEWHEIGHT  26
+//#define CROUCH_VIEWHEIGHT 12
 #define DEFAULT_VIEWHEIGHT  40
 #define CROUCH_VIEWHEIGHT   16
 #define DEAD_VIEWHEIGHT     -16
 
 // RF, temp only, use infantryss so we can test new anim system
-//#define	DEFAULT_MODEL		"american"
+//#define   DEFAULT_MODEL       "american"
 #define DEFAULT_MODEL       "bj2"
 #define DEFAULT_HEAD        "default"    // technically the default head skin.  this means "head_default.skin" for the head
 
@@ -103,7 +103,8 @@ float Com_GetFlamethrowerRange( void );
 #define LIGHTNING_FLASH_TIME    150
 
 // RF, client damage identifiers
-typedef enum {
+typedef enum
+{
 	CLDMG_SPIRIT,
 	CLDMG_FLAMETHROWER,
 	CLDMG_TESLA,
@@ -158,14 +159,14 @@ typedef enum {
 #define CS_MULTI_OBJECTIVE6 22
 // dhm
 
-#define CS_MISSIONSTATS     23      //----(SA)	added
+#define CS_MISSIONSTATS     23      //----(SA)  added
 
 #define CS_SHADERSTATE      24
 #define CS_MUSIC_QUEUE      25
 #define CS_ITEMS            27      // string of 0's and 1's that tell which items are present
 
 #define CS_SCREENFADE       28      // Ridah, used to tell clients to fade their screen to black/normal
-#define CS_FOGVARS          29      //----(SA)	(hoping 29-31 are available) used for saving the current state/settings of the fog
+#define CS_FOGVARS          29      //----(SA)  (hoping 29-31 are available) used for saving the current state/settings of the fog
 #define CS_SKYBOXORG        30      // this is where we should view the skybox from
 #define CS_TARGETEFFECT     31  //----(SA)
 #define CS_MODELS           32
@@ -187,16 +188,17 @@ typedef enum {
 // RF
 #define CS_TAGCONNECTS      ( CS_SPLINES + MAX_SPLINE_CONFIGSTRINGS )
 
-//#define CS_MAX			(CS_LOCATIONS+MAX_LOCATIONS)
-//#define CS_MAX			(CS_PARTICLES+MAX_PARTICLES_AREAS)
-//#define CS_MAX				(CS_DLIGHTS+MAX_DLIGHT_CONFIGSTRINGS)			//----(SA)
+//#define CS_MAX            (CS_LOCATIONS+MAX_LOCATIONS)
+//#define CS_MAX            (CS_PARTICLES+MAX_PARTICLES_AREAS)
+//#define CS_MAX                (CS_DLIGHTS+MAX_DLIGHT_CONFIGSTRINGS)           //----(SA)
 #define CS_MAX              ( CS_TAGCONNECTS + MAX_TAGCONNECTS )
 
 #if ( CS_MAX ) > MAX_CONFIGSTRINGS
 #error overflow: (CS_MAX) > MAX_CONFIGSTRINGS
 #endif
 
-typedef enum {
+typedef enum
+{
 	GT_FFA,             // free for all
 	GT_TOURNAMENT,      // one on one tournament
 	GT_SINGLE_PLAYER,   // single player tournament
@@ -211,7 +213,8 @@ typedef enum {
 } gametype_t;
 
 // Rafael gameskill
-typedef enum {
+typedef enum
+{
 	GSKILL_EASY,
 	GSKILL_MEDIUM,
 	GSKILL_HARD,
@@ -231,7 +234,8 @@ movement on the server game.
 ===================================================================================
 */
 
-typedef enum {
+typedef enum
+{
 	PM_NORMAL,      // can accelerate and turn
 	PM_NOCLIP,      // noclip movement
 	PM_SPECTATOR,   // still run into walls
@@ -240,22 +244,23 @@ typedef enum {
 	PM_INTERMISSION // no movement or status bar
 } pmtype_t;
 
-typedef enum {
+typedef enum
+{
 	WEAPON_READY,
 	WEAPON_RAISING,
-	WEAPON_RAISING_TORELOAD,    //----(SA)	added
+	WEAPON_RAISING_TORELOAD,    //----(SA)  added
 	WEAPON_DROPPING,
-	WEAPON_DROPPING_TORELOAD,   //----(SA)	added.  will reload upon completion of weapon switch
+	WEAPON_DROPPING_TORELOAD,   //----(SA)  added.  will reload upon completion of weapon switch
 	WEAPON_READYING,    // getting from 'ready' to 'firing'
 	WEAPON_RELAXING,    // weapon is ready, but since not firing, it's on it's way to a "relaxed" stance
 	WEAPON_VENOM_REST,
 	WEAPON_FIRING,
 	WEAPON_FIRINGALT,
-	WEAPON_WAITING,     //----(SA)	added.  player allowed to switch/reload, but not fire
-	WEAPON_RELOADING    //----(SA)	added
+	WEAPON_WAITING,     //----(SA)  added.  player allowed to switch/reload, but not fire
+	WEAPON_RELOADING    //----(SA)  added
 } weaponstate_t;
 
-// pmove->pm_flags	(sent as max 16 bits in msg.c)
+// pmove->pm_flags  (sent as max 16 bits in msg.c)
 #define PMF_DUCKED          1
 #define PMF_JUMP_HELD       2
 #define PMF_LADDER          4       // player is on a ladder
@@ -267,7 +272,7 @@ typedef enum {
 #define PMF_RESPAWNED       512     // clear after attack and jump buttons come up
 #define PMF_USE_ITEM_HELD   1024
 // RF, removed since it's not used
-//#define PMF_GRAPPLE_PULL	2048	// pull towards grapple location
+//#define PMF_GRAPPLE_PULL  2048    // pull towards grapple location
 #define PMF_IGNORE_INPUT    2048    // no movement/firing commands allowed
 #define PMF_FOLLOW          4096    // spectate following another player
 #define PMF_SCOREBOARD      8192    // spectate as a scoreboard
@@ -277,7 +282,8 @@ typedef enum {
 #define PMF_ALL_TIMES   ( PMF_TIME_WATERJUMP | PMF_TIME_LAND | PMF_TIME_KNOCKBACK | PMF_TIME_LOAD )
 
 #define MAXTOUCH    32
-typedef struct {
+typedef struct
+{
 	// state (in / out)
 	playerState_t   *ps;
 
@@ -306,29 +312,30 @@ typedef struct {
 
 	// callbacks to test the world
 	// these will be different functions during game and cgame
-	void ( *trace )( trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentMask );
-	int ( *pointcontents )( const vec3_t point, int passEntityNum );
+	void (*trace)(trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentMask);
+	int (*pointcontents)(const vec3_t point, int passEntityNum);
 } pmove_t;
 
 // if a full pmove isn't done on the client, you can just update the angles
-void PM_UpdateViewAngles( playerState_t * ps, usercmd_t * cmd, void( trace ) ( trace_t * results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentMask ) );
-int Pmove( pmove_t *pmove );
+void PM_UpdateViewAngles(playerState_t *ps, usercmd_t *cmd, void(trace)(trace_t *results, const vec3_t start, const vec3_t mins, const vec3_t maxs, const vec3_t end, int passEntityNum, int contentMask));
+int Pmove(pmove_t *pmove);
 
 //===================================================================================
 
 // JPW NERVE
-#define PC_SOLDIER              0   //	shoot stuff
-#define PC_MEDIC                1   //	heal stuff
-#define PC_ENGINEER             2   //	build stuff
-#define PC_LT                   3   //	bomb stuff
+#define PC_SOLDIER              0   //  shoot stuff
+#define PC_MEDIC                1   //  heal stuff
+#define PC_ENGINEER             2   //  build stuff
+#define PC_LT                   3   //  bomb stuff
 #define PC_MEDIC_CHARGETIME     30000   // FIXME just for testing, this will change to server cvars for each class
 // jpw
 
 // player_state->stats[] indexes
-typedef enum {
+typedef enum
+{
 	STAT_HEALTH,
 	STAT_HOLDABLE_ITEM,
-//	STAT_WEAPONS,					// 16 bit fields
+//	STAT_WEAPONS,                    // 16 bit fields
 	STAT_ARMOR,
 //----(SA) Keys for Wolf
 	STAT_KEYS,                      // 16 bit fields
@@ -343,7 +350,8 @@ typedef enum {
 // player_state->persistant[] indexes
 // these fields are the only part of player_state that isn't
 // cleared on respawn
-typedef enum {
+typedef enum
+{
 	PERS_SCORE,                     // !!! MUST NOT CHANGE, SERVER AND GAME BOTH REFERENCE !!!
 	PERS_HITS,                      // total points damage inflicted so damage beeps can sound on change
 	PERS_RANK,
@@ -361,7 +369,7 @@ typedef enum {
 	PERS_ACCURACY_HITS,
 
 
-	// Rafael - mg42		// (SA) I don't understand these here.  can someone explain?
+	// Rafael - mg42        // (SA) I don't understand these here.  can someone explain?
 	PERS_HWEAPON_USE,
 	// Rafael wolfkick
 	PERS_WOLFKICK
@@ -396,7 +404,7 @@ typedef enum {
 #define EF_VIEWING_CAMERA   EF_STAND_IDLE2  // NOTE: REMOVE STAND_IDLE2 !!
 #define EF_TAGCONNECT       0x00080000      // connected to another entity via tag
 // RF, disabled, not used anymore
-//#define EF_MOVER_BLOCKED	0x00100000		// mover was blocked dont lerp on the client
+//#define EF_MOVER_BLOCKED  0x00100000      // mover was blocked dont lerp on the client
 #define EF_NO_TURN_ANIM     0x00100000      // dont play turning anims in the cgame
 #define EF_FORCED_ANGLES    0x00200000  // enforce all body parts to use these angles
 
@@ -408,12 +416,13 @@ typedef enum {
 #define EF_BOUNCE           0x04000000      // for missiles
 #define EF_CIG              EF_BOUNCE       // players should never use bounce, hijack for cigarette
 #define EF_BOUNCE_HALF      0x08000000      // for missiles
-#define EF_MOVER_STOP       0x10000000      // will push otherwise	// (SA) moved down to make space for one more client flag
+#define EF_MOVER_STOP       0x10000000      // will push otherwise  // (SA) moved down to make space for one more client flag
 #define EF_MOVER_ANIMATE    0x20000000      // interpolate animation
 #define EF_DEATH_FRAME      EF_MOVER_ANIMATE    // hijack to stick death at last frame after vid_restart
 #define EF_RECENTLY_FIRING  0x40000000      // fired recently, lock torso angles, etc
 
-typedef enum {
+typedef enum
+{
 	PW_NONE,
 
 	PW_QUAD,
@@ -425,9 +434,9 @@ typedef enum {
 
 	// (SA) for Wolf
 	PW_INVULNERABLE,
-//	PW_FIRE,			//----(SA)
-//	PW_ELECTRIC,		//----(SA)
-//	PW_BREATHER,		//----(SA)
+//	PW_FIRE,         //----(SA)
+//	PW_ELECTRIC,     //----(SA)
+//	PW_BREATHER,     //----(SA)
 	PW_NOFATIGUE,       //----(SA)
 
 	PW_REDFLAG,
@@ -437,16 +446,17 @@ typedef enum {
 	PW_NUM_POWERUPS
 } powerup_t;
 
-typedef enum {
-	//----(SA)	These will probably all change to INV_n to get the word 'key' out of the game.
-	//			id and DM don't want references to 'keys' in the game.
-	//			I'll change to 'INV' as the item becomes 'permanent' and not a test item.
+typedef enum
+{
+	//----(SA)  These will probably all change to INV_n to get the word 'key' out of the game.
+	//          id and DM don't want references to 'keys' in the game.
+	//          I'll change to 'INV' as the item becomes 'permanent' and not a test item.
 	KEY_NONE,
-//	KEY_1,		// skull
-//	KEY_2,		// chalice
-//	KEY_3,		// eye
-//	KEY_4,		// field radio
-//	KEY_5,		// satchel charge
+//	KEY_1,       // skull
+//	KEY_2,       // chalice
+//	KEY_3,       // eye
+//	KEY_4,       // field radio
+//	KEY_5,       // satchel charge
 	INV_BINOCS, // binoculars
 //	KEY_7,
 //	KEY_8,
@@ -466,7 +476,8 @@ typedef enum {
 	KEY_LOCKED_TRIGGERED    // locked by a target_lock
 } wkey_t;                   // key_t conflicted with <types.h>
 
-typedef enum {
+typedef enum
+{
 	HI_NONE,
 
 //	HI_TELEPORTER,
@@ -479,14 +490,14 @@ typedef enum {
 //	HI_ELECTRIC,
 //	HI_FIRE,
 	HI_STAMINA,
-	HI_BOOK1,   //----(SA)	added
-	HI_BOOK2,   //----(SA)	added
-	HI_BOOK3,   //----(SA)	added
+	HI_BOOK1,   //----(SA)  added
+	HI_BOOK2,   //----(SA)  added
+	HI_BOOK3,   //----(SA)  added
 	HI_11,
 	HI_12,
 	HI_13,
 	HI_14,
-//	HI_15,	// ?
+//	HI_15,   // ?
 
 	HI_NUM_HOLDABLE
 } holdable_t;
@@ -514,7 +525,7 @@ typedef enum
 
 	AICHAR_FROGMAN,
 	AICHAR_HELGA,
-	AICHAR_HEINRICH,    //----(SA)	added
+	AICHAR_HEINRICH,    //----(SA)  added
 
 	AICHAR_PARTISAN,
 	AICHAR_CIVILIAN,
@@ -527,7 +538,8 @@ typedef enum
 
 // NOTE: we can only use up to 15 in the client-server stream
 // SA NOTE: should be 31 now (I added 1 bit in msg.c)
-typedef enum {
+typedef enum
+{
 	WP_NONE,                // 0
 
 	WP_KNIFE,               // 1
@@ -541,72 +553,73 @@ typedef enum {
 	WP_VENOM,               // 8
 	WP_FLAMETHROWER,        // 9
 	WP_TESLA,               // 10
-//	WP_SPEARGUN,			// 11
+//	WP_SPEARGUN,         // 11
 
 // weapon keys only go 1-0, so put the alternates above that (since selection will be a double click on the german weapon key)
 
 	// American equivalents
-//	WP_KNIFE2,				// 12
-	WP_COLT,                // 11	equivalent american weapon to german luger
-	WP_THOMPSON,            // 12	equivalent american weapon to german mp40
-	WP_GARAND,              // 13	equivalent american weapon to german mauser
-//	WP_BAR,					// 16	equivalent american weapon to german fg42
+//	WP_KNIFE2,               // 12
+	WP_COLT,                // 11   equivalent american weapon to german luger
+	WP_THOMPSON,            // 12   equivalent american weapon to german mp40
+	WP_GARAND,              // 13   equivalent american weapon to german mauser
+//	WP_BAR,                  // 16   equivalent american weapon to german fg42
 	WP_GRENADE_PINEAPPLE,   // 14
-//	WP_ROCKET_LAUNCHER,		// 18	equivalent american weapon to german panzerfaust
+//	WP_ROCKET_LAUNCHER,      // 18   equivalent american weapon to german panzerfaust
 
 	// secondary fire weapons
 	WP_SNIPERRIFLE,         // 15
 	WP_SNOOPERSCOPE,        // 16
-//	WP_VENOM_FULL,			// 21
-//	WP_SPEARGUN_CO2,		// 22
-	WP_FG42SCOPE,           // 17	fg42 alt fire
-//	WP_BAR2,				// 24
+//	WP_VENOM_FULL,           // 21
+//	WP_SPEARGUN_CO2,     // 22
+	WP_FG42SCOPE,           // 17   fg42 alt fire
+//	WP_BAR2,             // 24
 
 	// more weapons
-	WP_STEN,                // 18	silenced sten sub-machinegun
-	WP_SILENCER,            // 19	// used to be sp5
-	WP_AKIMBO,              // 20	//----(SA)	added
+	WP_STEN,                // 18   silenced sten sub-machinegun
+	WP_SILENCER,            // 19   // used to be sp5
+	WP_AKIMBO,              // 20   //----(SA)  added
 
 	// specialized/one-time weapons
 // JPW NERVE -- swapped mortar & antitank (unused?) and added class_special
-	WP_CLASS_SPECIAL,       // 21	// class-specific multiplayer weapon (airstrike, engineer, or medpack)
+	WP_CLASS_SPECIAL,       // 21   // class-specific multiplayer weapon (airstrike, engineer, or medpack)
 	// (SA) go ahead and take the 'freezeray' spot.  it ain't happenin
 	//      (I checked for instances of WP_CLASS_SPECIAL and I don't think this'll cause you a problem.  however, if it does, move it where you need to. ) (SA)
 // jpw
-//	WP_CROSS,				// 29
+//	WP_CROSS,                // 29
 	WP_DYNAMITE,            // 22
-//	WP_DYNAMITE2,			// 31
-//	WP_PROX,				// 32
+//	WP_DYNAMITE2,            // 31
+//	WP_PROX,             // 32
 
-	WP_MONSTER_ATTACK1,     // 23	// generic monster attack, slot 1
-	WP_MONSTER_ATTACK2,     // 24	// generic monster attack, slot 2
-	WP_MONSTER_ATTACK3,     // 25	// generic monster attack, slot 2
+	WP_MONSTER_ATTACK1,     // 23   // generic monster attack, slot 1
+	WP_MONSTER_ATTACK2,     // 24   // generic monster attack, slot 2
+	WP_MONSTER_ATTACK3,     // 25   // generic monster attack, slot 2
 
 	WP_GAUNTLET,            // 26
 
 	WP_SNIPER,              // 27
-	WP_GRENADE_SMOKE,       // 28	// smoke grenade for LT multiplayer
-	WP_MEDIC_HEAL,          // 29	// DHM - Nerve :: Medic special weapon
+	WP_GRENADE_SMOKE,       // 28   // smoke grenade for LT multiplayer
+	WP_MEDIC_HEAL,          // 29   // DHM - Nerve :: Medic special weapon
 	WP_MORTAR,              // 30
 
-	VERYBIGEXPLOSION,       // 31	// explosion effect for airplanes
+	VERYBIGEXPLOSION,       // 31   // explosion effect for airplanes
 
 	WP_NUM_WEAPONS          // 32   NOTE: this cannot be larger than 64 for AI/player weapons!
 
 } weapon_t;
 
 
-typedef struct ammotable_s {
+typedef struct ammotable_s
+{
 	int maxammo;            //
 	int uses;               //
 	int maxclip;            //
 	int reloadTime;         //
 	int fireDelayTime;      //
 	int nextShotTime;       //
-//----(SA)	added
+//----(SA)  added
 	int maxHeat;            // max active firing time before weapon 'overheats' (at which point the weapon will fail)
 	int coolRate;           // how fast the weapon cools down. (per second)
-//----(SA)	end
+//----(SA)  end
 	int mod;                // means of death
 } ammotable_t;
 
@@ -625,9 +638,10 @@ extern int weapAlts[];  // defined in bg_misc.c
 #define WP_LASTSECONDARY    WP_FG42SCOPE
 
 #define WEAPS_ONE_HANDED    ( ( 1 << WP_KNIFE ) | ( 1 << WP_LUGER ) | ( 1 << WP_COLT ) | ( 1 << WP_SILENCER ) | ( 1 << WP_GRENADE_LAUNCHER ) | ( 1 << WP_GRENADE_PINEAPPLE ) )
-//----(SA)	end
+//----(SA)  end
 
-typedef enum {
+typedef enum
+{
 	WPOS_HIGH,
 	WPOS_LOW,
 	WPOS_KNIFE,
@@ -641,23 +655,24 @@ typedef enum {
 /*
 // Original Q3A weaps/order
 typedef enum {
-	WP_NONE,				// 0
-	WP_GAUNTLET,			// 1
-	WP_MACHINEGUN = 20,		// 2
-	WP_SHOTGUN,				// 3
-	WP_GRENADE_LAUNCHER,	// 4
-	WP_ROCKET_LAUNCHER,		// 5
-	WP_LIGHTNING,			// 6
-	WP_RAILGUN,				// 7
-	WP_PLASMAGUN,			// 8
-	WP_BFG,					// 9
-	WP_GRAPPLING_HOOK		// 10
-	WP_NUM_WEAPONS			// 11
+    WP_NONE,                // 0
+    WP_GAUNTLET,            // 1
+    WP_MACHINEGUN = 20,     // 2
+    WP_SHOTGUN,             // 3
+    WP_GRENADE_LAUNCHER,    // 4
+    WP_ROCKET_LAUNCHER,     // 5
+    WP_LIGHTNING,           // 6
+    WP_RAILGUN,             // 7
+    WP_PLASMAGUN,           // 8
+    WP_BFG,                 // 9
+    WP_GRAPPLING_HOOK       // 10
+    WP_NUM_WEAPONS          // 11
 } weapon_t;
 
 */
 // reward sounds
-typedef enum {
+typedef enum
+{
 	REWARD_BAD,
 
 	REWARD_IMPRESSIVE,
@@ -680,7 +695,8 @@ typedef enum {
 #define EV_EVENT_BIT2       0x00000200
 #define EV_EVENT_BITS       ( EV_EVENT_BIT1 | EV_EVENT_BIT2 )
 
-typedef enum {
+typedef enum
+{
 	EV_NONE,
 	EV_FOOTSTEP,
 	EV_FOOTSTEP_METAL,
@@ -726,8 +742,8 @@ typedef enum {
 	EV_FIRE_QUICKGREN,  // "Quickgrenade"
 	EV_NOFIRE_UNDERWATER,
 	EV_FIRE_WEAPON_MG42,
-	EV_SUGGESTWEAP,     //----(SA)	added
-	EV_GRENADE_SUICIDE, //----(SA)	added
+	EV_SUGGESTWEAP,     //----(SA)  added
+	EV_GRENADE_SUICIDE, //----(SA)  added
 	EV_USE_ITEM0,
 	EV_USE_ITEM1,
 	EV_USE_ITEM2,
@@ -766,7 +782,7 @@ typedef enum {
 	EV_DEATH1,
 	EV_DEATH2,
 	EV_DEATH3,
-	EV_ENTDEATH,    //----(SA)	added
+	EV_ENTDEATH,    //----(SA)  added
 	EV_OBITUARY,
 	EV_POWERUP_QUAD,
 	EV_POWERUP_BATTLESUIT,
@@ -797,7 +813,7 @@ typedef enum {
 	EV_SPIT_MISS,
 	EV_SHARD,
 	EV_JUNK,
-	EV_EMITTER, //----(SA)	added // generic particle emitter that uses client-side particle scripts
+	EV_EMITTER, //----(SA)  added // generic particle emitter that uses client-side particle scripts
 	EV_OILPARTICLES,
 	EV_OILSLICK,
 	EV_OILSLICKREMOVE,
@@ -819,8 +835,8 @@ typedef enum {
 	EV_SNIPER_SOUND,
 	EV_POPUP,
 	EV_POPUPBOOK,
-	EV_GIVEPAGE,    //----(SA)	added
-	EV_CLOSEMENU,   //----(SA)	added
+	EV_GIVEPAGE,    //----(SA)  added
+	EV_CLOSEMENU,   //----(SA)  added
 	EV_SPAWN_SPIRIT,
 
 	EV_MAX_EVENTS   // just added as an 'endcap'
@@ -829,51 +845,52 @@ typedef enum {
 
 
 // animations
-/*	// straight Q3A for reference (SA)
+/*  // straight Q3A for reference (SA)
 typedef enum {
-	BOTH_DEATH1,
-	BOTH_DEAD1,
-	BOTH_DEATH2,
-	BOTH_DEAD2,
-	BOTH_DEATH3,
-	BOTH_DEAD3,
+    BOTH_DEATH1,
+    BOTH_DEAD1,
+    BOTH_DEATH2,
+    BOTH_DEAD2,
+    BOTH_DEATH3,
+    BOTH_DEAD3,
 
-	TORSO_GESTURE,
+    TORSO_GESTURE,
 
-	TORSO_ATTACK,
-	TORSO_ATTACK2,
+    TORSO_ATTACK,
+    TORSO_ATTACK2,
 
-	TORSO_DROP,
-	TORSO_RAISE,
+    TORSO_DROP,
+    TORSO_RAISE,
 
-	TORSO_STAND,
-	TORSO_STAND2,
+    TORSO_STAND,
+    TORSO_STAND2,
 
-	LEGS_WALKCR,
-	LEGS_WALK,
-	LEGS_RUN,
-	LEGS_BACK,
-	LEGS_SWIM,
+    LEGS_WALKCR,
+    LEGS_WALK,
+    LEGS_RUN,
+    LEGS_BACK,
+    LEGS_SWIM,
 
-	LEGS_JUMP,
-	LEGS_LAND,
+    LEGS_JUMP,
+    LEGS_LAND,
 
-	LEGS_JUMPB,
-	LEGS_LANDB,
+    LEGS_JUMPB,
+    LEGS_LANDB,
 
-	LEGS_IDLE,
-	LEGS_IDLECR,
+    LEGS_IDLE,
+    LEGS_IDLECR,
 
-	LEGS_TURN,
+    LEGS_TURN,
 
-	MAX_ANIMATIONS
+    MAX_ANIMATIONS
 } animNumber_t;
 */
 
 // NOTE: this must be synched with the text list below
 
 // new (10/18/00)
-typedef enum {
+typedef enum
+{
 	BOTH_DEATH1,
 	BOTH_DEAD1,
 	BOTH_DEAD1_WATER,
@@ -885,7 +902,7 @@ typedef enum {
 	BOTH_DEAD3_WATER,
 
 	BOTH_CLIMB,
-/*10*/ BOTH_CLIMB_DOWN,
+	/*10*/ BOTH_CLIMB_DOWN,
 	BOTH_CLIMB_DISMOUNT,
 
 	BOTH_SALUTE,
@@ -897,7 +914,7 @@ typedef enum {
 	BOTH_PAIN5,     // left shoulder
 	BOTH_PAIN6,     // right knee
 	BOTH_PAIN7,     // left knee
-/*20*/ BOTH_PAIN8,      // dazed
+	/*20*/ BOTH_PAIN8,      // dazed
 
 	BOTH_GRAB_GRENADE,
 
@@ -910,7 +927,7 @@ typedef enum {
 	BOTH_EXTRA1,
 	BOTH_EXTRA2,
 	BOTH_EXTRA3,
-/*30*/ BOTH_EXTRA4,
+	/*30*/ BOTH_EXTRA4,
 	BOTH_EXTRA5,
 	BOTH_EXTRA6,
 	BOTH_EXTRA7,
@@ -920,7 +937,7 @@ typedef enum {
 	BOTH_EXTRA11,
 	BOTH_EXTRA12,
 	BOTH_EXTRA13,
-/*40*/ BOTH_EXTRA14,
+	/*40*/ BOTH_EXTRA14,
 	BOTH_EXTRA15,
 	BOTH_EXTRA16,
 	BOTH_EXTRA17,
@@ -931,7 +948,7 @@ typedef enum {
 	TORSO_GESTURE,
 	TORSO_GESTURE2,
 	TORSO_GESTURE3,
-/*50*/ TORSO_GESTURE4,
+	/*50*/ TORSO_GESTURE4,
 
 	TORSO_DROP,
 
@@ -944,7 +961,7 @@ typedef enum {
 	TORSO_RELAX,
 
 	TORSO_RAISE2,   // (high)
-/*60*/ TORSO_ATTACK2,
+	/*60*/ TORSO_ATTACK2,
 	TORSO_STAND2,
 	TORSO_STAND2_ALT1,
 	TORSO_STAND2_ALT2,
@@ -955,7 +972,7 @@ typedef enum {
 	TORSO_ATTACK3,
 	TORSO_STAND3,
 	TORSO_STAND3_ALT1,
-/*70*/ TORSO_STAND3_ALT2,
+	/*70*/ TORSO_STAND3_ALT2,
 	TORSO_READY3,
 	TORSO_RELAX3,
 
@@ -967,7 +984,7 @@ typedef enum {
 	TORSO_READY4,
 	TORSO_RELAX4,
 
-/*80*/ TORSO_RAISE5,    // (throw)
+	/*80*/ TORSO_RAISE5,    // (throw)
 	TORSO_ATTACK5,
 	TORSO_ATTACK5B,
 	TORSO_STAND5,
@@ -978,7 +995,7 @@ typedef enum {
 
 	TORSO_RELOAD1,  // (low)
 	TORSO_RELOAD2,  // (high)
-/*90*/ TORSO_RELOAD3,   // (pistol)
+	/*90*/ TORSO_RELOAD3,   // (pistol)
 	TORSO_RELOAD4,  // (shoulder)
 
 	TORSO_MG42,     // firing tripod mounted weapon animation
@@ -991,7 +1008,7 @@ typedef enum {
 	TORSO_EXTRA3,
 	TORSO_EXTRA4,
 	TORSO_EXTRA5,
-/*100*/ TORSO_EXTRA6,
+	/*100*/ TORSO_EXTRA6,
 	TORSO_EXTRA7,
 	TORSO_EXTRA8,
 	TORSO_EXTRA9,
@@ -1002,7 +1019,7 @@ typedef enum {
 	LEGS_WALK,
 	LEGS_RUN,
 	LEGS_BACK,
-/*110*/ LEGS_SWIM,
+	/*110*/ LEGS_SWIM,
 	LEGS_SWIM_IDLE,
 
 	LEGS_JUMP,
@@ -1017,7 +1034,7 @@ typedef enum {
 
 	LEGS_BOOT,      // kicking animation
 
-/*120*/ LEGS_EXTRA1,
+	/*120*/ LEGS_EXTRA1,
 	LEGS_EXTRA2,
 	LEGS_EXTRA3,
 	LEGS_EXTRA4,
@@ -1028,7 +1045,7 @@ typedef enum {
 	LEGS_EXTRA9,
 	LEGS_EXTRA10,
 
-/*130*/ MAX_ANIMATIONS
+	/*130*/ MAX_ANIMATIONS
 } animNumber_t;
 
 // text represenation for scripting
@@ -1036,7 +1053,8 @@ extern char *animStrings[];     // defined in bg_misc.c
 extern char *animStringsOld[];      // defined in bg_misc.c
 
 
-typedef enum {
+typedef enum
+{
 	WEAP_IDLE1,
 	WEAP_IDLE2,
 	WEAP_ATTACK1,
@@ -1056,7 +1074,8 @@ typedef enum {
 #define ANIMFL_LADDERANIM   0x1
 #define ANIMFL_FIRINGANIM   0x2
 
-typedef struct animation_s {
+typedef struct animation_s
+{
 	char name[MAX_QPATH];
 	int firstFrame;
 	int numFrames;
@@ -1077,7 +1096,8 @@ typedef struct animation_s {
 } animation_t;
 
 // Ridah, head animations
-typedef enum {
+typedef enum
+{
 	HEAD_NEUTRAL_CLOSED,
 	HEAD_NEUTRAL_A,
 	HEAD_NEUTRAL_O,
@@ -1097,7 +1117,8 @@ typedef enum {
 	MAX_HEAD_ANIMS
 } animHeadNumber_t;
 
-typedef struct headAnimation_s {
+typedef struct headAnimation_s
+{
 	int firstFrame;
 	int numFrames;
 } headAnimation_t;
@@ -1108,7 +1129,8 @@ typedef struct headAnimation_s {
 #define ANIM_TOGGLEBIT      ( 1 << ( ANIM_BITS - 1 ) )
 
 
-typedef enum {
+typedef enum
+{
 	TEAM_FREE,
 	TEAM_RED,
 	TEAM_BLUE,
@@ -1124,7 +1146,8 @@ typedef enum {
 #define TEAM_MAXOVERLAY     8
 
 // means of death
-typedef enum {
+typedef enum
+{
 	MOD_UNKNOWN,
 	MOD_SHOTGUN,
 	MOD_GAUNTLET,
@@ -1206,7 +1229,8 @@ typedef enum {
 //---------------------------------------------------------
 
 // gitem_t->type
-typedef enum {
+typedef enum
+{
 	IT_BAD,
 	IT_WEAPON,              // EFX: rotate + upscale + minlight
 
@@ -1214,9 +1238,9 @@ typedef enum {
 	IT_ARMOR,               // EFX: rotate + minlight
 	IT_HEALTH,              // EFX: static external sphere + rotating internal
 	IT_POWERUP,             // instant on, timer based
-							// EFX: rotate + external ring that rotates
+	// EFX: rotate + external ring that rotates
 	IT_HOLDABLE,            // single use, holdable item
-							// EFX: rotate + bob
+	// EFX: rotate + bob
 	IT_KEY,
 	IT_TREASURE,            // gold bars, etc.  things that can be picked up and counted for a tally at end-level
 	IT_CLIPBOARD,           // 'clipboard' used as a general term for 'popup' items where you pick up the item and it pauses and opens a menu
@@ -1227,7 +1251,8 @@ typedef enum {
 #define MAX_ITEM_ICONS 4
 
 // JOSEPH 4-17-00
-typedef struct gitem_s {
+typedef struct gitem_s
+{
 	char        *classname; // spawning name
 	char        *pickup_sound;
 	char        *world_model[MAX_ITEM_MODELS];
@@ -1255,22 +1280,22 @@ typedef struct gitem_s {
 extern gitem_t bg_itemlist[];
 extern int bg_numItems;
 
-gitem_t *BG_FindItem( const char *pickupName );
-gitem_t *BG_FindItem2( const char *name );  //----(SA)	added
-gitem_t *BG_FindItemForWeapon( weapon_t weapon );
-gitem_t *BG_FindItemForPowerup( powerup_t pw );
-gitem_t *BG_FindItemForHoldable( holdable_t pw );
-gitem_t *BG_FindItemForAmmo( int ammo );        //----(SA)	modified
-gitem_t *BG_FindItemForKey( wkey_t k, int *index );
-weapon_t BG_FindAmmoForWeapon( weapon_t weapon );
-weapon_t BG_FindClipForWeapon( weapon_t weapon );
+gitem_t *BG_FindItem(const char *pickupName);
+gitem_t *BG_FindItem2(const char *name);    //----(SA)   added
+gitem_t *BG_FindItemForWeapon(weapon_t weapon);
+gitem_t *BG_FindItemForPowerup(powerup_t pw);
+gitem_t *BG_FindItemForHoldable(holdable_t pw);
+gitem_t *BG_FindItemForAmmo(int ammo);          //----(SA)   modified
+gitem_t *BG_FindItemForKey(wkey_t k, int *index);
+weapon_t BG_FindAmmoForWeapon(weapon_t weapon);
+weapon_t BG_FindClipForWeapon(weapon_t weapon);
 
-qboolean BG_AkimboFireSequence( int weapon, int akimboClip, int coltClip );
-//qboolean BG_AkimboFireSequence	( playerState_t *ps );	//----(SA)	added
+qboolean BG_AkimboFireSequence(int weapon, int akimboClip, int coltClip);
+//qboolean BG_AkimboFireSequence    ( playerState_t *ps );  //----(SA)  added
 
 #define ITEM_INDEX( x ) ( ( x ) - bg_itemlist )
 
-qboolean    BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *ps );
+qboolean    BG_CanItemBeGrabbed(const entityState_t *ent, const playerState_t *ps);
 
 
 // g_dmflags->integer flags
@@ -1285,8 +1310,8 @@ qboolean    BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *
 #define MASK_PLAYERSOLID        ( CONTENTS_SOLID | CONTENTS_PLAYERCLIP | CONTENTS_BODY )
 #define MASK_DEADSOLID          ( CONTENTS_SOLID | CONTENTS_PLAYERCLIP )
 #define MASK_WATER              ( CONTENTS_WATER | CONTENTS_LAVA | CONTENTS_SLIME )
-//#define	MASK_OPAQUE				(CONTENTS_SOLID|CONTENTS_SLIME|CONTENTS_LAVA)
-#define MASK_OPAQUE             ( CONTENTS_SOLID | CONTENTS_LAVA )      //----(SA)	modified since slime is no longer deadly
+//#define   MASK_OPAQUE             (CONTENTS_SOLID|CONTENTS_SLIME|CONTENTS_LAVA)
+#define MASK_OPAQUE             ( CONTENTS_SOLID | CONTENTS_LAVA )      //----(SA)  modified since slime is no longer deadly
 #define MASK_SHOT               ( CONTENTS_SOLID | CONTENTS_BODY | CONTENTS_CORPSE | CONTENTS_CLIPSHOT )
 #define MASK_MISSILESHOT        ( MASK_SHOT | CONTENTS_MISSILECLIP )
 #define MASK_AISIGHT            ( CONTENTS_SOLID | CONTENTS_AI_NOSIGHT )
@@ -1294,7 +1319,8 @@ qboolean    BG_CanItemBeGrabbed( const entityState_t *ent, const playerState_t *
 //
 // entityState_t->eType
 //
-typedef enum {
+typedef enum
+{
 	ET_GENERAL,
 	ET_PLAYER,
 	ET_ITEM,
@@ -1318,9 +1344,9 @@ typedef enum {
 	ET_TRAP,
 
 	ET_GAMEMODEL,           // misc_gamemodel.  similar to misc_model, but it's a dynamic model so we have LOD
-	ET_FOOTLOCKER,  //----(SA)	added
-	ET_LEAKY,       //----(SA)	added
-	ET_MG42,        //----(SA)	why didn't we do /this/ earlier...
+	ET_FOOTLOCKER,  //----(SA)  added
+	ET_LEAKY,       //----(SA)  added
+	ET_MG42,        //----(SA)  why didn't we do /this/ earlier...
 	//---- end
 
 	ET_ZOMBIESPIT,
@@ -1353,13 +1379,14 @@ typedef enum {
 	ET_FLAMETHROWER_PROP,
 
 	ET_EVENTS               // any of the EV_* events can be added freestanding
-							// by setting eType to ET_EVENTS + eventNum
-							// this avoids having to set eFlags and eventNum
+	// by setting eType to ET_EVENTS + eventNum
+	// this avoids having to set eFlags and eventNum
 } entityType_t;
 
 
 // cursorhints (stored in ent->s.dmgFlags since that's only used for players at the moment)
-typedef enum {
+typedef enum
+{
 	HINT_NONE,      // reserved
 	HINT_FORCENONE, // reserved
 	HINT_PLAYER,
@@ -1410,22 +1437,22 @@ typedef enum {
 
 
 
-void    BG_EvaluateTrajectory( const trajectory_t *tr, int atTime, vec3_t result );
-void    BG_EvaluateTrajectoryDelta( const trajectory_t *tr, int atTime, vec3_t result );
-void    BG_GetMarkDir( const vec3_t dir, const vec3_t normal, vec3_t out );
+void    BG_EvaluateTrajectory(const trajectory_t *tr, int atTime, vec3_t result);
+void    BG_EvaluateTrajectoryDelta(const trajectory_t *tr, int atTime, vec3_t result);
+void    BG_GetMarkDir(const vec3_t dir, const vec3_t normal, vec3_t out);
 
-void    BG_AddPredictableEventToPlayerstate( int newEvent, int eventParm, playerState_t *ps );
+void    BG_AddPredictableEventToPlayerstate(int newEvent, int eventParm, playerState_t *ps);
 
-//void	BG_TouchJumpPad( playerState_t *ps, entityState_t *jumppad );
+//void  BG_TouchJumpPad( playerState_t *ps, entityState_t *jumppad );
 
-void    BG_PlayerStateToEntityState( playerState_t *ps, entityState_t *s, qboolean snap );
-void    BG_PlayerStateToEntityStateExtraPolate( playerState_t *ps, entityState_t *s, int time, qboolean snap );
+void    BG_PlayerStateToEntityState(playerState_t *ps, entityState_t *s, qboolean snap);
+void    BG_PlayerStateToEntityStateExtraPolate(playerState_t *ps, entityState_t *s, int time, qboolean snap);
 
-qboolean    BG_PlayerTouchesItem( playerState_t *ps, entityState_t *item, int atTime );
-qboolean    BG_PlayerSeesItem( playerState_t *ps, entityState_t *item, int atTime );
+qboolean    BG_PlayerTouchesItem(playerState_t *ps, entityState_t *item, int atTime);
+qboolean    BG_PlayerSeesItem(playerState_t *ps, entityState_t *item, int atTime);
 
-//----(SA)	removed PM_ammoNeeded 11/27/00
-void PM_ClipVelocity( vec3_t in, vec3_t normal, vec3_t out, float overbounce );
+//----(SA)  removed PM_ammoNeeded 11/27/00
+void PM_ClipVelocity(vec3_t in, vec3_t normal, vec3_t out, float overbounce);
 
 #define ARENAS_PER_TIER     4
 #define MAX_ARENAS          64
@@ -1434,7 +1461,8 @@ void PM_ClipVelocity( vec3_t in, vec3_t normal, vec3_t out, float overbounce );
 #define MAX_BOTS            64
 #define MAX_BOTS_TEXT       8192
 
-typedef enum {
+typedef enum
+{
 	FOOTSTEP_NORMAL,
 	FOOTSTEP_BOOT,
 	FOOTSTEP_FLESH,
@@ -1449,7 +1477,7 @@ typedef enum {
 
 	FOOTSTEP_ROOF,
 	FOOTSTEP_SNOW,
-	FOOTSTEP_CARPET,    //----(SA)	added
+	FOOTSTEP_CARPET,    //----(SA)  added
 
 	FOOTSTEP_ELITE_STEP,
 	FOOTSTEP_ELITE_METAL,
@@ -1485,15 +1513,16 @@ typedef enum {
 } footstep_t;
 
 
-//----(SA)	added
-typedef enum {
+//----(SA)  added
+typedef enum
+{
 	GRENBOUNCE_DIRT,
 	GRENBOUNCE_WOOD,
 	GRENBOUNCE_METAL,
 	GRENBOUNCE_DEFAULT,
 	GRENBOUNCE_TOTAL
 } grenbounde_t;
-//----(SA)	added
+//----(SA)  added
 
 //==================================================================
 // New Animation Scripting Defines
@@ -1616,8 +1645,8 @@ typedef struct
 	short int animIndex[2];     // animation index in our list of animations
 	short int animDuration[2];
 	short int soundIndex;
-	short int accShowBits;      //----(SA)	added
-	short int accHideBits;      //----(SA)	added
+	short int accShowBits;      //----(SA)  added
+	short int accHideBits;      //----(SA)  added
 } animScriptCommand_t;
 
 typedef struct
@@ -1671,8 +1700,8 @@ typedef struct
 	//
 	// pointers to functions from the owning module
 	//
-	int ( *soundIndex )( const char *name );
-	void ( *playSound )( int soundIndex, vec3_t org, int clientNum );
+	int (*soundIndex)(const char *name);
+	void (*playSound)(int soundIndex, vec3_t org, int clientNum);
 } animScriptData_t;
 
 //------------------------------------------------------------------
@@ -1724,27 +1753,27 @@ typedef enum
 //------------------------------------------------------------------
 // Global Function Decs
 
-animModelInfo_t *BG_ModelInfoForModelname( char *modelname );
-qboolean BG_AnimParseAnimConfig( animModelInfo_t *animModelInfo, const char *filename, const char *input );
-void BG_AnimParseAnimScript( animModelInfo_t *modelInfo, animScriptData_t *scriptData, int client, char *filename, char *input );
-int BG_AnimScriptAnimation( playerState_t *ps, aistateEnum_t state, scriptAnimMoveTypes_t movetype, qboolean isContinue );
-int BG_AnimScriptCannedAnimation( playerState_t *ps, aistateEnum_t state );
-int BG_AnimScriptStateChange( playerState_t *ps, aistateEnum_t newState, aistateEnum_t oldState );
-int BG_AnimScriptEvent( playerState_t *ps, scriptAnimEventTypes_t event, qboolean isContinue, qboolean force );
-int BG_IndexForString( char *token, animStringItem_t *strings, qboolean allowFail );
-int BG_PlayAnimName( playerState_t *ps, char *animName, animBodyPart_t bodyPart, qboolean setTimer, qboolean isContinue, qboolean force );
-qboolean BG_ValidAnimScript( int clientNum );
-char *BG_GetAnimString( int client, int anim );
-void BG_UpdateConditionValue( int client, int condition, int value, qboolean checkConversion );
-int BG_GetConditionValue( int client, int condition, qboolean checkConversion );
-int BG_GetAnimScriptAnimation( int client, aistateEnum_t state, scriptAnimMoveTypes_t movetype );
-void BG_AnimUpdatePlayerStateConditions( pmove_t *pmove );
-int BG_AnimationIndexForString( char *string, int client );
-animation_t *BG_AnimationForString( char *string, animModelInfo_t *modelInfo );
-animation_t *BG_GetAnimationForIndex( int client, int index );
-int BG_GetAnimScriptEvent( playerState_t *ps, scriptAnimEventTypes_t event );
-void BG_UpdateConditionValueStrings( int client, char *conditionStr, char *valueStr );
-float BG_AnimGetFootstepGap( playerState_t *ps, float xyspeed );
+animModelInfo_t *BG_ModelInfoForModelname(char *modelname);
+qboolean BG_AnimParseAnimConfig(animModelInfo_t *animModelInfo, const char *filename, const char *input);
+void BG_AnimParseAnimScript(animModelInfo_t *modelInfo, animScriptData_t *scriptData, int client, char *filename, char *input);
+int BG_AnimScriptAnimation(playerState_t *ps, aistateEnum_t state, scriptAnimMoveTypes_t movetype, qboolean isContinue);
+int BG_AnimScriptCannedAnimation(playerState_t *ps, aistateEnum_t state);
+int BG_AnimScriptStateChange(playerState_t *ps, aistateEnum_t newState, aistateEnum_t oldState);
+int BG_AnimScriptEvent(playerState_t *ps, scriptAnimEventTypes_t event, qboolean isContinue, qboolean force);
+int BG_IndexForString(char *token, animStringItem_t *strings, qboolean allowFail);
+int BG_PlayAnimName(playerState_t *ps, char *animName, animBodyPart_t bodyPart, qboolean setTimer, qboolean isContinue, qboolean force);
+qboolean BG_ValidAnimScript(int clientNum);
+char *BG_GetAnimString(int client, int anim);
+void BG_UpdateConditionValue(int client, int condition, int value, qboolean checkConversion);
+int BG_GetConditionValue(int client, int condition, qboolean checkConversion);
+int BG_GetAnimScriptAnimation(int client, aistateEnum_t state, scriptAnimMoveTypes_t movetype);
+void BG_AnimUpdatePlayerStateConditions(pmove_t *pmove);
+int BG_AnimationIndexForString(char *string, int client);
+animation_t *BG_AnimationForString(char *string, animModelInfo_t *modelInfo);
+animation_t *BG_GetAnimationForIndex(int client, int index);
+int BG_GetAnimScriptEvent(playerState_t *ps, scriptAnimEventTypes_t event);
+void BG_UpdateConditionValueStrings(int client, char *conditionStr, char *valueStr);
+float BG_AnimGetFootstepGap(playerState_t *ps, float xyspeed);
 
 extern animStringItem_t animStateStr[];
 extern animStringItem_t animBodyPartsStr[];

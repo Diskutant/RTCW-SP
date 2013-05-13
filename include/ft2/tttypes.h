@@ -63,7 +63,7 @@ typedef struct  TTC_Header_
 	FT_ULong tag;
 	FT_Fixed version;
 	FT_Long count;
-	FT_ULong*  offsets;
+	FT_ULong  *offsets;
 
 } TTC_Header;
 
@@ -288,7 +288,7 @@ typedef struct  TT_NameRec_
 	/* this last field is not defined in the spec */
 	/* but used by the FreeType engine            */
 
-	FT_Byte*   string;
+	FT_Byte   *string;
 
 } TT_NameRec;
 
@@ -318,8 +318,8 @@ typedef struct  TT_NameTable_
 	FT_UShort format;
 	FT_UShort numNameRecords;
 	FT_UShort storageOffset;
-	TT_NameRec*  names;
-	FT_Byte*     storage;
+	TT_NameRec  *names;
+	FT_Byte     *storage;
 
 } TT_NameTable;
 
@@ -384,7 +384,7 @@ typedef struct  TT_Gasp_
 {
 	FT_UShort version;
 	FT_UShort numRanges;
-	TT_GaspRange*  gaspRanges;
+	TT_GaspRange  *gaspRanges;
 
 } TT_Gasp;
 
@@ -409,7 +409,7 @@ typedef struct  TT_HdmxRec_
 {
 	FT_Byte ppem;
 	FT_Byte max_width;
-	FT_Byte*  widths;
+	FT_Byte  *widths;
 
 } TT_HdmxRec;
 
@@ -434,7 +434,7 @@ typedef struct  TT_Hdmx_
 {
 	FT_UShort version;
 	FT_Short num_records;
-	TT_HdmxRec*  records;
+	TT_HdmxRec  *records;
 
 } TT_Hdmx;
 
@@ -673,8 +673,8 @@ typedef struct  TT_SBit_Range
 	TT_SBit_Metrics metrics;
 	FT_ULong num_glyphs;
 
-	FT_ULong*        glyph_offsets;
-	FT_UShort*       glyph_codes;
+	FT_ULong        *glyph_offsets;
+	FT_UShort       *glyph_codes;
 
 	FT_ULong table_offset;
 
@@ -717,7 +717,7 @@ typedef struct  TT_SBit_Range
 typedef struct  TT_SBit_Strike_
 {
 	FT_Int num_ranges;
-	TT_SBit_Range*        sbit_ranges;
+	TT_SBit_Range        *sbit_ranges;
 	FT_ULong ranges_offset;
 
 	FT_ULong color_ref;
@@ -833,8 +833,8 @@ typedef struct  TT_Post_20_
 {
 	FT_UShort num_glyphs;
 	FT_UShort num_names;
-	FT_UShort*  glyph_indices;
-	FT_Char**   glyph_names;
+	FT_UShort  *glyph_indices;
+	FT_Char   **glyph_names;
 
 } TT_Post_20;
 
@@ -857,7 +857,7 @@ typedef struct  TT_Post_20_
 typedef struct  TT_Post_25_
 {
 	FT_UShort num_glyphs;
-	FT_Char*   offsets;
+	FT_Char   *offsets;
 
 } TT_Post_25;
 
@@ -908,7 +908,7 @@ typedef struct  TT_Post_Names_
 
 typedef struct  TT_CMap0_
 {
-	FT_Byte*  glyphIdArray;
+	FT_Byte  *glyphIdArray;
 
 } TT_CMap0;
 
@@ -927,12 +927,12 @@ typedef struct  TT_CMap2SubHeader_
 
 typedef struct  TT_CMap2_
 {
-	FT_UShort*          subHeaderKeys;
+	FT_UShort          *subHeaderKeys;
 	/* high byte mapping table            */
 	/* value = subHeader index * 8        */
 
-	TT_CMap2SubHeader*  subHeaders;
-	FT_UShort*          glyphIdArray;
+	TT_CMap2SubHeader  *subHeaders;
+	FT_UShort          *glyphIdArray;
 	FT_UShort numGlyphId;             /* control value */
 
 } TT_CMap2;
@@ -957,12 +957,12 @@ typedef struct  TT_CMap4_
 	FT_UShort entrySelector;          /* for a binary search          */
 	FT_UShort rangeShift;
 
-	TT_CMap4Segment*  segments;
-	FT_UShort*        glyphIdArray;
+	TT_CMap4Segment  *segments;
+	FT_UShort        *glyphIdArray;
 	FT_UShort numGlyphId;           /* control value */
 
-	TT_CMap4Segment*  last_segment;  /* last used segment; this is a small  */
-									 /* cache to potentially increase speed */
+	TT_CMap4Segment  *last_segment;  /* last used segment; this is a small  */
+	/* cache to potentially increase speed */
 } TT_CMap4;
 
 
@@ -973,7 +973,7 @@ typedef struct  TT_CMap6_
 	FT_UShort firstCode;        /* first character code of subrange      */
 	FT_UShort entryCount;       /* number of character codes in subrange */
 
-	FT_UShort*  glyphIdArray;
+	FT_UShort  *glyphIdArray;
 
 } TT_CMap6;
 
@@ -982,8 +982,8 @@ typedef struct TT_CMapTable_ TT_CMapTable;
 
 
 typedef
-FT_UInt ( *TT_CharMap_Func )( TT_CMapTable*  charmap,
-							  FT_ULong char_code );
+FT_UInt(*TT_CharMap_Func)(TT_CMapTable  *charmap,
+                          FT_ULong char_code);
 
 
 /* charmap table */
@@ -1070,7 +1070,7 @@ typedef struct  TT_CharMapRec_
 /*    The TT_Face structure is also used as a `parent class' for the     */
 /*    OpenType-CFF class (T2_Face).                                      */
 /*                                                                       */
-typedef struct TT_FaceRec_*  TT_Face;
+typedef struct TT_FaceRec_  *TT_Face;
 
 
 /*************************************************************************/
@@ -1081,11 +1081,11 @@ typedef struct TT_FaceRec_*  TT_Face;
 /* <Description>                                                         */
 /*    A handle to a TrueType character mapping object.                   */
 /*                                                                       */
-typedef struct TT_CharMapRec_*  TT_CharMap;
+typedef struct TT_CharMapRec_  *TT_CharMap;
 
 
 /* a function type used for the truetype bytecode interpreter hooks */
-typedef FT_Error ( *TT_Interpreter )( void*  exec_context );
+typedef FT_Error(*TT_Interpreter)(void  *exec_context);
 
 /* forward declaration */
 typedef struct TT_Loader_ TT_Loader;
@@ -1117,10 +1117,10 @@ typedef struct TT_Loader_ TT_Loader;
 /*    The stream cursor must be at the font file's origin.               */
 /*                                                                       */
 typedef
-FT_Error ( *TT_Goto_Table_Func )( TT_Face face,
-								  FT_ULong tag,
-								  FT_Stream stream,
-								  FT_ULong*  length );
+FT_Error(*TT_Goto_Table_Func)(TT_Face face,
+                              FT_ULong tag,
+                              FT_Stream stream,
+                              FT_ULong  *length);
 
 
 /*************************************************************************/
@@ -1152,10 +1152,10 @@ FT_Error ( *TT_Goto_Table_Func )( TT_Face face,
 /*    different.                                                         */
 /*                                                                       */
 typedef
-FT_Error ( *TT_Access_Glyph_Frame_Func )( TT_Loader*  loader,
-										  FT_UInt glyph_index,
-										  FT_ULong offset,
-										  FT_UInt byte_count );
+FT_Error(*TT_Access_Glyph_Frame_Func)(TT_Loader  *loader,
+                                      FT_UInt glyph_index,
+                                      FT_ULong offset,
+                                      FT_UInt byte_count);
 
 
 /*************************************************************************/
@@ -1174,7 +1174,7 @@ FT_Error ( *TT_Access_Glyph_Frame_Func )( TT_Loader*  loader,
 /*    FreeType error code.  0 means success.                             */
 /*                                                                       */
 typedef
-FT_Error ( *TT_Load_Glyph_Element_Func )( TT_Loader*  loader );
+FT_Error(*TT_Load_Glyph_Element_Func)(TT_Loader  *loader);
 
 
 /*************************************************************************/
@@ -1189,7 +1189,7 @@ FT_Error ( *TT_Load_Glyph_Element_Func )( TT_Loader*  loader );
 /*    loader :: The current TrueType glyph loader object.                */
 /*                                                                       */
 typedef
-void ( *TT_Forget_Glyph_Frame_Func )( TT_Loader*  loader );
+void (*TT_Forget_Glyph_Frame_Func)(TT_Loader  *loader);
 
 
 
@@ -1383,7 +1383,7 @@ typedef struct  TT_FaceRec_
 
 	FT_ULong format_tag;
 	FT_UShort num_tables;
-	TT_Table*          dir_tables;
+	TT_Table          *dir_tables;
 
 	TT_Header header;                /* TrueType header table          */
 	TT_HoriHeader horizontal;        /* TrueType horizontal header     */
@@ -1413,11 +1413,11 @@ typedef struct  TT_FaceRec_
 
 	/* a typeless pointer to the SFNT_Interface table used to load     */
 	/* the basic TrueType tables in the face object                    */
-	void*              sfnt;
+	void              *sfnt;
 
 	/* a typeless pointer to the PSNames_Interface table used to       */
 	/* handle glyph names <-> unicode & Mac values                     */
-	void*              psnames;
+	void              *psnames;
 
 	/***********************************************************************/
 	/*                                                                     */
@@ -1436,10 +1436,10 @@ typedef struct  TT_FaceRec_
 
 	/* embedded bitmaps support */
 	FT_Int num_sbit_strikes;
-	TT_SBit_Strike*    sbit_strikes;
+	TT_SBit_Strike    *sbit_strikes;
 
 	FT_Int num_sbit_scales;
-	TT_SBit_Scale*     sbit_scales;
+	TT_SBit_Scale     *sbit_scales;
 
 	/* postscript names table */
 	TT_Post_Names postscript_names;
@@ -1453,24 +1453,24 @@ typedef struct  TT_FaceRec_
 
 	/* the glyph locations */
 	FT_UShort num_locations;
-	FT_Long*           glyph_locations;
+	FT_Long           *glyph_locations;
 
 	/* the font program, if any */
 	FT_ULong font_program_size;
-	FT_Byte*           font_program;
+	FT_Byte           *font_program;
 
 	/* the cvt program, if any */
 	FT_ULong cvt_program_size;
-	FT_Byte*           cvt_program;
+	FT_Byte           *cvt_program;
 
 	/* the original, unscaled, control value table */
 	FT_ULong cvt_size;
-	FT_Short*          cvt;
+	FT_Short          *cvt;
 
 	/* the format 0 kerning table, if any */
 	FT_Int num_kern_pairs;
 	FT_Int kern_table_index;
-	TT_Kern_0_Pair*    kern_pairs;
+	TT_Kern_0_Pair    *kern_pairs;
 
 	/* A pointer to the bytecode interpreter to use.  This is also */
 	/* used to hook the debugger for the `ttdebug' utility.        */
@@ -1526,17 +1526,17 @@ typedef struct  TT_GlyphZone_
 	FT_UShort n_points;     /* number of points in zone    */
 	FT_Short n_contours;    /* number of contours          */
 
-	FT_Vector*  org;        /* original point coordinates  */
-	FT_Vector*  cur;        /* current point coordinates   */
+	FT_Vector  *org;        /* original point coordinates  */
+	FT_Vector  *cur;        /* current point coordinates   */
 
-	FT_Byte*    tags;       /* current touch flags         */
-	FT_UShort*  contours;   /* contour end points          */
+	FT_Byte    *tags;       /* current touch flags         */
+	FT_UShort  *contours;   /* contour end points          */
 
 } TT_GlyphZone;
 
 
 /* handle to execution context */
-typedef struct TT_ExecContextRec_*  TT_ExecContext;
+typedef struct TT_ExecContextRec_  *TT_ExecContext;
 
 /* glyph loader structure */
 struct  TT_Loader_
@@ -1544,7 +1544,7 @@ struct  TT_Loader_
 	FT_Face face;
 	FT_Size size;
 	FT_GlyphSlot glyph;
-	FT_GlyphLoader*  gloader;
+	FT_GlyphLoader  *gloader;
 
 	FT_ULong load_flags;
 	FT_UInt glyph_index;
@@ -1567,11 +1567,11 @@ struct  TT_Loader_
 	TT_GlyphZone zone;
 
 	TT_ExecContext exec;
-	FT_Byte*         instructions;
+	FT_Byte         *instructions;
 	FT_ULong ins_pos;
 
 	/* for possible extensibility in other formats */
-	void*            other;
+	void            *other;
 
 };
 

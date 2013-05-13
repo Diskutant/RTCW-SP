@@ -27,24 +27,24 @@
 /*************************************************************************/
 
 
-typedef struct FT_MemoryRec_*  FT_Memory;
+typedef struct FT_MemoryRec_  *FT_Memory;
 
 
-typedef void*  ( *FT_Alloc_Func )( FT_Memory memory,
-								   long size );
+typedef void  *(*FT_Alloc_Func)(FT_Memory memory,
+                                long size);
 
-typedef void ( *FT_Free_Func )( FT_Memory memory,
-								void*      block );
+typedef void (*FT_Free_Func)(FT_Memory memory,
+                             void      *block);
 
-typedef void*  ( *FT_Realloc_Func )( FT_Memory memory,
-									 long cur_size,
-									 long new_size,
-									 void*      block );
+typedef void  *(*FT_Realloc_Func)(FT_Memory memory,
+                                  long cur_size,
+                                  long new_size,
+                                  void      *block);
 
 
 struct FT_MemoryRec_
 {
-	void*            user;
+	void            *user;
 	FT_Alloc_Func alloc;
 	FT_Free_Func free;
 	FT_Realloc_Func realloc;
@@ -61,37 +61,37 @@ struct FT_MemoryRec_
 typedef union  FT_StreamDesc_
 {
 	long value;
-	void*  pointer;
+	void  *pointer;
 
 } FT_StreamDesc;
 
 
-typedef struct FT_StreamRec_*  FT_Stream;
+typedef struct FT_StreamRec_  *FT_Stream;
 
 
-typedef unsigned long ( *FT_Stream_IO )( FT_Stream stream,
-										 unsigned long offset,
-										 unsigned char*  buffer,
-										 unsigned long count );
+typedef unsigned long(*FT_Stream_IO)(FT_Stream stream,
+                                     unsigned long offset,
+                                     unsigned char  *buffer,
+                                     unsigned long count);
 
-typedef void ( *FT_Stream_Close )( FT_Stream stream );
+typedef void (*FT_Stream_Close)(FT_Stream stream);
 
 
 struct  FT_StreamRec_
 {
-	unsigned char*   base;
+	unsigned char   *base;
 	unsigned long size;
 	unsigned long pos;
 
 	FT_StreamDesc descriptor;
 	FT_StreamDesc pathname;       /* ignored by FreeType -- */
-								  /* useful for debugging   */
+	/* useful for debugging   */
 	FT_Stream_IO read;
 	FT_Stream_Close close;
 
 	FT_Memory memory;
-	unsigned char*   cursor;
-	unsigned char*   limit;
+	unsigned char   *cursor;
+	unsigned char   *limit;
 };
 
 

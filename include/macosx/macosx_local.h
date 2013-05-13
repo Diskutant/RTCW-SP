@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -46,57 +46,58 @@ extern "C" {
 #include <OpenGL/CGLTypes.h>
 
 // In macosx_input.m
-extern void Sys_InitInput( void );
-extern void Sys_ShutdownInput( void );
-extern void Sys_SetMouseInputRect( CGRect newRect );
-extern CGDirectDisplayID Sys_DisplayToUse( void );
+	extern void Sys_InitInput(void);
+	extern void Sys_ShutdownInput(void);
+	extern void Sys_SetMouseInputRect(CGRect newRect);
+	extern CGDirectDisplayID Sys_DisplayToUse(void);
 
 // In macosx_sys.m
-extern void Sys_QueEvent( int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr );
-extern void Sys_AnnoyingBanner();
+	extern void Sys_QueEvent(int time, sysEventType_t type, int value, int value2, int ptrLength, void *ptr);
+	extern void Sys_AnnoyingBanner();
 
 // In macosx_glimp.m
-extern qboolean Sys_IsHidden;
-extern qboolean Sys_Hide();
-extern qboolean Sys_Unhide();
+	extern qboolean Sys_IsHidden;
+	extern qboolean Sys_Hide();
+	extern qboolean Sys_Unhide();
 
-typedef struct {
-	CGDirectDisplayID display;
-	CGTableCount tableSize;
-	CGGammaValue     *red;
-	CGGammaValue     *blue;
-	CGGammaValue     *green;
-} glwgamma_t;
+	typedef struct
+	{
+		CGDirectDisplayID display;
+		CGTableCount tableSize;
+		CGGammaValue     *red;
+		CGGammaValue     *blue;
+		CGGammaValue     *green;
+	} glwgamma_t;
 
-typedef struct
-{
-	CGDirectDisplayID display;
-	NSDictionary         *desktopMode;
-	NSDictionary         *gameMode;
+	typedef struct
+	{
+		CGDirectDisplayID display;
+		NSDictionary         *desktopMode;
+		NSDictionary         *gameMode;
 
-	CGDisplayCount displayCount;
-	glwgamma_t           *originalDisplayGammaTables;
-	glwgamma_t inGameTable;
-	glwgamma_t tempTable;
+		CGDisplayCount displayCount;
+		glwgamma_t           *originalDisplayGammaTables;
+		glwgamma_t inGameTable;
+		glwgamma_t tempTable;
 
-	NSOpenGLContext      *_ctx;
-	CGLContextObj _cgl_ctx;
-	qboolean _ctx_is_current;
-	NSWindow             *window;
+		NSOpenGLContext      *_ctx;
+		CGLContextObj _cgl_ctx;
+		qboolean _ctx_is_current;
+		NSWindow             *window;
 
-	FILE                 *log_fp;
+		FILE                 *log_fp;
 
-	unsigned int bufferSwapCount;
-	unsigned int glPauseCount;
-} glwstate_t;
+		unsigned int bufferSwapCount;
+		unsigned int glPauseCount;
+	} glwstate_t;
 
-extern glwstate_t glw_state;
+	extern glwstate_t glw_state;
 
-#define OSX_SetGLContext( context )	\
+#define OSX_SetGLContext( context ) \
 	do { \
 		NSOpenGLContext *_context = ( context ); \
 		glw_state._ctx = _context; \
-		glw_state._cgl_ctx = [_context cglContext];	\
+		glw_state._cgl_ctx = [_context cglContext]; \
 	} while ( 0 )
 
 #define OSX_GetNSGLContext() glw_state._ctx
@@ -109,21 +110,21 @@ extern glwstate_t glw_state;
 		glw_state._ctx_is_current = ( glw_state._ctx != nil ); \
 	} while ( 0 )
 
-#define OSX_GLContextClearCurrent()	\
+#define OSX_GLContextClearCurrent() \
 	do { \
 		[NSOpenGLContext clearCurrentContext]; \
-		glw_state._ctx_is_current = NO;	\
+		glw_state._ctx_is_current = NO; \
 	} while ( 0 )
 
 
-extern void Sys_PauseGL();
-extern void Sys_ResumeGL();
+	extern void Sys_PauseGL();
+	extern void Sys_ResumeGL();
 
 
 #import "macosx_timers.h"
 
 #ifdef OMNI_TIMER
-extern OTStampList glThreadStampList;
+	extern OTStampList glThreadStampList;
 #define GLSTAMP( name, data ) OTStampListAddStamp( glThreadStampList, name, data )
 #else
 #define GLSTAMP( name, data )

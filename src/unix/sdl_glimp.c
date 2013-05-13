@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -60,11 +60,11 @@ glwstate_t glw_state;
 static SDL_Surface         *screen    = NULL;
 static const SDL_VideoInfo *videoInfo = NULL;
 
-void(APIENTRYP qglActiveTextureARB) (GLenum texture);
-void(APIENTRYP qglClientActiveTextureARB) (GLenum texture);
-void(APIENTRYP qglMultiTexCoord2fARB) (GLenum target, GLfloat s, GLfloat t);
-void(APIENTRYP qglLockArraysEXT) (GLint first, GLsizei count);
-void(APIENTRYP qglUnlockArraysEXT) (void);
+void(APIENTRYP qglActiveTextureARB)(GLenum texture);
+void(APIENTRYP qglClientActiveTextureARB)(GLenum texture);
+void(APIENTRYP qglMultiTexCoord2fARB)(GLenum target, GLfloat s, GLfloat t);
+void(APIENTRYP qglLockArraysEXT)(GLint first, GLsizei count);
+void(APIENTRYP qglUnlockArraysEXT)(void);
 
 extern void IN_Init(void);
 extern void IN_Shutdown(void);
@@ -78,75 +78,96 @@ typedef enum
 	RSERR_UNKNOWN
 } rserr_t;
 
-char *Q_stristr( char *s, char *find ) {
+char *Q_stristr(char *s, char *find)
+{
 	register char c, sc;
 	register size_t len;
 
-	if ( ( c = *find++ ) != 0 ) {
-		if ( c >= 'a' && c <= 'z' ) {
-			c -= ( 'a' - 'A' );
+	if((c = *find++) != 0)
+	{
+		if(c >= 'a' && c <= 'z')
+		{
+			c -= ('a' - 'A');
 		}
-		len = strlen( find );
+
+		len = strlen(find);
+
 		do
 		{
 			do
 			{
-				if ( ( sc = *s++ ) == 0 ) {
+				if((sc = *s++) == 0)
+				{
 					return NULL;
 				}
-				if ( sc >= 'a' && sc <= 'z' ) {
-					sc -= ( 'a' - 'A' );
+
+				if(sc >= 'a' && sc <= 'z')
+				{
+					sc -= ('a' - 'A');
 				}
-			} while ( sc != c );
-		} while ( Q_stricmpn( s, find, len ) != 0 );
+			}
+			while(sc != c);
+		}
+		while(Q_stricmpn(s, find, len) != 0);
+
 		s--;
 	}
+
 	return s;
 }
 
-static void install_grabs( void ) {
+static void install_grabs(void)
+{
 }
-static void uninstall_grabs( void ) {
+static void uninstall_grabs(void)
+{
 }
-static void HandleEvents( void ) {
+static void HandleEvents(void)
+{
 }
 static qboolean signalcaught = qfalse;;
 
-void Sys_Exit( int );
+void Sys_Exit(int);
 
-static void signal_handler( int sig ) {
-	if ( signalcaught ) {
-		printf( "DOUBLE SIGNAL FAULT: Received signal %d, exiting...\n", sig );
-		Sys_Exit( 1 );
+static void signal_handler(int sig)
+{
+	if(signalcaught)
+	{
+		printf("DOUBLE SIGNAL FAULT: Received signal %d, exiting...\n", sig);
+		Sys_Exit(1);
 	}
+
 	signalcaught = qtrue;
-	printf( "Received signal %d, exiting...\n", sig );
+	printf("Received signal %d, exiting...\n", sig);
 	GLimp_Shutdown();
-	Sys_Exit( 0 );
+	Sys_Exit(0);
 }
 
-static void InitSig( void ) {
-	signal( SIGHUP, signal_handler );
-	signal( SIGQUIT, signal_handler );
-	signal( SIGILL, signal_handler );
-	signal( SIGTRAP, signal_handler );
-	signal( SIGIOT, signal_handler );
-	signal( SIGBUS, signal_handler );
-	signal( SIGFPE, signal_handler );
-	signal( SIGSEGV, signal_handler );
-	signal( SIGTERM, signal_handler );
+static void InitSig(void)
+{
+	signal(SIGHUP, signal_handler);
+	signal(SIGQUIT, signal_handler);
+	signal(SIGILL, signal_handler);
+	signal(SIGTRAP, signal_handler);
+	signal(SIGIOT, signal_handler);
+	signal(SIGBUS, signal_handler);
+	signal(SIGFPE, signal_handler);
+	signal(SIGSEGV, signal_handler);
+	signal(SIGTERM, signal_handler);
 }
 
-void GLimp_Shutdown( void ) {
+void GLimp_Shutdown(void)
+{
 	IN_Shutdown();
 	SDL_QuitSubSystem(SDL_INIT_VIDEO);
-        screen = NULL;
+	screen = NULL;
 
-	memset( &glConfig, 0, sizeof( glConfig ) );
-	memset( &glState, 0, sizeof( glState ) );
+	memset(&glConfig, 0, sizeof(glConfig));
+	memset(&glState, 0, sizeof(glState));
 }
 
-void GLimp_LogComment( char *comment ) {
+void GLimp_LogComment(char *comment)
+{
 }
 
 int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
@@ -160,7 +181,7 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 
 	ri.Printf(PRINT_ALL, "Initializing OpenGL display\n");
 
-	if (videoInfo == NULL)
+	if(videoInfo == NULL)
 	{
 		static SDL_VideoInfo   sVideoInfo;
 		static SDL_PixelFormat sPixelFormat;
@@ -175,10 +196,10 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 		videoInfo       = &sVideoInfo;
 	}
 
-	if (mode == -2)
+	if(mode == -2)
 	{
 		// use desktop video resolution
-		if (videoInfo->current_h > 0)
+		if(videoInfo->current_h > 0)
 		{
 			glConfig.vidWidth  = videoInfo->current_w;
 			glConfig.vidHeight = videoInfo->current_h;
@@ -193,21 +214,22 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 
 		glConfig.windowAspect = (float)glConfig.vidWidth / (float)glConfig.vidHeight;
 	}
-	else if (!R_GetModeInfo(&glConfig.vidWidth, &glConfig.vidHeight, &glConfig.windowAspect, mode))
+	else if(!R_GetModeInfo(&glConfig.vidWidth, &glConfig.vidHeight, &glConfig.windowAspect, mode))
 	{
 		ri.Printf(PRINT_ALL, " invalid mode\n");
 		return RSERR_INVALID_MODE;
 	}
+
 	ri.Printf(PRINT_ALL, " %d %d\n", glConfig.vidWidth, glConfig.vidHeight);
 
-	if (fullscreen)
+	if(fullscreen)
 	{
 		flags                |= SDL_FULLSCREEN;
 		glConfig.isFullscreen = qtrue;
 	}
 	else
 	{
-		if (noborder)
+		if(noborder)
 		{
 			flags |= SDL_NOFRAME;
 		}
@@ -216,12 +238,13 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 	}
 
 	colorbits = r_colorbits->value;
-	if ((!colorbits) || (colorbits >= 32))
+
+	if((!colorbits) || (colorbits >= 32))
 	{
 		colorbits = 24;
 	}
 
-	if (!r_depthbits->value)
+	if(!r_depthbits->value)
 	{
 		depthbits = 24;
 	}
@@ -229,44 +252,50 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 	{
 		depthbits = r_depthbits->value;
 	}
+
 	stencilbits = r_stencilbits->value;
 //	samples     = r_ext_multisample->value;
 
-	for (i = 0; i < 16; i++)
+	for(i = 0; i < 16; i++)
 	{
 		// 0 - default
 		// 1 - minus colorbits
 		// 2 - minus depthbits
 		// 3 - minus stencil
-		if ((i % 4) == 0 && i)
+		if((i % 4) == 0 && i)
 		{
 			// one pass, reduce
-			switch (i / 4)
+			switch(i / 4)
 			{
-			case 2:
-				if (colorbits == 24)
-				{
-					colorbits = 16;
-				}
-				break;
-			case 1:
-				if (depthbits == 24)
-				{
-					depthbits = 16;
-				}
-				else if (depthbits == 16)
-				{
-					depthbits = 8;
-				}
-			case 3:
-				if (stencilbits == 24)
-				{
-					stencilbits = 16;
-				}
-				else if (stencilbits == 16)
-				{
-					stencilbits = 8;
-				}
+				case 2:
+
+					if(colorbits == 24)
+					{
+						colorbits = 16;
+					}
+
+					break;
+				case 1:
+
+					if(depthbits == 24)
+					{
+						depthbits = 16;
+					}
+					else if(depthbits == 16)
+					{
+						depthbits = 8;
+					}
+
+				case 3:
+
+					if(stencilbits == 24)
+					{
+						stencilbits = 16;
+					}
+					else if(stencilbits == 16)
+					{
+						stencilbits = 8;
+					}
 			}
 		}
 
@@ -274,33 +303,33 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 		tdepthbits   = depthbits;
 		tstencilbits = stencilbits;
 
-		if ((i % 4) == 3) // reduce colorbits
+		if((i % 4) == 3)  // reduce colorbits
 		{
-			if (tcolorbits == 24)
+			if(tcolorbits == 24)
 			{
 				tcolorbits = 16;
 			}
 		}
 
-		if ((i % 4) == 2) // reduce depthbits
+		if((i % 4) == 2)  // reduce depthbits
 		{
-			if (tdepthbits == 24)
+			if(tdepthbits == 24)
 			{
 				tdepthbits = 16;
 			}
-			else if (tdepthbits == 16)
+			else if(tdepthbits == 16)
 			{
 				tdepthbits = 8;
 			}
 		}
 
-		if ((i % 4) == 1) // reduce stencilbits
+		if((i % 4) == 1)  // reduce stencilbits
 		{
-			if (tstencilbits == 24)
+			if(tstencilbits == 24)
 			{
 				tstencilbits = 16;
 			}
-			else if (tstencilbits == 16)
+			else if(tstencilbits == 16)
 			{
 				tstencilbits = 8;
 			}
@@ -311,7 +340,8 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 		}
 
 		sdlcolorbits = 4;
-		if (tcolorbits == 24)
+
+		if(tcolorbits == 24)
 		{
 			sdlcolorbits = 8;
 		}
@@ -330,7 +360,7 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 		SDL_WM_SetCaption(WINDOW_CLASS_NAME, WINDOW_CLASS_NAME_MIN);
 		SDL_ShowCursor(0);
 
-		if (!(vidscreen = SDL_SetVideoMode(glConfig.vidWidth, glConfig.vidHeight, colorbits, flags)))
+		if(!(vidscreen = SDL_SetVideoMode(glConfig.vidWidth, glConfig.vidHeight, colorbits, flags)))
 			continue;
 
 		ri.Printf(PRINT_ALL, "Using %d/%d/%d Color bits, %d depth, %d stencil display.\n",
@@ -344,24 +374,25 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 
 //	GLimp_DetectAvailableModes();
 
-	if (!vidscreen)
+	if(!vidscreen)
 	{
 		ri.Printf(PRINT_ALL, "Couldn't get a visual\n");
 		return RSERR_INVALID_MODE;
 	}
-	screen = vidscreen;                                                                                   
+
+	screen = vidscreen;
 	return RSERR_OK;
 }
-	
+
 qboolean GLimp_StartDriverAndSetMode(int mode, qboolean fullscreen, qboolean noborder)
 {
 	rserr_t err;
 
-	if (!SDL_WasInit(SDL_INIT_VIDEO))
+	if(!SDL_WasInit(SDL_INIT_VIDEO))
 	{
 		char driverName[64];
 
-		if (SDL_Init(SDL_INIT_VIDEO) == -1)
+		if(SDL_Init(SDL_INIT_VIDEO) == -1)
 		{
 			ri.Printf(PRINT_ALL, "SDL_Init( SDL_INIT_VIDEO ) FAILED (%s)\n",
 			          SDL_GetError());
@@ -373,7 +404,7 @@ qboolean GLimp_StartDriverAndSetMode(int mode, qboolean fullscreen, qboolean nob
 		Cvar_Set("r_sdlDriver", driverName);
 	}
 
-	if (fullscreen && Cvar_VariableIntegerValue("in_nograb"))
+	if(fullscreen && Cvar_VariableIntegerValue("in_nograb"))
 	{
 		ri.Printf(PRINT_ALL, "Fullscreen not allowed with in_nograb 1\n");
 		ri.Cvar_Set("r_fullscreen", "0");
@@ -383,30 +414,31 @@ qboolean GLimp_StartDriverAndSetMode(int mode, qboolean fullscreen, qboolean nob
 
 	err = GLimp_SetMode(mode, fullscreen, noborder);
 
-	switch (err)
+	switch(err)
 	{
-	case RSERR_INVALID_FULLSCREEN:
-		ri.Printf(PRINT_ALL, "Fullscreen unavailable in mode: (%d)\n",mode);
-		return qfalse;
-	case RSERR_INVALID_MODE:
-		ri.Printf(PRINT_ALL, "WARNING: could not set mode: (%d)\n", mode);
-		return qfalse;
-	default:
-		ri.Printf(PRINT_ALL, "Set video mode: (%d)\n", mode);
-		break;
+		case RSERR_INVALID_FULLSCREEN:
+			ri.Printf(PRINT_ALL, "Fullscreen unavailable in mode: (%d)\n", mode);
+			return qfalse;
+		case RSERR_INVALID_MODE:
+			ri.Printf(PRINT_ALL, "WARNING: could not set mode: (%d)\n", mode);
+			return qfalse;
+		default:
+			ri.Printf(PRINT_ALL, "Set video mode: (%d)\n", mode);
+			break;
 	}
 
 	return qtrue;
 }
 
-qboolean GLimp_HaveExtension( char *ext )
+qboolean GLimp_HaveExtension(char *ext)
 {
 	char *ptr = Q_stristr(glConfig.extensions_string, ext);
 
-	if (ptr == NULL)
+	if(ptr == NULL)
 	{
 		return qfalse;
 	}
+
 	ptr += strlen(ext);
 	return ((*ptr == ' ') || (*ptr == '\0'));
 }
@@ -416,11 +448,11 @@ static void GLimp_InitExtensions(void)
 
 	glConfig.textureCompression = TC_NONE;
 
-	if (glConfig.textureCompression == TC_NONE)
+	if(glConfig.textureCompression == TC_NONE)
 	{
-		if (GLimp_HaveExtension("GL_S3_s3tc"))
+		if(GLimp_HaveExtension("GL_S3_s3tc"))
 		{
-			if (r_ext_compressed_textures->value)
+			if(r_ext_compressed_textures->value)
 			{
 				glConfig.textureCompression = TC_S3TC;
 				ri.Printf(PRINT_ALL, "...using GL_S3_s3tc\n");
@@ -437,9 +469,10 @@ static void GLimp_InitExtensions(void)
 	}
 
 	glConfig.textureEnvAddAvailable = qfalse;
-	if (GLimp_HaveExtension("EXT_texture_env_add"))
+
+	if(GLimp_HaveExtension("EXT_texture_env_add"))
 	{
-		if (r_ext_texture_env_add->integer)
+		if(r_ext_texture_env_add->integer)
 		{
 			glConfig.textureEnvAddAvailable = qtrue;
 			ri.Printf(PRINT_ALL, "...using GL_EXT_texture_env_add\n");
@@ -458,20 +491,22 @@ static void GLimp_InitExtensions(void)
 	qglMultiTexCoord2fARB     = NULL;
 	qglActiveTextureARB       = NULL;
 	qglClientActiveTextureARB = NULL;
-	if (GLimp_HaveExtension("GL_ARB_multitexture"))
+
+	if(GLimp_HaveExtension("GL_ARB_multitexture"))
 	{
-		if (r_ext_multitexture->value)
+		if(r_ext_multitexture->value)
 		{
 			qglMultiTexCoord2fARB     = SDL_GL_GetProcAddress("glMultiTexCoord2fARB");
 			qglActiveTextureARB       = SDL_GL_GetProcAddress("glActiveTextureARB");
 			qglClientActiveTextureARB = SDL_GL_GetProcAddress("glClientActiveTextureARB");
 
-			if (qglActiveTextureARB)
+			if(qglActiveTextureARB)
 			{
 				GLint glint = 0;
 				qglGetIntegerv(GL_MAX_TEXTURE_UNITS_ARB, &glint);
 				glConfig.maxActiveTextures = (int) glint;
-				if (glConfig.maxActiveTextures > 1)
+
+				if(glConfig.maxActiveTextures > 1)
 				{
 					ri.Printf(PRINT_ALL, "...using GL_ARB_multitexture\n");
 				}
@@ -495,14 +530,15 @@ static void GLimp_InitExtensions(void)
 	}
 
 	// GL_EXT_compiled_vertex_array
-	if (GLimp_HaveExtension("GL_EXT_compiled_vertex_array"))
+	if(GLimp_HaveExtension("GL_EXT_compiled_vertex_array"))
 	{
-		if (r_ext_compiled_vertex_array->value)
+		if(r_ext_compiled_vertex_array->value)
 		{
 			ri.Printf(PRINT_ALL, "...using GL_EXT_compiled_vertex_array\n");
 			qglLockArraysEXT   = (void (APIENTRY *)(GLint, GLint))SDL_GL_GetProcAddress("glLockArraysEXT");
 			qglUnlockArraysEXT = (void (APIENTRY *)(void))SDL_GL_GetProcAddress("glUnlockArraysEXT");
-			if (!qglLockArraysEXT || !qglUnlockArraysEXT)
+
+			if(!qglLockArraysEXT || !qglUnlockArraysEXT)
 			{
 				ri.Error(ERR_FATAL, "bad getprocaddress\n");
 			}
@@ -520,21 +556,24 @@ static void GLimp_InitExtensions(void)
 }
 
 
-void GLimp_Init( void ) {
+void GLimp_Init(void)
+{
 
-	if( !GLimp_StartDriverAndSetMode( r_mode->integer, r_fullscreen->integer , qfalse) )
-		ri.Error( ERR_FATAL, "GLimp_Init() - could not load OpenGL subsystem\n" );
-	
+	if(!GLimp_StartDriverAndSetMode(r_mode->integer, r_fullscreen->integer , qfalse))
+		ri.Error(ERR_FATAL, "GLimp_Init() - could not load OpenGL subsystem\n");
+
 	glConfig.deviceSupportsGamma = SDL_SetGamma(1.0f, 1.0f, 1.0f) >= 0;
 	Q_strncpyz(glConfig.vendor_string, (char *) qglGetString(GL_VENDOR), sizeof(glConfig.vendor_string));
 	Q_strncpyz(glConfig.renderer_string, (char *) qglGetString(GL_RENDERER), sizeof(glConfig.renderer_string));
-	if (*glConfig.renderer_string && glConfig.renderer_string[strlen(glConfig.renderer_string) - 1] == '\n')
+
+	if(*glConfig.renderer_string && glConfig.renderer_string[strlen(glConfig.renderer_string) - 1] == '\n')
 	{
 		glConfig.renderer_string[strlen(glConfig.renderer_string) - 1] = 0;
 	}
+
 	Q_strncpyz(glConfig.version_string, (char *) qglGetString(GL_VERSION), sizeof(glConfig.version_string));
 	glConfig.extensions_string = (char *)qglGetString(GL_EXTENSIONS);
-	
+
 	GLimp_InitExtensions();
 	glConfig.stereoEnabled = qfalse;
 	IN_Init();
@@ -544,23 +583,27 @@ void GLimp_Init( void ) {
 /*
 Responsible for doing a swapbuffers and possibly for other stuff
 */
-void GLimp_EndFrame( void ) {
+void GLimp_EndFrame(void)
+{
 	// don't flip if drawing to front buffer
-	if (Q_stricmp(r_drawBuffer->string, "GL_FRONT") != 0)
-	
+	if(Q_stricmp(r_drawBuffer->string, "GL_FRONT") != 0)
+
 		SDL_GL_SwapBuffers();
 }
 /* SINGLE CPU*/
-void GLimp_RenderThreadWrapper( void *stub ) {}
-qboolean GLimp_SpawnRenderThread( void ( *function )( void ) ) {
+void GLimp_RenderThreadWrapper(void *stub) {}
+qboolean GLimp_SpawnRenderThread(void (*function)(void))
+{
 	return qfalse;
 }
-void *GLimp_RendererSleep( void ) {
+void *GLimp_RendererSleep(void)
+{
 	return NULL;
 }
-void GLimp_FrontEndSleep( void ) {}
-void GLimp_WakeRenderer( void *data ) {}
+void GLimp_FrontEndSleep(void) {}
+void GLimp_WakeRenderer(void *data) {}
 
-void Sys_SendKeyEvents( void ) {
+void Sys_SendKeyEvents(void)
+{
 //	IN_ProcessEvents( ); //now part of SDL_input.c
 }

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -33,20 +33,22 @@ If you have questions concerning this license or the applicable additional terms
 
 
 //	(SA) DM needs more than 256 since this includes func_static and func_explosives
-//#define	MAX_SUBMODELS		256
-//#define	BOX_MODEL_HANDLE	255
+//#define   MAX_SUBMODELS       256
+//#define   BOX_MODEL_HANDLE    255
 
 #define MAX_SUBMODELS           512
 #define BOX_MODEL_HANDLE        511
 #define CAPSULE_MODEL_HANDLE    510
 
 
-typedef struct {
+typedef struct
+{
 	cplane_t    *plane;
 	int children[2];                // negative numbers are leafs
 } cNode_t;
 
-typedef struct {
+typedef struct
+{
 	int cluster;
 	int area;
 
@@ -57,18 +59,21 @@ typedef struct {
 	int numLeafSurfaces;
 } cLeaf_t;
 
-typedef struct cmodel_s {
+typedef struct cmodel_s
+{
 	vec3_t mins, maxs;
 	cLeaf_t leaf;               // submodels don't reference the main tree
 } cmodel_t;
 
-typedef struct {
+typedef struct
+{
 	cplane_t    *plane;
 	int surfaceFlags;
 	int shaderNum;
 } cbrushside_t;
 
-typedef struct {
+typedef struct
+{
 	int shaderNum;              // the shader that determined the contents
 	int contents;
 	vec3_t bounds[2];
@@ -78,7 +83,8 @@ typedef struct {
 } cbrush_t;
 
 
-typedef struct {
+typedef struct
+{
 	int checkcount;                     // to avoid repeated testings
 	int surfaceFlags;
 	int contents;
@@ -86,12 +92,14 @@ typedef struct {
 } cPatch_t;
 
 
-typedef struct {
+typedef struct
+{
 	int floodnum;
 	int floodvalid;
 } cArea_t;
 
-typedef struct {
+typedef struct
+{
 	char name[MAX_QPATH];
 
 	int numShaders;
@@ -163,7 +171,8 @@ typedef struct
 	vec3_t offset;
 } sphere_t;
 
-typedef struct {
+typedef struct
+{
 	vec3_t start;
 	vec3_t end;
 	vec3_t size[2];         // size of the box being swept through the model
@@ -178,29 +187,30 @@ typedef struct {
 	sphere_t sphere;        // sphere for oriendted capsule collision
 } traceWork_t;
 
-typedef struct leafList_s {
+typedef struct leafList_s
+{
 	int count;
 	int maxcount;
 	qboolean overflowed;
 	int     *list;
 	vec3_t bounds[2];
 	int lastLeaf;           // for overflows where each leaf can't be stored individually
-	void ( *storeLeafs )( struct leafList_s *ll, int nodenum );
+	void (*storeLeafs)(struct leafList_s *ll, int nodenum);
 } leafList_t;
 
 
-int CM_BoxBrushes( const vec3_t mins, const vec3_t maxs, cbrush_t **list, int listsize );
+int CM_BoxBrushes(const vec3_t mins, const vec3_t maxs, cbrush_t **list, int listsize);
 
-void CM_StoreLeafs( leafList_t *ll, int nodenum );
-void CM_StoreBrushes( leafList_t *ll, int nodenum );
+void CM_StoreLeafs(leafList_t *ll, int nodenum);
+void CM_StoreBrushes(leafList_t *ll, int nodenum);
 
-void CM_BoxLeafnums_r( leafList_t *ll, int nodenum );
+void CM_BoxLeafnums_r(leafList_t *ll, int nodenum);
 
-cmodel_t    *CM_ClipHandleToModel( clipHandle_t handle );
+cmodel_t    *CM_ClipHandleToModel(clipHandle_t handle);
 
 // cm_patch.c
 
-struct patchCollide_s   *CM_GeneratePatchCollide( int width, int height, vec3_t *points );
-void CM_TraceThroughPatchCollide( traceWork_t *tw, const struct patchCollide_s *pc );
-qboolean CM_PositionTestInPatchCollide( traceWork_t *tw, const struct patchCollide_s *pc );
-void CM_ClearLevelPatches( void );
+struct patchCollide_s   *CM_GeneratePatchCollide(int width, int height, vec3_t *points);
+void CM_TraceThroughPatchCollide(traceWork_t *tw, const struct patchCollide_s *pc);
+qboolean CM_PositionTestInPatchCollide(traceWork_t *tw, const struct patchCollide_s *pc);
+void CM_ClearLevelPatches(void);

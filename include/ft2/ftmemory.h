@@ -51,17 +51,17 @@
 /*************************************************************************/
 /*************************************************************************/
 
-BASE_DEF( FT_Error )  FT_Alloc( FT_Memory memory,
-								FT_Long size,
-								void**     P );
+BASE_DEF(FT_Error)  FT_Alloc(FT_Memory memory,
+                             FT_Long size,
+                             void     **P);
 
-BASE_DEF( FT_Error )  FT_Realloc( FT_Memory memory,
-								  FT_Long current,
-								  FT_Long size,
-								  void**     P );
+BASE_DEF(FT_Error)  FT_Realloc(FT_Memory memory,
+                               FT_Long current,
+                               FT_Long size,
+                               void     **P);
 
-BASE_DEF( void )  FT_Free( FT_Memory memory,
-						   void**     P );
+BASE_DEF(void)  FT_Free(FT_Memory memory,
+                        void     **P);
 
 
 
@@ -89,34 +89,34 @@ BASE_DEF( void )  FT_Free( FT_Memory memory,
 /* ALLOC_ARRAY() now use an implicit variable, `memory'.  It must be     */
 /* defined at all locations where a memory operation is queried.         */
 /*                                                                       */
-#define MEM_Alloc( _pointer_, _size_ )					   \
+#define MEM_Alloc( _pointer_, _size_ )                     \
 	FT_Alloc( memory, _size_, (void**)&( _pointer_ ) )
 
-#define MEM_Alloc_Array( _pointer_, _count_, _type_ )	 \
+#define MEM_Alloc_Array( _pointer_, _count_, _type_ )    \
 	FT_Alloc( memory, ( _count_ ) * sizeof( _type_ ), \
-			  (void**)&( _pointer_ ) )
+	          (void**)&( _pointer_ ) )
 
-#define MEM_Realloc( _pointer_, _current_, _size_ )						\
+#define MEM_Realloc( _pointer_, _current_, _size_ )                     \
 	FT_Realloc( memory, _current_, _size_, (void**)&( _pointer_ ) )
 
-#define MEM_Realloc_Array( _pointer_, _current_, _new_, _type_ )		\
-	FT_Realloc( memory, ( _current_ ) * sizeof( _type_ ),			 \
-				( _new_ ) * sizeof( _type_ ), (void**)&( _pointer_ ) )
+#define MEM_Realloc_Array( _pointer_, _current_, _new_, _type_ )        \
+	FT_Realloc( memory, ( _current_ ) * sizeof( _type_ ),            \
+	            ( _new_ ) * sizeof( _type_ ), (void**)&( _pointer_ ) )
 
-#define ALLOC( _pointer_, _size_ )						 \
+#define ALLOC( _pointer_, _size_ )                       \
 	FT_SET_ERROR( MEM_Alloc( _pointer_, _size_ ) )
 
-#define REALLOC( _pointer_, _current_, _size_ )						  \
+#define REALLOC( _pointer_, _current_, _size_ )                       \
 	FT_SET_ERROR( MEM_Realloc( _pointer_, _current_, _size_ ) )
 
-#define ALLOC_ARRAY( _pointer_, _count_, _type_ )		\
-	FT_SET_ERROR( MEM_Alloc( _pointer_,			  \
-							 ( _count_ ) * sizeof( _type_ ) ) )
+#define ALLOC_ARRAY( _pointer_, _count_, _type_ )       \
+	FT_SET_ERROR( MEM_Alloc( _pointer_,           \
+	                         ( _count_ ) * sizeof( _type_ ) ) )
 
 #define REALLOC_ARRAY( _pointer_, _current_, _count_, _type_ ) \
-	FT_SET_ERROR( MEM_Realloc( _pointer_,				 \
-							   ( _current_ ) * sizeof( _type_ ),		 \
-							   ( _count_ ) * sizeof( _type_ ) ) )
+	FT_SET_ERROR( MEM_Realloc( _pointer_,                \
+	                           ( _current_ ) * sizeof( _type_ ),         \
+	                           ( _count_ ) * sizeof( _type_ ) ) )
 
 #define FREE( _pointer_ )  FT_Free( memory, (void**)&( _pointer_ ) )
 

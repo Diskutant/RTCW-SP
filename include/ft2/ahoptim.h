@@ -40,8 +40,8 @@ typedef struct  AH_Stem_
 	FT_Pos min_pos;      /* minimum grid position */
 	FT_Pos max_pos;      /* maximum grid position */
 
-	AH_Edge*  edge1;     /* left/bottom edge */
-	AH_Edge*  edge2;     /* right/top edge   */
+	AH_Edge  *edge1;     /* left/bottom edge */
+	AH_Edge  *edge2;     /* right/top edge   */
 
 	FT_Pos opos;         /* original position */
 	FT_Pos owidth;       /* original width    */
@@ -55,8 +55,8 @@ typedef struct  AH_Stem_
 /* A spring between two stems */
 typedef struct  AH_Spring_
 {
-	AH_Stem*  stem1;
-	AH_Stem*  stem2;
+	AH_Stem  *stem1;
+	AH_Stem  *stem2;
 	FT_Pos owidth;      /* original width  */
 	FT_Pos tension;     /* current tension */
 
@@ -67,7 +67,7 @@ typedef struct  AH_Spring_
 /* as well as the associated distortion                               */
 typedef struct AH_Configuration_
 {
-	FT_Pos*  positions;
+	FT_Pos  *positions;
 	FT_Long distortion;
 
 } AH_Configuration;
@@ -76,29 +76,29 @@ typedef struct AH_Configuration_
 typedef struct  AH_Optimizer_
 {
 	FT_Memory memory;
-	AH_Outline*       outline;
+	AH_Outline       *outline;
 
 	FT_Int num_hstems;
-	AH_Stem*          horz_stems;
+	AH_Stem          *horz_stems;
 
 	FT_Int num_vstems;
-	AH_Stem*          vert_stems;
+	AH_Stem          *vert_stems;
 
 	FT_Int num_hsprings;
 	FT_Int num_vsprings;
-	AH_Spring*        horz_springs;
-	AH_Spring*        vert_springs;
+	AH_Spring        *horz_springs;
+	AH_Spring        *vert_springs;
 
 	FT_Int num_configs;
 	AH_Configuration configs[AH_MAX_CONFIGS];
-	FT_Pos*           positions;
+	FT_Pos           *positions;
 
 	/* during each pass, use these instead */
 	FT_Int num_stems;
-	AH_Stem*          stems;
+	AH_Stem          *stems;
 
 	FT_Int num_springs;
-	AH_Spring*        springs;
+	AH_Spring        *springs;
 	FT_Bool vertical;
 
 	FT_Fixed tension_scale;
@@ -108,17 +108,17 @@ typedef struct  AH_Optimizer_
 
 
 /* loads the outline into the optimizer */
-int  AH_Optimizer_Init( AH_Optimizer*  optimizer,
-						AH_Outline*    outline,
-						FT_Memory memory );
+int  AH_Optimizer_Init(AH_Optimizer  *optimizer,
+                       AH_Outline    *outline,
+                       FT_Memory memory);
 
 
 /* compute optimal outline */
-void  AH_Optimizer_Compute( AH_Optimizer*  optimizer );
+void  AH_Optimizer_Compute(AH_Optimizer  *optimizer);
 
 
 /* release the optimization data */
-void AH_Optimizer_Done( AH_Optimizer*  optimizer );
+void AH_Optimizer_Done(AH_Optimizer  *optimizer);
 
 
 #endif /* AHOPTIM_H */

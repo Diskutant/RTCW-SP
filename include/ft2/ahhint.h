@@ -34,29 +34,29 @@
 
 
 /* create a new empty hinter object */
-FT_Error ah_hinter_new( FT_Library library,
-						AH_Hinter**  ahinter );
+FT_Error ah_hinter_new(FT_Library library,
+                       AH_Hinter  **ahinter);
 
 /* Load a hinted glyph in the hinter */
-FT_Error  ah_hinter_load_glyph( AH_Hinter*    hinter,
-								FT_GlyphSlot slot,
-								FT_Size size,
-								FT_UInt glyph_index,
-								FT_Int load_flags );
+FT_Error  ah_hinter_load_glyph(AH_Hinter    *hinter,
+                               FT_GlyphSlot slot,
+                               FT_Size size,
+                               FT_UInt glyph_index,
+                               FT_Int load_flags);
 
 /* finalize a hinter object */
-void  ah_hinter_done( AH_Hinter*  hinter );
+void  ah_hinter_done(AH_Hinter  *hinter);
 
 LOCAL_DEF
-void  ah_hinter_done_face_globals( AH_Face_Globals*  globals );
+void  ah_hinter_done_face_globals(AH_Face_Globals  *globals);
 
-void  ah_hinter_get_global_hints( AH_Hinter*  hinter,
-								  FT_Face face,
-								  void**      global_hints,
-								  long*       global_len );
+void  ah_hinter_get_global_hints(AH_Hinter  *hinter,
+                                 FT_Face face,
+                                 void      **global_hints,
+                                 long       *global_len);
 
-void  ah_hinter_done_global_hints( AH_Hinter*  hinter,
-								   void*       global_hints );
+void  ah_hinter_done_global_hints(AH_Hinter  *hinter,
+                                  void       *global_hints);
 
 
 #endif /* AHHINT_H */

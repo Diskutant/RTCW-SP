@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -114,13 +114,15 @@ If you have questions concerning this license or the applicable additional terms
 #define SLIDER_THUMB_HEIGHT 20.0
 #define NUM_CROSSHAIRS      10
 
-typedef struct {
+typedef struct
+{
 	const char *command;
 	const char *args[MAX_SCRIPT_ARGS];
 } scriptDef_t;
 
 
-typedef struct {
+typedef struct
+{
 	float x;    // horiz position
 	float y;    // vert position
 	float w;    // width
@@ -130,7 +132,8 @@ typedef struct {
 typedef rectDef_t Rectangle;
 
 // FIXME: do something to separate text vs window stuff
-typedef struct {
+typedef struct
+{
 	Rectangle rect;                 // client coord rectangle
 	Rectangle rectClient;           // screen coord rectangle
 	const char *name;               //
@@ -158,7 +161,8 @@ typedef struct {
 typedef windowDef_t Window;
 
 
-typedef struct {
+typedef struct
+{
 	vec4_t color;
 	int type;
 	float low;
@@ -177,13 +181,15 @@ typedef struct {
 //
 #define MAX_LB_COLUMNS 16
 
-typedef struct columnInfo_s {
+typedef struct columnInfo_s
+{
 	int pos;
 	int width;
 	int maxChars;
 } columnInfo_t;
 
-typedef struct listBoxDef_s {
+typedef struct listBoxDef_s
+{
 	int startPos;
 	int endPos;
 	int drawPadding;
@@ -197,8 +203,9 @@ typedef struct listBoxDef_s {
 	qboolean notselectable;
 } listBoxDef_t;
 
-typedef struct editFieldDef_s {
-	float minVal;                   //	edit field limits
+typedef struct editFieldDef_s
+{
+	float minVal;                   //  edit field limits
 	float maxVal;                   //
 	float defVal;                   //
 	float range;                    //
@@ -209,7 +216,8 @@ typedef struct editFieldDef_s {
 
 #define MAX_MULTI_CVARS 32
 
-typedef struct multiDef_s {
+typedef struct multiDef_s
+{
 	const char *cvarList[MAX_MULTI_CVARS];
 	const char *cvarStr[MAX_MULTI_CVARS];
 	float cvarValue[MAX_MULTI_CVARS];
@@ -217,7 +225,8 @@ typedef struct multiDef_s {
 	qboolean strDef;
 } multiDef_t;
 
-typedef struct modelDef_s {
+typedef struct modelDef_s
+{
 	int angle;
 	vec3_t origin;
 	float fov_x;
@@ -243,19 +252,20 @@ typedef struct modelDef_s {
 
 #define UI_MAX_TEXT_LINES 64
 
-typedef struct itemDef_s {
+typedef struct itemDef_s
+{
 	Window window;                  // common positional, border, style, layout info
 	Rectangle textRect;             // rectangle the text ( if any ) consumes
 	int type;                       // text, button, radiobutton, checkbox, textfield, listbox, combo
 	int alignment;                  // left center right
-	int font;                       //		//----(SA)	added
+	int font;                       //      //----(SA)  added
 	int textalignment;              // ( optional ) alignment for text within rect based on text width
 	float textalignx;               // ( optional ) text alignment x coord
 	float textaligny;               // ( optional ) text alignment x coord
 	float textscale;                // scale percentage from 72pts
 	int textStyle;                  // ( optional ) style, normal and shadowed are it for now
 	const char *text;               // display text
-	qboolean textSavegameInfo;      //----(SA)	added
+	qboolean textSavegameInfo;      //----(SA)  added
 	void *parent;                   // menu owner
 	qhandle_t asset;                // handle to asset
 	const char *mouseEnterText;     // mouse enter script
@@ -269,7 +279,7 @@ typedef struct itemDef_s {
 	const char *cvar;               // associated cvar
 	const char *cvarTest;           // associated cvar for enable actions
 	const char *enableCvar;         // enable, disable, show, or hide based on value, this can contain a list
-	int cvarFlags;                  //	what type of action to take on cvarenables
+	int cvarFlags;                  //  what type of action to take on cvarenables
 	sfxHandle_t focusSound;
 	int numColors;                  // number of color ranges
 	colorRangeDef_t colorRanges[MAX_COLOR_RANGES];
@@ -279,7 +289,8 @@ typedef struct itemDef_s {
 	void *typeData;                 // type specific data ptr's
 } itemDef_t;
 
-typedef struct {
+typedef struct
+{
 	Window window;
 	const char  *font;              // font
 	qboolean fullScreen;            // covers entire screen
@@ -294,14 +305,15 @@ typedef struct {
 	const char *onESC;              // run when the menu is closed
 	const char *onKey[255];         // NERVE - SMF - execs commands when a key is pressed
 	const char *soundName;          // background loop sound for menu
-	const char *onROQDone;          //----(SA)	added.  callback for roqs played from menus
+	const char *onROQDone;          //----(SA)  added.  callback for roqs played from menus
 
 	vec4_t focusColor;              // focus color for items
 	vec4_t disableColor;            // focus color for items
 	itemDef_t *items[MAX_MENUITEMS]; // items this menu contains
 } menuDef_t;
 
-typedef struct {
+typedef struct
+{
 	const char  *fontStr;
 	const char  *cursorStr;
 	const char  *gradientStr;
@@ -342,68 +354,70 @@ typedef struct {
 
 } cachedAssets_t;
 
-typedef struct {
+typedef struct
+{
 	const char *name;
-	void ( *handler )( itemDef_t *item, char** args );
+	void (*handler)(itemDef_t *item, char **args);
 } commandDef_t;
 
-typedef struct {
-	qhandle_t ( *registerShaderNoMip )( const char *p );
-	void ( *setColor )( const vec4_t v );
-	void ( *drawHandlePic )( float x, float y, float w, float h, qhandle_t asset );
-	void ( *drawStretchPic )( float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader );
-	void ( *drawText )( float x, float y, int font, float scale, vec4_t color, const char *text, float adjust, int limit, int style );
-	int ( *textWidth )( const char *text, int font, float scale, int limit );
-	int ( *textHeight )( const char *text, int font, float scale, int limit );
-	qhandle_t ( *registerModel )( const char *p );
-	void ( *modelBounds )( qhandle_t model, vec3_t min, vec3_t max );
-	void ( *fillRect )( float x, float y, float w, float h, const vec4_t color );
-	void ( *drawRect )( float x, float y, float w, float h, float size, const vec4_t color );
-	void ( *drawSides )( float x, float y, float w, float h, float size );
-	void ( *drawTopBottom )( float x, float y, float w, float h, float size );
-	void ( *clearScene )();
-	void ( *addRefEntityToScene )( const refEntity_t *re );
-	void ( *renderScene )( const refdef_t *fd );
-	void ( *registerFont )( const char *pFontname, int pointSize, fontInfo_t *font );
-	void ( *ownerDrawItem )( float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, int font, float scale, vec4_t color, qhandle_t shader, int textStyle );
-	float ( *getValue )( int ownerDraw, int type );
-	qboolean ( *ownerDrawVisible )( int flags );
-	void ( *runScript )( char **p );
-	void ( *getTeamColor )( vec4_t *color );
-	void ( *getCVarString )( const char *cvar, char *buffer, int bufsize );
-	float ( *getCVarValue )( const char *cvar );
-	void ( *setCVar )( const char *cvar, const char *value );
-	void ( *drawTextWithCursor )( float x, float y, int font, float scale, vec4_t color, const char *text, int cursorPos, char cursor, int limit, int style );
-	void ( *setOverstrikeMode )( qboolean b );
-	qboolean ( *getOverstrikeMode )();
-	void ( *startLocalSound )( sfxHandle_t sfx, int channelNum );
-	qboolean ( *ownerDrawHandleKey )( int ownerDraw, int flags, float *special, int key );
-	int ( *feederCount )( float feederID );
-	const char *( *feederItemText )( float feederID, int index, int column, qhandle_t * handle );
+typedef struct
+{
+	qhandle_t (*registerShaderNoMip)(const char *p);
+	void (*setColor)(const vec4_t v);
+	void (*drawHandlePic)(float x, float y, float w, float h, qhandle_t asset);
+	void (*drawStretchPic)(float x, float y, float w, float h, float s1, float t1, float s2, float t2, qhandle_t hShader);
+	void (*drawText)(float x, float y, int font, float scale, vec4_t color, const char *text, float adjust, int limit, int style);
+	int (*textWidth)(const char *text, int font, float scale, int limit);
+	int (*textHeight)(const char *text, int font, float scale, int limit);
+	qhandle_t (*registerModel)(const char *p);
+	void (*modelBounds)(qhandle_t model, vec3_t min, vec3_t max);
+	void (*fillRect)(float x, float y, float w, float h, const vec4_t color);
+	void (*drawRect)(float x, float y, float w, float h, float size, const vec4_t color);
+	void (*drawSides)(float x, float y, float w, float h, float size);
+	void (*drawTopBottom)(float x, float y, float w, float h, float size);
+	void (*clearScene)();
+	void (*addRefEntityToScene)(const refEntity_t *re);
+	void (*renderScene)(const refdef_t *fd);
+	void (*registerFont)(const char *pFontname, int pointSize, fontInfo_t *font);
+	void (*ownerDrawItem)(float x, float y, float w, float h, float text_x, float text_y, int ownerDraw, int ownerDrawFlags, int align, float special, int font, float scale, vec4_t color, qhandle_t shader, int textStyle);
+	float(*getValue)(int ownerDraw, int type);
+	qboolean(*ownerDrawVisible)(int flags);
+	void (*runScript)(char **p);
+	void (*getTeamColor)(vec4_t *color);
+	void (*getCVarString)(const char *cvar, char *buffer, int bufsize);
+	float(*getCVarValue)(const char *cvar);
+	void (*setCVar)(const char *cvar, const char *value);
+	void (*drawTextWithCursor)(float x, float y, int font, float scale, vec4_t color, const char *text, int cursorPos, char cursor, int limit, int style);
+	void (*setOverstrikeMode)(qboolean b);
+	qboolean(*getOverstrikeMode)();
+	void (*startLocalSound)(sfxHandle_t sfx, int channelNum);
+	qboolean(*ownerDrawHandleKey)(int ownerDraw, int flags, float *special, int key);
+	int (*feederCount)(float feederID);
+	const char *(*feederItemText)(float feederID, int index, int column, qhandle_t *handle);
 
-	const char *( *fileText )( char *flieName );    //----(SA)	added
-	const char *( *getTranslatedString )( const char *inString );   //----(SA)	added
+	const char *(*fileText)(char *flieName);        //----(SA)    added
+	const char *(*getTranslatedString)(const char *inString);       //----(SA)    added
 
-	qhandle_t ( *feederItemImage )( float feederID, int index );
-	void ( *feederSelection )( float feederID, int index );
-	void ( *feederAddItem )( float feederID, const char *name, int index );           // NERVE - SMF
+	qhandle_t (*feederItemImage)(float feederID, int index);
+	void (*feederSelection)(float feederID, int index);
+	void (*feederAddItem)(float feederID, const char *name, int index);               // NERVE - SMF
 
-	void ( *keynumToStringBuf )( int keynum, char *buf, int buflen );
-	void ( *getBindingBuf )( int keynum, char *buf, int buflen );
-	void ( *setBinding )( int keynum, const char *binding );
-	void ( *executeText )( int exec_when, const char *text );
-	void ( *Error )( int level, const char *error, ... );
-	void ( *Print )( const char *msg, ... );
-	void ( *Pause )( qboolean b );
-	int ( *ownerDrawWidth )( int ownerDraw, int font, float scale );
+	void (*keynumToStringBuf)(int keynum, char *buf, int buflen);
+	void (*getBindingBuf)(int keynum, char *buf, int buflen);
+	void (*setBinding)(int keynum, const char *binding);
+	void (*executeText)(int exec_when, const char *text);
+	void (*Error)(int level, const char *error, ...);
+	void (*Print)(const char *msg, ...);
+	void (*Pause)(qboolean b);
+	int (*ownerDrawWidth)(int ownerDraw, int font, float scale);
 //	sfxHandle_t (*registerSound)(const char *name, qboolean compressed);
-	sfxHandle_t ( *registerSound )( const char *name );
-	void ( *startBackgroundTrack )( const char *intro, const char *loop, int fadeupTime );
-	void ( *stopBackgroundTrack )();
-	int ( *playCinematic )( const char *name, float x, float y, float w, float h );
-	void ( *stopCinematic )( int handle );
-	void ( *drawCinematic )( int handle, float x, float y, float w, float h );
-	void ( *runCinematicFrame )( int handle );
+	sfxHandle_t (*registerSound)(const char *name);
+	void (*startBackgroundTrack)(const char *intro, const char *loop, int fadeupTime);
+	void (*stopBackgroundTrack)();
+	int (*playCinematic)(const char *name, float x, float y, float w, float h);
+	void (*stopCinematic)(int handle);
+	void (*drawCinematic)(int handle, float x, float y, float w, float h);
+	void (*runCinematicFrame)(int handle);
 
 	float yscale;
 	float xscale;
@@ -425,9 +439,10 @@ typedef struct {
 } displayContextDef_t;
 
 
-//----(SA)	added
+//----(SA)  added
 
-typedef struct {
+typedef struct
+{
 	char *name;
 	char *localname;
 } translateString_t;
@@ -435,71 +450,71 @@ typedef struct {
 #define MAX_TRANSLATESTRINGS 64
 extern translateString_t translateStrings[MAX_TRANSLATESTRINGS];
 
-//----(SA)	end
+//----(SA)  end
 
 
-const char *String_Alloc( const char *p );
+const char *String_Alloc(const char *p);
 void String_Init();
 void String_Report();
-void Init_Display( displayContextDef_t *dc );
-void Display_ExpandMacros( char * buff );
-void Menu_Init( menuDef_t *menu );
-void Item_Init( itemDef_t *item );
-void Menu_PostParse( menuDef_t *menu );
+void Init_Display(displayContextDef_t *dc);
+void Display_ExpandMacros(char *buff);
+void Menu_Init(menuDef_t *menu);
+void Item_Init(itemDef_t *item);
+void Menu_PostParse(menuDef_t *menu);
 menuDef_t *Menu_GetFocused();
-void Menu_HandleKey( menuDef_t *menu, int key, qboolean down );
-void Menu_HandleMouseMove( menuDef_t *menu, float x, float y );
-void Menu_ScrollFeeder( menuDef_t *menu, int feeder, qboolean down );
-qboolean Float_Parse( char **p, float *f );
-qboolean Color_Parse( char **p, vec4_t *c );
-qboolean Int_Parse( char **p, int *i );
-qboolean Rect_Parse( char **p, rectDef_t *r );
-qboolean String_Parse( char **p, const char **out );
-qboolean Script_Parse( char **p, const char **out );
-qboolean PC_Float_Parse( int handle, float *f );
-qboolean PC_Color_Parse( int handle, vec4_t *c );
-qboolean PC_Int_Parse( int handle, int *i );
-qboolean PC_Rect_Parse( int handle, rectDef_t *r );
-qboolean PC_String_Parse( int handle, const char **out );
-qboolean PC_Script_Parse( int handle, const char **out );
-qboolean PC_Char_Parse( int handle, char *out );              // NERVE - SMF
+void Menu_HandleKey(menuDef_t *menu, int key, qboolean down);
+void Menu_HandleMouseMove(menuDef_t *menu, float x, float y);
+void Menu_ScrollFeeder(menuDef_t *menu, int feeder, qboolean down);
+qboolean Float_Parse(char **p, float *f);
+qboolean Color_Parse(char **p, vec4_t *c);
+qboolean Int_Parse(char **p, int *i);
+qboolean Rect_Parse(char **p, rectDef_t *r);
+qboolean String_Parse(char **p, const char **out);
+qboolean Script_Parse(char **p, const char **out);
+qboolean PC_Float_Parse(int handle, float *f);
+qboolean PC_Color_Parse(int handle, vec4_t *c);
+qboolean PC_Int_Parse(int handle, int *i);
+qboolean PC_Rect_Parse(int handle, rectDef_t *r);
+qboolean PC_String_Parse(int handle, const char **out);
+qboolean PC_Script_Parse(int handle, const char **out);
+qboolean PC_Char_Parse(int handle, char *out);                // NERVE - SMF
 int Menu_Count();
-void Menu_New( int handle );
+void Menu_New(int handle);
 void Menu_PaintAll();
-menuDef_t *Menus_ActivateByName( const char *p );
+menuDef_t *Menus_ActivateByName(const char *p);
 void Menu_Reset();
 qboolean Menus_AnyFullScreenVisible();
-void  Menus_Activate( menuDef_t *menu );
+void  Menus_Activate(menuDef_t *menu);
 
 displayContextDef_t *Display_GetContext();
-void        *Display_CaptureItem( int x, int y );
-qboolean    Display_MouseMove( void *p, int x, int y );
-int         Display_CursorType( int x, int y );
+void        *Display_CaptureItem(int x, int y);
+qboolean    Display_MouseMove(void *p, int x, int y);
+int         Display_CursorType(int x, int y);
 qboolean    Display_KeyBindPending();
-void        Menus_OpenByName( const char *p );
-menuDef_t   *Menus_FindByName( const char *p );
-void        Menus_ShowByName( const char *p );
-void        Menus_CloseByName( const char *p );
-void        Display_HandleKey( int key, qboolean down, int x, int y );
-void        LerpColor( vec4_t a, vec4_t b, vec4_t c, float t );
+void        Menus_OpenByName(const char *p);
+menuDef_t   *Menus_FindByName(const char *p);
+void        Menus_ShowByName(const char *p);
+void        Menus_CloseByName(const char *p);
+void        Display_HandleKey(int key, qboolean down, int x, int y);
+void        LerpColor(vec4_t a, vec4_t b, vec4_t c, float t);
 void        Menus_CloseAll();
-void        Menu_Paint( menuDef_t *menu, qboolean forcePaint );
-void        Menu_SetFeederSelection( menuDef_t *menu, int feeder, int index, const char *name );
+void        Menu_Paint(menuDef_t *menu, qboolean forcePaint);
+void        Menu_SetFeederSelection(menuDef_t *menu, int feeder, int index, const char *name);
 void        Display_CacheAll();
 
-void        *UI_Alloc( int size );
-void        UI_InitMemory( void );
+void        *UI_Alloc(int size);
+void        UI_InitMemory(void);
 qboolean    UI_OutOfMemory();
-void        UI_RoQDone( void ); // ui callback.  roq is done, allow menu to handle if it wants
+void        UI_RoQDone(void);   // ui callback.  roq is done, allow menu to handle if it wants
 
-void        Controls_GetConfig( void );
-void        Controls_SetConfig( qboolean restart );
-void        Controls_SetDefaults( void );
+void        Controls_GetConfig(void);
+void        Controls_SetConfig(qboolean restart);
+void        Controls_SetDefaults(void);
 
-int         trap_PC_AddGlobalDefine( char *define );
-int         trap_PC_LoadSource( const char *filename );
-int         trap_PC_FreeSource( int handle );
-int         trap_PC_ReadToken( int handle, pc_token_t *pc_token );
-int         trap_PC_SourceFileAndLine( int handle, char *filename, int *line );
+int         trap_PC_AddGlobalDefine(char *define);
+int         trap_PC_LoadSource(const char *filename);
+int         trap_PC_FreeSource(int handle);
+int         trap_PC_ReadToken(int handle, pc_token_t *pc_token);
+int         trap_PC_SourceFileAndLine(int handle, char *filename, int *line);
 
 #endif

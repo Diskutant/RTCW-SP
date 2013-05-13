@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -48,32 +48,37 @@ that leads from the outside leaf to a specifically
 occupied leaf
 =============
 */
-void LeakFile( tree_t *tree ) {
+void LeakFile(tree_t *tree)
+{
 	vec3_t mid;
 	FILE    *linefile;
 	char filename[1024];
 	node_t  *node;
 	int count;
 
-	if ( !tree->outside_node.occupied ) {
+	if(!tree->outside_node.occupied)
+	{
 		return;
 	}
 
-	qprintf( "--- LeakFile ---\n" );
+	qprintf("--- LeakFile ---\n");
 
 	//
 	// write the points to the file
 	//
-	sprintf( filename, "%s.lin", source );
-	qprintf( "%s\n", filename );
-	linefile = fopen( filename, "w" );
-	if ( !linefile ) {
-		Error( "Couldn't open %s\n", filename );
+	sprintf(filename, "%s.lin", source);
+	qprintf("%s\n", filename);
+	linefile = fopen(filename, "w");
+
+	if(!linefile)
+	{
+		Error("Couldn't open %s\n", filename);
 	}
 
 	count = 0;
 	node = &tree->outside_node;
-	while ( node->occupied > 1 )
+
+	while(node->occupied > 1)
 	{
 		int next;
 		portal_t    *p, *nextportal = NULL; // TTimo: init
@@ -82,27 +87,32 @@ void LeakFile( tree_t *tree ) {
 
 		// find the best portal exit
 		next = node->occupied;
-		for ( p = node->portals ; p ; p = p->next[!s] )
+
+		for(p = node->portals ; p ; p = p->next[!s])
 		{
-			s = ( p->nodes[0] == node );
-			if ( p->nodes[s]->occupied
-				 && p->nodes[s]->occupied < next ) {
+			s = (p->nodes[0] == node);
+
+			if(p->nodes[s]->occupied
+			        && p->nodes[s]->occupied < next)
+			{
 				nextportal = p;
 				nextnode = p->nodes[s];
 				next = nextnode->occupied;
 			}
 		}
+
 		node = nextnode;
-		WindingCenter( nextportal->winding, mid );
-		fprintf( linefile, "%f %f %f\n", mid[0], mid[1], mid[2] );
+		WindingCenter(nextportal->winding, mid);
+		fprintf(linefile, "%f %f %f\n", mid[0], mid[1], mid[2]);
 		count++;
 	}
+
 	// add the occupant center
-	GetVectorForKey( node->occupant, "origin", mid );
+	GetVectorForKey(node->occupant, "origin", mid);
 
-	fprintf( linefile, "%f %f %f\n", mid[0], mid[1], mid[2] );
-	qprintf( "%5i point linefile\n", count + 1 );
+	fprintf(linefile, "%f %f %f\n", mid[0], mid[1], mid[2]);
+	qprintf("%5i point linefile\n", count + 1);
 
-	fclose( linefile );
+	fclose(linefile);
 }
 

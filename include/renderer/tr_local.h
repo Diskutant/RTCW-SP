@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ typedef unsigned int glIndex_t;
 
 // fast float to int conversion
 #if 0 // no i386 code 
-long myftol( float f );
+long myftol(float f);
 #else
 #define myftol( x ) ( (int)( x ) )
 #endif
@@ -63,7 +63,8 @@ long myftol( float f );
 
 // a trRefEntity_t has all the information passed in by
 // the client game, as well as some locally derived info
-typedef struct {
+typedef struct
+{
 	refEntity_t e;
 
 	float axisLength;           // compensate for non-normalized axis
@@ -77,14 +78,16 @@ typedef struct {
 	float brightness;
 } trRefEntity_t;
 
-typedef struct {
+typedef struct
+{
 	vec3_t origin;              // in world coordinates
 	vec3_t axis[3];             // orientation in world
 	vec3_t viewOrigin;          // viewParms->or.origin in local coordinates
 	float modelMatrix[16];
 } orientationr_t;
 
-typedef struct image_s {
+typedef struct image_s
+{
 	char imgName[MAX_QPATH];            // game path, including extension
 	int width, height;                      // source image
 	int uploadWidth, uploadHeight;          // after power of two and picmip but not including clamp to MAX_TEXTURE_SIZE
@@ -97,18 +100,19 @@ typedef struct image_s {
 
 	qboolean mipmap;
 	qboolean allowPicmip;
-	qboolean characterMIP;      // independant 'character' mip scale ----(SA)	added
+	qboolean characterMIP;      // independant 'character' mip scale ----(SA)   added
 
 	int wrapClampMode;              // GL_CLAMP or GL_REPEAT
 
 	int hash;           // for fast building of the backupHash
 
-	struct image_s* next;
+	struct image_s *next;
 } image_t;
 
 //===============================================================================
 
-typedef enum {
+typedef enum
+{
 	SS_BAD,
 	SS_PORTAL,          // mirrors, portals, viewscreens
 	SS_ENVIRONMENT,     // sky box
@@ -116,7 +120,7 @@ typedef enum {
 
 	SS_DECAL,           // scorch marks, etc.
 	SS_SEE_THROUGH,     // ladders, grates, grills that may have small blended edges
-						// in addition to alpha test
+	// in addition to alpha test
 	SS_BANNER,
 
 	SS_FOG,
@@ -138,7 +142,8 @@ typedef enum {
 
 #define MAX_SHADER_STAGES 8
 
-typedef enum {
+typedef enum
+{
 	GF_NONE,
 
 	GF_SIN,
@@ -152,7 +157,8 @@ typedef enum {
 } genFunc_t;
 
 
-typedef enum {
+typedef enum
+{
 	DEFORM_NONE,
 	DEFORM_WAVE,
 	DEFORM_NORMALS,
@@ -171,7 +177,8 @@ typedef enum {
 	DEFORM_TEXT7
 } deform_t;
 
-typedef enum {
+typedef enum
+{
 	AGEN_IDENTITY,
 	AGEN_SKIP,
 	AGEN_ENTITY,
@@ -185,7 +192,8 @@ typedef enum {
 	AGEN_CONST
 } alphaGen_t;
 
-typedef enum {
+typedef enum
+{
 	CGEN_BAD,
 	CGEN_IDENTITY_LIGHTING, // tr.identityLight
 	CGEN_IDENTITY,          // always (1,1,1,1)
@@ -200,7 +208,8 @@ typedef enum {
 	CGEN_CONST              // fixed color
 } colorGen_t;
 
-typedef enum {
+typedef enum
+{
 	TCGEN_BAD,
 	TCGEN_IDENTITY,         // clear to 0,0
 	TCGEN_LIGHTMAP,
@@ -211,14 +220,16 @@ typedef enum {
 	TCGEN_VECTOR            // S and T from world coordinates
 } texCoordGen_t;
 
-typedef enum {
+typedef enum
+{
 	ACFF_NONE,
 	ACFF_MODULATE_RGB,
 	ACFF_MODULATE_RGBA,
 	ACFF_MODULATE_ALPHA
 } acff_t;
 
-typedef struct {
+typedef struct
+{
 	genFunc_t func;
 
 	float base;
@@ -229,7 +240,8 @@ typedef struct {
 
 #define TR_MAX_TEXMODS 4
 
-typedef enum {
+typedef enum
+{
 	TMOD_NONE,
 	TMOD_TRANSFORM,
 	TMOD_TURBULENT,
@@ -242,7 +254,8 @@ typedef enum {
 } texMod_t;
 
 #define MAX_SHADER_DEFORMS  3
-typedef struct {
+typedef struct
+{
 	deform_t deformation;               // vertex coordinate modification type
 
 	vec3_t moveVector;
@@ -255,7 +268,8 @@ typedef struct {
 } deformStage_t;
 
 
-typedef struct {
+typedef struct
+{
 	texMod_t type;
 
 	// used for TMOD_TURBULENT and TMOD_STRETCH
@@ -267,11 +281,11 @@ typedef struct {
 
 	// used for TMOD_SCALE
 	float scale[2];                     // s *= scale[0]
-										// t *= scale[1]
+	// t *= scale[1]
 
 	// used for TMOD_SCROLL
 	float scroll[2];                    // s' = s + scroll[0] * time
-										// t' = t + scroll[1] * time
+	// t' = t + scroll[1] * time
 
 	// + = clockwise
 	// - = counterclockwise
@@ -281,10 +295,11 @@ typedef struct {
 
 
 // RF increased this for onfire animation
-//#define	MAX_IMAGE_ANIMATIONS	8
+//#define   MAX_IMAGE_ANIMATIONS    8
 #define MAX_IMAGE_ANIMATIONS    16
 
-typedef struct {
+typedef struct
+{
 	image_t         *image[MAX_IMAGE_ANIMATIONS];
 	int numImageAnimations;
 	float imageAnimationSpeed;
@@ -303,7 +318,8 @@ typedef struct {
 
 #define NUM_TEXTURE_BUNDLES 2
 
-typedef struct {
+typedef struct
+{
 	qboolean active;
 
 	textureBundle_t bundle[NUM_TEXTURE_BUNDLES];
@@ -334,30 +350,35 @@ struct shaderCommands_s;
 #define LIGHTMAP_WHITEIMAGE -2
 #define LIGHTMAP_NONE       -1
 
-typedef enum {
+typedef enum
+{
 	CT_FRONT_SIDED,
 	CT_BACK_SIDED,
 	CT_TWO_SIDED
 } cullType_t;
 
-typedef enum {
+typedef enum
+{
 	FP_NONE,        // surface is translucent and will just be adjusted properly
 	FP_EQUAL,       // surface is opaque but possibly alpha tested
 	FP_LE           // surface is trnaslucent, but still needs a fog pass (fog surface)
 } fogPass_t;
 
-typedef struct {
+typedef struct
+{
 	float cloudHeight;
 	image_t     *outerbox[6], *innerbox[6];
 } skyParms_t;
 
-typedef struct {
+typedef struct
+{
 	vec3_t color;
 	float depthForOpaque;
 } fogParms_t;
 
 
-typedef struct shader_s {
+typedef struct shader_s
+{
 	char name[MAX_QPATH];               // game path, including extension
 	int lightmapIndex;                  // for a shader to match, both name and lightmapIndex must match
 
@@ -367,10 +388,10 @@ typedef struct shader_s {
 	float sort;                         // lower numbered shaders draw before higher numbered
 
 	qboolean defaultShader;             // we want to return index 0 if the shader failed to
-										// load for some reason, but R_FindShader should
-										// still keep a name allocated for it, so if
-										// something calls RE_RegisterShader again with
-										// the same name, we don't try looking for it again
+	// load for some reason, but R_FindShader should
+	// still keep a name allocated for it, so if
+	// something calls RE_RegisterShader again with
+	// the same name, we don't try looking for it again
 
 	qboolean explicitlyDefined;         // found in a .shader file
 
@@ -409,7 +430,7 @@ typedef struct shader_s {
 	int numUnfoggedPasses;
 	shaderStage_t   *stages[MAX_SHADER_STAGES];
 
-	void ( *optimalStageIteratorFunc )( void );
+	void (*optimalStageIteratorFunc)(void);
 
 	float clampTime;                                    // time this shader is clamped to
 	float timeOffset;                                   // current time offset for this shader
@@ -427,17 +448,19 @@ typedef struct shader_s {
 	struct shader_s *next;
 } shader_t;
 
-typedef struct corona_s {
+typedef struct corona_s
+{
 	vec3_t origin;
 	vec3_t color;               // range from 0.0 to 1.0, should be color normalized
 	vec3_t transformed;         // origin in local coordinate system
 	float scale;                // uses r_flaresize as the baseline (1.0)
 	int id;
 	int flags;                  // '1' is 'visible'
-								// still send the corona request, even if not visible, for proper fading
+	// still send the corona request, even if not visible, for proper fading
 } corona_t;
 
-typedef struct dlight_s {
+typedef struct dlight_s
+{
 	vec3_t origin;
 	vec3_t color;               // range from 0.0 to 1.0, should be color normalized
 	float radius;
@@ -450,14 +473,15 @@ typedef struct dlight_s {
 
 	shader_t    *dlshader;  //----(SA) adding a shader to dlights, so, if desired, we can change the blend or texture of a dlight
 
-	qboolean forced;        //----(SA)	use this dlight when r_dynamiclight is either 1 or 2 (rather than just 1) for "important" gameplay lights (alarm lights, etc)
+	qboolean forced;        //----(SA)  use this dlight when r_dynamiclight is either 1 or 2 (rather than just 1) for "important" gameplay lights (alarm lights, etc)
 	//done
 
 } dlight_t;
 
 // trRefdef_t holds everything that comes in refdef_t,
 // as well as the locally generated scene information
-typedef struct {
+typedef struct
+{
 	int x, y, width, height;
 	float fov_x, fov_y;
 	vec3_t vieworg;
@@ -495,7 +519,8 @@ typedef struct {
 //=================================================================================
 
 // skins allow models to be retextured without modifying the model file
-typedef struct {
+typedef struct
+{
 	char name[MAX_QPATH];
 	shader_t    *shader;
 } skinSurface_t;
@@ -503,22 +528,25 @@ typedef struct {
 //----(SA) modified
 #define MAX_PART_MODELS 5
 
-typedef struct {
+typedef struct
+{
 	char type[MAX_QPATH];           // md3_lower, md3_lbelt, md3_rbelt, etc.
 	char model[MAX_QPATH];          // lower.md3, belt1.md3, etc.
 } skinModel_t;
 
-typedef struct skin_s {
+typedef struct skin_s
+{
 	char name[MAX_QPATH];               // game path, including extension
 	int numSurfaces;
 	int numModels;
 	skinSurface_t   *surfaces[MD3_MAX_SURFACES];
 	skinModel_t     *models[MAX_PART_MODELS];
-	vec3_t scale;       //----(SA)	added
+	vec3_t scale;       //----(SA)  added
 } skin_t;
 //----(SA) end
 
-typedef struct {
+typedef struct
+{
 	int originalBrushNumber;
 	vec3_t bounds[2];
 
@@ -531,7 +559,8 @@ typedef struct {
 	float surface[4];
 } fog_t;
 
-typedef struct {
+typedef struct
+{
 	orientationr_t  or;
 	orientationr_t world;
 	vec3_t pvsOrigin;               // may be different than or.origin for portals
@@ -549,7 +578,7 @@ typedef struct {
 
 	int dirty;
 
-	glfog_t glFog;                  // fog parameters	//----(SA)	added
+	glfog_t glFog;                  // fog parameters   //----(SA)  added
 
 } viewParms_t;
 
@@ -564,7 +593,8 @@ SURFACES
 
 // any changes in surfaceType must be mirrored in rb_surfaceTable[]
 // NOTE: also mirror changes to max2skl.c
-typedef enum {
+typedef enum
+{
 	SF_BAD,
 	SF_SKIP,                // ignore
 	SF_FACE,
@@ -582,7 +612,8 @@ typedef enum {
 	SF_MAX = 0xffffffff         // ensures that sizeof( surfaceType_t ) == sizeof( int )
 } surfaceType_t;
 
-typedef struct drawSurf_s {
+typedef struct drawSurf_s
+{
 	unsigned sort;                      // bit combination for fast compares
 	surfaceType_t       *surface;       // any of surface*_t
 } drawSurf_t;
@@ -594,7 +625,8 @@ typedef struct drawSurf_s {
 
 // when cgame directly specifies a polygon, it becomes a srfPoly_t
 // as soon as it is called
-typedef struct srfPoly_s {
+typedef struct srfPoly_s
+{
 	surfaceType_t surfaceType;
 	qhandle_t hShader;
 	int fogIndex;
@@ -602,20 +634,23 @@ typedef struct srfPoly_s {
 	polyVert_t      *verts;
 } srfPoly_t;
 
-typedef struct srfDisplayList_s {
+typedef struct srfDisplayList_s
+{
 	surfaceType_t surfaceType;
 	int listNum;
 } srfDisplayList_t;
 
 
-typedef struct srfFlare_s {
+typedef struct srfFlare_s
+{
 	surfaceType_t surfaceType;
 	vec3_t origin;
 	vec3_t normal;
 	vec3_t color;
 } srfFlare_t;
 
-typedef struct srfGridMesh_s {
+typedef struct srfGridMesh_s
+{
 	surfaceType_t surfaceType;
 
 	// dynamic lighting information
@@ -644,7 +679,8 @@ typedef struct srfGridMesh_s {
 
 
 #define VERTEXSIZE  8
-typedef struct {
+typedef struct
+{
 	surfaceType_t surfaceType;
 	cplane_t plane;
 
@@ -656,12 +692,13 @@ typedef struct {
 	int numIndices;
 	int ofsIndices;
 	float points[1][VERTEXSIZE];        // variable sized
-										// there is a variable length list of indices here also
+	// there is a variable length list of indices here also
 } srfSurfaceFace_t;
 
 
 // misc_models in maps are turned into direct geometry by q3map
-typedef struct {
+typedef struct
+{
 	surfaceType_t surfaceType;
 
 	// dynamic lighting information
@@ -681,7 +718,7 @@ typedef struct {
 } srfTriangles_t;
 
 
-extern void( *rb_surfaceTable[SF_NUM_SURFACE_TYPES] ) ( void * );
+extern void(*rb_surfaceTable[SF_NUM_SURFACE_TYPES])(void *);
 
 /*
 ==============================================================================
@@ -700,7 +737,8 @@ BRUSH MODELS
 #define SIDE_BACK   1
 #define SIDE_ON     2
 
-typedef struct msurface_s {
+typedef struct msurface_s
+{
 	int viewCount;                      // if == tr.viewCount, already added
 	struct shader_s     *shader;
 	int fogIndex;
@@ -711,7 +749,8 @@ typedef struct msurface_s {
 
 
 #define CONTENTS_NODE       -1
-typedef struct mnode_s {
+typedef struct mnode_s
+{
 	// common with leaf and node
 	int contents;               // -1 for nodes, to differentiate from leafs
 	int visframe;               // node needs to be traversed if current
@@ -730,13 +769,15 @@ typedef struct mnode_s {
 	int nummarksurfaces;
 } mnode_t;
 
-typedef struct {
+typedef struct
+{
 	vec3_t bounds[2];           // for culling
 	msurface_t  *firstSurface;
 	int numSurfaces;
 } bmodel_t;
 
-typedef struct {
+typedef struct
+{
 	char name[MAX_QPATH];               // ie: maps/tim_dm2.bsp
 	char baseName[MAX_QPATH];           // ie: tim_dm2
 
@@ -781,7 +822,8 @@ typedef struct {
 
 //======================================================================
 
-typedef enum {
+typedef enum
+{
 	MOD_BAD,
 	MOD_BRUSH,
 	MOD_MESH,
@@ -789,7 +831,8 @@ typedef enum {
 	MOD_MDC // Ridah
 } modtype_t;
 
-typedef struct model_s {
+typedef struct model_s
+{
 	char name[MAX_QPATH];
 	modtype_t type;
 	int index;                      // model = tr.models[model->index]
@@ -809,12 +852,12 @@ typedef struct model_s {
 
 #define MAX_MOD_KNOWN   2048
 
-void        R_ModelInit( void );
-model_t     *R_GetModelByHandle( qhandle_t hModel );
-int         R_LerpTag( orientation_t *tag, const refEntity_t *refent, const char *tagName, int startIndex );
-void        R_ModelBounds( qhandle_t handle, vec3_t mins, vec3_t maxs );
+void        R_ModelInit(void);
+model_t     *R_GetModelByHandle(qhandle_t hModel);
+int         R_LerpTag(orientation_t *tag, const refEntity_t *refent, const char *tagName, int startIndex);
+void        R_ModelBounds(qhandle_t handle, vec3_t mins, vec3_t maxs);
 
-void        R_Modellist_f( void );
+void        R_Modellist_f(void);
 
 //====================================================
 extern refimport_t ri;
@@ -838,23 +881,23 @@ the bits are allocated as follows:
 
 old:
 
-22 - 31	: sorted shader index
-12 - 21	: entity index
-3 - 7	: fog index
-2		: used to be clipped flag
-0 - 1	: dlightmap index
+22 - 31 : sorted shader index
+12 - 21 : entity index
+3 - 7   : fog index
+2       : used to be clipped flag
+0 - 1   : dlightmap index
 
-#define	QSORT_SHADERNUM_SHIFT	22
-#define	QSORT_ENTITYNUM_SHIFT	12
-#define	QSORT_FOGNUM_SHIFT		3
+#define QSORT_SHADERNUM_SHIFT   22
+#define QSORT_ENTITYNUM_SHIFT   12
+#define QSORT_FOGNUM_SHIFT      3
 
 new:
 
-22 - 31	: sorted shader index
-11 - 21	: entity index
-2 - 6	: fog index
-removed	: used to be clipped flag
-0 - 1	: dlightmap index
+22 - 31 : sorted shader index
+11 - 21 : entity index
+2 - 6   : fog index
+removed : used to be clipped flag
+0 - 1   : dlightmap index
 
 */
 #define QSORT_SHADERNUM_SHIFT   22
@@ -872,7 +915,8 @@ extern int gl_filter_min, gl_filter_max;
 /*
 ** performanceCounters_t
 */
-typedef struct {
+typedef struct
+{
 	int c_sphere_cull_patch_in, c_sphere_cull_patch_clip, c_sphere_cull_patch_out;
 	int c_box_cull_patch_in, c_box_cull_patch_clip, c_box_cull_patch_out;
 	int c_sphere_cull_md3_in, c_sphere_cull_md3_clip, c_sphere_cull_md3_out;
@@ -890,7 +934,8 @@ typedef struct {
 
 
 // the renderer front end should never modify glstate_t
-typedef struct {
+typedef struct
+{
 	int currenttextures[2];
 	int currenttmu;
 	qboolean finishCalled;
@@ -900,7 +945,8 @@ typedef struct {
 } glstate_t;
 
 
-typedef struct {
+typedef struct
+{
 	int c_surfaces, c_shaders, c_vertexes, c_indexes, c_totalIndexes;
 	float c_overDraw;
 
@@ -916,7 +962,8 @@ typedef struct {
 
 // all state modified by the back end is seperated
 // from the front end state
-typedef struct {
+typedef struct
+{
 	int smpFrame;
 	trRefdef_t refdef;
 	viewParms_t viewParms;
@@ -940,14 +987,15 @@ typedef struct {
 ** but may read fields that aren't dynamically modified
 ** by the frontend.
 */
-typedef struct {
+typedef struct
+{
 	qboolean registered;                    // cleared at shutdown, set at beginRegistration
 
 	int visCount;                           // incremented every time a new vis cluster is entered
 	int frameCount;                         // incremented every frame
 	int sceneCount;                         // incremented every scene
 	int viewCount;                          // incremented every view (twice a scene if portaled)
-											// and every R_MarkFragments call
+	// and every R_MarkFragments call
 
 	int smpFrame;                           // toggles from 0 to 1 every endFrame
 
@@ -968,7 +1016,7 @@ typedef struct {
 
 	shader_t                *defaultShader;
 	shader_t                *shadowShader;
-//	shader_t				*projectionShadowShader;
+//	shader_t             *projectionShadowShader;
 	shader_t                *dlightShader;      //----(SA) added
 
 	shader_t                *flareShader;
@@ -1001,12 +1049,12 @@ typedef struct {
 	vec3_t sunLight;                            // from the sky shader for this level
 	vec3_t sunDirection;
 
-//----(SA)	added
+//----(SA)  added
 	float lightGridMulAmbient;          // lightgrid multipliers specified in sky shader
 	float lightGridMulDirected;         //
-//----(SA)	end
+//----(SA)  end
 
-//	qboolean				levelGLFog;
+//	qboolean             levelGLFog;
 
 	frontEndCounters_t pc;
 	int frontEndMsec;                           // not in pc due to clearing issue
@@ -1073,10 +1121,10 @@ extern cvar_t   *r_depthbits;           // number of desired depth bits
 extern cvar_t   *r_colorbits;           // number of desired color bits, only relevant for fullscreen
 extern cvar_t   *r_stereo;              // desired pixelformat stereo flag
 extern cvar_t   *r_texturebits;         // number of desired texture bits
-										// 0 = use framebuffer depth
-										// 16 = use 16-bit textures
-										// 32 = use 32-bit textures
-										// all else = error
+// 0 = use framebuffer depth
+// 16 = use 16-bit textures
+// 32 = use 32-bit textures
+// all else = error
 
 extern cvar_t   *r_measureOverdraw;     // enables stencil buffer overdraw measurement
 
@@ -1084,16 +1132,16 @@ extern cvar_t   *r_lodbias;             // push/pull LOD transitions
 extern cvar_t   *r_lodscale;
 
 extern cvar_t   *r_primitives;          // "0" = based on compiled vertex array existance
-										// "1" = glDrawElemet tristrips
-										// "2" = glDrawElements triangles
-										// "-1" = no drawing
+// "1" = glDrawElemet tristrips
+// "2" = glDrawElements triangles
+// "-1" = no drawing
 
 extern cvar_t   *r_inGameVideo;             // controls whether in game video should be draw
 extern cvar_t   *r_fastsky;             // controls whether sky should be cleared or drawn
 extern cvar_t   *r_drawSun;             // controls drawing of sun quad
-										// "0" no sun
-										// "1" draw sun
-										// "2" also draw lens flare effect centered on sun
+// "0" no sun
+// "1" draw sun
+// "2" also draw lens flare effect centered on sun
 extern cvar_t   *r_dynamiclight;        // dynamic lights enabled/disabled
 extern cvar_t   *r_dlightScale;         // global user attenuation of dlights
 extern cvar_t   *r_dlightBacks;         // dlight non-facing surfaces for continuity
@@ -1122,7 +1170,7 @@ extern cvar_t   *r_ext_texenv_op;
 extern cvar_t   *r_ext_multitexture;
 extern cvar_t   *r_ext_compiled_vertex_array;
 extern cvar_t   *r_ext_texture_env_add;
-//----(SA)	added
+//----(SA)  added
 extern cvar_t   *r_ext_ATI_pntriangles;
 extern cvar_t   *r_ati_truform_tess;
 extern cvar_t   *r_ati_truform_pointmode;   //----(SA)
@@ -1131,11 +1179,11 @@ extern cvar_t   *r_ati_fsaa_samples;        //DAJ
 extern cvar_t   *r_ext_texture_filter_anisotropic;
 extern cvar_t   *r_ext_NV_fog_dist;
 extern cvar_t   *r_nv_fogdist_mode;
-//----(SA)	end
+//----(SA)  end
 
-extern cvar_t  *r_waterFogColor;        //----(SA)	added
-extern cvar_t  *r_mapFogColor;          //----(SA)	added
-extern cvar_t  *r_savegameFogColor;     //----(SA)	added
+extern cvar_t  *r_waterFogColor;        //----(SA)  added
+extern cvar_t  *r_mapFogColor;          //----(SA)  added
+extern cvar_t  *r_savegameFogColor;     //----(SA)  added
 
 extern cvar_t  *r_nobind;                       // turns off binding to appropriate textures
 extern cvar_t  *r_singleShader;                 // make most world faces use default shader
@@ -1213,53 +1261,53 @@ extern cvar_t   *r_wolffog;
 extern cvar_t  *r_highQualityVideo;
 //====================================================================
 
-float R_NoiseGet4f( float x, float y, float z, float t );
-void  R_NoiseInit( void );
+float R_NoiseGet4f(float x, float y, float z, float t);
+void  R_NoiseInit(void);
 
-void R_SwapBuffers( int );
+void R_SwapBuffers(int);
 
-void R_RenderView( viewParms_t *parms );
+void R_RenderView(viewParms_t *parms);
 
-void R_AddMD3Surfaces( trRefEntity_t *e );
-void R_AddNullModelSurfaces( trRefEntity_t *e );
-void R_AddBeamSurfaces( trRefEntity_t *e );
-void R_AddRailSurfaces( trRefEntity_t *e, qboolean isUnderwater );
-void R_AddLightningBoltSurfaces( trRefEntity_t *e );
+void R_AddMD3Surfaces(trRefEntity_t *e);
+void R_AddNullModelSurfaces(trRefEntity_t *e);
+void R_AddBeamSurfaces(trRefEntity_t *e);
+void R_AddRailSurfaces(trRefEntity_t *e, qboolean isUnderwater);
+void R_AddLightningBoltSurfaces(trRefEntity_t *e);
 
-void R_TagInfo_f( void );
+void R_TagInfo_f(void);
 
-void R_AddPolygonSurfaces( void );
-
-// GR - add tessellation flag
-void R_DecomposeSort( unsigned sort, int *entityNum, shader_t **shader,
-					  int *fogNum, int *dlightMap, int *atiTess );
+void R_AddPolygonSurfaces(void);
 
 // GR - add tessellation flag
-void R_AddDrawSurf( surfaceType_t *surface, shader_t *shader, int fogIndex, int dlightMap, int atiTess );
+void R_DecomposeSort(unsigned sort, int *entityNum, shader_t **shader,
+                     int *fogNum, int *dlightMap, int *atiTess);
+
+// GR - add tessellation flag
+void R_AddDrawSurf(surfaceType_t *surface, shader_t *shader, int fogIndex, int dlightMap, int atiTess);
 
 
 #define CULL_IN     0       // completely unclipped
 #define CULL_CLIP   1       // clipped by one or more planes
 #define CULL_OUT    2       // completely outside the clipping planes
-void R_LocalNormalToWorld( vec3_t local, vec3_t world );
-void R_LocalPointToWorld( vec3_t local, vec3_t world );
-int R_CullLocalBox( vec3_t bounds[2] );
-int R_CullPointAndRadius( vec3_t origin, float radius );
-int R_CullLocalPointAndRadius( vec3_t origin, float radius );
+void R_LocalNormalToWorld(vec3_t local, vec3_t world);
+void R_LocalPointToWorld(vec3_t local, vec3_t world);
+int R_CullLocalBox(vec3_t bounds[2]);
+int R_CullPointAndRadius(vec3_t origin, float radius);
+int R_CullLocalPointAndRadius(vec3_t origin, float radius);
 
-void R_RotateForEntity( const trRefEntity_t * ent, const viewParms_t * viewParms, orientationr_t * or );
+void R_RotateForEntity(const trRefEntity_t *ent, const viewParms_t *viewParms, orientationr_t *or);
 
 /*
 ** GL wrapper/helper functions
 */
-void    GL_Bind( image_t *image );
-void    GL_SetDefaultState( void );
-void    GL_SelectTexture( int unit );
-void    GL_TextureMode( const char *string );
-void    GL_CheckErrors( void );
-void    GL_State( unsigned int stateVector );
-void    GL_TexEnv( int env );
-void    GL_Cull( int cullType );
+void    GL_Bind(image_t *image);
+void    GL_SetDefaultState(void);
+void    GL_SelectTexture(int unit);
+void    GL_TextureMode(const char *string);
+void    GL_CheckErrors(void);
+void    GL_State(unsigned int stateVector);
+void    GL_TexEnv(int env);
+void    GL_Cull(int cullType);
 
 #define GLS_SRCBLEND_ZERO                       0x00000001
 #define GLS_SRCBLEND_ONE                        0x00000002
@@ -1289,7 +1337,7 @@ void    GL_Cull( int cullType );
 #define GLS_DEPTHTEST_DISABLE                   0x00010000
 #define GLS_DEPTHFUNC_EQUAL                     0x00020000
 
-#define GLS_FOG_DISABLE                         0x00020000  //----(SA)	added
+#define GLS_FOG_DISABLE                         0x00020000  //----(SA)  added
 
 #define GLS_ATEST_GT_0                          0x10000000
 #define GLS_ATEST_LT_80                         0x20000000
@@ -1298,70 +1346,70 @@ void    GL_Cull( int cullType );
 
 #define GLS_DEFAULT         GLS_DEPTHMASK_TRUE
 
-void    RE_StretchRaw( int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty );
-void    RE_UploadCinematic( int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty );
+void    RE_StretchRaw(int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+void    RE_UploadCinematic(int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
 
-void        RE_BeginFrame( stereoFrame_t stereoFrame );
-void        RE_BeginRegistration( glconfig_t *glconfig );
-void        RE_LoadWorldMap( const char *mapname );
-void        RE_SetWorldVisData( const byte *vis );
-qhandle_t   RE_RegisterModel( const char *name );
-qhandle_t   RE_RegisterSkin( const char *name );
-void        RE_Shutdown( qboolean destroyWindow );
+void        RE_BeginFrame(stereoFrame_t stereoFrame);
+void        RE_BeginRegistration(glconfig_t *glconfig);
+void        RE_LoadWorldMap(const char *mapname);
+void        RE_SetWorldVisData(const byte *vis);
+qhandle_t   RE_RegisterModel(const char *name);
+qhandle_t   RE_RegisterSkin(const char *name);
+void        RE_Shutdown(qboolean destroyWindow);
 
-qboolean    R_GetEntityToken( char *buffer, int size );
+qboolean    R_GetEntityToken(char *buffer, int size);
 
 //----(SA)
-qboolean    RE_GetSkinModel( qhandle_t skinid, const char *type, char *name );
-qhandle_t   RE_GetShaderFromModel( qhandle_t modelid, int surfnum, int withlightmap );    //----(SA)
+qboolean    RE_GetSkinModel(qhandle_t skinid, const char *type, char *name);
+qhandle_t   RE_GetShaderFromModel(qhandle_t modelid, int surfnum, int withlightmap);      //----(SA)
 //----(SA) end
 
-model_t     *R_AllocModel( void );
+model_t     *R_AllocModel(void);
 
-void        R_Init( void );
-image_t     *R_FindImageFile( const char *name, qboolean mipmap, qboolean allowPicmip, int glWrapClampMode );
-image_t     *R_FindImageFileExt( const char *name, qboolean mipmap, qboolean allowPicmip, qboolean characterMip, int glWrapClampMode ); //----(SA)	added
+void        R_Init(void);
+image_t     *R_FindImageFile(const char *name, qboolean mipmap, qboolean allowPicmip, int glWrapClampMode);
+image_t     *R_FindImageFileExt(const char *name, qboolean mipmap, qboolean allowPicmip, qboolean characterMip, int glWrapClampMode);   //----(SA)   added
 
-image_t     *R_CreateImage( const char *name, const byte *pic, int width, int height, qboolean mipmap
-							, qboolean allowPicmip, int wrapClampMode );
-//----(SA)	added (didn't want to modify all instances of R_CreateImage()
-image_t     *R_CreateImageExt( const char *name, const byte *pic, int width, int height, qboolean mipmap
-							   , qboolean allowPicmip, qboolean characterMip, int wrapClampMode );
-//----(SA)	end
-qboolean    R_GetModeInfo( int *width, int *height, float *windowAspect, int mode );
+image_t     *R_CreateImage(const char *name, const byte *pic, int width, int height, qboolean mipmap
+                           , qboolean allowPicmip, int wrapClampMode);
+//----(SA)  added (didn't want to modify all instances of R_CreateImage()
+image_t     *R_CreateImageExt(const char *name, const byte *pic, int width, int height, qboolean mipmap
+                              , qboolean allowPicmip, qboolean characterMip, int wrapClampMode);
+//----(SA)  end
+qboolean    R_GetModeInfo(int *width, int *height, float *windowAspect, int mode);
 
-void        R_SetColorMappings( void );
-void        R_GammaCorrect( byte *buffer, int bufSize );
+void        R_SetColorMappings(void);
+void        R_GammaCorrect(byte *buffer, int bufSize);
 
-void    R_ImageList_f( void );
-void    R_SkinList_f( void );
-void    R_ScreenShot_f( void );
-void    R_ScreenShotJPEG_f( void );
+void    R_ImageList_f(void);
+void    R_SkinList_f(void);
+void    R_ScreenShot_f(void);
+void    R_ScreenShotJPEG_f(void);
 
-void    R_InitFogTable( void );
-float   R_FogFactor( float s, float t );
-void    R_InitImages( void );
-void    R_DeleteTextures( void );
-int     R_SumOfUsedImages( void );
-void    R_InitSkins( void );
-skin_t  *R_GetSkinByHandle( qhandle_t hSkin );
+void    R_InitFogTable(void);
+float   R_FogFactor(float s, float t);
+void    R_InitImages(void);
+void    R_DeleteTextures(void);
+int     R_SumOfUsedImages(void);
+void    R_InitSkins(void);
+skin_t  *R_GetSkinByHandle(qhandle_t hSkin);
 
 
 //
 // tr_shader.c
 //
-qhandle_t        RE_RegisterShaderLightMap( const char *name, int lightmapIndex );
-qhandle_t        RE_RegisterShader( const char *name );
-qhandle_t        RE_RegisterShaderNoMip( const char *name );
-qhandle_t RE_RegisterShaderFromImage( const char *name, int lightmapIndex, image_t *image, qboolean mipRawImage );
+qhandle_t        RE_RegisterShaderLightMap(const char *name, int lightmapIndex);
+qhandle_t        RE_RegisterShader(const char *name);
+qhandle_t        RE_RegisterShaderNoMip(const char *name);
+qhandle_t RE_RegisterShaderFromImage(const char *name, int lightmapIndex, image_t *image, qboolean mipRawImage);
 
-shader_t    *R_FindShader( const char *name, int lightmapIndex, qboolean mipRawImage );
-shader_t    *R_GetShaderByHandle( qhandle_t hShader );
-shader_t    *R_GetShaderByState( int index, int *cycleTime );
-shader_t *R_FindShaderByName( const char *name );
-void        R_InitShaders( void );
-void        R_ShaderList_f( void );
-void    R_RemapShader( const char *oldShader, const char *newShader, const char *timeOffset );
+shader_t    *R_FindShader(const char *name, int lightmapIndex, qboolean mipRawImage);
+shader_t    *R_GetShaderByHandle(qhandle_t hShader);
+shader_t    *R_GetShaderByState(int index, int *cycleTime);
+shader_t *R_FindShaderByName(const char *name);
+void        R_InitShaders(void);
+void        R_ShaderList_f(void);
+void    R_RemapShader(const char *oldShader, const char *newShader, const char *timeOffset);
 
 /*
 ====================================================================
@@ -1371,20 +1419,20 @@ IMPLEMENTATION SPECIFIC FUNCTIONS
 ====================================================================
 */
 
-void        GLimp_Init( void );
-void        GLimp_Shutdown( void );
-void        GLimp_EndFrame( void );
+void        GLimp_Init(void);
+void        GLimp_Shutdown(void);
+void        GLimp_EndFrame(void);
 
-qboolean GLimp_SpawnRenderThread( void ( *function )( void ) );
-void        *GLimp_RendererSleep( void );
-void        GLimp_FrontEndSleep( void );
-void        GLimp_WakeRenderer( void *data );
+qboolean GLimp_SpawnRenderThread(void (*function)(void));
+void        *GLimp_RendererSleep(void);
+void        GLimp_FrontEndSleep(void);
+void        GLimp_WakeRenderer(void *data);
 
-void        GLimp_LogComment( char *comment );
+void        GLimp_LogComment(char *comment);
 
-void GLimp_SetGamma( unsigned char red[256],
-					 unsigned char green[256],
-					 unsigned char blue[256] );
+void GLimp_SetGamma(unsigned char red[256],
+                    unsigned char green[256],
+                    unsigned char blue[256]);
 
 
 /*
@@ -1428,27 +1476,27 @@ typedef struct shaderCommands_s
 
 	// info extracted from current shader
 	int numPasses;
-	void ( *currentStageIteratorFunc )( void );
+	void (*currentStageIteratorFunc)(void);
 	shaderStage_t   **xstages;
 } shaderCommands_t;
 
 extern shaderCommands_t tess;
 
-void RB_BeginSurface( shader_t *shader, int fogNum );
-void RB_EndSurface( void );
-void RB_CheckOverflow( int verts, int indexes );
+void RB_BeginSurface(shader_t *shader, int fogNum);
+void RB_EndSurface(void);
+void RB_CheckOverflow(int verts, int indexes);
 #define RB_CHECKOVERFLOW( v,i ) if ( tess.numVertexes + ( v ) >= SHADER_MAX_VERTEXES || tess.numIndexes + ( i ) >= SHADER_MAX_INDEXES ) {RB_CheckOverflow( v,i );}
 
-void RB_StageIteratorGeneric( void );
-void RB_StageIteratorSky( void );
-void RB_StageIteratorVertexLitTexture( void );
-void RB_StageIteratorLightmappedMultitexture( void );
+void RB_StageIteratorGeneric(void);
+void RB_StageIteratorSky(void);
+void RB_StageIteratorVertexLitTexture(void);
+void RB_StageIteratorLightmappedMultitexture(void);
 
-void RB_AddQuadStamp( vec3_t origin, vec3_t left, vec3_t up, byte *color );
-void RB_AddQuadStampExt( vec3_t origin, vec3_t left, vec3_t up, byte *color, float s1, float t1, float s2, float t2 );
-void RB_AddQuadStampFadingCornersExt( vec3_t origin, vec3_t left, vec3_t up, byte *color, float s1, float t1, float s2, float t2 );
+void RB_AddQuadStamp(vec3_t origin, vec3_t left, vec3_t up, byte *color);
+void RB_AddQuadStampExt(vec3_t origin, vec3_t left, vec3_t up, byte *color, float s1, float t1, float s2, float t2);
+void RB_AddQuadStampFadingCornersExt(vec3_t origin, vec3_t left, vec3_t up, byte *color, float s1, float t1, float s2, float t2);
 
-void RB_ShowImages( void );
+void RB_ShowImages(void);
 
 
 /*
@@ -1459,8 +1507,8 @@ WORLD MAP
 ============================================================
 */
 
-void R_AddBrushModelSurfaces( trRefEntity_t *e );
-void R_AddWorldSurfaces( void );
+void R_AddBrushModelSurfaces(trRefEntity_t *e);
+void R_AddWorldSurfaces(void);
 
 
 /*
@@ -1471,11 +1519,11 @@ FLARES
 ============================================================
 */
 
-void R_ClearFlares( void );
+void R_ClearFlares(void);
 
-void RB_AddFlare( void *surface, int fogNum, vec3_t point, vec3_t color, float scale, vec3_t normal, int id, int flags ); // TTimo updated prototype
-void RB_AddDlightFlares( void );
-void RB_RenderFlares( void );
+void RB_AddFlare(void *surface, int fogNum, vec3_t point, vec3_t color, float scale, vec3_t normal, int id, int flags);   // TTimo updated prototype
+void RB_AddDlightFlares(void);
+void RB_RenderFlares(void);
 
 /*
 ============================================================
@@ -1485,10 +1533,10 @@ LIGHTS
 ============================================================
 */
 
-void R_DlightBmodel( bmodel_t *bmodel );
-void R_SetupEntityLighting( const trRefdef_t *refdef, trRefEntity_t *ent );
-void R_TransformDlights( int count, dlight_t * dl, orientationr_t * or );
-int R_LightForPoint( vec3_t point, vec3_t ambientLight, vec3_t directedLight, vec3_t lightDir );
+void R_DlightBmodel(bmodel_t *bmodel);
+void R_SetupEntityLighting(const trRefdef_t *refdef, trRefEntity_t *ent);
+void R_TransformDlights(int count, dlight_t *dl, orientationr_t *or);
+int R_LightForPoint(vec3_t point, vec3_t ambientLight, vec3_t directedLight, vec3_t lightDir);
 
 
 /*
@@ -1499,9 +1547,9 @@ SHADOWS
 ============================================================
 */
 
-void RB_ShadowTessEnd( void );
-void RB_ShadowFinish( void );
-void RB_ProjectionShadowDeform( void );
+void RB_ShadowTessEnd(void);
+void RB_ShadowFinish(void);
+void RB_ProjectionShadowDeform(void);
 
 /*
 ============================================================
@@ -1511,11 +1559,11 @@ SKIES
 ============================================================
 */
 
-void R_BuildCloudData( shaderCommands_t *shader );
-void R_InitSkyTexCoords( float cloudLayerHeight );
-void R_DrawSkyBox( shaderCommands_t *shader );
-void RB_DrawSun( void );
-void RB_ClipSkyPolygons( shaderCommands_t *shader );
+void R_BuildCloudData(shaderCommands_t *shader);
+void R_InitSkyTexCoords(float cloudLayerHeight);
+void R_DrawSkyBox(shaderCommands_t *shader);
+void RB_DrawSun(void);
+void RB_ClipSkyPolygons(shaderCommands_t *shader);
 
 /*
 ============================================================
@@ -1527,11 +1575,11 @@ CURVE TESSELATION
 
 #define PATCH_STITCHING
 
-srfGridMesh_t *R_SubdividePatchToGrid( int width, int height,
-									   drawVert_t points[MAX_PATCH_SIZE * MAX_PATCH_SIZE] );
-srfGridMesh_t *R_GridInsertColumn( srfGridMesh_t *grid, int column, int row, vec3_t point, float loderror );
-srfGridMesh_t *R_GridInsertRow( srfGridMesh_t *grid, int row, int column, vec3_t point, float loderror );
-void R_FreeSurfaceGridMesh( srfGridMesh_t *grid );
+srfGridMesh_t *R_SubdividePatchToGrid(int width, int height,
+                                      drawVert_t points[MAX_PATCH_SIZE *MAX_PATCH_SIZE]);
+srfGridMesh_t *R_GridInsertColumn(srfGridMesh_t *grid, int column, int row, vec3_t point, float loderror);
+srfGridMesh_t *R_GridInsertRow(srfGridMesh_t *grid, int row, int column, vec3_t point, float loderror);
+void R_FreeSurfaceGridMesh(srfGridMesh_t *grid);
 
 /*
 ============================================================
@@ -1541,8 +1589,8 @@ MARKERS, POLYGON PROJECTION ON WORLD POLYGONS
 ============================================================
 */
 
-int R_MarkFragments( int orientation, const vec3_t *points, const vec3_t projection,
-					 int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer );
+int R_MarkFragments(int orientation, const vec3_t *points, const vec3_t projection,
+                    int maxPoints, vec3_t pointBuffer, int maxFragments, markFragment_t *fragmentBuffer);
 
 
 /*
@@ -1553,21 +1601,21 @@ SCENE GENERATION
 ============================================================
 */
 
-void R_ToggleSmpFrame( void );
+void R_ToggleSmpFrame(void);
 
-void RE_ClearScene( void );
-void RE_AddRefEntityToScene( const refEntity_t *ent );
-void RE_AddPolyToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts );
+void RE_ClearScene(void);
+void RE_AddRefEntityToScene(const refEntity_t *ent);
+void RE_AddPolyToScene(qhandle_t hShader, int numVerts, const polyVert_t *verts);
 // Ridah
-void RE_AddPolysToScene( qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys );
+void RE_AddPolysToScene(qhandle_t hShader, int numVerts, const polyVert_t *verts, int numPolys);
 // done.
 // Ridah
-void RE_AddLightToScene( const vec3_t org, float intensity, float r, float g, float b, int overdraw );
+void RE_AddLightToScene(const vec3_t org, float intensity, float r, float g, float b, int overdraw);
 // done.
 //----(SA)
-void RE_AddCoronaToScene( const vec3_t org, float r, float g, float b, float scale, int id, int flags );
+void RE_AddCoronaToScene(const vec3_t org, float r, float g, float b, float scale, int id, int flags);
 //----(SA)
-void RE_RenderScene( const refdef_t *fd );
+void RE_RenderScene(const refdef_t *fd);
 
 /*
 =============================================================
@@ -1577,45 +1625,45 @@ ANIMATED MODELS
 =============================================================
 */
 
-void R_MakeAnimModel( model_t *model );
-void R_AddAnimSurfaces( trRefEntity_t *ent );
-void RB_SurfaceAnim( mdsSurface_t *surfType );
-int R_GetBoneTag( orientation_t *outTag, mdsHeader_t *mds, int startTagIndex, const refEntity_t *refent, const char *tagName );
+void R_MakeAnimModel(model_t *model);
+void R_AddAnimSurfaces(trRefEntity_t *ent);
+void RB_SurfaceAnim(mdsSurface_t *surfType);
+int R_GetBoneTag(orientation_t *outTag, mdsHeader_t *mds, int startTagIndex, const refEntity_t *refent, const char *tagName);
 
 /*
 =============================================================
 =============================================================
 */
-void    R_TransformModelToClip( const vec3_t src, const float *modelMatrix, const float *projectionMatrix,
-								vec4_t eye, vec4_t dst );
-void    R_TransformClipToWindow( const vec4_t clip, const viewParms_t *view, vec4_t normalized, vec4_t window );
+void    R_TransformModelToClip(const vec3_t src, const float *modelMatrix, const float *projectionMatrix,
+                               vec4_t eye, vec4_t dst);
+void    R_TransformClipToWindow(const vec4_t clip, const viewParms_t *view, vec4_t normalized, vec4_t window);
 
-void    RB_DeformTessGeometry( void );
+void    RB_DeformTessGeometry(void);
 
-void    RB_CalcEnvironmentTexCoords( float *dstTexCoords );
-void    RB_CalcFireRiseEnvTexCoords( float *st );
-void    RB_CalcFogTexCoords( float *dstTexCoords );
-void    RB_CalcScrollTexCoords( const float scroll[2], float *dstTexCoords );
-void    RB_CalcRotateTexCoords( float rotSpeed, float *dstTexCoords );
-void    RB_CalcScaleTexCoords( const float scale[2], float *dstTexCoords );
-void    RB_CalcSwapTexCoords( float *dstTexCoords );
-void    RB_CalcTurbulentTexCoords( const waveForm_t *wf, float *dstTexCoords );
-void    RB_CalcTransformTexCoords( const texModInfo_t *tmi, float *dstTexCoords );
-void    RB_CalcModulateColorsByFog( unsigned char *dstColors );
-void    RB_CalcModulateAlphasByFog( unsigned char *dstColors );
-void    RB_CalcModulateRGBAsByFog( unsigned char *dstColors );
-void    RB_CalcWaveAlpha( const waveForm_t *wf, unsigned char *dstColors );
-void    RB_CalcWaveColor( const waveForm_t *wf, unsigned char *dstColors );
-void    RB_CalcAlphaFromEntity( unsigned char *dstColors );
-void    RB_CalcAlphaFromOneMinusEntity( unsigned char *dstColors );
-void    RB_CalcStretchTexCoords( const waveForm_t *wf, float *texCoords );
-void    RB_CalcColorFromEntity( unsigned char *dstColors );
-void    RB_CalcColorFromOneMinusEntity( unsigned char *dstColors );
-void    RB_CalcSpecularAlpha( unsigned char *alphas );
-void    RB_CalcDiffuseColor( unsigned char *colors );
+void    RB_CalcEnvironmentTexCoords(float *dstTexCoords);
+void    RB_CalcFireRiseEnvTexCoords(float *st);
+void    RB_CalcFogTexCoords(float *dstTexCoords);
+void    RB_CalcScrollTexCoords(const float scroll[2], float *dstTexCoords);
+void    RB_CalcRotateTexCoords(float rotSpeed, float *dstTexCoords);
+void    RB_CalcScaleTexCoords(const float scale[2], float *dstTexCoords);
+void    RB_CalcSwapTexCoords(float *dstTexCoords);
+void    RB_CalcTurbulentTexCoords(const waveForm_t *wf, float *dstTexCoords);
+void    RB_CalcTransformTexCoords(const texModInfo_t *tmi, float *dstTexCoords);
+void    RB_CalcModulateColorsByFog(unsigned char *dstColors);
+void    RB_CalcModulateAlphasByFog(unsigned char *dstColors);
+void    RB_CalcModulateRGBAsByFog(unsigned char *dstColors);
+void    RB_CalcWaveAlpha(const waveForm_t *wf, unsigned char *dstColors);
+void    RB_CalcWaveColor(const waveForm_t *wf, unsigned char *dstColors);
+void    RB_CalcAlphaFromEntity(unsigned char *dstColors);
+void    RB_CalcAlphaFromOneMinusEntity(unsigned char *dstColors);
+void    RB_CalcStretchTexCoords(const waveForm_t *wf, float *texCoords);
+void    RB_CalcColorFromEntity(unsigned char *dstColors);
+void    RB_CalcColorFromOneMinusEntity(unsigned char *dstColors);
+void    RB_CalcSpecularAlpha(unsigned char *alphas);
+void    RB_CalcDiffuseColor(unsigned char *colors);
 
-void    RB_ZombieFXInit( void );
-void    RB_ZombieFXAddNewHit( int entityNum, const vec3_t hitPos, const vec3_t hitDir );
+void    RB_ZombieFXInit(void);
+void    RB_ZombieFXAddNewHit(int entityNum, const vec3_t hitPos, const vec3_t hitDir);
 
 
 /*
@@ -1626,8 +1674,8 @@ RENDERER BACK END FUNCTIONS
 =============================================================
 */
 
-void RB_RenderThread( void );
-void RB_ExecuteRenderCommands( const void *data );
+void RB_RenderThread(void);
+void RB_ExecuteRenderCommands(const void *data);
 
 /*
 =============================================================
@@ -1639,22 +1687,26 @@ RENDERER BACK END COMMAND QUEUE
 
 #define MAX_RENDER_COMMANDS 0x40000
 
-typedef struct {
+typedef struct
+{
 	byte cmds[MAX_RENDER_COMMANDS];
 	int used;
 } renderCommandList_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	float color[4];
 } setColorCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	int buffer;
 } drawBufferCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	image_t *image;
 	int width;
@@ -1662,16 +1714,19 @@ typedef struct {
 	void    *data;
 } subImageCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 } swapBuffersCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	int buffer;
 } endFrameCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	shader_t    *shader;
 	float x, y;
@@ -1680,10 +1735,11 @@ typedef struct {
 	float s2, t2;
 
 	byte gradientColor[4];      // color values 0-255
-	int gradientType;       //----(SA)	added
+	int gradientType;       //----(SA)  added
 } stretchPicCommand_t;
 
-typedef struct {
+typedef struct
+{
 	int commandId;
 	trRefdef_t refdef;
 	viewParms_t viewParms;
@@ -1691,7 +1747,8 @@ typedef struct {
 	int numDrawSurfs;
 } drawSurfsCommand_t;
 
-typedef enum {
+typedef enum
+{
 	RC_END_OF_LIST,
 	RC_SET_COLOR,
 	RC_STRETCH_PIC,
@@ -1707,8 +1764,8 @@ typedef enum {
 // the main view, all the 3D icons, etc
 
 // Ridah, these aren't enough for cool effects
-//#define	MAX_POLYS		256
-//#define	MAX_POLYVERTS	1024
+//#define   MAX_POLYS       256
+//#define   MAX_POLYVERTS   1024
 #define MAX_POLYS       4096
 #define MAX_POLYVERTS   8192
 // done.
@@ -1717,7 +1774,8 @@ typedef enum {
 // contained in a backEndData_t.  This entire structure is
 // duplicated so the front and back end can run in parallel
 // on an SMP machine
-typedef struct {
+typedef struct
+{
 	drawSurf_t drawSurfs[MAX_DRAWSURFS];
 	dlight_t dlights[MAX_DLIGHTS];
 	corona_t coronas[MAX_CORONAS];          //----(SA)
@@ -1737,56 +1795,56 @@ extern volatile renderCommandList_t    *renderCommandList;
 extern volatile qboolean renderThreadActive;
 
 
-void *R_GetCommandBuffer( int bytes );
-void RB_ExecuteRenderCommands( const void *data );
+void *R_GetCommandBuffer(int bytes);
+void RB_ExecuteRenderCommands(const void *data);
 
-void R_InitCommandBuffers( void );
-void R_ShutdownCommandBuffers( void );
+void R_InitCommandBuffers(void);
+void R_ShutdownCommandBuffers(void);
 
-void R_SyncRenderThread( void );
+void R_SyncRenderThread(void);
 
-void R_AddDrawSurfCmd( drawSurf_t *drawSurfs, int numDrawSurfs );
+void R_AddDrawSurfCmd(drawSurf_t *drawSurfs, int numDrawSurfs);
 
-void RE_SetColor( const float *rgba );
-void RE_StretchPic( float x, float y, float w, float h,
-					float s1, float t1, float s2, float t2, qhandle_t hShader );
-void RE_StretchPicGradient( float x, float y, float w, float h,
-							float s1, float t1, float s2, float t2, qhandle_t hShader, const float *gradientColor, int gradientType );
-void RE_BeginFrame( stereoFrame_t stereoFrame );
-void RE_EndFrame( int *frontEndMsec, int *backEndMsec );
-void SaveJPG( char * filename, int quality, int image_width, int image_height, unsigned char *image_buffer );
+void RE_SetColor(const float *rgba);
+void RE_StretchPic(float x, float y, float w, float h,
+                   float s1, float t1, float s2, float t2, qhandle_t hShader);
+void RE_StretchPicGradient(float x, float y, float w, float h,
+                           float s1, float t1, float s2, float t2, qhandle_t hShader, const float *gradientColor, int gradientType);
+void RE_BeginFrame(stereoFrame_t stereoFrame);
+void RE_EndFrame(int *frontEndMsec, int *backEndMsec);
+void SaveJPG(char *filename, int quality, int image_width, int image_height, unsigned char *image_buffer);
 
 // font stuff
 void R_InitFreeType();
 void R_DoneFreeType();
-void RE_RegisterFont( const char *fontName, int pointSize, fontInfo_t *font );
+void RE_RegisterFont(const char *fontName, int pointSize, fontInfo_t *font);
 
 // Ridah, caching system
 // NOTE: to disable this for development, set "r_cache 0" in autoexec.cfg
-void R_InitTexnumImages( qboolean force );
+void R_InitTexnumImages(qboolean force);
 
-void *R_CacheModelAlloc( int size );
-void R_CacheModelFree( void *ptr );
-void R_PurgeModels( int count );
-void R_BackupModels( void );
-qboolean R_FindCachedModel( const char *name, model_t *newmod );
-void R_LoadCacheModels( void );
+void *R_CacheModelAlloc(int size);
+void R_CacheModelFree(void *ptr);
+void R_PurgeModels(int count);
+void R_BackupModels(void);
+qboolean R_FindCachedModel(const char *name, model_t *newmod);
+void R_LoadCacheModels(void);
 
-void *R_CacheImageAlloc( int size );
-void R_CacheImageFree( void *ptr );
-qboolean R_TouchImage( image_t *inImage );
-image_t *R_FindCachedImage( const char *name, int hash );
-void R_FindFreeTexnum( image_t *image );
-void R_LoadCacheImages( void );
-void R_PurgeBackupImages( int purgeCount );
-void R_BackupImages( void );
+void *R_CacheImageAlloc(int size);
+void R_CacheImageFree(void *ptr);
+qboolean R_TouchImage(image_t *inImage);
+image_t *R_FindCachedImage(const char *name, int hash);
+void R_FindFreeTexnum(image_t *image);
+void R_LoadCacheImages(void);
+void R_PurgeBackupImages(int purgeCount);
+void R_BackupImages(void);
 
-void *R_CacheShaderAlloc( int size );
-void R_CacheShaderFree( void *ptr );
-shader_t *R_FindCachedShader( const char *name, int lightmapIndex, int hash );
-void R_BackupShaders( void );
-void R_PurgeShaders( int count );
-void R_LoadCacheShaders( void );
+void *R_CacheShaderAlloc(int size);
+void R_CacheShaderFree(void *ptr);
+shader_t *R_FindCachedShader(const char *name, int lightmapIndex, int hash);
+void R_BackupShaders(void);
+void R_PurgeShaders(int count);
+void R_LoadCacheShaders(void);
 // done.
 
 //------------------------------------------------------------------------------
@@ -1798,7 +1856,7 @@ extern float r_anormals[NUMMDCVERTEXNORMALS][3];
 // NOTE: MDC_MAX_ERROR is effectively the compression level. the lower this value, the higher
 // the accuracy, but with lower compression ratios.
 #define MDC_MAX_ERROR       0.1     // if any compressed vert is off by more than this from the
-									// actual vert, make this a baseframe
+// actual vert, make this a baseframe
 
 #define MDC_DIST_SCALE      0.05    // lower for more accuracy, but less range
 
@@ -1809,7 +1867,7 @@ extern float r_anormals[NUMMDCVERTEXNORMALS][3];
 #define MDC_MAX_DIST        ( MDC_MAX_OFS * MDC_DIST_SCALE )
 
 #if 0
-void R_MDC_DecodeXyzCompressed( mdcXyzCompressed_t *xyzComp, vec3_t out, vec3_t normal );
+void R_MDC_DecodeXyzCompressed(mdcXyzCompressed_t *xyzComp, vec3_t out, vec3_t normal);
 #else   // optimized version
 #define R_MDC_DecodeXyzCompressed( ofsVec, out, normal ) \
 	( out )[0] = ( (float)( ( ofsVec ) & 255 ) - MDC_MAX_OFS ) * MDC_DIST_SCALE; \
@@ -1818,11 +1876,11 @@ void R_MDC_DecodeXyzCompressed( mdcXyzCompressed_t *xyzComp, vec3_t out, vec3_t 
 	VectorCopy( ( r_anormals )[( ofsVec >> 24 )], normal );
 #endif
 
-void R_AddMDCSurfaces( trRefEntity_t *ent );
+void R_AddMDCSurfaces(trRefEntity_t *ent);
 // done.
 //------------------------------------------------------------------------------
 
-void R_LatLongToNormal( vec3_t outNormal, short latLong );
+void R_LatLongToNormal(vec3_t outNormal, short latLong);
 
 
 /*
@@ -1833,23 +1891,23 @@ GL FOG
 ============================================================
 */
 
-//extern glfog_t		glfogCurrent;
+//extern glfog_t        glfogCurrent;
 extern glfog_t glfogsettings[NUM_FOGS];         // [0] never used (FOG_NONE)
 extern glfogType_t glfogNum;                    // fog type to use (from the fog_t enum list)
 
 extern qboolean fogIsOn;
 
-extern void         R_FogOff( void );
-extern void         R_FogOn( void );
+extern void         R_FogOff(void);
+extern void         R_FogOn(void);
 
-extern void R_SetFog( int fogvar, int var1, int var2, float r, float g, float b, float density );
+extern void R_SetFog(int fogvar, int var1, int var2, float r, float g, float b, float density);
 
 extern int skyboxportal;
 extern int drawskyboxportal;
 
 // Ridah, virtual memory
-void *R_Hunk_Begin( void );
-void R_Hunk_End( void );
-void R_FreeImageBuffer( void );
+void *R_Hunk_Begin(void);
+void R_Hunk_End(void);
+void R_FreeImageBuffer(void);
 
 #endif //TR_LOCAL_H (THIS MUST BE LAST!!)

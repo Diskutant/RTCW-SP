@@ -2,9 +2,9 @@
 ===========================================================================
 
 Return to Castle Wolfenstein single player GPL Source Code
-Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2010 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).  
+This file is part of the Return to Castle Wolfenstein single player GPL Source Code (RTCW SP Source Code).
 
 RTCW SP Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ If you have questions concerning this license or the applicable additional terms
 
 #define MAX_BRUSH_SIDES     128     //maximum number of sides per brush
 #define CLIP_EPSILON        0.1
-//#define MAX_MAP_BOUNDS		65535
+//#define MAX_MAP_BOUNDS        65535
 #define MAX_MAP_BOUNDS      ( 128 * 1024 )    // (SA) (9/17/01) new map dimensions (from Q3TA)
 #define BOGUS_RANGE         ( MAX_MAP_BOUNDS + 128 )    //somewhere outside the map
 
@@ -300,74 +300,74 @@ extern int c_clipbrushes;
 extern int c_squattbrushes;
 
 //finds a float plane for the given normal and distance
-int FindFloatPlane( vec3_t normal, vec_t dist );
+int FindFloatPlane(vec3_t normal, vec_t dist);
 //returns the plane type for the given normal
-int PlaneTypeForNormal( vec3_t normal );
+int PlaneTypeForNormal(vec3_t normal);
 //returns the plane defined by the three given points
-int PlaneFromPoints( int *p0, int *p1, int *p2 );
+int PlaneFromPoints(int *p0, int *p1, int *p2);
 //add bevels to the map brush
-void AddBrushBevels( mapbrush_t *b );
+void AddBrushBevels(mapbrush_t *b);
 //makes brush side windings for the brush
-qboolean MakeBrushWindings( mapbrush_t *ob );
+qboolean MakeBrushWindings(mapbrush_t *ob);
 //marks brush bevels of the brush as bevel
-void MarkBrushBevels( mapbrush_t *brush );
+void MarkBrushBevels(mapbrush_t *brush);
 //returns true if the map brush already exists
-int BrushExists( mapbrush_t *brush );
+int BrushExists(mapbrush_t *brush);
 //loads a map from a bsp file
-int LoadMapFromBSP( struct quakefile_s *qf );
+int LoadMapFromBSP(struct quakefile_s *qf);
 //resets map loading
-void ResetMapLoading( void );
+void ResetMapLoading(void);
 //print some map info
-void PrintMapInfo( void );
+void PrintMapInfo(void);
 //writes a map file (type depending on loaded map type)
-void WriteMapFile( char *filename );
+void WriteMapFile(char *filename);
 
 //=============================================================================
 // map_q2.c
 //=============================================================================
 
-void Q2_ResetMapLoading( void );
+void Q2_ResetMapLoading(void);
 //loads a Quake2 map file
-void Q2_LoadMapFile( char *filename );
+void Q2_LoadMapFile(char *filename);
 //loads a map from a Quake2 bsp file
-void Q2_LoadMapFromBSP( char *filename, int offset, int length );
+void Q2_LoadMapFromBSP(char *filename, int offset, int length);
 
 //=============================================================================
 // map_q1.c
 //=============================================================================
 
-void Q1_ResetMapLoading( void );
+void Q1_ResetMapLoading(void);
 //loads a Quake2 map file
-void Q1_LoadMapFile( char *filename );
+void Q1_LoadMapFile(char *filename);
 //loads a map from a Quake1 bsp file
-void Q1_LoadMapFromBSP( char *filename, int offset, int length );
+void Q1_LoadMapFromBSP(char *filename, int offset, int length);
 
 //=============================================================================
 // map_q3.c
 //=============================================================================
-void Q3_ResetMapLoading( void );
+void Q3_ResetMapLoading(void);
 //loads a map from a Quake3 bsp file
-void Q3_LoadMapFromBSP( struct quakefile_s *qf );
+void Q3_LoadMapFromBSP(struct quakefile_s *qf);
 
 //=============================================================================
 // map_sin.c
 //=============================================================================
 
-void Sin_ResetMapLoading( void );
+void Sin_ResetMapLoading(void);
 //loads a Sin map file
-void Sin_LoadMapFile( char *filename );
+void Sin_LoadMapFile(char *filename);
 //loads a map from a Sin bsp file
-void Sin_LoadMapFromBSP( char *filename, int offset, int length );
+void Sin_LoadMapFromBSP(char *filename, int offset, int length);
 
 //=============================================================================
 // map_hl.c
 //=============================================================================
 
-void HL_ResetMapLoading( void );
+void HL_ResetMapLoading(void);
 //loads a Half-Life map file
-void HL_LoadMapFile( char *filename );
+void HL_LoadMapFile(char *filename);
 //loads a map from a Half-Life bsp file
-void HL_LoadMapFromBSP( char *filename, int offset, int length );
+void HL_LoadMapFromBSP(char *filename, int offset, int length);
 
 //=============================================================================
 // textures.c
@@ -386,23 +386,23 @@ typedef struct
 
 extern textureref_t textureref[MAX_MAP_TEXTURES];
 
-int FindMiptex( char *name );
-int TexinfoForBrushTexture( plane_t *plane, brush_texture_t *bt, vec3_t origin );
-void TextureAxisFromPlane( plane_t *pln, vec3_t xv, vec3_t yv );
+int FindMiptex(char *name);
+int TexinfoForBrushTexture(plane_t *plane, brush_texture_t *bt, vec3_t origin);
+void TextureAxisFromPlane(plane_t *pln, vec3_t xv, vec3_t yv);
 
 //=============================================================================
 // csg
 //=============================================================================
 
-bspbrush_t *MakeBspBrushList( int startbrush, int endbrush, vec3_t clipmins, vec3_t clipmaxs );
-bspbrush_t *ChopBrushes( bspbrush_t *head );
-bspbrush_t *InitialBrushList( bspbrush_t *list );
-bspbrush_t *OptimizedBrushList( bspbrush_t *list );
-void WriteBrushMap( char *name, bspbrush_t *list );
-void CheckBSPBrush( bspbrush_t *brush );
-void BSPBrushWindings( bspbrush_t *brush );
-bspbrush_t *TryMergeBrushes( bspbrush_t *brush1, bspbrush_t *brush2 );
-tree_t *ProcessWorldBrushes( int brush_start, int brush_end );
+bspbrush_t *MakeBspBrushList(int startbrush, int endbrush, vec3_t clipmins, vec3_t clipmaxs);
+bspbrush_t *ChopBrushes(bspbrush_t *head);
+bspbrush_t *InitialBrushList(bspbrush_t *list);
+bspbrush_t *OptimizedBrushList(bspbrush_t *list);
+void WriteBrushMap(char *name, bspbrush_t *list);
+void CheckBSPBrush(bspbrush_t *brush);
+void BSPBrushWindings(bspbrush_t *brush);
+bspbrush_t *TryMergeBrushes(bspbrush_t *brush1, bspbrush_t *brush2);
+tree_t *ProcessWorldBrushes(int brush_start, int brush_end);
 
 //=============================================================================
 // brushbsp
@@ -413,47 +413,47 @@ tree_t *ProcessWorldBrushes( int brush_start, int brush_end );
 #define PSIDE_BOTH          ( PSIDE_FRONT | PSIDE_BACK )
 #define PSIDE_FACING        4
 
-void WriteBrushList( char *name, bspbrush_t *brush, qboolean onlyvis );
-bspbrush_t *CopyBrush( bspbrush_t *brush );
-void SplitBrush( bspbrush_t *brush, int planenum, bspbrush_t **front, bspbrush_t **back );
-node_t *AllocNode( void );
-bspbrush_t *AllocBrush( int numsides );
-int CountBrushList( bspbrush_t *brushes );
-void FreeBrush( bspbrush_t *brushes );
-vec_t BrushVolume( bspbrush_t *brush );
-void BoundBrush( bspbrush_t *brush );
-void FreeBrushList( bspbrush_t *brushes );
-tree_t *BrushBSP( bspbrush_t *brushlist, vec3_t mins, vec3_t maxs );
+void WriteBrushList(char *name, bspbrush_t *brush, qboolean onlyvis);
+bspbrush_t *CopyBrush(bspbrush_t *brush);
+void SplitBrush(bspbrush_t *brush, int planenum, bspbrush_t **front, bspbrush_t **back);
+node_t *AllocNode(void);
+bspbrush_t *AllocBrush(int numsides);
+int CountBrushList(bspbrush_t *brushes);
+void FreeBrush(bspbrush_t *brushes);
+vec_t BrushVolume(bspbrush_t *brush);
+void BoundBrush(bspbrush_t *brush);
+void FreeBrushList(bspbrush_t *brushes);
+tree_t *BrushBSP(bspbrush_t *brushlist, vec3_t mins, vec3_t maxs);
 
-bspbrush_t *BrushFromBounds( vec3_t mins, vec3_t maxs );
-int BrushMostlyOnSide( bspbrush_t *brush, plane_t *plane );
-qboolean WindingIsHuge( winding_t *w );
-qboolean WindingIsTiny( winding_t *w );
-void ResetBrushBSP( void );
+bspbrush_t *BrushFromBounds(vec3_t mins, vec3_t maxs);
+int BrushMostlyOnSide(bspbrush_t *brush, plane_t *plane);
+qboolean WindingIsHuge(winding_t *w);
+qboolean WindingIsTiny(winding_t *w);
+void ResetBrushBSP(void);
 
 //=============================================================================
 // portals.c
 //=============================================================================
 
-int VisibleContents( int contents );
-void MakeHeadnodePortals( tree_t *tree );
-void MakeNodePortal( node_t *node );
-void SplitNodePortals( node_t *node );
-qboolean    Portal_VisFlood( portal_t *p );
-qboolean FloodEntities( tree_t *tree );
-void FillOutside( node_t *headnode );
-void FloodAreas( tree_t *tree );
-void MarkVisibleSides( tree_t *tree, int start, int end );
-void FreePortal( portal_t *p );
-void EmitAreaPortals( node_t *headnode );
-void MakeTreePortals( tree_t *tree );
+int VisibleContents(int contents);
+void MakeHeadnodePortals(tree_t *tree);
+void MakeNodePortal(node_t *node);
+void SplitNodePortals(node_t *node);
+qboolean    Portal_VisFlood(portal_t *p);
+qboolean FloodEntities(tree_t *tree);
+void FillOutside(node_t *headnode);
+void FloodAreas(tree_t *tree);
+void MarkVisibleSides(tree_t *tree, int start, int end);
+void FreePortal(portal_t *p);
+void EmitAreaPortals(node_t *headnode);
+void MakeTreePortals(tree_t *tree);
 
 //=============================================================================
 // glfile.c
 //=============================================================================
 
-void OutputWinding( winding_t *w, FILE *glview );
-void WriteGLView( tree_t *tree, char *source );
+void OutputWinding(winding_t *w, FILE *glview);
+void WriteGLView(tree_t *tree, char *source);
 
 //=============================================================================
 // gldraw.c
@@ -462,37 +462,37 @@ void WriteGLView( tree_t *tree, char *source );
 extern vec3_t draw_mins, draw_maxs;
 extern qboolean drawflag;
 
-void Draw_ClearWindow( void );
-void DrawWinding( winding_t *w );
-void GLS_BeginScene( void );
-void GLS_Winding( winding_t *w, int code );
-void GLS_EndScene( void );
+void Draw_ClearWindow(void);
+void DrawWinding(winding_t *w);
+void GLS_BeginScene(void);
+void GLS_Winding(winding_t *w, int code);
+void GLS_EndScene(void);
 
 //=============================================================================
 // leakfile.c
 //=============================================================================
 
-void LeakFile( tree_t *tree );
+void LeakFile(tree_t *tree);
 
 //=============================================================================
 // tree.c
 //=============================================================================
 
-tree_t *Tree_Alloc( void );
-void Tree_Free( tree_t *tree );
-void Tree_Free_r( node_t *node );
-void Tree_Print_r( node_t *node, int depth );
-void Tree_FreePortals_r( node_t *node );
-void Tree_PruneNodes_r( node_t *node );
-void Tree_PruneNodes( node_t *node );
+tree_t *Tree_Alloc(void);
+void Tree_Free(tree_t *tree);
+void Tree_Free_r(node_t *node);
+void Tree_Print_r(node_t *node, int depth);
+void Tree_FreePortals_r(node_t *node);
+void Tree_PruneNodes_r(node_t *node);
+void Tree_PruneNodes(node_t *node);
 
 //=============================================================================
 // faces.c
 //=============================================================================
 
-face_t *AllocFace( void );
-void FreeFace( face_t *f );
-void MakeFaces( node_t *headnode );
-void FixTjuncs( node_t *headnode );
-int GetEdge2( int v1, int v2, face_t *f );
-void MergeNodeFaces( node_t *node );
+face_t *AllocFace(void);
+void FreeFace(face_t *f);
+void MakeFaces(node_t *headnode);
+void FixTjuncs(node_t *headnode);
+int GetEdge2(int v1, int v2, face_t *f);
+void MergeNodeFaces(node_t *node);

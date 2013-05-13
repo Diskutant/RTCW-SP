@@ -24,7 +24,7 @@
 
 #include "ft2/ftmodule.h"
 
-FT_EXPORT_VAR( const FT_Module_Class )  autohint_module_class;
+FT_EXPORT_VAR(const FT_Module_Class)  autohint_module_class;
 
 #endif /* AHMODULE_H */
 

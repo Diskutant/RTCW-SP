@@ -32,13 +32,13 @@ extern "C" {
 #define TT_Err_Invalid_Post_Table         0x0B01
 
 
-LOCAL_DEF
-FT_Error TT_Get_PS_Name( TT_Face face,
-						 FT_UInt index,
-						 FT_String**  PSname );
+	LOCAL_DEF
+	FT_Error TT_Get_PS_Name(TT_Face face,
+	                        FT_UInt index,
+	                        FT_String  **PSname);
 
-LOCAL_DEF
-void  TT_Free_Post_Names( TT_Face face );
+	LOCAL_DEF
+	void  TT_Free_Post_Names(TT_Face face);
 
 
 #ifdef __cplusplus

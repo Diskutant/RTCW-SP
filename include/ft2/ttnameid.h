@@ -565,7 +565,7 @@
 #define TT_UCR_KATAKANA                        ( 1L << 18 ) /* U+30A0-U+30FF */
 /* Bit 51   Bopomofo + Extended Bopomofo */
 #define TT_UCR_BOPOMOFO                        ( 1L << 19 ) /* U+3100-U+312F */
-															/* U+31A0-U+31BF */
+/* U+31A0-U+31BF */
 /* Bit 52   Hangul Compatibility Jamo */
 #define TT_UCR_HANGUL_COMPATIBILITY_JAMO       ( 1L << 20 ) /* U+3130-U+318F */
 /* Bit 53   CJK Miscellaneous */
@@ -594,10 +594,10 @@
 /*          Ideographic Description            + */
 /*          CJK Unified Ideographs Extension A   */
 #define TT_UCR_CJK_UNIFIED_IDEOGRAPHS          ( 1L << 27 ) /* U+4E00-U+9FFF */
-															/* U+2E80-U+2EFF */
-															/* U+2F00-U+2FDF */
-															/* U+2FF0-U+2FFF */
-															/* U+34E0-U+4DB5 */
+/* U+2E80-U+2EFF */
+/* U+2F00-U+2FDF */
+/* U+2FF0-U+2FFF */
+/* U+34E0-U+4DB5 */
 
 /* Private Use Area */
 
@@ -652,7 +652,7 @@
 #define TT_UCR_BRAILLE                         ( 1L << 18 ) /* U+2800-U+28FF */
 /* Bit 83   Yi + Yi Radicals */
 #define TT_UCR_YI                              ( 1L << 19 ) /* U+A000-U+A48C */
-															/* U+A490-U+A4CF */
+/* U+A490-U+A4CF */
 
 
 /*************************************************************************/
@@ -678,14 +678,14 @@
 /* Borland compilers (read: from BC++ 3.1 on) can increase this limit.   */
 /* If you get a warning with such a compiler, use the -i40 switch.       */
 /*                                                                       */
-#define TT_UCR_ARABIC_PRESENTATION_FORMS_A		\
+#define TT_UCR_ARABIC_PRESENTATION_FORMS_A      \
 	TT_UCR_ARABIC_PRESENTATIONS_A
-#define TT_UCR_ARABIC_PRESENTATION_FORMS_B		\
+#define TT_UCR_ARABIC_PRESENTATION_FORMS_B      \
 	TT_UCR_ARABIC_PRESENTATIONS_B
 
-#define TT_UCR_COMBINING_DIACRITICAL_MARKS		\
+#define TT_UCR_COMBINING_DIACRITICAL_MARKS      \
 	TT_UCR_COMBINING_DIACRITICS
-#define TT_UCR_COMBINING_DIACRITICAL_MARKS_SYMB	\
+#define TT_UCR_COMBINING_DIACRITICAL_MARKS_SYMB \
 	TT_UCR_COMBINING_DIACRITICS_SYMB
 
 

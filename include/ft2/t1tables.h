@@ -40,11 +40,11 @@
 /*                                                                       */
 typedef struct  T1_FontInfo
 {
-	FT_String*  version;
-	FT_String*  notice;
-	FT_String*  full_name;
-	FT_String*  family_name;
-	FT_String*  weight;
+	FT_String  *version;
+	FT_String  *notice;
+	FT_String  *full_name;
+	FT_String  *family_name;
+	FT_String  *weight;
 	FT_Long italic_angle;
 	FT_Bool is_fixed_pitch;
 	FT_Short underline_position;
@@ -152,8 +152,8 @@ typedef enum
 typedef struct  T1_DesignMap_
 {
 	FT_Byte num_points;
-	FT_Fixed*  design_points;
-	FT_Fixed*  blend_points;
+	FT_Fixed  *design_points;
+	FT_Fixed  *blend_points;
 
 } T1_DesignMap;
 
@@ -163,15 +163,15 @@ typedef struct  T1_Blend_
 	FT_UInt num_designs;
 	FT_UInt num_axis;
 
-	FT_String*    axis_names[T1_MAX_MM_AXIS];
-	FT_Fixed*     design_pos[T1_MAX_MM_DESIGNS];
+	FT_String    *axis_names[T1_MAX_MM_AXIS];
+	FT_Fixed     *design_pos[T1_MAX_MM_DESIGNS];
 	T1_DesignMap design_map[T1_MAX_MM_AXIS];
 
-	FT_Fixed*     weight_vector;
-	FT_Fixed*     default_weight_vector;
+	FT_Fixed     *weight_vector;
+	FT_Fixed     *default_weight_vector;
 
-	T1_FontInfo*  font_infos[T1_MAX_MM_DESIGNS + 1];
-	T1_Private*   privates  [T1_MAX_MM_DESIGNS + 1];
+	T1_FontInfo  *font_infos[T1_MAX_MM_DESIGNS + 1];
+	T1_Private   *privates  [T1_MAX_MM_DESIGNS + 1];
 
 	FT_ULong blend_bitflags;
 
@@ -200,12 +200,12 @@ typedef struct  CID_FontDict_
 
 typedef struct  CID_Info_
 {
-	FT_String*     cid_font_name;
+	FT_String     *cid_font_name;
 	FT_Fixed cid_version;
 	FT_Int cid_font_type;
 
-	FT_String*     registry;
-	FT_String*     ordering;
+	FT_String     *registry;
+	FT_String     *ordering;
 	FT_Int supplement;
 
 	T1_FontInfo font_info;
@@ -222,7 +222,7 @@ typedef struct  CID_Info_
 	FT_ULong cid_count;
 
 	FT_Int num_dicts;
-	CID_FontDict*  font_dicts;
+	CID_FontDict  *font_dicts;
 
 	FT_ULong data_offset;
 
