@@ -67,7 +67,7 @@ add_dependencies(${PROJECT_NAME} botlib.a jpeg-6.a splines.a)
 
 # Our executable
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
-target_link_libraries(${PROJECT_NAME} SDL GL dl m botlib.a jpeg-6.a splines.a)
+target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} GL dl m botlib.a jpeg-6.a splines.a)
 
 install(
 	TARGETS ${PROJECT_NAME}

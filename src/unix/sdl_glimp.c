@@ -51,11 +51,14 @@ If you have questions concerning this license or the applicable additional terms
 #include "client/client.h"
 #include "unix/linux_local.h"
 #include "unix/unix_glw.h"
+// include the icon image needed for the window
+#include "unix/icon.xpm"
 glwstate_t glw_state;
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #define WINDOW_CLASS_NAME   "Return to Castle Wolfenstein"
-#define WINDOW_CLASS_NAME_MIN "RtCW"
+#define WINDOW_CLASS_NAME_MIN "RTCW"
 
 static SDL_Surface         *screen    = NULL;
 static const SDL_VideoInfo *videoInfo = NULL;
@@ -355,7 +358,12 @@ int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 		glConfig.stereoEnabled = qfalse;
 		SDL_GL_SetAttribute(SDL_GL_STEREO, 0);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
+		
+		
+		SDL_Surface *icon = IMG_ReadXPMFromArray(rtcw_icon);
+		
+		SDL_WM_SetIcon(icon, NULL);
+		SDL_FreeSurface(icon);
 
 		SDL_WM_SetCaption(WINDOW_CLASS_NAME, WINDOW_CLASS_NAME_MIN);
 		SDL_ShowCursor(0);
