@@ -265,13 +265,6 @@ find_package(SDL)
 find_package(SDL_sound)
 find_package(SDL_image)
 
-# Make sure we really found everything
-check_include_file(SDL/SDL_image HAVE_SDL_SDL_IMAGE_H)
-
-if(NOT HAVE_SDL_SDL_IMAGE_H)
-	set(SDL_sound_FOUND FALSE)
-endif(NOT HAVE_SDL_SDL_IMAGE_H)
-
 # Begin the madness!
 #############################################################################################
 set(SDL_Libs)
@@ -279,15 +272,15 @@ set(PACKAGECOMMAND)
 # Pacman is annoying in that they use all lowercase
 # whereas most other package managers use whatever the
 # package name is.
-if(NOT SDL_sound_FOUND)
+if(NOT SDL_FOUND)
 	if(NOT PACMAN)
 		set(SDL_Libs "${SDL_Libs} SDL")
 	else(NOT PACMAN)
 		set(SDL_Libs "${SDL_Libs} sdl")
 	endif(NOT PACMAN)
-endif(NOT SDL_sound_FOUND)
+endif(NOT SDL_FOUND)
 
-if(NOT SDL_sound_FOUND)
+if(NOT SDL_SOUND_FOUND)
 	if(NOT PACMAN)
 		set(SDL_Libs "${SDL_Libs} SDL_sound")
 	else(NOT PACMAN)
@@ -297,9 +290,9 @@ if(NOT SDL_sound_FOUND)
 			set(SDL_Libs "${SDL_Libs} libsdl-sound1.2")
 		endif(NOT APT)
 	endif(NOT PACMAN)
-endif(NOT SDL_sound_FOUND)
+endif(NOT SDL_SOUND_FOUND)
 
-if(NOT SDL_image_FOUND)
+if(NOT SDL_IMAGE_FOUND)
 	if(NOT PACMAN)
 		set(SDL_Libs "${SDL_Libs} SDL_image")
 	else(NOT PACMAN)
@@ -309,7 +302,7 @@ if(NOT SDL_image_FOUND)
 			set(SDL_Libs "${SDL_Libs} libsdl-image1.2")
 		endif(NOT APT)
 	endif(NOT PACMAN)
-endif(NOT SDL_image_FOUND)
+endif(NOT SDL_IMAGE_FOUND)
 
 if(SDL_Libs)
 	if(PACMAN)
