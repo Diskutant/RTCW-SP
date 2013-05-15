@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 2.8)
 # initialize our variables
 set(RENDERER_SOURCES)
 set(QCOMMON_SOURCES)
-set(UNIX_SOURCES)
 set(SERVER_SOURCES)
+set(PLATFORM_SOURCES)
 set(CLIENT_SOURCES)
 
 ## Make lists of all the sources we need
@@ -19,13 +19,10 @@ list(REMOVE_ITEM QCOMMON_SOURCES "../qcommon/vm_x86.c")
 list(SORT QCOMMON_SOURCES)
 # message(STATUS "QCOMMON_SOURCES: ${QCOMMON_SOURCES}")
 
-# unix specific sources, I will work on windows/osx compile later..
-# file(GLOB UNIX_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../unix/*.c")
-# list(SORT UNIX_SOURCES)
-
-if(UNIX OR APPLE)
-# Its easier to just make a list like this for unix sources
-set(UNIX_SOURCES
+if(UNIX)
+# *nix specific sources
+# We use a list to avoid the qvm stuff that fails to compile on x86_64
+set(PLATFORM_SOURCES
 	${CMAKE_SOURCE_DIR}/src/unix/unix_main.c
 	${CMAKE_SOURCE_DIR}/src/unix/unix_net.c
 	${CMAKE_SOURCE_DIR}/src/unix/unix_shared.c
@@ -35,9 +32,13 @@ set(UNIX_SOURCES
 	${CMAKE_SOURCE_DIR}/src/unix/sdl_input.c
 	${CMAKE_SOURCE_DIR}/src/unix/sdl_snd.c
 )
-endif(UNIX OR APPLE)
+endif(UNIX)
 
-# message(STATUS "UNIX_SOURCES: ${UNIX_SOURCES}")
+if(WIN32)
+	file(GLOB PLATFORM_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../win32/*.c")
+	list(APPEND PLATFORM_SOURCES "../win32/save/win_snd.c")
+	list(SORT PLATFORM_SOURCES)
+endif(WIN32)
 
 # Server sources
 file(GLOB SERVER_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../server/*.c")
@@ -55,7 +56,7 @@ set(ADDITONAL_SOURCES
 )
 # message(STATUS "ADDITIONAL_SOURCES: ${ADDITIONAL_SOURCES}")
 # Append all of our sources to one list and set it ready to compile.
-list(APPEND CLIENT_SOURCES ${RENDERER_SOURCES} ${QCOMMON_SOURCES} ${UNIX_SOURCES}
+list(APPEND CLIENT_SOURCES ${RENDERER_SOURCES} ${QCOMMON_SOURCES} ${PLATFORM_SOURCES}
 			${ADDITONAL_SOURCES} ${SERVER_SOURCES} ${SERVER_SOURCES})
 
 set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
