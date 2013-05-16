@@ -39,7 +39,7 @@ If you have questions concerning this license or the applicable additional terms
 #import "macosx/macosx_timers.h"
 #import "macosx/macosx_display.h" // For Sys_SetScreenFade
 
-#import <drivers/event_status_driver.h>
+#import <IOKit/hidsystem/event_status_driver.h>
 #import <sys/types.h>
 #import <sys/time.h>
 #import <unistd.h>

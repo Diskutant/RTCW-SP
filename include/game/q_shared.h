@@ -182,9 +182,13 @@ If you have questions concerning this license or the applicable additional terms
 //DAJ #define   MAC_STATIC  static
 #define MAC_STATIC
 
-#define CPUSTRING   "MacOS-PPC"
+#ifndef CPUSTRING
+# define CPUSTRING   "MacOS-PPC"
+#endif
 
-#define PATH_SEP ':'
+#ifndef PATH_SEP
+# define PATH_SEP ':'
+#endif
 
 #define GAME_HARD_LINKED
 #define CGAME_HARD_LINKED

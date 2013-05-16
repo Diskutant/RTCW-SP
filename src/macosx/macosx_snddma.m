@@ -32,6 +32,45 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "client/snd_local.h"
 #include <Carbon/Carbon.h>
+#include <CoreServices/CoreServices.h>
+#include <AvailabilityMacros.h>
+#include <MacTypes.h>
+
+#include <CoreAudio/CoreAudio.h>
+#include <AudioUnit/AudioUnit.h>
+#include <AudioToolbox/DefaultAudioOutput.h>
+#include <AudioToolbox/AudioConverter.h>
+#include <AudioToolbox/AUGraph.h>
+#include <QuickTime/QuickTimeMusic.h>
+
+// Fix OS X 10.8 and up because apple moved their stupid shit
+// and I cant find the include which has SndChannel.
+struct SndCommand {
+  unsigned short      cmd;
+  short               param1;
+  long                param2;
+};
+typedef struct SndCommand               SndCommand;
+typedef struct SndChannel               SndChannel;
+
+typedef SndChannel *                    SndChannelPtr;
+typedef CALLBACK_API( void , SndCallBackProcPtr )(SndChannelPtr chan, SndCommand *cmd);
+typedef STACK_UPP_TYPE(SndCallBackProcPtr)                      SndCallBackUPP;
+struct SndChannel {
+  SndChannelPtr       nextChan;
+  Ptr                 firstMod;               /* reserved for the Sound Manager */
+  SndCallBackUPP      callBack;
+  long                userInfo;
+  long                wait;                   /* The following is for internal Sound Manager use only.*/
+  SndCommand          cmdInProgress;
+  short               flags;
+  short               qLength;
+  short               qHead;
+  short               qTail;
+  SndCommand          queue[128];
+};
+
+
 
 // For 'ri'
 #include "renderer/tr_local.h"

@@ -1605,8 +1605,7 @@ void G_ShutdownGame(int restart)
 
 //===================================================================
 
-//#if !defined( GAME_HARD_LINKED ) || defined( __MACOS__ )
-#if 1
+#if !defined( GAME_HARD_LINKED ) || defined( __MACOS__ )
 // this is only here so the functions in q_shared.c and bg_*.c can link
 
 void QDECL Com_Error(int level, const char *error, ...)

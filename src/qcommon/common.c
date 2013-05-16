@@ -196,7 +196,7 @@ void QDECL Com_Printf(const char *fmt, ...)
 
 #ifdef __MACOS__    //DAJ MacOS file typing
 			{
-				extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+				extern  long _fcreator, _ftype;
 				_ftype = 'TEXT';
 				_fcreator = 'R*ch';
 			}
@@ -1771,7 +1771,7 @@ void Com_InitJournaling(void)
 		Com_Printf("Journaling events\n");
 #ifdef __MACOS__    //DAJ MacOS file typing
 		{
-			extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+			extern  long _fcreator, _ftype;
 			_ftype = 'WlfB';
 			_fcreator = 'WlfS';
 		}
@@ -2275,7 +2275,7 @@ static void Com_WriteCDKey(const char *filename, const char *ikey)
 
 #ifdef __MACOS__    //DAJ MacOS file typing
 	{
-		extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+		extern  long _fcreator, _ftype;
 		_ftype = 'TEXT';
 		_fcreator = 'WlfS';
 	}
@@ -2554,7 +2554,7 @@ void Com_WriteConfigToFile(const char *filename)
 
 #ifdef __MACOS__    //DAJ MacOS file typing
 	{
-		extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+		extern  long _fcreator, _ftype;
 		_ftype = 'TEXT';
 		_fcreator = 'R*ch';
 	}

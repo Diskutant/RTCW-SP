@@ -48,7 +48,25 @@ static void GLW_InitExtensions( void );
 static qboolean CreateGameWindow( qboolean isSecondTry );
 static unsigned long Sys_QueryVideoMemory();
 
+// needed by something in here..
+#if defined(LINUX) && !defined(GL_GLEXT_PROTOTYPES)
+#define GL_GLEXT_PROTOTYPES
+#endif
 
+#if !OSMac_X86_64_
+#include <AGL/agl.h>
+#else
+#includle <OpenGL/gl.h>
+#endif
+typedef void (* PFNGLCLIENTACTIVETEXTUREARBPROC) (GLenum texture);
+typedef void (* PFNGLVERTEXATTRIBPOINTERARBPROC) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
+typedef void (* PFNGLENABLEVERTEXATTRIBARRAYARBPROC) (GLuint index);
+typedef void (* PFNGLDISABLEVERTEXATTRIBARRAYARBPROC) (GLuint index);
+typedef void (* PFNGLVERTEXATTRIB4FARBPROC) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+typedef void (* PFNGLSECONDARYCOLORPOINTEREXTPROC) (GLint size, GLenum type, GLsizei stride, GLvoid *pointer);
+typedef void (* PFNGLSECONDARYCOLOR3FEXTPROC) (GLfloat red, GLfloat green, GLfloat blue);
+typedef void (* PFNGLMULTITEXCOORD4FARBPROC) (GLenum target, GLfloat s, GLfloat t, GLfloat r, GLfloat q);
+#include <OpenGL/glext.h>
 
 glwstate_t glw_state;
 qboolean Sys_IsHidden = qfalse;
@@ -831,8 +849,8 @@ static void GLW_InitExtensions( void ) {
 	qglClientActiveTextureARB = NULL;
 	if ( strstr( glConfig.extensions_string, "GL_ARB_multitexture" )  ) {
 		if ( r_ext_multitexture->integer ) {
-			qglMultiTexCoord2fARB = ( PFNGLMULTITEXCOORD2FARBPROC ) qwglGetProcAddress( "glMultiTexCoord2fARB" );
-			qglActiveTextureARB = ( PFNGLACTIVETEXTUREARBPROC ) qwglGetProcAddress( "glActiveTextureARB" );
+			qglMultiTexCoord2fARB = ( PFNGLMULTITEXCOORD4FARBPROC ) qwglGetProcAddress( "glMultiTexCoord2fARB" );
+			qglActiveTextureARB = (PFNGLCLIENTACTIVETEXTUREARBPROC ) qwglGetProcAddress( "glActiveTextureARB" );
 			qglClientActiveTextureARB = ( PFNGLCLIENTACTIVETEXTUREARBPROC ) qwglGetProcAddress( "glClientActiveTextureARB" );
 
 			if ( qglActiveTextureARB ) {

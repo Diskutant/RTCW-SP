@@ -99,7 +99,7 @@ void LAN_SaveServersToCache()
 	  fileHandle_t fileOut;
 	#ifdef __MACOS__   //DAJ MacOS file typing
 	  {
-	      extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+	      extern  long _fcreator, _ftype;
 	      _ftype = 'WlfB';
 	      _fcreator = 'WlfS';
 	  }

@@ -4135,7 +4135,7 @@ int     FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mode)
 		case FS_WRITE:
 #ifdef __MACOS__    //DAJ MacOS file typing
 			{
-				extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+				extern  long _fcreator, _ftype;
 				_ftype = 'WlfB';
 				_fcreator = 'WlfS';
 			}
@@ -4154,7 +4154,7 @@ int     FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mode)
 		case FS_APPEND:
 #ifdef __MACOS__    //DAJ MacOS file typing
 			{
-				extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+				extern  long _fcreator, _ftype;
 				_ftype = 'WlfB';
 				_fcreator = 'WlfS';
 			}

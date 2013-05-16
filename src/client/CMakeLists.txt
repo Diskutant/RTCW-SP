@@ -19,7 +19,7 @@ list(REMOVE_ITEM QCOMMON_SOURCES "../qcommon/vm_x86.c")
 list(SORT QCOMMON_SOURCES)
 # message(STATUS "QCOMMON_SOURCES: ${QCOMMON_SOURCES}")
 
-if(UNIX)
+if(UNIX AND NOT APPLE)
 # *nix specific sources
 # We use a list to avoid the qvm stuff that fails to compile on x86_64
 set(PLATFORM_SOURCES
@@ -32,7 +32,13 @@ set(PLATFORM_SOURCES
 	${CMAKE_SOURCE_DIR}/src/unix/sdl_input.c
 	${CMAKE_SOURCE_DIR}/src/unix/sdl_snd.c
 )
-endif(UNIX)
+endif(UNIX AND NOT APPLE)
+
+if(APPLE)
+	file(GLOB PLATFORM_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../macosx/*.c")
+	file(GLOB PLATFORM_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../macosx/*.m")
+	list(SORT PLATFORM_SOURCES)
+endif(APPLE)
 
 if(WIN32)
 	file(GLOB PLATFORM_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../win32/*.c")

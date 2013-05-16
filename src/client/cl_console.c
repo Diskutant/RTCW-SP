@@ -250,7 +250,7 @@ void Con_Dump_f(void)
 
 #ifdef __MACOS__    //DAJ MacOS file typing
 	{
-		extern _MSL_IMP_EXP_C long _fcreator, _ftype;
+		extern long _fcreator, _ftype;
 		_ftype = 'TEXT';
 		_fcreator = 'R*ch';
 	}

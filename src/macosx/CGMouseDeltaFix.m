@@ -26,8 +26,8 @@ If you have questions concerning this license or the applicable additional terms
 ===========================================================================
 */
 
-#import "CGMouseDeltaFix.h"
-#import "CGPrivateAPI.h"
+#import "macosx/CGMouseDeltaFix.h"
+#import "macosx/CGPrivateAPI.h"
 
 #import <Foundation/Foundation.h>
 #import <mach-o/dyld.h>

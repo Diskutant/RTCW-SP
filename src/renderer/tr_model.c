@@ -2028,7 +2028,7 @@ void *R_Hunk_Begin(void)
 
 #elif defined( __MACOS__ )
 
-	return; //DAJ FIXME memory leak
+	return NULL; //DAJ FIXME memory leak
 
 #else   // just allocate it now
 

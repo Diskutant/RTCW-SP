@@ -32,7 +32,7 @@ If you have questions concerning this license or the applicable additional terms
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 
-#include "macosx/client.h"
+#include "client/client.h"
 #include "macosx/macosx_local.h"
 
 #ifdef OMNI_TIMER
