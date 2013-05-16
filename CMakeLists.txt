@@ -45,7 +45,7 @@ SET(VERSION_SIMPLE "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VER
 SET(VERSION_FULL "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}-${VERSION_GIT}")
 
 if(APPLE)
-	add_definitions(-DMACOS_X -D__MACOS__ -D__APPLE__)
+	add_definitions(-DMACOS_X -D__MACOS__ -D__APPLE__ -D__MACH__)
 endif(APPLE)
 
 
@@ -184,6 +184,11 @@ elseif(WIN32)
 	#endif(MSVC)
 endif(UNIX OR APPLE)
 
+# Various options we could use
+option(USE_LLVM_GOLD "If clang is specified, use LLVM Gold optimizations" OFF)
+
+
+
 # Set the install directory for the .so's
 set(BASEGAME "main")
 
@@ -201,10 +206,17 @@ if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 	add_definitions(-DNDEBUG)
 	# Flags to make clang happy and compatible
 	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		set(CXXFLAGS "${CXXFLAGS} -O4 -ffast-math -pipe -fsigned-char -emit-llvm")
+		if(${USE_LLVM_GOLD})
+			# Attempt to use LLVM Gold and optimize the fuck out of this code
+			set(CXXFLAGS "${CXXFLAGS} -O4 -ffast-math -fsigned-char -emit-llvm")
+		else(${USE_LLVM_GOLD})
+			# Use normal optimizations that clang offers
+			set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fsigned-char")
+		endif(${USE_LLVM_GOLD})
+		# llvm fails with some of the inlining used in math.h, this fixes it
 		add_definitions(-D__extern_always_inline=inline)
 	else(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fno-strict-aliasing -fstrength-reduce -pipe -fsigned-char")
+		set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fno-strict-aliasing -fstrength-reduce -fsigned-char")
 	endif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
 	# Demo mode only has a second definition from release
 	if(CMAKE_BUILD_TYPE STREQUAL "DEMO")
@@ -351,12 +363,16 @@ endif(SDL_Libs)
 
 include_directories(include)
 
+SET(CMAKE_C_FLAGS)
+SET(CMAKE_CXX_FLAGS)
+SET(CMAKE_C_FLAGS ${CXXFLAGS})
+SET(CMAKE_CXX_FLAGS ${CXXFLAGS})
 
 # Find perl
 find_program(PERL perl)
 
 set(USE_RUN_CC_PL TRUE)
-if(PERL AND USE_RUN_CC_PL)
+if(PERL AND USE_RUN_CC_PL AND NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
 	# C++ compiles
 	set(CMAKE_CXX_COMPILE_OBJECT "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_CXX_COMPILE_OBJECT}")
 	set(CMAKE_CXX_LINK_EXECUTABLE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_CXX_LINK_EXECUTABLE}")
@@ -365,7 +381,7 @@ if(PERL AND USE_RUN_CC_PL)
 	set(CMAKE_C_COMPILE_OBJECT "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_COMPILE_OBJECT}")
 	set(CMAKE_C_LINK_EXECUTABLE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_LINK_EXECUTABLE}")
 	set(CMAKE_C_CREATE_SHARED_MODULE "${PERL} ${CMAKE_SOURCE_DIR}/run-cc.pl -q ${CMAKE_C_CREATE_SHARED_MODULE}")
-endif(PERL AND USE_RUN_CC_PL)
+endif(PERL AND USE_RUN_CC_PL AND NOT CMAKE_C_COMPILER_ID STREQUAL "Clang")
 
 
 # Add all the sub directories for compile
