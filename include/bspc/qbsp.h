@@ -31,7 +31,12 @@ If you have questions concerning this license or the applicable additional terms
 #if defined( WIN32 ) || defined( _WIN32 )
 #include <io.h>
 #endif
-#include <malloc.h>
+
+#if !defined(__MACOS__) && !defined(MACOS_X)
+# include <malloc.h>
+#else
+# include <stdlib.h>
+#endif
 #include "bspc/l_cmd.h"
 #include "bspc/l_math.h"
 #include "bspc/l_poly.h"

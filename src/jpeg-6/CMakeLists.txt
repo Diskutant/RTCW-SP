@@ -10,5 +10,5 @@ list(SORT C_SOURCES)
 set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
 
 # Add to our library.
-add_library(jpeg-6.a STATIC ${C_SOURCES})
-set_target_properties(jpeg-6.a PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
+add_library(jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} STATIC ${C_SOURCES})
+set_target_properties(jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
