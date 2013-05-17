@@ -434,6 +434,20 @@ char *Sys_DefaultHomePath(void)
 	return ""; // assume current dir
 }
 
+char	*Sys_BinaryLocation(void)
+{
+	static char buf[MAX_OSPATH];
+	if(readlink("/proc/self/exe", buf, sizeof(buf)))
+	{
+		dirname(buf);
+		strcat(buf, "/");
+		return buf;
+	}
+	else
+		; // return for now until we can get more shit
+	return "";
+}
+
 //============================================
 
 int Sys_GetProcessorId(void)

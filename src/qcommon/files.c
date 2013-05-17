@@ -264,6 +264,7 @@ typedef struct searchpath_s
 static char fs_gamedir[MAX_OSPATH];         // this will be a single file name with no separators
 static cvar_t      *fs_debug;
 static cvar_t      *fs_homepath;
+static cvar_t      *fs_binarypath;
 static cvar_t      *fs_basepath;
 static cvar_t      *fs_basegame;
 static cvar_t      *fs_cdpath;
@@ -3462,6 +3463,7 @@ FS_Startup
 static void FS_Startup(const char *gameName)
 {
 	const char *homePath;
+	const char *binaryPath;
 	cvar_t  *fs;
 
 	Com_Printf("----- FS_Startup -----\n");
@@ -3472,13 +3474,20 @@ static void FS_Startup(const char *gameName)
 	fs_basepath = Cvar_Get("fs_basepath", Sys_DefaultInstallPath(), CVAR_INIT);
 	fs_basegame = Cvar_Get("fs_basegame", "", CVAR_INIT);
 	homePath = Sys_DefaultHomePath();
+	binaryPath = Sys_BinaryLocation();
 
 	if(!homePath || !homePath[0])
 	{
 		homePath = fs_basepath->string;
 	}
+	
+	if(!binaryPath || !binaryPath[0])
+	{
+		binaryPath = ""; // Just leave it empty, we can't find shit.
+	}
 
 	fs_homepath = Cvar_Get("fs_homepath", homePath, CVAR_INIT);
+	fs_binarypath = Cvar_Get("fs_binarypath", binaryPath, CVAR_INIT);
 	fs_gamedirvar = Cvar_Get("fs_game", "", CVAR_INIT | CVAR_SYSTEMINFO);
 	fs_restrict = Cvar_Get("fs_restrict", "", CVAR_INIT);
 
@@ -3498,6 +3507,12 @@ static void FS_Startup(const char *gameName)
 	if(fs_basepath->string[0] && Q_stricmp(fs_homepath->string, fs_basepath->string))
 	{
 		FS_AddGameDirectory(fs_homepath->string, gameName);
+	}
+	
+	// Search the Binary directory for content as well
+	if(fs_binarypath->string[0])
+	{
+		FS_AddGameDirectory(fs_binarypath->string, gameName);
 	}
 
 	// check for additional base game so mods can be based upon other mods

@@ -435,7 +435,12 @@ char    *Sys_DefaultHomePath(void)
 	return NULL;
 }
 
-char *Sys_DefaultInstallPath(void)
+char	*Sys_BinaryLocation(void)
+{
+	return NULL;
+}
+
+char	*Sys_DefaultInstallPath(void)
 {
 	return Sys_Cwd();
 }

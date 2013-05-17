@@ -772,6 +772,7 @@ void *Sys_LoadDll(const char *name,
 	char fname[MAX_OSPATH];
 	char  *homepath;
 	char  *basepath;
+	char  *binarypath;
 	char  *pwdpath;
 	char  *gamedir;
 	char  *fn;
@@ -803,7 +804,12 @@ void *Sys_LoadDll(const char *name,
 
 	homepath = Cvar_VariableString("fs_homepath");
 	basepath = Cvar_VariableString("fs_basepath");
+	binarypath = Cvar_VariableString("fs_binarypath");
 	gamedir = Cvar_VariableString("fs_game");
+	
+	Com_Printf("------- Search Paths -------\n");
+	Com_Printf("Home: %s\nBase: %s\nBin: %s\nGame Dir: %s\n", homepath, basepath, binarypath, gamedir);
+	Com_Printf("------- Search Paths -------\n");
 
 	pwdpath = Sys_Cwd();
 	fn = FS_BuildOSPath(pwdpath, gamedir, fname);
@@ -816,50 +822,75 @@ void *Sys_LoadDll(const char *name,
 		Com_Printf("failed (%s)\n", dlerror());
 		// homepath
 		fn = FS_BuildOSPath(homepath, gamedir, fname);
-		Com_Printf("Sys_LoadDll(%s)... ", fn);
+		Com_Printf("Sys_LoadDll(%s)...\n", fn);
 		libHandle = dlopen(fn, Q_RTLD);
 
 		if(!libHandle)
 		{
 			Com_Printf("failed (%s)\n", dlerror());
-			// basepath
-			fn = FS_BuildOSPath(basepath, gamedir, fname);
-			Com_Printf("Sys_LoadDll(%s)... ", fn);
+			// binarypath
+			fn = FS_BuildOSPath(binarypath, BASEGAME, fname);
+			Com_Printf("Sys_LoadDll(%s)...\n", fn);
 			libHandle = dlopen(fn, Q_RTLD);
-
+			
 			if(!libHandle)
 			{
 				Com_Printf("failed (%s)\n", dlerror());
+				// basepath
+				fn = FS_BuildOSPath(basepath, gamedir, fname);
+				Com_Printf("Sys_LoadDll(%s)...\n", fn);
+				libHandle = dlopen(fn, Q_RTLD);
 
-				if(strlen(gamedir) && Q_stricmp(gamedir, BASEGAME))          // begin BASEGAME != fs_game section
+				if(!libHandle)
 				{
+					Com_Printf("failed (%s)\n", dlerror());
 
-					// media-only mods: no DLL whatsoever in the fs_game
-					// start the loop again using the hardcoded BASEDIRNAME
-					fn = FS_BuildOSPath(pwdpath, BASEGAME, fname);
-					Com_Printf("Sys_LoadDll(%s)... ", fn);
-					libHandle = dlopen(fn, Q_RTLD);
-
-					if(!libHandle)
+					if(strlen(gamedir) && Q_stricmp(gamedir, BASEGAME))          // begin BASEGAME != fs_game section
 					{
-						Com_Printf("failed (%s)\n", dlerror());
-						// homepath
-						fn = FS_BuildOSPath(homepath, BASEGAME, fname);
-						Com_Printf("Sys_LoadDll(%s)... ", fn);
+						// media-only mods: no DLL whatsoever in the fs_game
+						// start the loop again using the hardcoded BASEDIRNAME
+						fn = FS_BuildOSPath(pwdpath, BASEGAME, fname);
+						Com_Printf("Sys_LoadDll(%s)...\n", fn);
 						libHandle = dlopen(fn, Q_RTLD);
 
 						if(!libHandle)
 						{
 							Com_Printf("failed (%s)\n", dlerror());
 							// homepath
-							fn = FS_BuildOSPath(basepath, BASEGAME, fname);
-							Com_Printf("Sys_LoadDll(%s)... ", fn);
+							fn = FS_BuildOSPath(homepath, BASEGAME, fname);
+							Com_Printf("Sys_LoadDll(%s)...\n", fn);
 							libHandle = dlopen(fn, Q_RTLD);
 
 							if(!libHandle)
 							{
-								// ok, this time things are really fucked
 								Com_Printf("failed (%s)\n", dlerror());
+								// basepath
+								fn = FS_BuildOSPath(basepath, BASEGAME, fname);
+								Com_Printf("Sys_LoadDll(%s)...\n", fn);
+								libHandle = dlopen(fn, Q_RTLD);
+
+								if(!libHandle)
+								{
+									Com_Printf("failed (%s)\n", dlerror());
+									// binarypath
+									fn = FS_BuildOSPath(binarypath, BASEGAME, fname);
+									Com_Printf("Sys_LoadDll(%s)...\n", fn);
+									libHandle = dlopen(fn, Q_RTLD);
+									
+									if(!libHandle)
+									{
+										// ok, this time things are really fucked
+										Com_Printf("failed (%s)\n", dlerror());
+									}
+									else
+									{
+										Com_Printf("ok\n");
+									}
+								}
+								else
+								{
+									Com_Printf("ok\n");
+								}
 							}
 							else
 							{
@@ -870,12 +901,12 @@ void *Sys_LoadDll(const char *name,
 						{
 							Com_Printf("ok\n");
 						}
-					}
-					else
-					{
-						Com_Printf("ok\n");
-					}
-				} // end BASEGAME != fs_game section
+					} // end BASEGAME != fs_game section
+				}
+				else
+				{
+					Com_Printf("ok\n");
+				}
 			}
 			else
 			{

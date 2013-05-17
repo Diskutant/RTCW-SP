@@ -1013,6 +1013,7 @@ char    *Sys_DefaultCDPath(void);
 char    *Sys_DefaultBasePath(void);
 char    *Sys_DefaultInstallPath(void);
 char    *Sys_DefaultHomePath(void);
+char	*Sys_BinaryLocation(void);
 
 char **Sys_ListFiles(const char *directory, const char *extension, char *filter, int *numfiles, qboolean wantsubs);
 void    Sys_FreeFileList(char **list);
