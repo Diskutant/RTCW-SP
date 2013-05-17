@@ -36,13 +36,20 @@ If you have questions concerning this license or the applicable additional terms
 #include <AvailabilityMacros.h>
 #include <MacTypes.h>
 
+#include "/System/Library/Frameworks/Carbon.framework/Frameworks/CarbonSound.framework/Headers/Sound.h"
+
 #include <CoreAudio/CoreAudio.h>
 #include <AudioUnit/AudioUnit.h>
 #include <AudioToolbox/DefaultAudioOutput.h>
 #include <AudioToolbox/AudioConverter.h>
+#include <AudioToolbox/AudioQueue.h>
+#include <AudioToolbox/AudioFile.h>
 #include <AudioToolbox/AUGraph.h>
 #include <QuickTime/QuickTimeMusic.h>
+#include "macosx/Sound.h" // Sound fix
 
+
+#if 0
 // Fix OS X 10.8 and up because apple moved their stupid shit
 // and I cant find the include which has SndChannel.
 struct SndCommand {
@@ -69,7 +76,7 @@ struct SndChannel {
   short               qTail;
   SndCommand          queue[128];
 };
-
+#endif
 
 
 // For 'ri'
