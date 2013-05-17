@@ -32,11 +32,10 @@ If you have questions concerning this license or the applicable additional terms
 
 #include "client/snd_local.h"
 #include <Carbon/Carbon.h>
+#include <Carbon/Sound.h>
 #include <CoreServices/CoreServices.h>
 #include <AvailabilityMacros.h>
 #include <MacTypes.h>
-
-#include "/System/Library/Frameworks/Carbon.framework/Frameworks/CarbonSound.framework/Headers/Sound.h"
 
 #include <CoreAudio/CoreAudio.h>
 #include <AudioUnit/AudioUnit.h>
@@ -46,7 +45,6 @@ If you have questions concerning this license or the applicable additional terms
 #include <AudioToolbox/AudioFile.h>
 #include <AudioToolbox/AUGraph.h>
 #include <QuickTime/QuickTimeMusic.h>
-#include "macosx/Sound.h" // Sound fix
 
 
 #if 0
