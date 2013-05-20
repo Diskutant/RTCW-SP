@@ -187,8 +187,6 @@ endif(UNIX OR APPLE)
 # Various options we could use
 option(USE_LLVM_GOLD "If clang is specified, use LLVM Gold optimizations" OFF)
 
-
-
 # Set the install directory for the .so's
 set(BASEGAME "main")
 
@@ -208,7 +206,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
 		if(${USE_LLVM_GOLD})
 			# Attempt to use LLVM Gold and optimize the fuck out of this code
-			set(CXXFLAGS "${CXXFLAGS} -O4 -ffast-math -fsigned-char -emit-llvm")
+			set(CXXFLAGS "${CXXFLAGS}  -O4 -ffast-math -fsigned-char -emit-llvm")
 		else(${USE_LLVM_GOLD})
 			# Use normal optimizations that clang offers
 			set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fsigned-char")
@@ -224,6 +222,35 @@ if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
 		set(BASEGAME "demomain")
 	endif(CMAKE_BUILD_TYPE STREQUAL "DEMO")
 endif(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+
+if(CMAKE_C_COMPILER_ID STREQUAL "Clang" AND ${USE_LLVM_GOLD})
+	#SET (CMAKE_C_COMPILER             "/usr/bin/clang")
+	SET (CMAKE_C_FLAGS                "-Wall -std=c99")
+	SET (CMAKE_C_FLAGS_DEBUG          "-g")
+	SET (CMAKE_C_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+	SET (CMAKE_C_FLAGS_RELEASE        "-O4 -DNDEBUG")
+	SET (CMAKE_C_FLAGS_RELWITHDEBINFO "-O2 -g")
+
+	SET (CMAKE_CXX_COMPILER             "/usr/bin/clang++")
+	SET (CMAKE_CXX_FLAGS                "-Wall -std=c++11 -stdlib=c++11")
+	SET (CMAKE_CXX_FLAGS_DEBUG          "-g")
+	SET (CMAKE_CXX_FLAGS_MINSIZEREL     "-Os -DNDEBUG")
+	SET (CMAKE_CXX_FLAGS_RELEASE        "-O4 -DNDEBUG")
+	SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO "-O2 -g")
+
+	find_program(LLVM_AR llvm-ar REQUIRED)
+	find_program(LLVM_LD llvm-ld REQUIRED)
+	find_program(LLVM_NM llvm-nm REQUIRED)
+	find_program(LLVM_OBJDUMP llvm-objdump REQUIRED)
+	find_program(LLVM_RANLIB llvm-ranlib REQUIRED)
+	message(STATUS "llvm-ar: ${LLVM_AR}")
+
+	SET (CMAKE_AR      "${LLVM_AR}")
+	SET (CMAKE_LINKER  "${LLVM_LD}")
+	SET (CMAKE_NM      "${LLVM_NM}")
+	SET (CMAKE_OBJDUMP "${LLVM_OBJDUMP}")
+	SET (CMAKE_RANLIB  "${LLVM_RANLIB}")
+endif(CMAKE_C_COMPILER_ID STREQUAL "Clang" AND ${USE_LLVM_GOLD})
 
 # windows crap
 if(WIN32)
@@ -284,9 +311,9 @@ if(NOT SUDO_FOUND)
 endif(NOT SUDO_FOUND)
 
 # Find the required SDL libraries
-find_package(SDL)
-find_package(SDL_sound)
-find_package(SDL_image)
+find_package(SDL REQUIRED)
+find_package(SDL_sound REQUIRED)
+find_package(SDL_image REQUIRED)
 
 # Begin the madness!
 #############################################################################################

@@ -78,7 +78,7 @@ add_dependencies(${PROJECT_NAME} botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CM
 # Our executable
 if(NOT APPLE)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
-	target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} GL dl m botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
+	target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} SDL_image GL dl m botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
 else(NOT APPLE)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "" LINK_FLAGS "-framework Carbon -framework GLUT -framework OpenGL -framework IOKit -framework AudioToolbox -framework CoreAudio -framework CoreServices -framework Cocoa -framework EventKit")
 	target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} dl m botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
