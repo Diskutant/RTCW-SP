@@ -439,11 +439,9 @@ endif(IS_DIRECTORY "${CMAKE_SOURCE_DIR}/GtkRadiant/include/")
 # You will need GtkRadiant, you can find it here: https://github.com/TTimo/GtkRadiant
 #add_subdirectory(src/bspc)
 
-
-
 # If a INSTDIR was passed in to CMake, use it as the install prefix, otherwise set the default install prefix to the bots directory under the user's home directory
-if(INSTDIR)
-	set(CMAKE_INSTALL_PREFIX "${INSTDIR}")
-else(INSTDIR)
-	set(CMAKE_INSTALL_PREFIX "/opt/wolfsp")
-endif(INSTDIR)
+#if(NOT CMAKE_INSTALL_PREFIX STREQUAL "/usr/local/" AND INSTDIR)
+#	set(CMAKE_INSTALL_PREFIX "${INSTDIR}")
+#else(NOT CMAKE_INSTALL_PREFIX STREQUAL "/usr/local/" AND INSTDIR)
+#	set(CMAKE_INSTALL_PREFIX "/opt/wolfsp")
+#endif(NOT CMAKE_INSTALL_PREFIX STREQUAL "/usr/local/" AND INSTDIR)

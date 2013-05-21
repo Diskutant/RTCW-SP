@@ -34,7 +34,7 @@ if command -v cmake >/dev/null 2>&1; then
 
 	echo "Building for $BUILDTYPE..."
 
-	cmake -DCMAKE_BUILD_TYPE:STRING=$BUILDTYPE .. && finished
+	cmake -DCMAKE_BUILD_TYPE:STRING=$BUILDTYPE -DCMAKE_INSTALL_PREFIX:STRING="/opt/wolfsp" .. && finished
 	exit 0
 else
 # Complicated mess to try and satisfy the cmake dependency, once we have cmake, the world will be a better place
