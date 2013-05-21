@@ -207,7 +207,7 @@ void Sys_Error( const char *error, ...) {
 	Sys_Shutdown();
 
 	va_start( argptr,error );
-	formattedString = [[NSString alloc] initWithFormat:[NSString stringWithCString:error] arguments:argptr];
+	formattedString = [[NSString alloc] initWithFormat:[NSString stringWithUTF8String:error] arguments:argptr];
 	va_end( argptr );
 
 	NSLog( @"Sys_Error: %@", formattedString );

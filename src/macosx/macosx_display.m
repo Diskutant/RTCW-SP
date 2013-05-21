@@ -71,7 +71,7 @@ NSDictionary *Sys_GetMatchingDisplayMode( qboolean allowStretchedModes ) {
 	modeCount = [displayModes count];
 	if ( verbose ) {
 		ri.Printf( PRINT_ALL, "%d modes avaliable\n", modeCount );
-		ri.Printf( PRINT_ALL, "Current mode is %s\n", [[(id)CGDisplayCurrentMode( glw_state.display ) description] cString] );
+		ri.Printf( PRINT_ALL, "Current mode is %s\n", [[(id)CGDisplayCurrentMode( glw_state.display ) description] UTF8String] );
 	}
 
 	// Default to the current desktop mode
@@ -83,7 +83,7 @@ NSDictionary *Sys_GetMatchingDisplayMode( qboolean allowStretchedModes ) {
 
 		mode = [displayModes objectAtIndex: modeIndex];
 		if ( verbose ) {
-			ri.Printf( PRINT_ALL, " mode %d -- %s\n", modeIndex, [[mode description] cString] );
+			ri.Printf( PRINT_ALL, " mode %d -- %s\n", modeIndex, [[mode description] UTF8String] );
 		}
 
 		// Make sure we get the right size

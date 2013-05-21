@@ -176,7 +176,7 @@ extern void CL_Quit_f( void );
 
 		requestedServer = [pasteboard stringForType:NSStringPboardType];
 		if ( requestedServer ) {
-			Cbuf_AddText( va( "connect %s\n", [requestedServer cString] ) );
+			Cbuf_AddText( va( "connect %s\n", [requestedServer UTF8String] ) );
 			return;
 		}
 	}
@@ -193,7 +193,7 @@ extern void CL_Quit_f( void );
 
 		requestedCommand = [pasteboard stringForType:NSStringPboardType];
 		if ( requestedCommand ) {
-			Cbuf_AddText( va( "%s\n", [requestedCommand cString] ) );
+			Cbuf_AddText( va( "%s\n", [requestedCommand UTF8String] ) );
 			return;
 		}
 	}
@@ -233,7 +233,7 @@ extern void CL_Quit_f( void );
 			continue;
 		}
 
-		argv[argc++] = strdup([arg cString] );
+		argv[argc++] = strdup([arg UTF8String] );
 	}
 
 	// Figure out where the level data is stored.
@@ -350,7 +350,7 @@ extern void CL_Quit_f( void );
 	Sys_CheckCD();
 
 	// Let the filesystem know where our local install is
-	Sys_SetDefaultInstallPath([installationPath cString] );
+	Sys_SetDefaultInstallPath([installationPath UTF8String] );
 
 	// merge the command line, this is kinda silly
 	for ( commandLineLength = 1, argumentIndex = 1; argumentIndex < argc; argumentIndex++ )

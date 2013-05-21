@@ -2216,7 +2216,7 @@ void Com_ReadCDKey(const char *filename)
 
 /*
 =================
-Com_ReadCDKey
+Com_AppendCDKey
 =================
 */
 void Com_AppendCDKey(const char *filename)
