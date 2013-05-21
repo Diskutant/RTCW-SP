@@ -98,16 +98,16 @@ void     *QDECL Sys_LoadDll(const char *name, intptr_t(QDECL * *entryPoint)(intp
 	NSString *bundlePath, *libraryPath;
 	const char *path;
 
-	bundlePath = [[NSBundle mainBundle] pathForResource: [NSString stringWithCString: name] ofType: @"bundle"];
+	bundlePath = [[NSBundle mainBundle] pathForResource: [NSString stringWithUTF8String: name] ofType: @"bundle"];
 //    libraryPath = [NSString stringWithFormat: @"%@/Contents/MacOS/%s", bundlePath, name];
 	libraryPath = [NSString stringWithFormat: @"%s.bundle/Contents/MacOS/%s", name, name];
 	if ( !libraryPath ) {
 		return NULL;
 	}
 
-	path = [libraryPath cString];
+	path = [libraryPath UTF8String];
 	Com_Printf( "Loading '%s'.\n", path );
-	libHandle = dlopen( [libraryPath cString], RTLD_LAZY );
+	libHandle = dlopen( [libraryPath UTF8String], RTLD_LAZY );
 	if ( !libHandle ) {
 		libHandle = dlopen( name, RTLD_LAZY );
 		if ( !libHandle ) {
@@ -147,7 +147,7 @@ char *Sys_GetClipboardData( void ) { // FIXME
 
 		clipboardString = [pasteboard stringForType:NSStringPboardType];
 		if ( clipboardString && [clipboardString length] > 0 ) {
-			return strdup([clipboardString cString] );
+			return strdup([clipboardString UTF8String] );
 		}
 	}
 	return NULL;
