@@ -932,22 +932,19 @@ void QDECL Com_sprintf(char *dest, int size, const char *fmt, ...)
 
 // I am too lazy to try and make a C version of this
 // do it in C++ and just export it as a symbol to use in C
-char **Q_strarr(char *dest, const char *src, char delim)
+void Q_strarr(char **dest, const char *src, char delim)
 {
 
 	char *pch;
-	char *array[32000]; // am I really going to be using more than this?
 	std::string s;
 	std::stringstream ss(src);
 	int i = 0;
 
 	while(std::getline(ss, s, ' '))
 	{
-		array[i] = const_cast<char *>(s.c_str());
+		dest[i] = const_cast<char *>(s.c_str());
 		++i;
 	}
-
-	return array;
 }
 
 char *Q_strtrim(char *dest, const char *src)

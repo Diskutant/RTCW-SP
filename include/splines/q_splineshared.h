@@ -165,9 +165,13 @@ extern "C" {
 //DAJ #define   MAC_STATIC static
 #define MAC_STATIC
 
-#define CPUSTRING   "MacOS-PPC"
+#ifndef CPUSTRING
+# define CPUSTRING   "MacOS-PPC"
+#endif
 
-#define PATH_SEP ':'
+#ifndef PATH_SEP
+# define PATH_SEP ':'
+#endif
 
 void Sys_PumpEvents(void);
 
