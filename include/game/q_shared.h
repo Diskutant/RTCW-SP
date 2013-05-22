@@ -178,7 +178,9 @@ If you have questions concerning this license or the applicable additional terms
 
 #ifdef __MACOS__
 
-#include <MacTypes.h>
+#ifdef HAVE_MACTYPES_H
+# include <MacTypes.h>
+#endif
 //DAJ #define   MAC_STATIC  static
 #define MAC_STATIC
 
