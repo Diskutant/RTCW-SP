@@ -44,6 +44,9 @@ endif(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/${GIT_HEAD}")
 SET(VERSION_SIMPLE "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}")
 SET(VERSION_FULL "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}-${VERSION_GIT}")
 
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 if(APPLE)
 	add_definitions(-DMACOS_X -D__MACOS__ -D__APPLE__ -D__MACH__)
 endif(APPLE)
@@ -57,6 +60,10 @@ include(CheckLibraryExists)
 include(CheckCXXCompilerFlag)
 include(CheckCCompilerFlag)
 include(TestBigEndian)
+include(TargetArch)
+
+target_architecture(CMAKE_ARCH)
+message(STATUS "Architecture: ${CMAKE_ARCH}")
 
 # Check if we're using Big Endian
 test_big_endian(BIGENDIAN)
