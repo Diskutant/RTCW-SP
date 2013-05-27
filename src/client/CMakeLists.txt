@@ -10,16 +10,42 @@ set(QVM_SOURCES)
 
 # Used for removing from QCommon
 set(ALL_QVM_SOURCES
-	../qcommon/vm_interpreted.c
 	../qcommon/vm_none.c
 	../qcommon/vm_x86.c
+	../qcommon/vm_powerpc_asm.c
+	../qcommon/vm_powerpc.c
+	../qcommon/vm_sparc.c
 )
 
 ################
 # Detect the platform we're on so we can compile the QVM
+set(FOUND_QVM_ARCH FALSE)
 
-list(APPEND QVM_SOURCES "../qcommon/vm_interpreted.c;../qcommon/vm_none.c")
+if(${CMAKE_ARCH} STREQUAL "ppc" OR ${CMAKE_ARCH} STREQUAL "ppc64")
+	list(APPEND QVM_SOURCES "../qcommon/vm_powerpc.c;../qcommon/vm_powerpc_asm.c")
+	set(FOUND_QVM_ARCH TRUE)
+endif(${CMAKE_ARCH} STREQUAL "ppc" OR ${CMAKE_ARCH} STREQUAL "ppc64")
 
+if(${CMAKE_ARCH} STREQUAL "sparc" OR ${CMAKE_ARCH} STREQUAL "sparc64" OR ${CMAKE_ARCH} STREQUAL "sparcv9")
+	list(APPEND QVM_SOURCES "../qcommon/vm_powerpc.c;../qcommon/vm_powerpc_asm.c")
+	set(FOUND_QVM_ARCH TRUE)
+endif(${CMAKE_ARCH} STREQUAL "sparc" OR ${CMAKE_ARCH} STREQUAL "sparc64" OR ${CMAKE_ARCH} STREQUAL "sparcv9")
+
+#if(${CMAKE_ARCH} STREQUAL "x86_64" OR ${CMAKE_ARCH} STREQUAL "x86")
+#	list(APPEND QVM_SOURCES "../qcommon/vm_x86.c")
+#	set(FOUND_QVM_ARCH TRUE)
+#endif(${CMAKE_ARCH} STREQUAL "x86_64" OR ${CMAKE_ARCH} STREQUAL "x86")
+if(${CMAKE_ARCH} STREQUAL "x86")
+	list(APPEND QVM_SOURCES "../qcommon/vm_x86.c")
+	set(FOUND_QVM_ARCH TRUE)
+endif(${CMAKE_ARCH} STREQUAL "x86")
+
+# if we don't know what the fuck we're on, use this.
+if(NOT ${FOUND_QVM_ARCH} OR ${CMAKE_ARCH} STREQUAL "unknown")
+	list(APPEND QVM_SOURCES "../qcommon/vm_none.c")
+	message(STATUS "NOTICE: ${CMAKE_ARCH} architecture not have QVM support, defaulting to interpreted.")
+	message(STATUS "This may impact gaming performance in this architecture")
+endif(NOT ${FOUND_QVM_ARCH} OR ${CMAKE_ARCH} STREQUAL "unknown")
 
 ################
 

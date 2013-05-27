@@ -13,6 +13,7 @@ set(archdetect_c_code "
         || defined(__ARM_ARCH_7M__) \\
         || defined(__ARM_ARCH_7S__) \\
         || (defined(__TARGET_ARCH_ARM) && __TARGET_ARCH_ARM-0 >= 7)
+	|| (defined(_M_ARM) && _M_ARM-0 >= 7)
         #error cmake_ARCH armv7
     #elif defined(__ARM_ARCH_6__) \\
         || defined(__ARM_ARCH_6J__) \\
@@ -22,12 +23,45 @@ set(archdetect_c_code "
         || defined(__ARM_ARCH_6ZK__) \\
         || defined(__ARM_ARCH_6M__) \\
         || (defined(__TARGET_ARCH_ARM) && __TARGET_ARCH_ARM-0 >= 6)
+	|| (defined(_M_ARM) && _M_ARM-0 >= 6)
         #error cmake_ARCH armv6
     #elif defined(__ARM_ARCH_5TEJ__) \\
-        || (defined(__TARGET_ARCH_ARM) && __TARGET_ARCH_ARM-0 >= 5)
+        || defined(__ARM_ARCH_5TE__) \\
+        || (defined(__TARGET_ARCH_ARM) && __TARGET_ARCH_ARM-0 >= 5) \\
+        || (defined(_M_ARM) && _M_ARM-0 >= 5)
         #error cmake_ARCH armv5
     #else
         #error cmake_ARCH arm
+    #endif
+#elif defined(__mips) || defined(__mips__) || defined(_M_MRX000)
+    #if defined(_MIPS_ARCH_MIPS1) || (defined(__mips) && __mips - 0 >= 1)
+        #error cmake_ARCH mips_I
+    #endif
+    #if defined(_MIPS_ARCH_MIPS2) || (defined(__mips) && __mips - 0 >= 2)
+        #error cmake_ARCH mips_II
+    #endif
+    #if defined(_MIPS_ARCH_MIPS32) || defined(__mips32)
+        #error cmake_ARCH mips_32
+    #endif
+    #if defined(_MIPS_ARCH_MIPS3) || (defined(__mips) && __mips - 0 >= 3)
+        #error cmake_ARCH mips_III
+    #endif
+    #if defined(_MIPS_ARCH_MIPS4) || (defined(__mips) && __mips - 0 >= 4)
+        #error cmake_ARCH mips_IV
+    #endif
+    #if defined(_MIPS_ARCH_MIPS5) || (defined(__mips) && __mips - 0 >= 5)
+        #error cmake_ARCH mips_V
+    #endif
+    #if defined(_MIPS_ARCH_MIPS64) || defined(__mips64)
+        #error cmake_ARCH mips_64
+    #endif
+#elif defined(__sparc__) || defined(__sparc) || defined(__sparc64__)
+    #if defined(__sparc_v9__)
+	#error cmake_ARCH sparcv9
+    #elif defined(__sparc64__)
+	#error cmake_ARCH sparc64
+    #else
+	#error cmake_ARCH sparc
     #endif
 #elif defined(__i386) || defined(__i386__) || defined(_M_IX86)
     #error cmake_ARCH i386

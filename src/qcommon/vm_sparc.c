@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include <time.h>
 #include <stddef.h>
 
-#include "vm_local.h"
-#include "vm_sparc.h"
+#include "qcommon/vm_local.h"
+#include "qcommon/vm_sparc.h"
 
 /* exit() won't be called but use it because it is marked with noreturn */
 #define DIE( reason ) \

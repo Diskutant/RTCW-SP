@@ -30,8 +30,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 # define MAP_ANONYMOUS MAP_ANON
 #endif
 
-#include "vm_local.h"
-#include "vm_powerpc_asm.h"
+#include "qcommon/vm_local.h"
+#include "qcommon/vm_powerpc_asm.h"
 
 /*
  * VM_TIMES enables showing information about time spent inside

@@ -63,7 +63,7 @@ static int asmCallPtr = (int)AsmCall;
 
 void doAsmCall(void);
 
-static int asmCallPtr = (int)doAsmCall;
+static int asmCallPtr;
 #endif
 
 
@@ -268,6 +268,7 @@ void VM_Compile(vm_t *vm, vmHeader_t *header)
 	int i;
 	int instruction;
 	int lastConst;
+	asmCallPtr = (int)doAsmCall;
 
 	// allocate a very large temp buffer, we will shrink it later
 	maxLength = header->codeLength * 8;
@@ -755,7 +756,7 @@ VM_CallCompiled
 This function is called directly by the generated code
 ==============
 */
-int VM_CallCompiled(vm_t *vm, int *args)
+intptr_t VM_CallCompiled(vm_t *vm, intptr_t *args)
 {
 	int stack[1024];
 	int programCounter;
