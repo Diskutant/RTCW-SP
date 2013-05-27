@@ -1269,7 +1269,17 @@ void  Sys_Print(const char *msg)
 		tty_Hide();
 	}
 
-	fputs(msg, stderr);
+	if(!stderr)
+	{
+		printf("STDERR: (NULL)\n");
+		printf("%s", msg);
+	}
+	else
+	{
+		printf("STDERR: %p\n", (void*)stderr);
+		fputs(msg, stderr);
+	}
+	//fputs(msg, stderr);
 
 	if(ttycon_on)
 	{
