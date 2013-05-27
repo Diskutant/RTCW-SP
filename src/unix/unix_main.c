@@ -347,7 +347,7 @@ void Sys_Init(void)
 
 	while(getdelim(&arg, &size, 0, proc) != -1)
 	{
-		puts(arg);
+		//puts(arg);
 	}
 
 	free(arg);
@@ -1269,17 +1269,7 @@ void  Sys_Print(const char *msg)
 		tty_Hide();
 	}
 
-	if(!stderr)
-	{
-		printf("STDERR: (NULL)\n");
-		printf("%s", msg);
-	}
-	else
-	{
-		printf("STDERR: %p\n", (void*)stderr);
-		fputs(msg, stderr);
-	}
-	//fputs(msg, stderr);
+	fputs(msg, stderr);
 
 	if(ttycon_on)
 	{
