@@ -32,12 +32,21 @@ If you have questions concerning this license or the applicable additional terms
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <GL/gl.h>
+
+#ifndef __MACOS__
+# include <GL/gl.h>
+# include <sys/vt.h>
+#else
+//# define APIENTRYP *
+//# define GL_GLEXT_LEGACY 1
+# include <SDL/SDL_opengl.h>
+# include <OpenGL/gl.h>
+# include <OpenGL/OpenGL.h>
+#endif
 
 #include <termios.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
-#include <sys/vt.h>
 #include <signal.h>
 #include <pthread.h>
 #include <semaphore.h>
@@ -50,10 +59,12 @@ If you have questions concerning this license or the applicable additional terms
 #include "renderer/tr_local.h"
 #include "client/client.h"
 #include "unix/linux_local.h"
-#include "unix/unix_glw.h"
 // include the icon image needed for the window
 #include "unix/icon.xpm"
-glwstate_t glw_state;
+
+#if !defined(__MACOS__) && !defined(_WIN32)
+# include "unix/unix_glw.h"
+#endif
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
