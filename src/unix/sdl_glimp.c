@@ -570,7 +570,12 @@ void GLimp_Init(void)
 	if(!GLimp_StartDriverAndSetMode(r_mode->integer, r_fullscreen->integer , qfalse))
 		ri.Error(ERR_FATAL, "GLimp_Init() - could not load OpenGL subsystem\n");
 
-	glConfig.deviceSupportsGamma = SDL_SetGamma(1.0f, 1.0f, 1.0f) >= 0;
+	//glConfig.deviceSupportsGamma = SDL_SetGamma(2.0f, 2.0f, 2.0f) >= 0;
+	glConfig.deviceSupportsGamma = SDL_SetGamma(0.7f, 0.7f, 0.7f) >= 0;
+	
+	if(!glConfig.deviceSupportsGamma)
+		ri.Printf(PRINT_ALL, "Failed to set gamma: %s\n", SDL_GetError());
+	
 	Q_strncpyz(glConfig.vendor_string, (char *) qglGetString(GL_VENDOR), sizeof(glConfig.vendor_string));
 	Q_strncpyz(glConfig.renderer_string, (char *) qglGetString(GL_RENDERER), sizeof(glConfig.renderer_string));
 
