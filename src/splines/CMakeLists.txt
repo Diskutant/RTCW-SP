@@ -10,5 +10,5 @@ list(SORT CXX_SOURCES)
 set_source_files_properties(${CXX_SOURCES} PROPERTIES LANGUAGE CXX COMPILE_FLAGS "${CXXFLAGS} -g")
 
 # Add to our library.
-add_library(splines.a STATIC ${CXX_SOURCES})
+add_library(splines${CMAKE_STATIC_LIBRARY_SUFFIX} STATIC ${CXX_SOURCES})
 set_target_properties(splines${CMAKE_STATIC_LIBRARY_SUFFIX} PROPERTIES LINKER_LANGUAGE CXX PREFIX "" SUFFIX "")
