@@ -62,17 +62,17 @@ list(SORT QCOMMON_SOURCES)
 
 
 if(UNIX AND NOT APPLE)
-# *nix specific sources
-# We use a list to avoid the qvm stuff that fails to compile on x86_64
-set(PLATFORM_SOURCES_UNIX
-	${CMAKE_SOURCE_DIR}/src/unix/unix_main.c
-	${CMAKE_SOURCE_DIR}/src/unix/unix_net.c
-	${CMAKE_SOURCE_DIR}/src/unix/unix_shared.c
-	# Linux common is a stub an should be removed..
-	${CMAKE_SOURCE_DIR}/src/unix/linux_common.c
-)
-file(GLOB PLATFORM_SOURCES_SDL RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../sdl/*.c")
-list(APPEND PLATFORM_SOURCES ${PLATFORM_SOURCES_UNIX} ${PLATFORM_SOURCES_SDL})
+	# *nix specific sources
+	# We use a list to avoid the qvm stuff that fails to compile on x86_64
+	set(PLATFORM_SOURCES_UNIX
+		${CMAKE_SOURCE_DIR}/src/unix/unix_main.c
+		${CMAKE_SOURCE_DIR}/src/unix/unix_net.c
+		${CMAKE_SOURCE_DIR}/src/unix/unix_shared.c
+		# Linux common is a stub an should be removed..
+		${CMAKE_SOURCE_DIR}/src/unix/linux_common.c
+	)
+	file(GLOB PLATFORM_SOURCES_SDL RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "../sdl/*.c")
+	list(APPEND PLATFORM_SOURCES ${PLATFORM_SOURCES_UNIX} ${PLATFORM_SOURCES_SDL})
 endif(UNIX AND NOT APPLE)
 
 if(APPLE)
@@ -109,7 +109,11 @@ set(ADDITONAL_SOURCES
 list(APPEND CLIENT_SOURCES ${RENDERER_SOURCES} ${QCOMMON_SOURCES} ${PLATFORM_SOURCES}
 			${ADDITONAL_SOURCES} ${SERVER_SOURCES} ${SERVER_SOURCES} ${QVM_SOURCES})
 
-set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
+if(NOT WIN32)
+	set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -g")
+else(NOT WIN32)
+	set_source_files_properties(${CLIENT_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS}")
+endif(NOT WIN32)
 # message(STATUS "CLIENT_SOURCES: ${CLIENT_SOURCES}")
 
 # Compile our program
@@ -117,13 +121,20 @@ add_executable(${PROJECT_NAME} ${CLIENT_SOURCES})
 add_dependencies(${PROJECT_NAME} botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
 
 # Our executable
-if(NOT APPLE)
+if(UNIX)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
 	target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} SDL_image GL dl m botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
-else(NOT APPLE)
+endif(UNIX)
+
+if(APPLE)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "" LINK_FLAGS "-framework Carbon -framework GLUT -framework OpenGL -framework IOKit -framework AudioToolbox -framework CoreAudio -framework CoreServices")
 	target_link_libraries(${PROJECT_NAME} ${SDL_LIBRARY} ${SDL_IMAGE_LIBRARIES} dl m botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
-endif(NOT APPLE)
+endif(APPLE)
+
+if(WIN32)
+	set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "")
+	target_link_libraries(${PROJECT_NAME} winmm.lib wsock32.lib GL botlib${CMAKE_STATIC_LIBRARY_SUFFIX} jpeg-6${CMAKE_STATIC_LIBRARY_SUFFIX} splines${CMAKE_STATIC_LIBRARY_SUFFIX})
+endif(WIN32)
 
 install(
 	TARGETS ${PROJECT_NAME}

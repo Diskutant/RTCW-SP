@@ -35,6 +35,7 @@ If you have questions concerning this license or the applicable additional terms
 #ifdef _WIN32
 #include <windows.h>
 #include <io.h>
+#define PATH_MAX MAX_PATH
 #endif
 #include "extractfuncs/l_memory.h"
 #include "extractfuncs/l_script.h"

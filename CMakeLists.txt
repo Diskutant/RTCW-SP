@@ -197,39 +197,7 @@ option(USE_LLVM_GOLD "If clang is specified, use LLVM Gold optimizations" OFF)
 # Set the install directory for the .so's
 set(BASEGAME "main")
 
-# Set the basic build types, there's debug, release, and demo
-if(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
-	set(DEBUG_BUILD TRUE)
-	set(CXXFLAGS "${CXXFLAGS} -g -Wall -O")
-	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		add_definitions(-D__extern_always_inline=inline)
-	endif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-endif(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
-
-if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-	set(DEMO_BUILD TRUE)
-	add_definitions(-DNDEBUG)
-	# Flags to make clang happy and compatible
-	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		if(${USE_LLVM_GOLD})
-			# Attempt to use LLVM Gold and optimize the fuck out of this code
-			set(CXXFLAGS "${CXXFLAGS} -O4 -ffast-math -fsigned-char -emit-llvm")
-		else(${USE_LLVM_GOLD})
-			# Use normal optimizations that clang offers
-			set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fsigned-char")
-		endif(${USE_LLVM_GOLD})
-		# llvm fails with some of the inlining used in math.h, this fixes it
-		add_definitions(-D__extern_always_inline=inline)
-	else(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-		set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fno-strict-aliasing -fstrength-reduce -fsigned-char")
-	endif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-	# Demo mode only has a second definition from release
-	if(CMAKE_BUILD_TYPE STREQUAL "DEMO")
-		add_definitions(-DWOLF_SP_DEMO)
-		set(BASEGAME "demomain")
-	endif(CMAKE_BUILD_TYPE STREQUAL "DEMO")
-endif(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-
+# If we're using clang..
 if(CMAKE_C_COMPILER_ID STREQUAL "Clang" AND ${USE_LLVM_GOLD})
 	#SET (CMAKE_C_COMPILER             "/usr/bin/clang")
 	SET (CMAKE_C_FLAGS                "-Wall -std=c99")
@@ -271,6 +239,47 @@ if(WIN32)
 	add_definitions(-DWIN32 -D_WIN32)
 endif(WIN32)
 
+
+if(NOT WIN32)
+	# Set the basic build types, there's debug, release, and demo
+	if(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
+		set(DEBUG_BUILD TRUE)
+		set(CXXFLAGS "${CXXFLAGS} -g -Wall -O")
+		if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+			add_definitions(-D__extern_always_inline=inline)
+		endif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+	endif(CMAKE_BUILD_TYPE STREQUAL "DEBUG" OR CMAKE_BUILD_TYPE STREQUAL "RELWITHDEBINFO")
+endif(NOT WIN32)
+
+if(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+	set(DEMO_BUILD TRUE)
+	add_definitions(-DNDEBUG)
+
+	# Flags to make clang happy and compatible
+	if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+		if(${USE_LLVM_GOLD})
+			# Attempt to use LLVM Gold and optimize the fuck out of this code
+			set(CXXFLAGS "${CXXFLAGS} -O4 -ffast-math -fsigned-char -emit-llvm")
+		else(${USE_LLVM_GOLD})
+			# Use normal optimizations that clang offers
+			set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fsigned-char")
+		endif(${USE_LLVM_GOLD})
+		# llvm fails with some of the inlining used in math.h, this fixes it
+		add_definitions(-D__extern_always_inline=inline)
+	else(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+		if(NOT MSVC)
+			set(CXXFLAGS "${CXXFLAGS} -O3 -ffast-math -fno-strict-aliasing -fstrength-reduce -fsigned-char")
+		endif(NOT MSVC)
+	endif(CMAKE_C_COMPILER_ID STREQUAL "Clang")
+
+	# Demo mode only has a second definition from release
+	if(CMAKE_BUILD_TYPE STREQUAL "DEMO")
+		add_definitions(-DWOLF_SP_DEMO)
+		set(BASEGAME "demomain")
+	endif(CMAKE_BUILD_TYPE STREQUAL "DEMO")
+endif(CMAKE_BUILD_TYPE STREQUAL "DEMO" OR CMAKE_BUILD_TYPE STREQUAL "RELEASE")
+
+
 # If we are not using Visual Studio, we'll run the following checks
 if(NOT MSVC)
 	# Check if the C++ compiler can accept the -pipe flag, and add it to the compile flags if it works
@@ -301,6 +310,19 @@ if(NOT MSVC)
 			message(FATAL_ERROR "The pthread library is required to build ${PROJECT_NAME}")
 		endif(HAVE_PTHREAD)
 	endif(NOT WIN32)
+else(NOT MSVC)
+	# If using Visual Studio, set the C++ flags accordingly
+	# Remove the default exception handling flags, also remove default warning level flag
+	string(REPLACE "/EHsc " "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	string(REPLACE "/GX " "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	string(REPLACE "/W3 " "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+	# Set the compile flags to have warnings on the max setting (but disable a few annoying ones), exception handling turned on, the proper defines
+	set(CXXFLAGS "${CXXFLAGS} /W4 /wd4100 /wd4127 /wd4250 /wd4251 /wd4355 /wd4706 /wd4800 /wd4996 /EHs")
+	if(DEBUG_BUILD)
+		add_definitions(-D_DEBUG -D_WINDOWS -D__USEA3D -D__A3D_GEOM -DWIN32 -D_CRT_SECURE_NO_WARNINGS)
+	else(DEBUG_BUILD)
+		add_definitions(-DNDEBUG -D_WINDOWS -D__USEA3D -D__A3D_GEOM -DWIN32 -D_CRT_SECURE_NO_WARNINGS)
+	endif(DEBUG_BUILD)
 endif(NOT MSVC)
 
 # detect what package manager we have and if it is usable

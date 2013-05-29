@@ -38,8 +38,12 @@ add_custom_target(
 # Include those headers
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-# Set the compiler to use
-set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -fPIC")
+if(NOT WIN32)
+	# Set the compiler to use
+	set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS} -fPIC")
+else(NOT WIN32)
+	set_source_files_properties(${C_SOURCES} PROPERTIES LANGUAGE C COMPILE_FLAGS "${CXXFLAGS}")
+endif(NOT WIN32)
 
 # use the OS suffix instead of .dll, things get confusing when that happens
 # the variable name is `SO` because I am on linux
@@ -50,7 +54,12 @@ add_library(${SO} MODULE ${C_SOURCES})
 set_target_properties(${SO} PROPERTIES LINKER_LANGUAGE C PREFIX "" SUFFIX "" COMPILE_DEFINITIONS GAMEDLL)
 # depend on the headers
 add_dependencies(${SO} game_func_headers)
-target_link_libraries(${SO} dl m)
+
+if(NOT WIN32)
+	target_link_libraries(${SO} dl m)
+else(NOT WIN32)
+	target_link_libraries(${SO} winmm.lib)
+endif(NOT WIN32)
 
 install(
 	TARGETS ${SO}
