@@ -268,7 +268,11 @@ void VM_Compile(vm_t *vm, vmHeader_t *header)
 	int i;
 	int instruction;
 	int lastConst;
+#ifndef _WIN32
 	asmCallPtr = (int)doAsmCall;
+#else
+	asmCallPtr = (int)AsmCall;
+#endif
 
 	// allocate a very large temp buffer, we will shrink it later
 	maxLength = header->codeLength * 8;

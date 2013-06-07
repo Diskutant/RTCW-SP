@@ -609,6 +609,7 @@ static void ProjectDlightTexture(void)
 		for(i = 0 ; i < tess.numIndexes ; i += 3)
 		{
 			int a, b, c;
+			vec3_t  va, vb, vc, vx;
 
 			a = tess.indexes[i];
 			b = tess.indexes[i + 1];
@@ -628,13 +629,13 @@ static void ProjectDlightTexture(void)
 //				}
 //			}
 
-			vec3_t  va, vb, vc, vx;
 			VectorSubtract(origin, tess.xyz[a], va);
 			VectorSubtract(tess.xyz[a], tess.xyz[b], vb);
 			VectorSubtract(tess.xyz[a], tess.xyz[c], vc);
 			CrossProduct(vb, vc, vx);
 
-			if(DotProduct(vx, va) > 0) continue;
+			if(DotProduct(vx, va) > 0)
+				continue;
 
 			hitIndexes[numIndexes] = a;
 			hitIndexes[numIndexes + 1] = b;

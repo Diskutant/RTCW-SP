@@ -356,6 +356,10 @@ if(NOT WIN32)
 	find_package(SDL_image REQUIRED)
 endif(NOT WIN32)
 
+# Find opengl
+find_package(OpenGL REQUIRED)
+include_directories(${OPENGL_INCLUDE_DIR})
+
 # Begin the madness!
 #############################################################################################
 set(SDL_Libs)
