@@ -360,13 +360,6 @@ void CL_Record_f(void)
 	}
 
 	// open the demo file
-#ifdef __MACOS__    //DAJ MacOS file typing
-	{
-		extern  long _fcreator, _ftype;
-		_ftype = 'WlfB';
-		_fcreator = 'WlfS';
-	}
-#endif
 
 	Com_Printf("recording to %s.\n", name);
 	clc.demofile = FS_FOpenFileWrite(name);
@@ -2488,13 +2481,6 @@ static void CL_Cache_EndGather_f(void)
 		Q_strncpyz(filename, cacheGroups[i].name, MAX_QPATH);
 		Q_strcat(filename, MAX_QPATH, ".cache");
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-		{
-			extern  long _fcreator, _ftype;
-			_ftype = 'WlfB';
-			_fcreator = 'WlfS';
-		}
-#endif
 		handle = FS_FOpenFileWrite(filename);
 
 		for(j = 0; j < MAX_CACHE_ITEMS; j++)

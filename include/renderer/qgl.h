@@ -202,11 +202,13 @@ extern void (APIENTRY *qglPNTrianglesfATI)(GLenum pname, GLfloat param);
 //===========================================================================
 
 // non-windows systems will just redefine qgl* to gl*
-#if !defined( _WIN32 ) && !defined( MACOS_X ) && !defined( __linux__ ) && !defined( __FreeBSD__ ) // rb010123
+#if !defined( _WIN32 ) && /*!defined( MACOS_X ) && !defined( __linux__ ) &&*/ !defined( __FreeBSD__ ) // rb010123
 
 #include "qgl_linked.h"
 
 #elif defined( MACOS_X )
+// This is disabled and uses redefined version above, SDL does not require as verbose debug as this.
+// Run the generate script to remake the file if needed (though the script might need modificaton)
 // This includes #ifdefs for optional logging and GL error checking after every GL call as well as #defines to prevent incorrect usage of the non-'qgl' versions of the GL API.
 #include "macosx_qgl.h"
 

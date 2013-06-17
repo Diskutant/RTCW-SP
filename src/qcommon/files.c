@@ -4148,13 +4148,6 @@ int     FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mode)
 			r = FS_FOpenFileRead(qpath, f, qtrue);
 			break;
 		case FS_WRITE:
-#ifdef __MACOS__    //DAJ MacOS file typing
-			{
-				extern  long _fcreator, _ftype;
-				_ftype = 'WlfB';
-				_fcreator = 'WlfS';
-			}
-#endif
 			*f = FS_FOpenFileWrite(qpath);
 			r = 0;
 
@@ -4167,13 +4160,6 @@ int     FS_FOpenFileByMode(const char *qpath, fileHandle_t *f, fsMode_t mode)
 		case FS_APPEND_SYNC:
 			sync = qtrue;
 		case FS_APPEND:
-#ifdef __MACOS__    //DAJ MacOS file typing
-			{
-				extern  long _fcreator, _ftype;
-				_ftype = 'WlfB';
-				_fcreator = 'WlfS';
-			}
-#endif
 			*f = FS_FOpenFileAppend(qpath);
 			r = 0;
 

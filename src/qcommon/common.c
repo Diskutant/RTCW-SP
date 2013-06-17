@@ -194,13 +194,6 @@ void QDECL Com_Printf(const char *fmt, ...)
 			time(&aclock);
 			newtime = localtime(&aclock);
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-			{
-				extern  long _fcreator, _ftype;
-				_ftype = 'TEXT';
-				_fcreator = 'R*ch';
-			}
-#endif
 			logfile = FS_FOpenFileWrite("rtcwconsole.log");      //----(SA) changed name for Wolf
 			Com_Printf("logfile opened on %s\n", asctime(newtime));
 
@@ -1769,13 +1762,6 @@ void Com_InitJournaling(void)
 	if(com_journal->integer == 1)
 	{
 		Com_Printf("Journaling events\n");
-#ifdef __MACOS__    //DAJ MacOS file typing
-		{
-			extern  long _fcreator, _ftype;
-			_ftype = 'WlfB';
-			_fcreator = 'WlfS';
-		}
-#endif
 		com_journalFile = FS_FOpenFileWrite("journal.dat");
 		com_journalDataFile = FS_FOpenFileWrite("journaldata.dat");
 	}
@@ -2273,13 +2259,6 @@ static void Com_WriteCDKey(const char *filename, const char *ikey)
 		return;
 	}
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-	{
-		extern  long _fcreator, _ftype;
-		_ftype = 'TEXT';
-		_fcreator = 'WlfS';
-	}
-#endif
 	f = FS_SV_FOpenFileWrite(fbuffer);
 
 	if(!f)
@@ -2532,10 +2511,6 @@ void Com_Init(char *commandLine)
 		//Cbuf_AddText ("cinematic gmlogo.RoQ\n");
 		if(!com_introPlayed->integer)
 		{
-#ifdef __MACOS__
-			extern void PlayIntroMovies(void);
-			PlayIntroMovies();
-#endif
 			//Cvar_Set( com_introPlayed->name, "1" );       //----(SA)  force this to get played every time (but leave cvar for override)
 			Cbuf_AddText("cinematic wolfintro.RoQ 3\n");
 			//Cvar_Set( "nextmap", "cinematic wolfintro.RoQ" );
@@ -2552,13 +2527,6 @@ void Com_WriteConfigToFile(const char *filename)
 {
 	fileHandle_t f;
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-	{
-		extern  long _fcreator, _ftype;
-		_ftype = 'TEXT';
-		_fcreator = 'R*ch';
-	}
-#endif
 	f = FS_FOpenFileWrite(filename);
 
 	if(!f)

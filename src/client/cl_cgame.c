@@ -1025,13 +1025,6 @@ void CL_UpdateLevelHunkUsage(void)
 			}
 		}
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-		{
-			extern long _fcreator, _ftype;
-			_ftype = 'WlfB';
-			_fcreator = 'WlfS';
-		}
-#endif
 		handle = FS_FOpenFileWrite(memlistfile);
 
 		if(handle < 0)

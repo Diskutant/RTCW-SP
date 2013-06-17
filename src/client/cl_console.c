@@ -248,13 +248,6 @@ void Con_Dump_f(void)
 
 	Com_Printf("Dumped console text to %s.\n", Cmd_Argv(1));
 
-#ifdef __MACOS__    //DAJ MacOS file typing
-	{
-		extern long _fcreator, _ftype;
-		_ftype = 'TEXT';
-		_fcreator = 'R*ch';
-	}
-#endif
 	f = FS_FOpenFileWrite(Cmd_Argv(1));
 
 	if(!f)
