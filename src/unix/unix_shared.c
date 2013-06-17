@@ -434,6 +434,7 @@ char *Sys_DefaultHomePath(void)
 	return ""; // assume current dir
 }
 
+#ifdef __LINUX__
 char	*Sys_BinaryLocation(void)
 {
 	static char buf[MAX_OSPATH];
@@ -447,6 +448,12 @@ char	*Sys_BinaryLocation(void)
 		; // return for now until we can get more shit
 	return "";
 }
+#else
+char *Sys_BinaryLocation(void)
+{
+	return NULL;
+}
+#endif
 
 //============================================
 

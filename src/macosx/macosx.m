@@ -28,6 +28,8 @@ If you have questions concerning this license or the applicable additional terms
 
 #import <sys/types.h>
 #import <sys/sysctl.h>
+#import <stdio.h>
+#import "game/q_shared.h"
 
 static unsigned int _Sys_ProcessorCount = 0;
 
