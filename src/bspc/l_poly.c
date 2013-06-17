@@ -36,7 +36,13 @@ If you have questions concerning this license or the applicable additional terms
 // Tab Size:        3
 //===========================================================================
 
-#include <malloc.h>
+// Apple put malloc in stdlib and not malloc.h
+#ifdef __APPLE__
+# include <stdlib.h>
+#else
+# include <malloc.h>
+#endif
+
 #include "bspc/l_cmd.h"
 #include "bspc/l_math.h"
 #include "bspc/l_poly.h"
