@@ -349,91 +349,16 @@ endif(NOT SUDO_FOUND)
 # The game was designed for windows, SDL is not required for the moment
 # maybe in the future it will be but I would rather it not so SDL does
 # not need to be included into the build via CMake download or something
-#if(NOT WIN32)
-	# Find the required SDL libraries
-    #	find_package(SDL REQUIRED)
-    #	find_package(SDL_sound REQUIRED)
-    #find_package(SDL_image REQUIRED)
-#endif(NOT WIN32)
+if(NOT WIN32)
+# 	Find the required SDL libraries
+    	find_package(SDL REQUIRED)
+    	find_package(SDL_sound REQUIRED)
+	find_package(SDL_image REQUIRED)
+endif(NOT WIN32)
 
 # Find opengl
 find_package(OpenGL REQUIRED)
 include_directories(${OPENGL_INCLUDE_DIR})
-
-# Begin the madness!
-#############################################################################################
-set(SDL_Libs)
-set(PACKAGECOMMAND)
-# Pacman is annoying in that they use all lowercase
-# whereas most other package managers use whatever the
-# package name is.
-if(NOT SDL_FOUND)
-	if(NOT PACMAN)
-		set(SDL_Libs "${SDL_Libs} SDL")
-	else(NOT PACMAN)
-		set(SDL_Libs "${SDL_Libs} sdl")
-	endif(NOT PACMAN)
-endif(NOT SDL_FOUND)
-
-if(NOT SDL_SOUND_FOUND)
-	if(NOT PACMAN)
-		set(SDL_Libs "${SDL_Libs} SDL_sound")
-	else(NOT PACMAN)
-		if(NOT APT)
-			set(SDL_Libs "${SDL_Libs} sdl_sound")
-		else(NOT APT)
-			set(SDL_Libs "${SDL_Libs} libsdl-sound1.2")
-		endif(NOT APT)
-	endif(NOT PACMAN)
-endif(NOT SDL_SOUND_FOUND)
-
-if(NOT SDL_IMAGE_FOUND)
-	if(NOT PACMAN)
-		set(SDL_Libs "${SDL_Libs} SDL_image")
-	else(NOT PACMAN)
-		if(NOT APT)
-			set(SDL_Libs "${SDL_Libs} sdl_image")
-		else(NOT APT)
-			set(SDL_Libs "${SDL_Libs} libsdl-image1.2")
-		endif(NOT APT)
-	endif(NOT PACMAN)
-endif(NOT SDL_IMAGE_FOUND)
-
-if(SDL_Libs)
-	if(PACMAN)
-		set(PACKAGECOMMAND "${PACMAN} -S ${SDL_Libs}")
-	else(PACMAN)
-		if(YUM)
-			set(PACKAGECOMMAND "${YUM} install ${SDL_Libs}")
-		else(YUM)
-			if(APT)
-				set(PACKAGECOMMAND "${APT} install ${SDL_Libs}")
-			else(APT)
-				if(PKG)
-					set(PACKAGECOMMAND "${PKG} -r ${SDL_Libs}")
-				else(PKG)
-					if(EMERG)
-						# Untested as of 05/07/13
-						set(PACKAGECOMMAND "${EMERG} ${SDL_Libs}")
-					else(EMERG)
-						if(NOT WIN32)
-							message(FATAL_ERROR "Could not find a suitable package manager. Please install ${SDL_Libs} and re-run cmake (or ./configure)")
-						endif(NOT WIN32)
-					endif(EMERG)
-				endif(PKG)
-			endif(APT)
-		endif(YUM)
-	endif(PACMAN)
-	
-	if(SUDO)
-		message(STATUS "Your sudoers password is required to run the following command:")
-		message(STATUS "${SUDO} ${PACKAGECOMMAND}")
-	endif(SUDO)
-	
-	# Install!
-	execute_process(COMMAND "${SUDO} ${PACKAGECOMMAND}")
-endif(SDL_Libs)
-#############################################################################################
 
 include_directories(include)
 
