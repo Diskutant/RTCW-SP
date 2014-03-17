@@ -73,7 +73,8 @@ cvar_t      *con_debug;
 cvar_t      *con_conspeed;
 cvar_t      *con_notifytime;
 
-#define DEFAULT_CONSOLE_WIDTH   78
+//#define DEFAULT_CONSOLE_WIDTH   78
+#define DEFAULT_CONSOLE_WIDTH   255 // People in 2014 have much larger monitors. - Justasic
 
 vec4_t console_color = {1.0, 1.0, 1.0, 1.0};
 

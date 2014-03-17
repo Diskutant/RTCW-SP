@@ -574,6 +574,20 @@ static void GLimp_InitExtensions(void)
 
 }
 
+void CalculateGamma(double gamma, Uint16 *ramp)
+{
+	int i, value;
+	
+	gamma = 1.0 / gamma;
+	for ( i=0; i<256; ++i ) {
+		value = (int)(pow((double)i/256.0, gamma)*65535.0 + 0.5);
+		if ( value > 65535 ) {
+			value = 65535;
+		}
+		ramp[i] = (Uint16)value;
+	}
+}
+
 
 void GLimp_Init(void)
 {
@@ -582,7 +596,8 @@ void GLimp_Init(void)
 		ri.Error(ERR_FATAL, "GLimp_Init() - could not load OpenGL subsystem\n");
 
 	//glConfig.deviceSupportsGamma = SDL_SetGamma(2.0f, 2.0f, 2.0f) >= 0;
-	glConfig.deviceSupportsGamma = SDL_SetGamma(0.7f, 0.7f, 0.7f) >= 0;
+	// Make sure we can set gamma?
+	glConfig.deviceSupportsGamma = SDL_SetGamma(1.0f, 1.0f, 1.0f) != -1;
 	
 	if(!glConfig.deviceSupportsGamma)
 		ri.Printf(PRINT_ALL, "Failed to set gamma: %s\n", SDL_GetError());
