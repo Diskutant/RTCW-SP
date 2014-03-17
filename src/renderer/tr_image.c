@@ -2767,14 +2767,10 @@ void R_SetColorMappings(void)
 		s_intensitytable[i] = j;
 	}
 
-	if(glConfig.deviceSupportsGamma)
+// 	if(glConfig.deviceSupportsGamma)
 	{
 		ri.Printf(PRINT_ALL, "[renderer] Setting Gamma to new values: %.1f\n", s_gammatable);
-		// Gamma on SDL is different.
-		uint16_t *val;
-		CalculateGamma(s_gammatable, val);
-		GLimp_SetGamma(val, val, val);
-		//GLimp_SetGamma(s_gammatable, s_gammatable, s_gammatable);
+		GLimp_SetGamma(s_gammatable, s_gammatable, s_gammatable);
 	}
 }
 

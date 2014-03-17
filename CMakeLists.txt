@@ -16,29 +16,33 @@ enable_language(CXX)
 message(STATUS "Static Library suffix: ${CMAKE_STATIC_LIBRARY_SUFFIX}")
 
 # Project version
-SET(${PROJECT_NAME}_MAJOR_VERSION 0)
-SET(${PROJECT_NAME}_MINOR_VERSION 0)
+SET(${PROJECT_NAME}_MAJOR_VERSION 1)
+SET(${PROJECT_NAME}_MINOR_VERSION 15)
 SET(${PROJECT_NAME}_PATCH_LEVEL 0)
 message(STATUS ${WolfSP_SOURCE_DIR})
 
 # Get the git revision location for the branch we're on
-if(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/HEAD")
-	file(READ ${${PROJECT_NAME}_SOURCE_DIR}/.git/HEAD GIT_HEAD_LOC)
+if(EXISTS "${CMAKE_SOURCE_DIR}/.git/HEAD")
+	file(READ ${CMAKE_SOURCE_DIR}/.git/HEAD GIT_HEAD_LOC)
 	string(LENGTH ${GIT_HEAD_LOC} HEAD_LEN)
 	math(EXPR LEN "${HEAD_LEN} - 5")
 	string(SUBSTRING ${GIT_HEAD_LOC} 5 ${LEN} GIT_HEAD)
-endif(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/HEAD")
-	
+	# Weird nastery to remove newlines which screw up the if statement below.
+	set(GIT_SHA_PATH "${CMAKE_SOURCE_DIR}/.git/${GIT_HEAD}")
+	string(REGEX REPLACE "(\r?\n)+$" "" GIT_SHA_PATH "${GIT_SHA_PATH}")
+endif(EXISTS "${CMAKE_SOURCE_DIR}/.git/HEAD")
+
 # Get the git revision we're on for the version string
-if(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/${GIT_HEAD}")
-	file(READ ${${PROJECT_NAME}_SOURCE_DIR}/.git/${GIT_HEAD} VERSION_STR)
+if(EXISTS "${GIT_SHA_PATH}")
+	file(READ "${GIT_SHA_PATH}" VERSION_STR)
+	string(REGEX REPLACE "(\r?\n)+$" "" VERSION_STR "${VERSION_STR}")
 	# Get the length of the string
 	string(LENGTH ${VERSION_STR} VERSION_LEN)
 	# Subtract 7 from the string's length
 	math(EXPR VERSION_NUM_LEN "${VERSION_LEN} - ${VERSION_LEN} + 7")
 	# Extract the value from the string
 	string(SUBSTRING ${VERSION_STR} 0 ${VERSION_NUM_LEN} VERSION_GIT)
-endif(EXISTS "${${PROJECT_NAME}_SOURCE_DIR}/.git/${GIT_HEAD}")
+endif(EXISTS "${GIT_SHA_PATH}")
 
 # Set our version strings
 SET(VERSION_SIMPLE "${${PROJECT_NAME}_MAJOR_VERSION}.${${PROJECT_NAME}_MINOR_VERSION}.${${PROJECT_NAME}_PATCH_LEVEL}")
@@ -50,6 +54,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 if(APPLE)
 	add_definitions(-DMACOS_X -D__MACOS__ -D__APPLE__ -D__MACH__)
 endif(APPLE)
+
+if (UNIX AND NOT APPLE)
+	add_definitions(-D__LINUX__)
+endif(UNIX AND NOT APPLE)
 
 
 # include cmake stuff for checking various system specific defines
@@ -345,6 +353,10 @@ SET(CMAKE_C_FLAGS)
 SET(CMAKE_CXX_FLAGS)
 SET(CMAKE_C_FLAGS ${CXXFLAGS})
 SET(CMAKE_CXX_FLAGS ${CXXFLAGS})
+
+# Our cmake file
+configure_file(${CMAKE_SOURCE_DIR}/cmake/sysconf.h.cmake ${CMAKE_BINARY_DIR}/sysconf.h)
+include_directories(${CMAKE_BINARY_DIR})
 
 # Find perl
 find_program(PERL perl)

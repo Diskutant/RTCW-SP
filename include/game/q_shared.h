@@ -28,18 +28,21 @@ If you have questions concerning this license or the applicable additional terms
 
 #ifndef __Q_SHARED_H
 #define __Q_SHARED_H
+#undef HAVE_STDDEF_H // This makes the jpeg library go nuts.
+#include "sysconf.h"
 
 // q_shared.h -- included first by ALL program modules.
 // A user mod should never modify this file
 
-#define Q3_VERSION      "Wolf 1.42"
+#define Q3_VERSION      "Wolf " VERSION_FULL //"Wolf 1.42"
 // ver 1.0.0    - release
 // ver 1.0.1    - post-release work
 // ver 1.1.0    - patch 1 (12/12/01)
 // ver 1.1b - TTimo SP linux release (+ MP update)
 // ver 1.2.b5   - Mac code merge in
 // ver 1.3  - patch 2 (02/13/02)
-// ver 1.42     - Justasic build system remake
+// ver 1.42     - Justasic, build system remake
+// ver 1.5      - Justasic, build system now handles versioning to include git id.
 
 #define NEW_ANIMS
 #define MAX_TEAMNAME    32

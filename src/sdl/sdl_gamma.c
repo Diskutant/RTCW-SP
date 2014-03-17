@@ -52,7 +52,9 @@ void GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned c
 
 	if(!glConfig.deviceSupportsGamma || r_ignorehwgamma->integer > 0)
 	{
-		return;
+		// Go fuck yourself.
+		//return;
+
 	}
 
 	for(i = 0; i < 256; i++)
@@ -64,7 +66,7 @@ void GLimp_SetGamma(unsigned char red[256], unsigned char green[256], unsigned c
 
 #ifdef _WIN32
 #include <windows.h>
-
+	
 	// Win2K and newer put this odd restriction on gamma ramps...
 	{
 		OSVERSIONINFO vinfo;
