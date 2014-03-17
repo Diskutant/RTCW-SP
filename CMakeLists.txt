@@ -349,12 +349,12 @@ endif(NOT SUDO_FOUND)
 # The game was designed for windows, SDL is not required for the moment
 # maybe in the future it will be but I would rather it not so SDL does
 # not need to be included into the build via CMake download or something
-if(NOT WIN32)
+#if(NOT WIN32)
 	# Find the required SDL libraries
-	find_package(SDL REQUIRED)
-	find_package(SDL_sound REQUIRED)
-	find_package(SDL_image REQUIRED)
-endif(NOT WIN32)
+    #	find_package(SDL REQUIRED)
+    #	find_package(SDL_sound REQUIRED)
+    #find_package(SDL_image REQUIRED)
+#endif(NOT WIN32)
 
 # Find opengl
 find_package(OpenGL REQUIRED)
