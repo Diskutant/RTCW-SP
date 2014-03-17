@@ -325,27 +325,6 @@ else(NOT MSVC)
 	endif(DEBUG_BUILD)
 endif(NOT MSVC)
 
-# detect what package manager we have and if it is usable
-# This is so that if we have a missing lib on the system (e.g. libSDL, libjpeg)
-# we can prompt the user to install the lib or not.
-# This will work for most distros but some oddballers wont work (and usually the 
-# user will probably know what they're doing)
-## Debian based systems, check for apt-get or aptitude
-find_program(APT apt-get NAMES apt-get aptitude)
-## REHL systems, look for yum.
-find_program(YUM yum)
-## BSD systems, pkg_add --- Add ports possibly?
-find_program(PKG NAMES pkg_add pkg)
-## Arch Linux and their stupid name for a package manager, pacman
-find_program(PACMAN pacman)
-## Gentoo package manager, emerge
-find_program(EMERGE emerge)
-## Find sudo in case we need it
-find_program(SUDO sudo)
-if(NOT SUDO_FOUND)
-	set(SUDO FALSE)
-endif(NOT SUDO_FOUND)
-
 # The game was designed for windows, SDL is not required for the moment
 # maybe in the future it will be but I would rather it not so SDL does
 # not need to be included into the build via CMake download or something
