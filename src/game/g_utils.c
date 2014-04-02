@@ -485,6 +485,7 @@ instead of being removed and recreated, which can cause interpolated
 angles and bad trails.
 =================
 */
+void G_FreeEntity(gentity_t *ed);
 gentity_t *G_Spawn(void)
 {
 	int i, force;
@@ -499,7 +500,7 @@ gentity_t *G_Spawn(void)
 		// override the normal minimum times before use
 		e = &g_entities[MAX_CLIENTS];
 
-		for(i = MAX_CLIENTS ; i < level.num_entities ; i++, e++)
+		for(i = MAX_CLIENTS; i < level.num_entities; i++, e++)
 		{
 			if(e->inuse)
 			{
@@ -526,12 +527,26 @@ gentity_t *G_Spawn(void)
 
 	if(i == ENTITYNUM_MAX_NORMAL)
 	{
+		int currentEntities = level.num_entities;
 		for(i = 0; i < MAX_GENTITIES; i++)
 		{
 			G_Printf("%4i: %s\n", i, g_entities[i].classname);
+			
+			// Since our sv_norecoil causes a lot of entities to spawn,
+			// we need to free some of them while they're being made.
+			// the entity limit is too low but it's too hard to raise it.
+			// The game allows 1024 entities max.
+			// this especially happens with the rocket launcher
+			if (!Q_stricmp(g_entities[i].classname, "tempEntity") ||
+				!Q_stricmp(g_entities[i].classname, "rocket"))
+			{
+				G_FreeEntity(&g_entities[i]);
+				level.num_entities--;
+			}
 		}
 
-		G_Error("G_Spawn: no free entities");
+		if (level.num_entities == currentEntities)
+			G_Error("G_Spawn: no free entities");
 	}
 
 	// open up a new slot

@@ -1025,7 +1025,7 @@ typedef enum
 // also be in this range
 #define ENTITYNUM_NONE      ( MAX_GENTITIES - 1 )
 #define ENTITYNUM_WORLD     ( MAX_GENTITIES - 2 )
-#define ENTITYNUM_MAX_NORMAL    ( MAX_GENTITIES - 2 )
+#define ENTITYNUM_MAX_NORMAL    ( (MAX_GENTITIES) - 2 )
 
 
 #define MAX_MODELS          256     // these are sent over the net as 8 bits

@@ -2868,7 +2868,7 @@ void PM_CheckForReload(int weapon)
 	ammoWeap = BG_FindAmmoForWeapon(weapon);
 	
 	// Added infinite clips cheat - Justasic
-	cvar_t *ammoCheat = Cvar_Get("sv_infiniteclips", "0", CVAR_CHEAT);
+	cvar_t *ammoCheat = Cvar_Get("sv_noreload", "0", CVAR_CHEAT);
 	// Set to max clip size - Justasic
 	if (ammoCheat->integer)
 		pm->ps->ammoclip[clipWeap] = ammoTable[weapon].maxclip;
@@ -4149,6 +4149,10 @@ static void PM_Weapon(void)
 
 
 			aimSpreadScaleAdd = 0;
+			
+			// Cheats.
+			cvar_t *recoilCheat = Cvar_Get("sv_norecoil", "0", CVAR_CHEAT);
+			cvar_t *overheatCheat = Cvar_Get("sv_nooverheat", "0", CVAR_CHEAT);
 
 			switch(pm->ps->weapon)
 			{
@@ -4315,6 +4319,7 @@ static void PM_Weapon(void)
 
 // the weapon can overheat, and it's hot
 						if((pm->ps->aiChar != AICHAR_PROTOSOLDIER) &&
+							(overheatCheat->integer == 0) &&
 						        (pm->ps->aiChar != AICHAR_SUPERSOLDIER) &&
 						        (ammoTable[pm->ps->weapon].maxHeat && pm->ps->weapHeat[pm->ps->weapon]))
 						{
@@ -4345,7 +4350,10 @@ static void PM_Weapon(void)
 
 						pm->ps->aimSpreadScale = (int)(pm->ps->aimSpreadScaleFloat);
 
-						pm->ps->weaponTime += addTime;
+						if (!recoilCheat->integer)
+							pm->ps->weaponTime += addTime;
+						else
+							pm->ps->weaponTime = 0;
 
 						PM_SwitchIfEmpty();
 					}
