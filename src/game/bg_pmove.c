@@ -34,6 +34,7 @@ If you have questions concerning this license or the applicable additional terms
 #include "game/q_shared.h"
 #include "game/bg_public.h"
 #include "game/bg_local.h"
+#include "qcommon/qcommon.h"
 
 // Rafael gameskill
 int bg_pmove_gameskill_integer;
@@ -2865,6 +2866,12 @@ void PM_CheckForReload(int weapon)
 
 	clipWeap = BG_FindClipForWeapon(weapon);
 	ammoWeap = BG_FindAmmoForWeapon(weapon);
+	
+	// Added infinite clips cheat - Justasic
+	cvar_t *ammoCheat = Cvar_Get("sv_infiniteclips", "0", CVAR_CHEAT);
+	// Set to max clip size - Justasic
+	if (ammoCheat->integer)
+		pm->ps->ammoclip[clipWeap] = ammoTable[weapon].maxclip;
 
 	// don't allow reloading for these weapons.  when the player hits 'reload' or 'fire'
 	// when the weapon is empty, it will switch away to the primary.  (so player can see results of
