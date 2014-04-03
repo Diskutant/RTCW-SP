@@ -209,7 +209,7 @@ void CG_CalcMoveSpeeds(clientInfo_t *ci)
 	int i, j, k;
 	float totalSpeed;
 	int numSpeed;
-	int lastLow, low, numSteps, lastFirst, thisFirst;
+	int /*lastLow,*/ low, numSteps, lastFirst, thisFirst;
 	qboolean isStrafe;
 	orientation_t o[2];
 
@@ -224,7 +224,7 @@ void CG_CalcMoveSpeeds(clientInfo_t *ci)
 		}
 
 		totalSpeed = 0;
-		lastLow = -1;
+// 		lastLow = -1;
 		numSpeed = 0;
 		numSteps = 0;
 		isStrafe = qfalse;
@@ -371,7 +371,7 @@ void CG_CalcMoveSpeeds(clientInfo_t *ci)
 				VectorCopy(o[k].origin, oldPos[k]);
 			}
 
-			lastLow = low;
+// 			lastLow = low;
 		}
 
 		// record the speed
@@ -2103,7 +2103,7 @@ may include ANIM_TOGGLEBIT
 void CG_SetLerpFrameAnimationRate(centity_t *cent, clientInfo_t *ci, lerpFrame_t *lf, int newAnimation)
 {
 	animation_t *anim, *oldanim;
-	int transitionMin = -1, oldAnimTime, oldAnimNum;
+	int transitionMin = -1, /*oldAnimTime,*/ oldAnimNum;
 	qboolean firstAnim = qfalse;
 
 	if(!ci->modelInfo)
@@ -2111,7 +2111,7 @@ void CG_SetLerpFrameAnimationRate(centity_t *cent, clientInfo_t *ci, lerpFrame_t
 		return;
 	}
 
-	oldAnimTime = lf->animationTime;
+// 	oldAnimTime = lf->animationTime;
 	oldanim = lf->animation;
 	oldAnimNum = lf->animationNumber;
 
@@ -2986,7 +2986,7 @@ static void CG_PlayerAngles(centity_t *cent, vec3_t legs[3], vec3_t torso[3], ve
 	vec3_t velocity;
 	float speed;
 	float clampTolerance;
-	int legsSet, torsoSet;
+	int legsSet/*, torsoSet*/;
 	clientInfo_t *ci;
 	ci = &cgs.clientinfo[ cent->currentState.number ];
 
@@ -3002,7 +3002,7 @@ static void CG_PlayerAngles(centity_t *cent, vec3_t legs[3], vec3_t torso[3], ve
 	}
 
 	legsSet = cent->currentState.legsAnim & ~ANIM_TOGGLEBIT;
-	torsoSet = cent->currentState.torsoAnim & ~ANIM_TOGGLEBIT;
+// 	torsoSet = cent->currentState.torsoAnim & ~ANIM_TOGGLEBIT;
 
 	VectorCopy(cent->lerpAngles, headAngles);
 	headAngles[YAW] = AngleMod(headAngles[YAW]);
@@ -3177,14 +3177,14 @@ static void CG_HasteTrail(centity_t *cent)
 {
 	localEntity_t   *smoke;
 	vec3_t origin;
-	int anim;
+// 	int anim;
 
 	if(cent->trailTime > cg.time)
 	{
 		return;
 	}
 
-	anim = cent->pe.legs.animationNumber & ~ANIM_TOGGLEBIT;
+// 	anim = cent->pe.legs.animationNumber & ~ANIM_TOGGLEBIT;
 // RF, this is all broken by scripting system
 //	if ( anim != LEGS_RUN && anim != LEGS_BACK ) {
 //		return;
@@ -5506,7 +5506,7 @@ CG_AnimPlayerConditions
 void CG_AnimPlayerConditions(centity_t *cent)
 {
 	entityState_t *es;
-	clientInfo_t *ci;
+// 	clientInfo_t *ci;
 //	int  legsAnim;
 
 	if(cg.snap && cg.snap->ps.clientNum == cent->currentState.number && !cg.renderingThirdPerson)
@@ -5517,7 +5517,7 @@ void CG_AnimPlayerConditions(centity_t *cent)
 	es = &cent->currentState;
 	// DHM-Nerve
 	//ci = &cgs.clientinfo[es->number];         // es->number is not always a valid client num
-	ci = &cgs.clientinfo[es->clientNum];
+// 	ci = &cgs.clientinfo[es->clientNum];
 	// dhm-Nerve
 
 	// WEAPON

@@ -1134,7 +1134,7 @@ static void CG_ServerCommand(void)
 
 		Q_strncpyz(text, CG_Argv(2), MAX_SAY_TEXT);
 
-		if(text && strlen(text))
+		if(strlen(text))
 		{
 			fadeTime = atoi(text);
 		}
@@ -1150,7 +1150,7 @@ static void CG_ServerCommand(void)
 
 		Q_strncpyz(text, CG_Argv(2), MAX_SAY_TEXT);
 
-		if(text && strlen(text))
+		if(strlen(text))
 		{
 			fadeTime = atoi(text);
 		}
@@ -1165,7 +1165,7 @@ static void CG_ServerCommand(void)
 
 		Q_strncpyz(text, CG_Argv(1), MAX_SAY_TEXT);
 
-		if(text && strlen(text))
+		if(strlen(text))
 		{
 			fadeTime = atoi(text);
 		}

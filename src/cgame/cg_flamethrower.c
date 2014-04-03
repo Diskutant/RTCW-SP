@@ -813,7 +813,7 @@ void CG_MoveFlameChunk(flameChunk_t *f, int t)
 {
 	vec3_t newOrigin, sOrg;
 	trace_t trace;
-	int jiggleCount;
+// 	int jiggleCount;
 	float dot;
 	//static vec3_t umins = {-1,-1,-1}; // TTimo: unused
 	//static vec3_t umaxs = { 1, 1, 1}; // TTimo: unused
@@ -841,7 +841,7 @@ void CG_MoveFlameChunk(flameChunk_t *f, int t)
 	    }
 	*/
 
-	jiggleCount = 0;
+// 	jiggleCount = 0;
 	VectorCopy(f->baseOrg, sOrg);
 
 	while(f->velSpeed > 1 && ((t - f->baseOrgTime) > 20))
@@ -1030,7 +1030,7 @@ void CG_AddFlameSpriteToScene(flameChunk_t *f, float lifeFrac, float alpha)
 	vec2_t fovRadius;
 	vec2_t rdist, rST;
 	int rollAngleClamped;
-	static vec3_t lastPos;
+// 	static vec3_t lastPos;
 
 	CG_FlameDamage(f->ownerCent, f->org, f->size);
 
@@ -1285,7 +1285,7 @@ void CG_AddFlameSpriteToScene(flameChunk_t *f, float lifeFrac, float alpha)
 	}
 
 	trap_R_AddPolyToScene(flameShaders[frameNum], 4, verts);
-	VectorCopy(f->org, lastPos);
+// 	VectorCopy(f->org, lastPos);
 }
 
 /*
@@ -1308,7 +1308,7 @@ void CG_AddFlameToScene(flameChunk_t *fHead)
 
 	//flameChunk_t *lastSoundFlameChunk=NULL; // TTimo: unused
 	flameChunk_t *lastBlowChunk = NULL;
-	qboolean isClientFlame, firing;
+	qboolean isClientFlame/*, firing*/;
 	int shader;
 
 	flameChunk_t *lastBlueChunk = NULL;
@@ -1336,13 +1336,13 @@ void CG_AddFlameToScene(flameChunk_t *fHead)
 	if((cg_entities[fHead->ownerCent].currentState.eFlags & EF_FIRING) /*(centFlameInfo[fHead->ownerCent].lastClientFrame == cg_entities[fHead->ownerCent].lastWeaponClientFrame)*/ && (centFlameInfo[fHead->ownerCent].lastFlameChunk == fHead))
 	{
 		headTimeStart = fHead->timeStart;
-		firing = qtrue;
+// 		firing = qtrue;
 	}
 	else
 	{
 		//isClientFlame = qfalse;
 		headTimeStart = cg.time;
-		firing = qfalse;
+// 		firing = qfalse;
 	}
 
 	// Zombie ignition is just to make on/off transitions look better

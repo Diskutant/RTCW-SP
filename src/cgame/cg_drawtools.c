@@ -159,7 +159,7 @@ void CG_FilledBar(float x, float y, float w, float h, const float *startColorIn,
 			endColor[3] *= cg_hudAlpha.value;
 		}
 
-		if(backgroundcolor)
+		//if(backgroundcolor) // Unused? -- Justasic
 		{
 			backgroundcolor[3] *= cg_hudAlpha.value;
 		}

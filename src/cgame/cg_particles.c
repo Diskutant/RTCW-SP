@@ -290,12 +290,12 @@ void CG_AddParticleToScene(cparticle_t *p, vec3_t org, float alpha)
 		if(1)
 		{
 			vec3_t dir;
-			float dot, distSqrd;
+			float /*dot,*/ distSqrd;
 
 			VectorSubtract(cg.refdef.vieworg, org, dir);
 			distSqrd = dir[0] * dir[0] + dir[1] * dir[1] + dir[2] * dir[2];
 
-			dot = DotProduct(dir, cg.refdef.viewaxis[0]);
+// 			dot = DotProduct(dir, cg.refdef.viewaxis[0]);
 
 			if(distSqrd > (cg_particleDist.value * cg_particleDist.value))
 			{
@@ -1063,9 +1063,9 @@ void CG_AddParticles(void)
 	float alpha;
 	float time, time2;
 	vec3_t org;
-	int color;
+// 	int color;
 	cparticle_t     *active, *tail;
-	int type;
+// 	int type;
 	vec3_t rotate_ang;
 
 	if(!initparticles)
@@ -1179,7 +1179,7 @@ void CG_AddParticles(void)
 			alpha = 1;
 		}
 
-		color = p->color;
+// 		color = p->color;
 
 		time2 = time * time;
 
@@ -1187,7 +1187,7 @@ void CG_AddParticles(void)
 		org[1] = p->org[1] + p->vel[1] * time + p->accel[1] * time2;
 		org[2] = p->org[2] + p->vel[2] * time + p->accel[2] * time2;
 
-		type = p->type;
+// 		type = p->type;
 
 		CG_AddParticleToScene(p, org, alpha);
 	}

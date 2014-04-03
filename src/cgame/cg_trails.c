@@ -516,6 +516,7 @@ void CG_AddTrailToScene(trailJunc_t *trail, int iteration, int numJuncs)
 	float sInc = 0.0f, s = 0.0f;   // TTimo: init
 	trailJunc_t *j, *jNext;
 	vec3_t fwd, up, p, v;
+	(void)fwd; // Ignore compiler warning -- Justasic
 	// clipping vars
 #define TRAIL_FADE_CLOSE_DIST   64.0
 #define TRAIL_FADE_FAR_SCALE    4.0

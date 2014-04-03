@@ -83,7 +83,7 @@ CG_LoadingString
 */
 void CG_LoadingString(const char *s)
 {
-	Q_strncpyz(cg.infoScreenText, s, sizeof(cg.infoScreenText));
+	Q_strncpyz((char*)cg.infoScreenText, s, sizeof(cg.infoScreenText));
 
 	if(s && s[0] != 0)
 	{
@@ -226,9 +226,11 @@ CG_DrawStats
 */
 void CG_DrawStats(char *stats)
 {
+// Unused? -- Justasic
+#if 0
 	int i, y, v, j;
 #define MAX_STATS_VARS  64
-	int vars[MAX_STATS_VARS];
+// 	int vars[MAX_STATS_VARS];
 	char *str, *token;
 	char *formatStr;
 	int varIndex;
@@ -258,7 +260,7 @@ void CG_DrawStats(char *stats)
 
 		if(statsItems[i].numVars)
 		{
-			varIndex = v;
+// 			varIndex = v;
 
 			for(j = 0; j < statsItems[i].numVars; j++)
 			{
@@ -294,6 +296,7 @@ void CG_DrawStats(char *stats)
 //				statsItems[i].formatFlags, *statsItems[i].formatColor );
 		}
 	}
+#endif
 }
 
 /*

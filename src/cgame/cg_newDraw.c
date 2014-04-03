@@ -249,10 +249,10 @@ static void CG_DrawPlayerArmorValue(rectDef_t *rect, int font, float scale, vec4
 {
 	char num[16];
 	int value;
-	centity_t   *cent;
+// 	centity_t   *cent;
 	playerState_t   *ps;
 
-	cent = &cg_entities[cg.snap->ps.clientNum];
+// 	cent = &cg_entities[cg.snap->ps.clientNum];
 	ps = &cg.snap->ps;
 
 	value = ps->stats[STAT_ARMOR];
@@ -467,12 +467,12 @@ CG_DrawPlayerAmmoIcon
 static void CG_DrawPlayerAmmoIcon(rectDef_t *rect, qboolean draw2D)
 {
 	centity_t   *cent;
-	playerState_t   *ps;
+// 	playerState_t   *ps;
 	vec3_t angles;
 	vec3_t origin;
 
 	cent = &cg_entities[cg.snap->ps.clientNum];
-	ps = &cg.snap->ps;
+// 	ps = &cg.snap->ps;
 
 	// TTimo: gcc: suggests () around && within ||
 	if(draw2D || (!cg_draw3dIcons.integer && cg_drawIcons.integer))
@@ -2375,7 +2375,7 @@ static void CG_Text_Paint_Limit(float *maxX, float x, float y, int font, float s
 
 		while(s && *s && count < len)
 		{
-			glyph = &fnt->glyphs[*s];
+			glyph = &fnt->glyphs[(int)*s]; // Ignore warning -- Justasic
 
 			if(Q_IsColorString(s))
 			{

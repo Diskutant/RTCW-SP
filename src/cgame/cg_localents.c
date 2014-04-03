@@ -539,7 +539,7 @@ void CG_AddFragment(localEntity_t *le)
 
 	if(le->pos.trType == TR_STATIONARY)
 	{
-		int t;
+// 		int t;
 
 		// Ridah, add the flame
 		if(hasFlame)
@@ -561,7 +561,7 @@ void CG_AddFragment(localEntity_t *le)
 			le->refEntity = backupEnt;
 		}
 
-		t = le->endTime - cg.time;
+// 		t = le->endTime - cg.time;
 		trap_R_AddRefEntityToScene(&le->refEntity);
 
 		return;
@@ -569,7 +569,7 @@ void CG_AddFragment(localEntity_t *le)
 	}
 	else if(le->pos.trType == TR_GRAVITY_PAUSED)
 	{
-		int t;
+// 		int t;
 
 		// Ridah, add the flame
 		if(hasFlame)
@@ -591,7 +591,7 @@ void CG_AddFragment(localEntity_t *le)
 			le->refEntity = backupEnt;
 		}
 
-		t = le->endTime - cg.time;
+// 		t = le->endTime - cg.time;
 		trap_R_AddRefEntityToScene(&le->refEntity);
 
 

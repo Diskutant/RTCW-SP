@@ -2294,12 +2294,12 @@ int Item_Slider_OverSlider(itemDef_t *item, float x, float y)
 int Item_ListBox_OverLB(itemDef_t *item, float x, float y)
 {
 	rectDef_t r;
-	listBoxDef_t *listPtr;
+// 	listBoxDef_t *listPtr;
 	int thumbstart;
-	int count;
+// 	int count;
 
-	count = DC->feederCount(item->special);
-	listPtr = (listBoxDef_t *)item->typeData;
+// 	count = DC->feederCount(item->special);
+// 	listPtr = (listBoxDef_t *)item->typeData;
 
 	if(item->window.flags & WINDOW_HORIZONTAL)
 	{
@@ -4831,10 +4831,10 @@ void BindingFromName(const char *cvar)
 void Item_Slider_Paint(itemDef_t *item)
 {
 	vec4_t newColor, lowLight;
-	float x, y, value;
+	float x, y/*, value*/;
 	menuDef_t *parent = (menuDef_t *)item->parent;
 
-	value = (item->cvar) ? DC->getCVarValue(item->cvar) : 0;
+// 	value = (item->cvar) ? DC->getCVarValue(item->cvar) : 0;
 
 	if(item->window.flags & WINDOW_HASFOCUS)
 	{
@@ -5422,6 +5422,7 @@ void Item_OwnerDraw_Paint(itemDef_t *item)
 	}
 
 	parent = (menuDef_t *)item->parent;
+	(void)parent; // Ignore compiler warning -- Justasic
 
 	if(DC->ownerDrawItem)
 	{
@@ -6259,9 +6260,9 @@ qboolean ItemParse_group(itemDef_t *item, int handle)
 qboolean ItemParse_asset_model(itemDef_t *item, int handle)
 {
 	const char *temp;
-	modelDef_t *modelPtr;
+// 	modelDef_t *modelPtr;
 	Item_ValidateTypeData(item);
-	modelPtr = (modelDef_t *)item->typeData;
+// 	modelPtr = (modelDef_t *)item->typeData;
 
 	if(!PC_String_Parse(handle, &temp))
 	{

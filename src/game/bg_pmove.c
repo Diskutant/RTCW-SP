@@ -4559,6 +4559,7 @@ static void PM_Weapon(void)
 //		VectorSet( tmaxs, 8, 8, 4 );
 							VectorSet(tmins, -12, -12, -6);
 							VectorSet(tmaxs, 12, 12, 10);
+							(void)viewangles; // Ignore compiler warning -- Justasic
 
 //	(SA) there's a problem with this tpm.trace (crashes)
 //		tpm.trace = (void *)&trace;

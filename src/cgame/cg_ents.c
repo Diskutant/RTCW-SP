@@ -181,7 +181,7 @@ void CG_LoseArmor(centity_t *cent, int index)
 	                        "tag_calfright"
 	                       };
 
-	clientInfo_t *ci;
+// 	clientInfo_t *ci;
 	// TTimo: bunch of inits
 	int totalparts = 0, dynamicparts = 0, protoParts = 9, superParts = 16, heinrichParts = 22;
 	char        **tags = NULL;
@@ -189,7 +189,7 @@ void CG_LoseArmor(centity_t *cent, int index)
 	qhandle_t sound = 0;    //----(SA)  added
 	int dmgbits = 16;         // 32/2;
 	int clientNum;
-	int tagIndex;
+// 	int tagIndex;
 	vec3_t origin, velocity, dir;
 
 
@@ -238,7 +238,7 @@ void CG_LoseArmor(centity_t *cent, int index)
 		CG_Error("Bad clientNum on player entity");
 	}
 
-	ci = &cgs.clientinfo[ clientNum ];
+// 	ci = &cgs.clientinfo[ clientNum ];
 
 	// check if the model for the damaged part to fling is there
 	if(cent->currentState.dmgFlags & (1 << (index + dynamicparts)))
@@ -253,7 +253,7 @@ void CG_LoseArmor(centity_t *cent, int index)
 		return;
 	}
 
-	tagIndex = CG_GetOriginForTag(cent, &cent->pe.torsoRefEnt, tags[index], 0, origin, NULL);
+	/*tagIndex =*/ CG_GetOriginForTag(cent, &cent->pe.torsoRefEnt, tags[index], 0, origin, NULL);
 
 	// calculate direction vector based on player center->tag position
 	VectorSubtract(origin, cent->currentState.origin, dir);
@@ -451,7 +451,7 @@ void CG_AddLightstyle(centity_t *cent)
 	int r, g, b;
 	int stringlength;
 	float offset;
-	int offsetwhole;
+// 	int offsetwhole;
 	int otime;
 	int lastch, nextch;
 
@@ -474,7 +474,7 @@ void CG_AddLightstyle(centity_t *cent)
 	cent->dl_time = cg.time;
 
 	offset = ((float)otime) / LS_FRAMETIME;
-	offsetwhole = (int)offset;
+// 	offsetwhole = (int)offset;
 
 	cent->dl_backlerp += offset;
 
@@ -1090,7 +1090,7 @@ static void CG_Item(centity_t *cent)
 	refEntity_t ent;
 	entityState_t       *es;
 	gitem_t             *item;
-	float scale;
+// 	float scale;
 	qboolean hasStand, highlight;
 	float highlightFadeScale = 1.0f;
 
@@ -1129,7 +1129,7 @@ static void CG_Item(centity_t *cent)
 		return;
 	}
 
-	scale = 0.005 + cent->currentState.number * 0.00001;
+// 	scale = 0.005 + cent->currentState.number * 0.00001;
 
 	memset(&ent, 0, sizeof(ent));
 
@@ -2103,7 +2103,7 @@ CG_Explosive
 */
 static void CG_Explosive(centity_t *cent)
 {
-	lerpFrame_t         *traplf;
+// 	lerpFrame_t         *traplf;
 	refEntity_t ent;
 	entityState_t       *s1;
 
@@ -2113,7 +2113,7 @@ static void CG_Explosive(centity_t *cent)
 	// create the render entity
 	memset(&ent, 0, sizeof(ent));
 
-	traplf = &cent->lerpFrame;
+// 	traplf = &cent->lerpFrame;
 
 //----(SA)  added animation stuff
 	if(cent->currentState.modelindex2)         // there's a 'model2'
