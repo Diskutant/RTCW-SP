@@ -76,7 +76,11 @@ If you have questions concerning this license or the applicable additional terms
 #ifndef MACOS_X
 # include <malloc.h>          // for _alloca()
 #endif
-#pragma intrinsic( memset, memcpy )
+
+// Windows pragma
+#ifdef _WIN32
+# pragma intrinsic( memset, memcpy )
+#endif
 
 
 // this is the define for determining if we have an asm version of a C function

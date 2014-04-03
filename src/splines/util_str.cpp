@@ -529,6 +529,8 @@ void TestStringClass
     void
 )
 {
+// Unused - Justasic
+#if 0
 	char ch;                            // ch == ?
 	idStr   *t;                         // t == ?
 	idStr a;                                // a.len == 0, a.data == "\0"
@@ -627,6 +629,7 @@ void TestStringClass
 	a = b;
 
 	a[1] = '1';                 // a.data = "t1st", b.data = "test"
+#endif
 }
 
 #ifdef _WIN32

@@ -1429,7 +1429,7 @@ void idFixedPosition::parse(const char * (*text))
 			Com_UngetToken();
 			idStr key = Com_ParseOnLine(text);
 
-			const char *token = Com_Parse(text);
+			Com_Parse(text);
 
 			if(Q_stricmp(key.c_str(), "pos") == 0)
 			{
@@ -1490,7 +1490,7 @@ void idInterpolatedPosition::parse(const char * (*text))
 			Com_UngetToken();
 			idStr key = Com_ParseOnLine(text);
 
-			const char *token = Com_Parse(text);
+			Com_Parse(text);
 
 			if(Q_stricmp(key.c_str(), "startPos") == 0)
 			{
@@ -1557,7 +1557,7 @@ void idSplinePosition::parse(const char * (*text))
 			Com_UngetToken();
 			idStr key = Com_ParseOnLine(text);
 
-			const char *token = Com_Parse(text);
+			Com_Parse(text);
 
 			if(Q_stricmp(key.c_str(), "target") == 0)
 			{
