@@ -40,6 +40,8 @@ If you have questions concerning this license or the applicable additional terms
 #include "qcommon/qcommon.h"
 #include "qcommon/unzip.h"
 
+//#include <GPKCommon.h>
+
 /*
 =============================================================================
 
@@ -300,6 +302,7 @@ typedef struct
 	int fileSize;
 	int zipFilePos;
 	qboolean zipFile;
+	qboolean gpkFile;
 	qboolean streamed;
 	char name[MAX_ZPATH];
 } fileHandleData_t;
@@ -401,14 +404,9 @@ static long FS_HashFileName(const char *fname, int hashSize)
 			break;                          // don't include extension
 		}
 
-		if(letter == '\\')
+		if(letter == '\\' || letter == PATH_SEP)
 		{
 			letter = '/';                   // damn path names
-		}
-
-		if(letter == PATH_SEP)
-		{
-			letter = '/';                           // damn path names
 		}
 
 		hash += (long)(letter) * (i + 119);
@@ -446,6 +444,11 @@ static FILE *FS_FileForHandle(fileHandle_t f)
 	if(fsh[f].zipFile == qtrue)
 	{
 		Com_Error(ERR_DROP, "FS_FileForHandle: can't get FILE on zip file");
+	}
+	
+	if(fsh[f].gpkFile == qtrue)
+	{
+		Com_Error(ERR_DROP, "FS_FileForHandle: can't get FILE on Game Package file");
 	}
 
 	if(!fsh[f].handleFiles.file.o)
@@ -780,6 +783,7 @@ fileHandle_t FS_SV_FOpenFileWrite(const char *filename)
 
 	f = FS_HandleForFile();
 	fsh[f].zipFile = qfalse;
+	fsh[f].gpkFile = qfalse;
 
 	if(fs_debug->integer)
 	{
@@ -825,6 +829,7 @@ int FS_SV_FOpenFileRead(const char *filename, fileHandle_t *fp)
 
 	f = FS_HandleForFile();
 	fsh[f].zipFile = qfalse;
+	fsh[f].gpkFile = qfalse;
 
 	Q_strncpyz(fsh[f].name, filename, sizeof(fsh[f].name));
 
@@ -1011,6 +1016,11 @@ void FS_FCloseFile(fileHandle_t f)
 		Com_Memset(&fsh[f], 0, sizeof(fsh[f]));
 		return;
 	}
+	
+	if(fsh[f].gpkFile = qtrue)
+	{
+		// TODO
+	}
 
 	// we didn't find it as a pak, so close it as a unique file
 	if(fsh[f].handleFiles.file.o)
@@ -1039,6 +1049,7 @@ fileHandle_t FS_FOpenFileWrite(const char *filename)
 
 	f = FS_HandleForFile();
 	fsh[f].zipFile = qfalse;
+	fsh[f].gpkFile = qfalse;
 
 	ospath = FS_BuildOSPath(fs_homepath->string, fs_gamedir, filename);
 
@@ -1087,6 +1098,7 @@ fileHandle_t FS_FOpenFileAppend(const char *filename)
 
 	f = FS_HandleForFile();
 	fsh[f].zipFile = qfalse;
+	fsh[f].gpkFile = qfalse;
 
 	Q_strncpyz(fsh[f].name, filename, sizeof(fsh[f].name));
 

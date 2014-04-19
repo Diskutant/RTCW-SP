@@ -2870,7 +2870,7 @@ void PM_CheckForReload(int weapon)
 	// Added infinite clips cheat - Justasic
 	cvar_t *ammoCheat = Cvar_Get("sv_noreload", "0", CVAR_CHEAT);
 	// Set to max clip size - Justasic
-	if (ammoCheat->integer)
+	if (ammoCheat->integer && !pm->ps->aiChar)
 		pm->ps->ammoclip[clipWeap] = ammoTable[weapon].maxclip;
 
 	// don't allow reloading for these weapons.  when the player hits 'reload' or 'fire'
@@ -4350,10 +4350,11 @@ static void PM_Weapon(void)
 
 						pm->ps->aimSpreadScale = (int)(pm->ps->aimSpreadScaleFloat);
 
-						if (!recoilCheat->integer)
-							pm->ps->weaponTime += addTime;
-						else
+						if (recoilCheat->integer && !pm->ps->aiChar)
 							pm->ps->weaponTime = 0;
+						else
+							pm->ps->weaponTime += addTime;
+								
 
 						PM_SwitchIfEmpty();
 					}
