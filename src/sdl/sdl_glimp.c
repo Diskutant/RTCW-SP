@@ -184,8 +184,23 @@ void GLimp_LogComment(char *comment)
 {
 }
 
+void pre_init()
+{
+	//This must be called before playing with SDL, else it won't work on osx.
+
+    void* cocoa_lib;
+
+    cocoa_lib = dlopen( "/System/Library/Frameworks/Cocoa.framework/Cocoa", RTLD_LAZY );
+    void (*nsappload)(void);
+    nsappload = (void(*)()) dlsym( cocoa_lib, "NSApplicationLoad");
+    nsappload();
+}
+
 int GLimp_SetMode(int mode, qboolean fullscreen, qboolean noborder)
 {
+#if defined(__MACOS__)
+	pre_init();
+#endif
 	int         sdlcolorbits;
 	int         colorbits, depthbits, stencilbits;
 	int         tcolorbits, tdepthbits, tstencilbits;
